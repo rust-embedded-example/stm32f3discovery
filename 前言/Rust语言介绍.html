@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>rust embedded example book</title>
-        <meta name="robots" content="noindex">
+        <title>Rust语言介绍 - rust embedded example book</title>
 
 
         <!-- Custom HTML head -->
@@ -13,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -103,7 +102,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -138,7 +137,7 @@
                     <h1 class="menu-title">rust embedded example book</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -167,8 +166,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="前言"><a class="header" href="#前言">前言</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-语言介绍"><a class="header" href="#rust-语言介绍">Rust 语言介绍</a></h1>
+                        <h1 id="rust-语言介绍"><a class="header" href="#rust-语言介绍">Rust 语言介绍</a></h1>
 <h2 id="rust-语言安全性能与并发的未来之路"><a class="header" href="#rust-语言安全性能与并发的未来之路">Rust 语言：安全、性能与并发的未来之路</a></h2>
 <p>在软件开发的世界中，对高性能、高安全性和并发处理能力的需求从未停止。正是在这样的背景下，Rust 语言应运而生，并以其独特的魅力迅速崭露头角，成为开发者社区中备受瞩目的"明星"语言。从最初的实验项目到如今构建关键系统和前沿技术的基石，Rust 的发展历程清晰地勾勒出其非凡的潜力。</p>
 <h2 id="rust-的发展历程"><a class="header" href="#rust-的发展历程">Rust 的发展历程</a></h2>
@@ -447,262 +445,18 @@
 <li>功能丰富的 3D 游戏引擎</li>
 <li>支持渲染、物理、动画等完整功能</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-在嵌入式行业的现状"><a class="header" href="#rust-在嵌入式行业的现状">Rust 在嵌入式行业的现状</a></h1>
-<p>尽管 Rust 进入嵌入式领域的时间相对较短，但其发展势头迅猛，并在多个方面展现出巨大潜力：</p>
-<h2 id="生态系统发展"><a class="header" href="#生态系统发展">生态系统发展</a></h2>
-<h3 id="日益成熟的工具链"><a class="header" href="#日益成熟的工具链">日益成熟的工具链</a></h3>
-<p>围绕 Rust 嵌入式开发的工具链、库和框架正在快速成熟：</p>
-<ul>
-<li><strong>cargo-embed</strong> - 提供便捷的烧录和调试功能</li>
-<li><strong>probe-rs</strong> - 支持多种调试探头</li>
-<li><strong>cortex-m</strong> 和 <strong>riscv</strong> crates - 为特定架构提供底层支持</li>
-</ul>
-<h3 id="硬件支持的扩大"><a class="header" href="#硬件支持的扩大">硬件支持的扩大</a></h3>
-<ul>
-<li><strong>ARM Cortex-M 系列</strong> - 目前 Rust 嵌入式开发的主流目标</li>
-<li><strong>RISC-V 架构</strong> - 正在迅速崛起，为 Rust 提供新的施展空间</li>
-<li>越来越多的微控制器厂商和开发板开始官方或社区支持 Rust</li>
-</ul>
-<h2 id="行业采纳案例与企业级应用"><a class="header" href="#行业采纳案例与企业级应用">行业采纳案例与企业级应用</a></h2>
-<h3 id="云基础设施与虚拟化"><a class="header" href="#云基础设施与虚拟化">云基础设施与虚拟化</a></h3>
-<p><strong>亚马逊 Firecracker</strong></p>
-<ul>
-<li>用于创建轻量级虚拟机 (MicroVMs) 的虚拟化技术</li>
-<li>底层大量使用 Rust</li>
-<li>展示了 Rust 在性能敏感且对安全性要求极高的系统级应用中的强大能力</li>
-</ul>
-<h3 id="专业服务与咨询"><a class="header" href="#专业服务与咨询">专业服务与咨询</a></h3>
-<p><strong>Ferrous Systems</strong></p>
-<ul>
-<li>专注于 Rust 的咨询和开发公司</li>
-<li>在嵌入式领域有诸多实践</li>
-<li>为工业、汽车等行业提供基于 Rust 的解决方案</li>
-<li>积极参与 Rust 嵌入式生态的建设</li>
-</ul>
-<h3 id="消费电子产品"><a class="header" href="#消费电子产品">消费电子产品</a></h3>
-<p><strong>PineTime 智能手表</strong></p>
-<ul>
-<li>社区主导的开源智能手表项目</li>
-<li>固件（InfiniTime）可选择使用 Rust 编写</li>
-<li>展现了 Rust 在消费电子领域的应用潜力</li>
-</ul>
-<h3 id="移动平台与系统组件"><a class="header" href="#移动平台与系统组件">移动平台与系统组件</a></h3>
-<p><strong>Google 和 Android Rust 计划</strong></p>
-<ul>
-<li>Google 大力推进 Rust 在 Android 系统组件中的使用，以减少内存安全漏洞</li>
-<li>在 Android 平台、Chromium 浏览器以及更广泛的系统级组件和固件开发中应用 Rust</li>
-<li>Google 认为 Rust 开发者比 C++ 工程师的效率高出一倍</li>
-<li>积极与 Rust 生态系统合作，推动其采用</li>
-<li>间接推动了 Rust 在更广泛嵌入式系统和低层级编程中的影响力</li>
-</ul>
-<h3 id="物联网芯片"><a class="header" href="#物联网芯片">物联网芯片</a></h3>
-<p><strong>乐鑫科技 (Espressif Systems) 和 ESP 系列芯片</strong></p>
-<ul>
-<li>ESP32 和 ESP8266 系列芯片在物联网和嵌入式领域广泛应用</li>
-<li>社区为这些芯片提供了成熟的 Rust 支持</li>
-<li><strong>esp-idf-hal</strong> 等硬件抽象层 (HAL) crate 已经成熟</li>
-<li>乐鑫官方积极与社区合作，为 Rust 生态提供支持</li>
-</ul>
-<h3 id="全球科技企业"><a class="header" href="#全球科技企业">全球科技企业</a></h3>
-<p><strong>华为</strong></p>
-<ul>
-<li>在鸿蒙 OS (HarmonyOS) 的部分底层组件中使用 Rust</li>
-<li>IoT 设备固件开发</li>
-<li>高性能网络设备中应用 Rust</li>
-<li>参与 Rust 相关的标准和生态建设</li>
-</ul>
-<p><strong>微软 (Microsoft)</strong></p>
-<ul>
-<li>在 Azure Sphere 等物联网安全解决方案的底层组件中使用 Rust</li>
-<li>关注 Rust 的内存安全特性</li>
-<li>将 Rust 视为提升系统软件可靠性的重要方向</li>
-</ul>
-<p><strong>字节跳动 (ByteDance)</strong></p>
-<ul>
-<li>在后端服务、基础设施和虚拟化领域广泛使用 Rust</li>
-<li>自研轻量级嵌入式 Hypervisor <strong>Rust-Shyper</strong></li>
-<li>为无人车、机器人等嵌入式应用提供高可靠、强隔离的虚拟化服务</li>
-</ul>
-<p><strong>vivo</strong></p>
-<ul>
-<li>自研的蓝河操作系统 (BlueOS) 中采用全栈 Rust 语言编写</li>
-<li>包括自研的蓝河内核</li>
-<li>旨在构建面向通用人工智能时代的智慧操作系统</li>
-</ul>
-<p><strong>阿里巴巴 (Alibaba)</strong></p>
-<ul>
-<li>在前端构建工具等领域积极探索 Rust 应用</li>
-<li>开发基于 Rust 的构建工具 <strong>Mako</strong></li>
-<li>应对 JavaScript 构建工具在速度和效率上的挑战</li>
-</ul>
-<h2 id="安全关键领域应用"><a class="header" href="#安全关键领域应用">安全关键领域应用</a></h2>
-<h3 id="航空航天汽车电子和医疗设备"><a class="header" href="#航空航天汽车电子和医疗设备">航空航天、汽车电子和医疗设备</a></h3>
-<ul>
-<li>研究人员正在探索 Rust 在安全关键型嵌入式系统中的应用</li>
-<li>Rust 的内存安全特性避免常见的缓冲区溢出、空指针解引用等问题</li>
-</ul>
-<h3 id="车联网-iov-领域"><a class="header" href="#车联网-iov-领域">车联网 (IoV) 领域</a></h3>
-<p>随着自动驾驶和智能网联汽车的发展，Rust 在以下方面表现出色：</p>
-<ul>
-<li><strong>车载通信模块</strong> - 高安全性通信</li>
-<li><strong>智能座舱系统</strong> - 实时交互体验</li>
-<li><strong>决策控制单元</strong> - 安全可靠的控制逻辑</li>
-<li><strong>OTA (Over-The-Air) 更新</strong> - 安全的远程升级</li>
-<li><strong>车辆诊断系统</strong> - 准确的故障检测</li>
-<li><strong>信息娱乐系统</strong> - 稳定的用户体验</li>
-<li><strong>高级驾驶辅助系统 (ADAS)</strong> - 提高系统安全性和抗攻击能力</li>
-</ul>
-<h2 id="嵌入式操作系统的发展"><a class="header" href="#嵌入式操作系统的发展">嵌入式操作系统的发展</a></h2>
-<h3 id="专用嵌入式操作系统"><a class="header" href="#专用嵌入式操作系统">专用嵌入式操作系统</a></h3>
-<p><strong>Tock OS</strong></p>
-<ul>
-<li>用 Rust 编写的安全多用户嵌入式操作系统</li>
-<li>强调模块化和隔离性</li>
-<li>通过 Rust 的类型系统和所有权模型确保编译时安全隔离</li>
-<li>适合需要高安全性的物联网设备</li>
-</ul>
-<p><strong>Hubris</strong></p>
-<ul>
-<li>由 Oxide Computer Company 开发的轻量级微内核操作系统</li>
-<li>完全用 Rust 编写</li>
-<li>旨在提供极高的可靠性和安全性</li>
-<li>适用于需要严格隔离和可验证性的应用</li>
-</ul>
-<h3 id="实时并发框架"><a class="header" href="#实时并发框架">实时并发框架</a></h3>
-<p><strong>RTIC (Real-Time Interrupt-driven Concurrency)</strong></p>
-<ul>
-<li>基于 Rust 的实时并发框架</li>
-<li>专为 Cortex-M 微控制器设计</li>
-<li>提供零成本的异步/并发抽象</li>
-<li>允许开发者以安全、高效的方式编写实时任务</li>
-<li>目前 Rust 嵌入式领域中最受欢迎的实时解决方案之一</li>
-</ul>
-<h3 id="异步框架"><a class="header" href="#异步框架">异步框架</a></h3>
-<p><strong>Embassy</strong></p>
-<ul>
-<li>基于 Rust 的异步框架</li>
-<li>提供事件驱动的、非阻塞的编程模型</li>
-<li>类似于嵌入式领域的 async/await 运行时</li>
-<li>简化异步任务的调度和管理</li>
-<li>支持多种微控制器架构</li>
-<li>在社区中拥有广泛的应用</li>
-</ul>
-<h3 id="rtos-集成"><a class="header" href="#rtos-集成">RTOS 集成</a></h3>
-<p><strong>与现有 RTOS 的集成</strong></p>
-<ul>
-<li>社区积极探索 Rust 与 FreeRTOS、Zephyr 等主流 C 语言 RTOS 的集成</li>
-<li>通过 FFI (Foreign Function Interface) 提供安全的 Rust 绑定</li>
-<li>允许在现有 RTOS 基础上使用 Rust 编写应用程序</li>
-</ul>
-<h2 id="社区生态"><a class="header" href="#社区生态">社区生态</a></h2>
-<h3 id="官方支持"><a class="header" href="#官方支持">官方支持</a></h3>
-<p><strong>Rust Embedded Working Group</strong></p>
-<ul>
-<li>Rust 官方社区中专门负责嵌入式领域开发的团队</li>
-<li>维护核心嵌入式 crate（如 cortex-m、riscv 等）</li>
-<li>推动工具链发展</li>
-<li>撰写文档和组织活动</li>
-<li>Rust 嵌入式生态发展的主要驱动力</li>
-</ul>
-<h3 id="社区资源"><a class="header" href="#社区资源">社区资源</a></h3>
-<p><strong>awesome-embedded-rust</strong></p>
-<ul>
-<li>社区维护的精选资源列表</li>
-<li>包含大量的 Rust 嵌入式项目、库、工具、教程和文章</li>
-<li>为新入门的开发者提供宝贵的学习资料</li>
-</ul>
-<h2 id="面临的挑战"><a class="header" href="#面临的挑战">面临的挑战</a></h2>
-<h3 id="技术学习门槛"><a class="header" href="#技术学习门槛">技术学习门槛</a></h3>
-<p><strong>学习曲线</strong></p>
-<ul>
-<li>Rust 的所有权和借用系统对习惯 C/C++ 的嵌入式开发者存在学习曲线</li>
-<li>理解这些概念并写出通过编译器的代码需要时间和实践</li>
-</ul>
-<h3 id="人才与资源"><a class="header" href="#人才与资源">人才与资源</a></h3>
-<p><strong>人才稀缺</strong></p>
-<ul>
-<li>掌握 Rust 并在嵌入式领域有实践经验的开发者相对较少</li>
-<li>限制了企业采纳 Rust 的速度</li>
-<li>随着社区教育资源的丰富和更多项目的落地，正在逐步改善</li>
-</ul>
-<h3 id="生态系统成熟度"><a class="header" href="#生态系统成熟度">生态系统成熟度</a></h3>
-<p><strong>库和工具链的局限性</strong></p>
-<ul>
-<li>某些特定领域的库和工具链可能不如 C/C++ 完善</li>
-<li>特定外设驱动的支持</li>
-<li>RTOS 集成的完整性</li>
-<li>遗留代码兼容性</li>
-<li>不常用硬件可能需要开发者自行编写底层驱动</li>
-</ul>
-<h3 id="开发工具"><a class="header" href="#开发工具">开发工具</a></h3>
-<p><strong>调试和诊断</strong></p>
-<ul>
-<li>尽管 probe-rs 等工具正在改善调试体验</li>
-<li>复杂嵌入式场景下的低级调试和性能分析仍有待完善</li>
-<li>商业化调试器和仿真器对 Rust 的支持需要时间</li>
-</ul>
-<h3 id="实时性能"><a class="header" href="#实时性能">实时性能</a></h3>
-<p><strong>实时性保证</strong></p>
-<ul>
-<li>严格的硬实时系统中，Rust 的异步模型和内存分配策略需要深入考量</li>
-<li>需要确保满足苛刻的实时性要求</li>
-<li>避免运行时动态内存分配带来的不确定性</li>
-</ul>
-<h2 id="未来展望"><a class="header" href="#未来展望">未来展望</a></h2>
-<h3 id="市场地位"><a class="header" href="#市场地位">市场地位</a></h3>
-<p><strong>成为主流选择</strong></p>
-<ul>
-<li>随着生态系统的完善和社区壮大</li>
-<li>更多成功案例的涌现</li>
-<li>有望在未来十年内成为嵌入式系统开发的主流语言之一</li>
-<li>特别是在对安全性、可靠性和维护性要求较高的项目中</li>
-</ul>
-<h3 id="硬件生态"><a class="header" href="#硬件生态">硬件生态</a></h3>
-<p><strong>更广泛的硬件支持</strong></p>
-<ul>
-<li>预计更多芯片厂商和 RTOS 将提供对 Rust 的官方支持</li>
-<li>进一步降低开发门槛</li>
-<li>RISC-V 等新兴架构的普及将为 Rust 提供新的增长点</li>
-</ul>
-<h3 id="工具链发展"><a class="header" href="#工具链发展">工具链发展</a></h3>
-<p><strong>工具链的进一步成熟</strong></p>
-<ul>
-<li>调试、性能分析和形式化验证等工具将更加强大和易用</li>
-<li>进一步提升开发效率和代码质量</li>
-<li>专门针对嵌入式 Rust 的 IDE 支持将得到加强</li>
-</ul>
-<h3 id="安全关键应用"><a class="header" href="#安全关键应用">安全关键应用</a></h3>
-<p><strong>安全关键领域的核心角色</strong></p>
-<ul>
-<li>Rust 的内存安全特性使其成为开发安全关键型嵌入式系统的理想选择</li>
-<li>随着行业标准的逐步接纳</li>
-<li>在汽车（如 ISO 26262 认证）、医疗和工业控制等领域扮演重要角色</li>
-</ul>
-<h3 id="人才培养"><a class="header" href="#人才培养">人才培养</a></h3>
-<p><strong>教育和人才培养</strong></p>
-<ul>
-<li>更多高校和培训机构将开设 Rust 嵌入式课程</li>
-<li>缓解人才短缺问题</li>
-<li>开源社区持续提供丰富的学习资料和实践项目</li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust与ai编码助手"><a class="header" href="#rust与ai编码助手">Rust与AI编码助手</a></h1>
-<p>相较于 C/C++ 或 Python 等语言，AI 编码助手生成的代码，即使能顺利编译或运行，也可能潜藏着大量运行时错误。 这些语言的弱类型检查或动态特性，让潜在的问题难以在早期被发现。</p>
-<p>然而，Rust 的强类型系统和严格的编译检查机制则提供了天然的屏障。 如果 AI 助手生成的 Rust 代码能够成功编译，那它在很大程度上就意味着内存安全和逻辑正确性。 这极大地降低了运行时错误的风险，确保了最终代码的可靠性和安全性。</p>
-<p>这意味着，即使 AI 助手生成了一些不完美的 Rust 代码，强大的 Rust 编译器也会充当一道坚实的防线，强制开发者在程序运行前就解决这些问题。 这种<strong>编译时保证</strong>显著降低了将 AI 生成代码投入生产环境的风险，从而确保了最终软件的高可靠性和安全性。</p>
-<p>因此，AI 编码助手的高效生成能力与 Rust 的严格可靠性相辅相成，共同为开发者提供了一个既能快速迭代、又能保证代码质量的强大工具组合</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="致谢"><a class="header" href="#致谢">致谢</a></h1>
-<p>光阴似箭，日月如梭，感谢刘若琳，正是因为她用自己宝贵的时间照顾我，才使得我有机会不断学习并完成此书。</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="环境搭建"><a class="header" href="#环境搭建">环境搭建</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="pac工程"><a class="header" href="#pac工程">PAC工程</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="hal工程"><a class="header" href="#hal工程">HAL工程</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="bsp工程"><a class="header" href="#bsp工程">BSP工程</a></h1>
-<p>TODO</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../前言/前言.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="../前言/Rust嵌入式.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -710,7 +464,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../前言/前言.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="../前言/Rust嵌入式.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
@@ -723,21 +483,16 @@
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
 
-        <script>
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
 
     </div>
     </body>

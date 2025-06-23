@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>rust embedded example book</title>
-        <meta name="robots" content="noindex">
+        <title>嵌入式系统 - rust embedded example book</title>
 
 
         <!-- Custom HTML head -->
@@ -13,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon.svg">
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="highlight-css" href="highlight.css">
-        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
-        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc.js"></script>
+        <script src="../toc.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -103,7 +102,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -138,7 +137,7 @@
                     <h1 class="menu-title">rust embedded example book</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
 
@@ -167,287 +166,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="前言"><a class="header" href="#前言">前言</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-语言介绍"><a class="header" href="#rust-语言介绍">Rust 语言介绍</a></h1>
-<h2 id="rust-语言安全性能与并发的未来之路"><a class="header" href="#rust-语言安全性能与并发的未来之路">Rust 语言：安全、性能与并发的未来之路</a></h2>
-<p>在软件开发的世界中，对高性能、高安全性和并发处理能力的需求从未停止。正是在这样的背景下，Rust 语言应运而生，并以其独特的魅力迅速崭露头角，成为开发者社区中备受瞩目的"明星"语言。从最初的实验项目到如今构建关键系统和前沿技术的基石，Rust 的发展历程清晰地勾勒出其非凡的潜力。</p>
-<h2 id="rust-的发展历程"><a class="header" href="#rust-的发展历程">Rust 的发展历程</a></h2>
-<h3 id="起源与早期发展"><a class="header" href="#起源与早期发展">起源与早期发展</a></h3>
-<p><strong>项目启动</strong></p>
-<ul>
-<li><strong>2006年</strong> - Mozilla 研究院的 Graydon Hoare 启动 Rust 项目</li>
-<li>最初作为个人项目，旨在解决 C++ 内存安全和并发编程挑战</li>
-<li>核心目标：开发一种能提供内存安全而不牺牲性能的系统级语言</li>
-</ul>
-<p><strong>公开发布</strong></p>
-<ul>
-<li><strong>2010年</strong> - Mozilla 首次公开发布 Rust</li>
-<li>引入创新的"所有权（Ownership）"和"借用检查器（Borrow Checker）"系统</li>
-<li>经过数年的孵化和社区贡献</li>
-</ul>
-<h3 id="成熟化阶段"><a class="header" href="#成熟化阶段">成熟化阶段</a></h3>
-<p><strong>稳定版本发布</strong></p>
-<ul>
-<li><strong>2015年5月15日</strong> - Rust 1.0 版本正式发布</li>
-<li>标志着语言迈向成熟的关键一步</li>
-<li>为开发者提供了稳定的 API 和工具链</li>
-</ul>
-<p><strong>持续发展</strong></p>
-<ul>
-<li>社区蓬勃发展，语言不断迭代完善</li>
-<li>引入异步编程（async/await）等重要特性</li>
-<li>生态系统日趋完善</li>
-</ul>
-<h3 id="基金会成立"><a class="header" href="#基金会成立">基金会成立</a></h3>
-<p><strong>治理结构完善</strong></p>
-<ul>
-<li><strong>2021年</strong> - Rust 基金会正式成立</li>
-<li>确保语言的长期健康发展和中立管理</li>
-<li>由 Mozilla、Amazon、Google、Microsoft 和 Huawei 等科技巨头共同支持</li>
-<li>进一步巩固了 Rust 在开源世界中的地位</li>
-</ul>
-<h2 id="rust-的独特优势"><a class="header" href="#rust-的独特优势">Rust 的独特优势</a></h2>
-<h3 id="内存安全"><a class="header" href="#内存安全">内存安全</a></h3>
-<p><strong>编译时安全保障</strong></p>
-<ul>
-<li>Rust 最引以为傲的特性</li>
-<li>通过编译时的所有权、借用和生命周期规则</li>
-<li>在编译阶段捕获并阻止常见的内存安全错误</li>
-<li>避免空指针解引用、数据竞争和缓冲区溢出</li>
-<li>消除 C/C++ 中常见的运行时崩溃和安全漏洞</li>
-</ul>
-<h3 id="高性能"><a class="header" href="#高性能">高性能</a></h3>
-<p><strong>零成本抽象</strong></p>
-<ul>
-<li>设计为零成本抽象的语言</li>
-<li>提供高级抽象的同时不引入额外的运行时开销</li>
-<li>性能可以媲美 C/C++</li>
-<li>适用于系统级编程、游戏引擎和高性能计算</li>
-</ul>
-<h3 id="并发性"><a class="header" href="#并发性">并发性</a></h3>
-<p><strong>编译时并发安全</strong></p>
-<ul>
-<li>将并发编程的安全问题提升到语言层面</li>
-<li>借用检查器在编译时强制执行数据竞争规则</li>
-<li>能够编写无数据竞争的并发代码</li>
-<li>大大降低并发编程的复杂性和风险</li>
-</ul>
-<h3 id="开发体验"><a class="header" href="#开发体验">开发体验</a></h3>
-<p><strong>友好的工具链</strong></p>
-<ul>
-<li><strong>Cargo</strong> - 强大的包管理器和构建系统</li>
-<li><strong>智能错误提示</strong> - 清晰的编译器错误信息</li>
-<li><strong>友好的借用检查器</strong> - 详细的借用规则提示</li>
-<li>极大提升开发者效率和体验</li>
-</ul>
-<h3 id="高级抽象"><a class="header" href="#高级抽象">高级抽象</a></h3>
-<p><strong>编译时优化</strong></p>
-<ul>
-<li>泛型、trait 和迭代器等高级抽象</li>
-<li>编译后优化成与手写 C 代码相近的效率</li>
-<li>不引入额外的运行时负担</li>
-</ul>
-<h2 id="rust-在各个领域的发展趋势"><a class="header" href="#rust-在各个领域的发展趋势">Rust 在各个领域的发展趋势</a></h2>
-<h3 id="系统编程"><a class="header" href="#系统编程">系统编程</a></h3>
-<p><strong>操作系统与底层开发</strong></p>
-<ul>
-<li>旨在替代 C/C++ 的系统级语言</li>
-<li><strong>Linux 内核</strong> - 开始采纳 Rust 编写新模块</li>
-<li><strong>Microsoft Windows</strong> - 团队探索使用 Rust 重写关键组件</li>
-<li><strong>驱动程序开发</strong> - 内存安全特性确保系统稳定性</li>
-<li>为构建稳定可靠的底层系统提供保障</li>
-</ul>
-<h3 id="嵌入式系统"><a class="header" href="#嵌入式系统">嵌入式系统</a></h3>
-<p><strong>资源受限环境的优势</strong></p>
-<ul>
-<li><strong>内存安全</strong> - 避免传统 C/C++ 的调试难题</li>
-<li><strong>零运行时开销</strong> - 适合资源受限的环境</li>
-<li><strong>底层硬件控制</strong> - 精细的硬件操作能力</li>
-<li><strong>应用范围</strong> - 从微控制器到物联网设备</li>
-<li>提供更安全、更稳定的嵌入式开发范式</li>
-</ul>
-<h3 id="webassembly-wasm"><a class="header" href="#webassembly-wasm">WebAssembly (Wasm)</a></h3>
-<p><strong>高性能 Web 计算</strong></p>
-<ul>
-<li>Rust 是编译到 Wasm 的最佳语言之一</li>
-<li><strong>Web 前端</strong> - 高性能的 Web 应用程序模块</li>
-<li><strong>服务器端</strong> - 高效的服务端计算</li>
-<li><strong>应用场景</strong> - 区块链、边缘计算</li>
-<li><strong>成功案例</strong> - Figma 使用 Rust 和 Wasm 加速 Web 应用性能</li>
-</ul>
-<h3 id="web-后端开发"><a class="header" href="#web-后端开发">Web 后端开发</a></h3>
-<p><strong>高性能服务端应用</strong></p>
-<ul>
-<li><strong>框架生态</strong> - Actix-web、Axum、Rocket 等高性能框架</li>
-<li><strong>并发处理</strong> - 构建可扩展、高并发 Web 服务</li>
-<li><strong>应用场景</strong> - 高响应时间要求、大量并发请求处理</li>
-<li><strong>性能优势</strong> - 在苛刻场景下展现明显优势</li>
-</ul>
-<h3 id="命令行工具-cli-tools"><a class="header" href="#命令行工具-cli-tools">命令行工具 (CLI Tools)</a></h3>
-<p><strong>高性能工具开发</strong></p>
-<ul>
-<li><strong>性能优势</strong> - 卓越的执行性能</li>
-<li><strong>轻量级</strong> - 二进制文件体积小</li>
-<li><strong>成功项目</strong>：
-<ul>
-<li><strong>ripgrep</strong> - 快速的行搜索工具</li>
-<li><strong>exa</strong> - ls 的现代替代品</li>
-<li><strong>fd</strong> - find 的简单快速替代</li>
-</ul>
-</li>
-<li>提供令人印象深刻的用户体验</li>
-</ul>
-<h3 id="区块链"><a class="header" href="#区块链">区块链</a></h3>
-<p><strong>安全性与性能并重</strong></p>
-<ul>
-<li><strong>技术要求</strong> - 极高的性能和安全性需求</li>
-<li><strong>知名项目</strong> - Polkadot、Solana 等选择 Rust 作为核心开发语言</li>
-<li><strong>优势</strong> - 内存安全和并发控制确保底层基础设施健壮性</li>
-<li>成为区块链领域的首选语言之一</li>
-</ul>
-<h3 id="游戏开发"><a class="header" href="#游戏开发">游戏开发</a></h3>
-<p><strong>高性能游戏引擎</strong></p>
-<ul>
-<li><strong>性能要求</strong> - 接近 C++ 的性能表现</li>
-<li><strong>内存管理</strong> - 安全的资源管理</li>
-<li><strong>游戏引擎</strong> - Bevy、Amethyst 等 Rust 游戏引擎崛起</li>
-<li>展示 Rust 在构建高性能游戏方面的潜力</li>
-</ul>
-<h3 id="人工智能机器学习"><a class="header" href="#人工智能机器学习">人工智能/机器学习</a></h3>
-<p><strong>性能敏感场景的应用</strong></p>
-<ul>
-<li><strong>应用领域</strong> - 模型推理、数据预处理、自定义层构建</li>
-<li><strong>生态集成</strong> - 与 TensorFlow、PyTorch 等框架的 Rust 绑定</li>
-<li><strong>性能核心</strong> - 编写高性能计算核心</li>
-<li>为 AI/ML 应用提供新的优化途径</li>
-</ul>
-<h3 id="云计算和基础设施"><a class="header" href="#云计算和基础设施">云计算和基础设施</a></h3>
-<p><strong>现代云服务构建</strong></p>
-<ul>
-<li><strong>应用场景</strong> - 容器化、无服务器（Serverless）、边缘计算</li>
-<li><strong>优势</strong> - 安全性和性能使其成为构建高效云服务的理想选择</li>
-<li><strong>企业采用</strong> - Amazon Web Services (AWS) 在核心服务中使用 Rust</li>
-<li>展现在云计算领域的巨大潜力</li>
-</ul>
-<h2 id="rust-社区的明星开源项目"><a class="header" href="#rust-社区的明星开源项目">Rust 社区的明星开源项目</a></h2>
-<p>Rust 社区蓬勃发展，涌现了许多优秀的开源项目。这些项目在各自的领域内都具有很高的知名度和影响力，是 Rust 语言强大功能和社区活跃度的最好证明。</p>
-<h3 id="web-后端框架"><a class="header" href="#web-后端框架">Web 后端框架</a></h3>
-<p><strong>Actix-web</strong></p>
-<ul>
-<li>功能强大、性能卓越的 Web 框架</li>
-<li>以高吞吐量和异步特性而闻名</li>
-<li>广泛应用于微服务和 API 网关等高并发场景</li>
-</ul>
-<p><strong>Axum</strong></p>
-<ul>
-<li>Tokio 团队开发的 Web 框架</li>
-<li>利用 Tokio 生态系统</li>
-<li>提供高性能和可扩展性</li>
-</ul>
-<p><strong>Warp</strong></p>
-<ul>
-<li>轻量级、模块化的 Web 框架</li>
-<li>强调类型安全和可组合性</li>
-<li>以优雅的 API 和强大功能著称</li>
-</ul>
-<p><strong>Rocket</strong></p>
-<ul>
-<li>基于代码生成的高效 Web 框架</li>
-<li>注重易用性和安全性</li>
-<li>提供快速构建 Web 应用程序的方式</li>
-</ul>
-<h3 id="命令行工具"><a class="header" href="#命令行工具">命令行工具</a></h3>
-<p><strong>Ripgrep</strong></p>
-<ul>
-<li>比 grep 更快、更强大的代码搜索工具</li>
-<li>在处理大量文件时性能出色</li>
-</ul>
-<p><strong>Fd</strong></p>
-<ul>
-<li>简单、快速、用户友好的 find 命令替代品</li>
-<li>提供更直观的语法和更快的搜索速度</li>
-</ul>
-<p><strong>Exa</strong></p>
-<ul>
-<li>现代化的 ls 命令替代品</li>
-<li>提供更多信息和更好的可视化效果</li>
-<li>支持语法高亮、Git 状态显示等功能</li>
-</ul>
-<p><strong>Bat</strong></p>
-<ul>
-<li>带语法高亮和 Git 集成的 cat 命令替代品</li>
-<li>提供美观的代码展示功能</li>
-</ul>
-<p><strong>Zoxide</strong></p>
-<ul>
-<li>智能的 cd 命令替代品</li>
-<li>通过学习使用习惯来快速跳转目录</li>
-</ul>
-<h3 id="桌面应用--gui"><a class="header" href="#桌面应用--gui">桌面应用 &amp; GUI</a></h3>
-<p><strong>Tauri</strong></p>
-<ul>
-<li>使用 Rust 构建跨平台桌面应用的框架</li>
-<li>利用 Web 技术（HTML, CSS, JS）作为 UI</li>
-<li>后端由 Rust 驱动，比 Electron 更轻量、更安全</li>
-</ul>
-<p><strong>Dioxus</strong></p>
-<ul>
-<li>受 React 启发的跨平台用户界面框架</li>
-<li>声明式 UI 构建方式</li>
-</ul>
-<p><strong>Iced</strong></p>
-<ul>
-<li>受 Elm 启发的纯 Rust 跨平台 GUI 库</li>
-<li>提供现代化的 GUI 开发体验</li>
-</ul>
-<h3 id="数据库--数据处理"><a class="header" href="#数据库--数据处理">数据库 &amp; 数据处理</a></h3>
-<p><strong>Diesel</strong></p>
-<ul>
-<li>功能齐全、类型安全的 ORM (Object Relational Mapper)</li>
-<li>查询构建器，支持 PostgreSQL、MySQL 和 SQLite</li>
-</ul>
-<p><strong>Polars</strong></p>
-<ul>
-<li>高性能的、基于 Apache Arrow 的数据框库</li>
-<li>适用于内存中的数据处理</li>
-<li>在许多场景下可以替代 Python 的 Pandas</li>
-</ul>
-<h3 id="区块链--加密货币"><a class="header" href="#区块链--加密货币">区块链 &amp; 加密货币</a></h3>
-<p><strong>Parity-Ethereum (现在是 OpenEthereum)</strong></p>
-<ul>
-<li>用 Rust 编写的以太坊客户端</li>
-<li>在区块链领域有广泛应用</li>
-</ul>
-<p><strong>Substrate</strong></p>
-<ul>
-<li>模块化的区块链框架</li>
-<li>允许开发者构建定制化的区块链</li>
-<li>Polkadot 生态系统中许多项目基于 Substrate 构建</li>
-</ul>
-<h3 id="系统编程--基础设施"><a class="header" href="#系统编程--基础设施">系统编程 &amp; 基础设施</a></h3>
-<p><strong>Tokio</strong></p>
-<ul>
-<li>Rust 异步运行时</li>
-<li>为网络应用和并发编程提供基础</li>
-<li>许多 Rust 异步项目都依赖 Tokio</li>
-</ul>
-<p><strong>Hyper</strong></p>
-<ul>
-<li>快速、正确的 HTTP 实现</li>
-<li>被许多 Web 框架和客户端库使用</li>
-</ul>
-<h3 id="游戏开发-1"><a class="header" href="#游戏开发-1">游戏开发</a></h3>
-<p><strong>Bevy</strong></p>
-<ul>
-<li>用 Rust 编写的数据驱动的模块化游戏引擎</li>
-<li>提供一整套工具和抽象，用于开发 2D 和 3D 游戏</li>
-</ul>
-<p><strong>Fyrox (原名 rg3d)</strong></p>
-<ul>
-<li>功能丰富的 3D 游戏引擎</li>
-<li>支持渲染、物理、动画等完整功能</li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-在嵌入式行业的现状"><a class="header" href="#rust-在嵌入式行业的现状">Rust 在嵌入式行业的现状</a></h1>
+                        <h1 id="rust-在嵌入式行业的现状"><a class="header" href="#rust-在嵌入式行业的现状">Rust 在嵌入式行业的现状</a></h1>
 <p>尽管 Rust 进入嵌入式领域的时间相对较短，但其发展势头迅猛，并在多个方面展现出巨大潜力：</p>
 <h2 id="生态系统发展"><a class="header" href="#生态系统发展">生态系统发展</a></h2>
 <h3 id="日益成熟的工具链"><a class="header" href="#日益成熟的工具链">日益成熟的工具链</a></h3>
@@ -685,24 +404,18 @@
 <li>缓解人才短缺问题</li>
 <li>开源社区持续提供丰富的学习资料和实践项目</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="rust与ai编码助手"><a class="header" href="#rust与ai编码助手">Rust与AI编码助手</a></h1>
-<p>相较于 C/C++ 或 Python 等语言，AI 编码助手生成的代码，即使能顺利编译或运行，也可能潜藏着大量运行时错误。 这些语言的弱类型检查或动态特性，让潜在的问题难以在早期被发现。</p>
-<p>然而，Rust 的强类型系统和严格的编译检查机制则提供了天然的屏障。 如果 AI 助手生成的 Rust 代码能够成功编译，那它在很大程度上就意味着内存安全和逻辑正确性。 这极大地降低了运行时错误的风险，确保了最终代码的可靠性和安全性。</p>
-<p>这意味着，即使 AI 助手生成了一些不完美的 Rust 代码，强大的 Rust 编译器也会充当一道坚实的防线，强制开发者在程序运行前就解决这些问题。 这种<strong>编译时保证</strong>显著降低了将 AI 生成代码投入生产环境的风险，从而确保了最终软件的高可靠性和安全性。</p>
-<p>因此，AI 编码助手的高效生成能力与 Rust 的严格可靠性相辅相成，共同为开发者提供了一个既能快速迭代、又能保证代码质量的强大工具组合</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="致谢"><a class="header" href="#致谢">致谢</a></h1>
-<p>光阴似箭，日月如梭，感谢刘若琳，正是因为她用自己宝贵的时间照顾我，才使得我有机会不断学习并完成此书。</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="环境搭建"><a class="header" href="#环境搭建">环境搭建</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="pac工程"><a class="header" href="#pac工程">PAC工程</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="hal工程"><a class="header" href="#hal工程">HAL工程</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="bsp工程"><a class="header" href="#bsp工程">BSP工程</a></h1>
-<p>TODO</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../前言/Rust语言介绍.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="../前言/Rust与AI编码助手.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -710,7 +423,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../前言/Rust语言介绍.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="../前言/Rust与AI编码助手.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
@@ -723,21 +442,16 @@
         </script>
 
 
-        <script src="elasticlunr.min.js"></script>
-        <script src="mark.min.js"></script>
-        <script src="searcher.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
 
-        <script src="clipboard.min.js"></script>
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
 
         <!-- Custom JS scripts -->
 
-        <script>
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
 
     </div>
     </body>
