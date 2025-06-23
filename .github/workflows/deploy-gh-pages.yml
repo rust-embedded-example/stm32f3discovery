@@ -5,6 +5,10 @@ on:
     branches:
       - main # 触发工作流的源分支
 
+# 为工作流设置默认权限
+permissions:
+  contents: write # 允许 actions-gh-pages 推送到 gh-pages 分支
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -14,16 +18,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 安装 mdBook
+      # 安装最新版的 mdBook (或指定版本)
       - name: Install mdBook
-        run: |
-          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.40/mdBook-v0.4.40-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C /usr/local/bin
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: "latest" # 或者指定一个特定版本，例如 '0.4.40'
 
       # 构建 mdBook
       - name: Build mdBook
-        run: |
-          cd docs
-          mdbook build
+        run: mdbook build
+        working-directory: ./docs # 在 docs 目录中执行命令
 
       # 部署到 gh-pages 分支
       - name: Deploy to GitHub Pages
@@ -31,3 +35,5 @@ jobs:
         with:
           folder: docs/book # 部署的文件夹
           branch: gh-pages # 目标分支
+          # 可选：如果部署失败，可以清理目标分支的历史记录
+          # clean: true
