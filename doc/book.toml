@@ -1,0 +1,5 @@
+[book]
+authors = ["anlang"]
+language = "en"
+src = "src"
+title = "rust embedded example book"
