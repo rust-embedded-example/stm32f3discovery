@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>使用gdb调试 - rust embedded example book</title>
+        <title>调试 - rust embedded example book</title>
 
 
         <!-- Custom HTML head -->
@@ -166,10 +166,11 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="使用gdb调试"><a class="header" href="#使用gdb调试">使用gdb调试</a></h1>
-<p>STM32F3DISCOVRETY开发板中有ST-LINK接口，probe-rs与ST-LINK连接，GDB再与probe-rs连接，即可使用GDB调试。</p>
-<h2 id="创建embedtoml"><a class="header" href="#创建embedtoml">创建<code>./Embed.toml</code></a></h2>
-<p>为了让probe-rs与GDB进行通信，需要进行一些配置，创建配置文件<code>./Embed.toml</code>,内容为：</p>
+                        <h1 id="使用-gdb-调试"><a class="header" href="#使用-gdb-调试">使用 GDB 调试</a></h1>
+<p>STM32F3DISCOVERY 开发板内置 ST-LINK 接口，通过以下连接链路可以实现 GDB 调试：
+<strong>ST-LINK ↔ probe-rs ↔ GDB</strong></p>
+<h2 id="创建配置文件-embedtoml"><a class="header" href="#创建配置文件-embedtoml">创建配置文件 <code>Embed.toml</code></a></h2>
+<p>为了让 probe-rs 与 GDB 进行通信，需要在项目根目录创建配置文件 <code>./Embed.toml</code>，内容如下：</p>
 <pre><code class="language-toml">[default.probe]
 protocol = "Swd"
 
@@ -194,63 +195,103 @@ enabled = true
 gdb_connection_string = "127.0.0.1:1337"
 </code></pre>
 <h2 id="配置文件详解"><a class="header" href="#配置文件详解">配置文件详解</a></h2>
-<p>这个 <code>Embed.toml</code> 配置文件是 probe-rs 工具的配置文件，用于配置调试器与 STM32F3 开发板的连接和调试参数。下面是各个配置段的详细说明：</p>
+<p><code>Embed.toml</code> 是 probe-rs 工具的配置文件，用于配置调试器与 STM32F3 开发板的连接和调试参数。各配置段说明如下：</p>
 <h3 id="defaultprobe---调试探针配置"><a class="header" href="#defaultprobe---调试探针配置"><code>[default.probe]</code> - 调试探针配置</a></h3>
 <ul>
-<li><code>protocol = "Swd"</code>: 指定使用 SWD (Serial Wire Debug) 协议进行调试通信。SWD 是 ARM Cortex-M 处理器常用的调试协议，只需要两根线（SWDIO 和 SWCLK）。</li>
+<li><strong><code>protocol = "Swd"</code></strong>: 指定使用 SWD (Serial Wire Debug) 协议进行调试通信
+<ul>
+<li>SWD 是 ARM Cortex-M 处理器常用的调试协议</li>
+<li>只需要两根线：SWDIO（数据线）和 SWCLK（时钟线）</li>
+</ul>
+</li>
 </ul>
 <h3 id="defaultflashing---程序烧录配置"><a class="header" href="#defaultflashing---程序烧录配置"><code>[default.flashing]</code> - 程序烧录配置</a></h3>
 <ul>
-<li><code>enabled = true</code>: 启用程序烧录功能，允许 probe-rs 将编译好的程序烧录到芯片的 Flash 存储器中。</li>
-<li><code>restore_unwritten_bytes = false</code>: 不恢复未写入的字节。设置为 false 可以提高烧录速度，因为不需要保留 Flash 中未被覆盖的原有数据。</li>
+<li><strong><code>enabled = true</code></strong>: 启用程序烧录功能，允许 probe-rs 将编译好的程序烧录到芯片 Flash 存储器</li>
+<li><strong><code>restore_unwritten_bytes = false</code></strong>: 不恢复未写入的字节
+<ul>
+<li>设置为 <code>false</code> 可提高烧录速度</li>
+<li>无需保留 Flash 中未被覆盖的原有数据</li>
+</ul>
+</li>
 </ul>
 <h3 id="defaultreset---复位配置"><a class="header" href="#defaultreset---复位配置"><code>[default.reset]</code> - 复位配置</a></h3>
 <ul>
-<li><code>enabled = true</code>: 启用芯片复位功能。在调试开始时会自动复位芯片，确保程序从头开始执行。</li>
+<li><strong><code>enabled = true</code></strong>: 启用芯片复位功能
+<ul>
+<li>调试开始时自动复位芯片，确保程序从头开始执行</li>
+</ul>
+</li>
 </ul>
 <h3 id="defaultgeneral---通用配置"><a class="header" href="#defaultgeneral---通用配置"><code>[default.general]</code> - 通用配置</a></h3>
 <ul>
-<li><code>chip = "STM32F303VCTx"</code>: 指定目标芯片型号为 STM32F303VCTx，这是 STM32F3DISCOVERY 开发板上使用的微控制器。</li>
-<li><code>log_level = "WARN"</code>: 设置日志级别为警告级别，只显示警告和错误信息，减少调试输出的冗余信息。</li>
-<li><code>connect_under_reset = false</code>: 不在复位状态下连接芯片。设置为 false 表示正常连接，不需要保持芯片在复位状态。</li>
+<li><strong><code>chip = "STM32F303VCTx"</code></strong>: 指定目标芯片型号
+<ul>
+<li>STM32F303VCTx 是 STM32F3DISCOVERY 开发板使用的微控制器</li>
+</ul>
+</li>
+<li><strong><code>log_level = "WARN"</code></strong>: 设置日志级别为警告级别
+<ul>
+<li>只显示警告和错误信息，减少调试输出的冗余信息</li>
+</ul>
+</li>
+<li><strong><code>connect_under_reset = false</code></strong>: 不在复位状态下连接芯片
+<ul>
+<li>正常连接模式，无需保持芯片在复位状态</li>
+</ul>
+</li>
 </ul>
 <h3 id="defaultrtt---rtt-real-time-transfer-配置"><a class="header" href="#defaultrtt---rtt-real-time-transfer-配置"><code>[default.rtt]</code> - RTT (Real Time Transfer) 配置</a></h3>
 <ul>
-<li><code>enabled = true</code>: 启用 RTT 功能。RTT 是一种实时数据传输技术，允许在调试过程中高速传输数据而不影响程序执行。</li>
-<li><code>up_mode = "NoBlockSkip"</code>: 设置上行数据传输模式。"NoBlockSkip" 表示当缓冲区满时跳过新数据而不阻塞程序执行，确保实时性。</li>
+<li><strong><code>enabled = true</code></strong>: 启用 RTT 功能
+<ul>
+<li>RTT 是一种实时数据传输技术</li>
+<li>允许在调试过程中高速传输数据而不影响程序执行</li>
+</ul>
+</li>
+<li><strong><code>up_mode = "NoBlockSkip"</code></strong>: 设置上行数据传输模式
+<ul>
+<li>当缓冲区满时跳过新数据而不阻塞程序执行，确保实时性</li>
+</ul>
+</li>
 </ul>
 <h3 id="defaultgdb---gdb-调试器配置"><a class="header" href="#defaultgdb---gdb-调试器配置"><code>[default.gdb]</code> - GDB 调试器配置</a></h3>
 <ul>
-<li><code>enabled = true</code>: 启用 GDB 调试功能，允许使用 GDB 调试器连接到 probe-rs。</li>
-<li><code>gdb_connection_string = "127.0.0.1:1337"</code>: 设置 GDB 连接字符串。probe-rs 会在本地 IP 地址 127.0.0.1 的 1337 端口上启动 GDB 服务器，GDB 客户端可以通过这个地址连接进行调试。</li>
+<li><strong><code>enabled = true</code></strong>: 启用 GDB 调试功能，允许 GDB 调试器连接到 probe-rs</li>
+<li><strong><code>gdb_connection_string = "127.0.0.1:1337"</code></strong>: 设置 GDB 连接字符串
+<ul>
+<li>probe-rs 在本地 127.0.0.1:1337 端口启动 GDB 服务器</li>
+<li>GDB 客户端通过此地址连接进行调试</li>
 </ul>
-<p>这个配置文件确保了 probe-rs 能够正确识别和连接 STM32F3DISCOVERY 开发板，并提供完整的调试功能，包括程序烧录、芯片复位、实时数据传输和 GDB 调试支持。</p>
-<h2 id="运行probe-rs"><a class="header" href="#运行probe-rs">运行probe-rs</a></h2>
-<p>执行：</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>总结</strong>: 此配置文件确保 probe-rs 能够正确识别和连接 STM32F3DISCOVERY 开发板，并提供完整的调试功能，包括程序烧录、芯片复位、实时数据传输和 GDB 调试支持。</p>
+</blockquote>
+<h2 id="使用-probe-rs-进行调试"><a class="header" href="#使用-probe-rs-进行调试">使用 probe-rs 进行调试</a></h2>
+<h3 id="1-启动-probe-rs"><a class="header" href="#1-启动-probe-rs">1. 启动 probe-rs</a></h3>
+<p>执行以下命令启动 probe-rs：</p>
 <pre><code class="language-bash">cargo embed
 </code></pre>
-<p>即可运行probe-rs。
-运行成功将输出类似：</p>
+<p>运行成功后将输出类似内容：</p>
 <pre><code class="language-bash">Terminal
 Starting simple LED blink program
 22:14:10.158: LED blink initialized on PE8
 22:14:10.158: LED ON
 </code></pre>
-<p>的内容。</p>
-<h2 id="运行gdb"><a class="header" href="#运行gdb">运行GDB</a></h2>
-<p>执行：</p>
+<h3 id="2-启动-gdb-调试器"><a class="header" href="#2-启动-gdb-调试器">2. 启动 GDB 调试器</a></h3>
+<p>在新的终端窗口中执行：</p>
 <pre><code class="language-bash">gdb-multiarch -q target/thumbv7em-none-eabihf/debug/pac
 </code></pre>
-<p>即可运行GDB。
-运行成功将输出类似：</p>
+<p>运行成功后将显示：</p>
 <pre><code class="language-bash">Reading symbols from target/thumbv7em-none-eabihf/debug/pac...
 (gdb)
 </code></pre>
-<p>的内容。</p>
-<p>连接probe-rs，在gdb命令输入框中执行：</p>
+<h3 id="3-连接到-probe-rs"><a class="header" href="#3-连接到-probe-rs">3. 连接到 probe-rs</a></h3>
+<p>在 GDB 命令行中执行：</p>
 <pre><code class="language-bash">target remote 127.0.0.1:1337
 </code></pre>
-<p>成功后将输出类似：</p>
+<p>连接成功后将显示类似输出：</p>
 <pre><code class="language-bash">(gdb) target remote 127.0.0.1:1337
 Remote debugging using 127.0.0.1:1337
 0x08000b5e in core::iter::range::{impl#5}::spec_next&lt;u32&gt; (self=0x20009e5c)
@@ -258,8 +299,63 @@ Remote debugging using 127.0.0.1:1337
 764	    fn spec_next(&amp;mut self) -&gt; Option&lt;T&gt; {
 (gdb)
 </code></pre>
-<p>的内容。</p>
-<p>之后可使用gdb命令进行调试。</p>
+<h3 id="4-开始调试"><a class="header" href="#4-开始调试">4. 开始调试</a></h3>
+<p>连接成功后，即可使用标准 GDB 命令进行调试，例如：</p>
+<ul>
+<li><code>break main</code> - 在 main 函数设置断点</li>
+<li><code>continue</code> - 继续执行</li>
+<li><code>step</code> - 单步执行</li>
+<li><code>info registers</code> - 查看寄存器状态</li>
+</ul>
+<h2 id="自动化-gdb-设置"><a class="header" href="#自动化-gdb-设置">自动化 GDB 设置</a></h2>
+<p>自动化 GDB 配置可以减少手动输入命令的工作量，提高调试效率。</p>
+<h3 id="创建-gdb-初始化脚本"><a class="header" href="#创建-gdb-初始化脚本">创建 GDB 初始化脚本</a></h3>
+<p>创建文件 <code>./openocd.gdb</code>，内容如下：</p>
+<pre><code class="language-text">target extended-remote :3333
+break main
+</code></pre>
+<h3 id="修改-cargo-配置"><a class="header" href="#修改-cargo-配置">修改 Cargo 配置</a></h3>
+<p>修改 <code>./.cargo/config.toml</code> 文件：</p>
+<pre><code class="language-toml">[target.thumbv7em-none-eabihf]
+runner = "gdb-multiarch -q -x ./openocd.gdb"
+rustflags = ["-C", "link-arg=-Tlink.x"]
+
+[build]
+target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
+</code></pre>
+<p>配置完成后，执行 <code>cargo run</code> 时将自动：</p>
+<ol>
+<li>启动 <code>gdb-multiarch</code></li>
+<li>连接到 <code>127.0.0.1:3333</code></li>
+<li>在 <code>main</code> 函数设置断点</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>: 使用 OpenOCD 时需要手动运行 <code>load</code> 指令加载程序；使用 <code>cargo embed</code> 则会自动加载程序。</p>
+</blockquote>
+<h2 id="使用-openocd-进行调试"><a class="header" href="#使用-openocd-进行调试">使用 OpenOCD 进行调试</a></h2>
+<p>OpenOCD 是另一种调试方案，可以与 GDB 配合使用。</p>
+<h3 id="启动-openocd"><a class="header" href="#启动-openocd">启动 OpenOCD</a></h3>
+<p>执行以下命令启动 OpenOCD：</p>
+<pre><code class="language-bash">openocd -f interface/stlink.cfg -f target/stm32f3x.cfg
+</code></pre>
+<p>OpenOCD 将等待 GDB 的连接。</p>
+<h3 id="连接并调试"><a class="header" href="#连接并调试">连接并调试</a></h3>
+<ol>
+<li>运行 <code>cargo run</code> 连接到 OpenOCD</li>
+<li>在 GDB 命令行中输入 <code>load</code> 加载程序到芯片</li>
+<li>开始调试</li>
+</ol>
+<h3 id="probe-rs-vs-openocd"><a class="header" href="#probe-rs-vs-openocd">probe-rs vs OpenOCD</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>特性</th><th>probe-rs</th><th>OpenOCD</th></tr></thead><tbody>
+<tr><td>程序加载</td><td>自动加载</td><td>需手动 <code>load</code></td></tr>
+<tr><td>配置复杂度</td><td>简单</td><td>相对复杂</td></tr>
+<tr><td>性能</td><td>更快</td><td>较慢</td></tr>
+<tr><td>兼容性</td><td>现代化</td><td>传统方案</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p><strong>推荐</strong>: 对于 STM32F3DISCOVERY 开发板，建议优先使用 probe-rs 方案，配置简单且性能更好。</p>
+</blockquote>
 
                     </main>
 
@@ -269,7 +365,7 @@ Remote debugging using 127.0.0.1:1337
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../PAC/自定义链接器、链接脚本、内存.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../PAC/自定义链接器、链接脚本.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -283,7 +379,7 @@ Remote debugging using 127.0.0.1:1337
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../PAC/自定义链接器、链接脚本、内存.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../PAC/自定义链接器、链接脚本.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
