@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bit 0 - End of acquisition interrupt clear"]
     #[inline(always)]
-    pub fn eoaic(&mut self) -> EoaicW<IcrSpec> {
+    pub fn eoaic(&mut self) -> EoaicW<'_, IcrSpec> {
         EoaicW::new(self, 0)
     }
     #[doc = "Bit 1 - Max count error interrupt clear"]
     #[inline(always)]
-    pub fn mceic(&mut self) -> MceicW<IcrSpec> {
+    pub fn mceic(&mut self) -> MceicW<'_, IcrSpec> {
         MceicW::new(self, 1)
     }
 }

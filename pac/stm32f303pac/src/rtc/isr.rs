@@ -148,57 +148,57 @@ impl R {
 impl W {
     #[doc = "Bit 3 - Shift operation pending"]
     #[inline(always)]
-    pub fn shpf(&mut self) -> ShpfW<IsrSpec> {
+    pub fn shpf(&mut self) -> ShpfW<'_, IsrSpec> {
         ShpfW::new(self, 3)
     }
     #[doc = "Bit 5 - Registers synchronization flag"]
     #[inline(always)]
-    pub fn rsf(&mut self) -> RsfW<IsrSpec> {
+    pub fn rsf(&mut self) -> RsfW<'_, IsrSpec> {
         RsfW::new(self, 5)
     }
     #[doc = "Bit 7 - Initialization mode"]
     #[inline(always)]
-    pub fn init(&mut self) -> InitW<IsrSpec> {
+    pub fn init(&mut self) -> InitW<'_, IsrSpec> {
         InitW::new(self, 7)
     }
     #[doc = "Bit 8 - Alarm A flag"]
     #[inline(always)]
-    pub fn alraf(&mut self) -> AlrafW<IsrSpec> {
+    pub fn alraf(&mut self) -> AlrafW<'_, IsrSpec> {
         AlrafW::new(self, 8)
     }
     #[doc = "Bit 9 - Alarm B flag"]
     #[inline(always)]
-    pub fn alrbf(&mut self) -> AlrbfW<IsrSpec> {
+    pub fn alrbf(&mut self) -> AlrbfW<'_, IsrSpec> {
         AlrbfW::new(self, 9)
     }
     #[doc = "Bit 10 - Wakeup timer flag"]
     #[inline(always)]
-    pub fn wutf(&mut self) -> WutfW<IsrSpec> {
+    pub fn wutf(&mut self) -> WutfW<'_, IsrSpec> {
         WutfW::new(self, 10)
     }
     #[doc = "Bit 11 - Time-stamp flag"]
     #[inline(always)]
-    pub fn tsf(&mut self) -> TsfW<IsrSpec> {
+    pub fn tsf(&mut self) -> TsfW<'_, IsrSpec> {
         TsfW::new(self, 11)
     }
     #[doc = "Bit 12 - Time-stamp overflow flag"]
     #[inline(always)]
-    pub fn tsovf(&mut self) -> TsovfW<IsrSpec> {
+    pub fn tsovf(&mut self) -> TsovfW<'_, IsrSpec> {
         TsovfW::new(self, 12)
     }
     #[doc = "Bit 13 - Tamper detection flag"]
     #[inline(always)]
-    pub fn tamp1f(&mut self) -> Tamp1fW<IsrSpec> {
+    pub fn tamp1f(&mut self) -> Tamp1fW<'_, IsrSpec> {
         Tamp1fW::new(self, 13)
     }
     #[doc = "Bit 14 - RTC_TAMP2 detection flag"]
     #[inline(always)]
-    pub fn tamp2f(&mut self) -> Tamp2fW<IsrSpec> {
+    pub fn tamp2f(&mut self) -> Tamp2fW<'_, IsrSpec> {
         Tamp2fW::new(self, 14)
     }
     #[doc = "Bit 15 - RTC_TAMP3 detection flag"]
     #[inline(always)]
-    pub fn tamp3f(&mut self) -> Tamp3fW<IsrSpec> {
+    pub fn tamp3f(&mut self) -> Tamp3fW<'_, IsrSpec> {
         Tamp3fW::new(self, 15)
     }
 }

@@ -95,47 +95,47 @@ impl R {
 impl W {
     #[doc = "Bits 0:3 - Endpoint address"]
     #[inline(always)]
-    pub fn ea(&mut self) -> EaW<UsbEp5rSpec> {
+    pub fn ea(&mut self) -> EaW<'_, UsbEp5rSpec> {
         EaW::new(self, 0)
     }
     #[doc = "Bits 4:5 - Status bits, for transmission transfers"]
     #[inline(always)]
-    pub fn stat_tx(&mut self) -> StatTxW<UsbEp5rSpec> {
+    pub fn stat_tx(&mut self) -> StatTxW<'_, UsbEp5rSpec> {
         StatTxW::new(self, 4)
     }
     #[doc = "Bit 6 - Data Toggle, for transmission transfers"]
     #[inline(always)]
-    pub fn dtog_tx(&mut self) -> DtogTxW<UsbEp5rSpec> {
+    pub fn dtog_tx(&mut self) -> DtogTxW<'_, UsbEp5rSpec> {
         DtogTxW::new(self, 6)
     }
     #[doc = "Bit 7 - Correct Transfer for transmission"]
     #[inline(always)]
-    pub fn ctr_tx(&mut self) -> CtrTxW<UsbEp5rSpec> {
+    pub fn ctr_tx(&mut self) -> CtrTxW<'_, UsbEp5rSpec> {
         CtrTxW::new(self, 7)
     }
     #[doc = "Bit 8 - Endpoint kind"]
     #[inline(always)]
-    pub fn ep_kind(&mut self) -> EpKindW<UsbEp5rSpec> {
+    pub fn ep_kind(&mut self) -> EpKindW<'_, UsbEp5rSpec> {
         EpKindW::new(self, 8)
     }
     #[doc = "Bits 9:10 - Endpoint type"]
     #[inline(always)]
-    pub fn ep_type(&mut self) -> EpTypeW<UsbEp5rSpec> {
+    pub fn ep_type(&mut self) -> EpTypeW<'_, UsbEp5rSpec> {
         EpTypeW::new(self, 9)
     }
     #[doc = "Bits 12:13 - Status bits, for reception transfers"]
     #[inline(always)]
-    pub fn stat_rx(&mut self) -> StatRxW<UsbEp5rSpec> {
+    pub fn stat_rx(&mut self) -> StatRxW<'_, UsbEp5rSpec> {
         StatRxW::new(self, 12)
     }
     #[doc = "Bit 14 - Data Toggle, for reception transfers"]
     #[inline(always)]
-    pub fn dtog_rx(&mut self) -> DtogRxW<UsbEp5rSpec> {
+    pub fn dtog_rx(&mut self) -> DtogRxW<'_, UsbEp5rSpec> {
         DtogRxW::new(self, 14)
     }
     #[doc = "Bit 15 - Correct transfer for reception"]
     #[inline(always)]
-    pub fn ctr_rx(&mut self) -> CtrRxW<UsbEp5rSpec> {
+    pub fn ctr_rx(&mut self) -> CtrRxW<'_, UsbEp5rSpec> {
         CtrRxW::new(self, 15)
     }
 }

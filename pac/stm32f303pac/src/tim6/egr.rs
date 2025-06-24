@@ -5,7 +5,7 @@ pub type UgW<'a, REG> = crate::BitWriter<'a, REG>;
 impl W {
     #[doc = "Bit 0 - Update generation"]
     #[inline(always)]
-    pub fn ug(&mut self) -> UgW<EgrSpec> {
+    pub fn ug(&mut self) -> UgW<'_, EgrSpec> {
         UgW::new(self, 0)
     }
 }

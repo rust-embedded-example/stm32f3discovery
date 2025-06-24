@@ -187,102 +187,102 @@ impl R {
 impl W {
     #[doc = "Bits 0:2 - Wakeup clock selection"]
     #[inline(always)]
-    pub fn wcksel(&mut self) -> WckselW<CrSpec> {
+    pub fn wcksel(&mut self) -> WckselW<'_, CrSpec> {
         WckselW::new(self, 0)
     }
     #[doc = "Bit 3 - Time-stamp event active edge"]
     #[inline(always)]
-    pub fn tsedge(&mut self) -> TsedgeW<CrSpec> {
+    pub fn tsedge(&mut self) -> TsedgeW<'_, CrSpec> {
         TsedgeW::new(self, 3)
     }
     #[doc = "Bit 4 - Reference clock detection enable (50 or 60 Hz)"]
     #[inline(always)]
-    pub fn refckon(&mut self) -> RefckonW<CrSpec> {
+    pub fn refckon(&mut self) -> RefckonW<'_, CrSpec> {
         RefckonW::new(self, 4)
     }
     #[doc = "Bit 5 - Bypass the shadow registers"]
     #[inline(always)]
-    pub fn bypshad(&mut self) -> BypshadW<CrSpec> {
+    pub fn bypshad(&mut self) -> BypshadW<'_, CrSpec> {
         BypshadW::new(self, 5)
     }
     #[doc = "Bit 6 - Hour format"]
     #[inline(always)]
-    pub fn fmt(&mut self) -> FmtW<CrSpec> {
+    pub fn fmt(&mut self) -> FmtW<'_, CrSpec> {
         FmtW::new(self, 6)
     }
     #[doc = "Bit 8 - Alarm A enable"]
     #[inline(always)]
-    pub fn alrae(&mut self) -> AlraeW<CrSpec> {
+    pub fn alrae(&mut self) -> AlraeW<'_, CrSpec> {
         AlraeW::new(self, 8)
     }
     #[doc = "Bit 9 - Alarm B enable"]
     #[inline(always)]
-    pub fn alrbe(&mut self) -> AlrbeW<CrSpec> {
+    pub fn alrbe(&mut self) -> AlrbeW<'_, CrSpec> {
         AlrbeW::new(self, 9)
     }
     #[doc = "Bit 10 - Wakeup timer enable"]
     #[inline(always)]
-    pub fn wute(&mut self) -> WuteW<CrSpec> {
+    pub fn wute(&mut self) -> WuteW<'_, CrSpec> {
         WuteW::new(self, 10)
     }
     #[doc = "Bit 11 - Time stamp enable"]
     #[inline(always)]
-    pub fn tse(&mut self) -> TseW<CrSpec> {
+    pub fn tse(&mut self) -> TseW<'_, CrSpec> {
         TseW::new(self, 11)
     }
     #[doc = "Bit 12 - Alarm A interrupt enable"]
     #[inline(always)]
-    pub fn alraie(&mut self) -> AlraieW<CrSpec> {
+    pub fn alraie(&mut self) -> AlraieW<'_, CrSpec> {
         AlraieW::new(self, 12)
     }
     #[doc = "Bit 13 - Alarm B interrupt enable"]
     #[inline(always)]
-    pub fn alrbie(&mut self) -> AlrbieW<CrSpec> {
+    pub fn alrbie(&mut self) -> AlrbieW<'_, CrSpec> {
         AlrbieW::new(self, 13)
     }
     #[doc = "Bit 14 - Wakeup timer interrupt enable"]
     #[inline(always)]
-    pub fn wutie(&mut self) -> WutieW<CrSpec> {
+    pub fn wutie(&mut self) -> WutieW<'_, CrSpec> {
         WutieW::new(self, 14)
     }
     #[doc = "Bit 15 - Time-stamp interrupt enable"]
     #[inline(always)]
-    pub fn tsie(&mut self) -> TsieW<CrSpec> {
+    pub fn tsie(&mut self) -> TsieW<'_, CrSpec> {
         TsieW::new(self, 15)
     }
     #[doc = "Bit 16 - Add 1 hour (summer time change)"]
     #[inline(always)]
-    pub fn add1h(&mut self) -> Add1hW<CrSpec> {
+    pub fn add1h(&mut self) -> Add1hW<'_, CrSpec> {
         Add1hW::new(self, 16)
     }
     #[doc = "Bit 17 - Subtract 1 hour (winter time change)"]
     #[inline(always)]
-    pub fn sub1h(&mut self) -> Sub1hW<CrSpec> {
+    pub fn sub1h(&mut self) -> Sub1hW<'_, CrSpec> {
         Sub1hW::new(self, 17)
     }
     #[doc = "Bit 18 - Backup"]
     #[inline(always)]
-    pub fn bkp(&mut self) -> BkpW<CrSpec> {
+    pub fn bkp(&mut self) -> BkpW<'_, CrSpec> {
         BkpW::new(self, 18)
     }
     #[doc = "Bit 19 - Calibration output selection"]
     #[inline(always)]
-    pub fn cosel(&mut self) -> CoselW<CrSpec> {
+    pub fn cosel(&mut self) -> CoselW<'_, CrSpec> {
         CoselW::new(self, 19)
     }
     #[doc = "Bit 20 - Output polarity"]
     #[inline(always)]
-    pub fn pol(&mut self) -> PolW<CrSpec> {
+    pub fn pol(&mut self) -> PolW<'_, CrSpec> {
         PolW::new(self, 20)
     }
     #[doc = "Bits 21:22 - Output selection"]
     #[inline(always)]
-    pub fn osel(&mut self) -> OselW<CrSpec> {
+    pub fn osel(&mut self) -> OselW<'_, CrSpec> {
         OselW::new(self, 21)
     }
     #[doc = "Bit 23 - Calibration output enable"]
     #[inline(always)]
-    pub fn coe(&mut self) -> CoeW<CrSpec> {
+    pub fn coe(&mut self) -> CoeW<'_, CrSpec> {
         CoeW::new(self, 23)
     }
 }

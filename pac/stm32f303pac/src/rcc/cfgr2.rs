@@ -34,17 +34,17 @@ impl R {
 impl W {
     #[doc = "Bits 0:3 - PREDIV division factor"]
     #[inline(always)]
-    pub fn prediv(&mut self) -> PredivW<Cfgr2Spec> {
+    pub fn prediv(&mut self) -> PredivW<'_, Cfgr2Spec> {
         PredivW::new(self, 0)
     }
     #[doc = "Bits 4:8 - ADC1 and ADC2 prescaler"]
     #[inline(always)]
-    pub fn adc12pres(&mut self) -> Adc12presW<Cfgr2Spec> {
+    pub fn adc12pres(&mut self) -> Adc12presW<'_, Cfgr2Spec> {
         Adc12presW::new(self, 4)
     }
     #[doc = "Bits 9:13 - ADC3 and ADC4 prescaler"]
     #[inline(always)]
-    pub fn adc34pres(&mut self) -> Adc34presW<Cfgr2Spec> {
+    pub fn adc34pres(&mut self) -> Adc34presW<'_, Cfgr2Spec> {
         Adc34presW::new(self, 9)
     }
 }

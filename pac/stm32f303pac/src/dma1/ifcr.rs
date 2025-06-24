@@ -59,142 +59,142 @@ pub type Cteif7W<'a, REG> = crate::BitWriter<'a, REG>;
 impl W {
     #[doc = "Bit 0 - Channel 1 Global interrupt clear"]
     #[inline(always)]
-    pub fn cgif1(&mut self) -> Cgif1W<IfcrSpec> {
+    pub fn cgif1(&mut self) -> Cgif1W<'_, IfcrSpec> {
         Cgif1W::new(self, 0)
     }
     #[doc = "Bit 1 - Channel 1 Transfer Complete clear"]
     #[inline(always)]
-    pub fn ctcif1(&mut self) -> Ctcif1W<IfcrSpec> {
+    pub fn ctcif1(&mut self) -> Ctcif1W<'_, IfcrSpec> {
         Ctcif1W::new(self, 1)
     }
     #[doc = "Bit 2 - Channel 1 Half Transfer clear"]
     #[inline(always)]
-    pub fn chtif1(&mut self) -> Chtif1W<IfcrSpec> {
+    pub fn chtif1(&mut self) -> Chtif1W<'_, IfcrSpec> {
         Chtif1W::new(self, 2)
     }
     #[doc = "Bit 3 - Channel 1 Transfer Error clear"]
     #[inline(always)]
-    pub fn cteif1(&mut self) -> Cteif1W<IfcrSpec> {
+    pub fn cteif1(&mut self) -> Cteif1W<'_, IfcrSpec> {
         Cteif1W::new(self, 3)
     }
     #[doc = "Bit 4 - Channel 2 Global interrupt clear"]
     #[inline(always)]
-    pub fn cgif2(&mut self) -> Cgif2W<IfcrSpec> {
+    pub fn cgif2(&mut self) -> Cgif2W<'_, IfcrSpec> {
         Cgif2W::new(self, 4)
     }
     #[doc = "Bit 5 - Channel 2 Transfer Complete clear"]
     #[inline(always)]
-    pub fn ctcif2(&mut self) -> Ctcif2W<IfcrSpec> {
+    pub fn ctcif2(&mut self) -> Ctcif2W<'_, IfcrSpec> {
         Ctcif2W::new(self, 5)
     }
     #[doc = "Bit 6 - Channel 2 Half Transfer clear"]
     #[inline(always)]
-    pub fn chtif2(&mut self) -> Chtif2W<IfcrSpec> {
+    pub fn chtif2(&mut self) -> Chtif2W<'_, IfcrSpec> {
         Chtif2W::new(self, 6)
     }
     #[doc = "Bit 7 - Channel 2 Transfer Error clear"]
     #[inline(always)]
-    pub fn cteif2(&mut self) -> Cteif2W<IfcrSpec> {
+    pub fn cteif2(&mut self) -> Cteif2W<'_, IfcrSpec> {
         Cteif2W::new(self, 7)
     }
     #[doc = "Bit 8 - Channel 3 Global interrupt clear"]
     #[inline(always)]
-    pub fn cgif3(&mut self) -> Cgif3W<IfcrSpec> {
+    pub fn cgif3(&mut self) -> Cgif3W<'_, IfcrSpec> {
         Cgif3W::new(self, 8)
     }
     #[doc = "Bit 9 - Channel 3 Transfer Complete clear"]
     #[inline(always)]
-    pub fn ctcif3(&mut self) -> Ctcif3W<IfcrSpec> {
+    pub fn ctcif3(&mut self) -> Ctcif3W<'_, IfcrSpec> {
         Ctcif3W::new(self, 9)
     }
     #[doc = "Bit 10 - Channel 3 Half Transfer clear"]
     #[inline(always)]
-    pub fn chtif3(&mut self) -> Chtif3W<IfcrSpec> {
+    pub fn chtif3(&mut self) -> Chtif3W<'_, IfcrSpec> {
         Chtif3W::new(self, 10)
     }
     #[doc = "Bit 11 - Channel 3 Transfer Error clear"]
     #[inline(always)]
-    pub fn cteif3(&mut self) -> Cteif3W<IfcrSpec> {
+    pub fn cteif3(&mut self) -> Cteif3W<'_, IfcrSpec> {
         Cteif3W::new(self, 11)
     }
     #[doc = "Bit 12 - Channel 4 Global interrupt clear"]
     #[inline(always)]
-    pub fn cgif4(&mut self) -> Cgif4W<IfcrSpec> {
+    pub fn cgif4(&mut self) -> Cgif4W<'_, IfcrSpec> {
         Cgif4W::new(self, 12)
     }
     #[doc = "Bit 13 - Channel 4 Transfer Complete clear"]
     #[inline(always)]
-    pub fn ctcif4(&mut self) -> Ctcif4W<IfcrSpec> {
+    pub fn ctcif4(&mut self) -> Ctcif4W<'_, IfcrSpec> {
         Ctcif4W::new(self, 13)
     }
     #[doc = "Bit 14 - Channel 4 Half Transfer clear"]
     #[inline(always)]
-    pub fn chtif4(&mut self) -> Chtif4W<IfcrSpec> {
+    pub fn chtif4(&mut self) -> Chtif4W<'_, IfcrSpec> {
         Chtif4W::new(self, 14)
     }
     #[doc = "Bit 15 - Channel 4 Transfer Error clear"]
     #[inline(always)]
-    pub fn cteif4(&mut self) -> Cteif4W<IfcrSpec> {
+    pub fn cteif4(&mut self) -> Cteif4W<'_, IfcrSpec> {
         Cteif4W::new(self, 15)
     }
     #[doc = "Bit 16 - Channel 5 Global interrupt clear"]
     #[inline(always)]
-    pub fn cgif5(&mut self) -> Cgif5W<IfcrSpec> {
+    pub fn cgif5(&mut self) -> Cgif5W<'_, IfcrSpec> {
         Cgif5W::new(self, 16)
     }
     #[doc = "Bit 17 - Channel 5 Transfer Complete clear"]
     #[inline(always)]
-    pub fn ctcif5(&mut self) -> Ctcif5W<IfcrSpec> {
+    pub fn ctcif5(&mut self) -> Ctcif5W<'_, IfcrSpec> {
         Ctcif5W::new(self, 17)
     }
     #[doc = "Bit 18 - Channel 5 Half Transfer clear"]
     #[inline(always)]
-    pub fn chtif5(&mut self) -> Chtif5W<IfcrSpec> {
+    pub fn chtif5(&mut self) -> Chtif5W<'_, IfcrSpec> {
         Chtif5W::new(self, 18)
     }
     #[doc = "Bit 19 - Channel 5 Transfer Error clear"]
     #[inline(always)]
-    pub fn cteif5(&mut self) -> Cteif5W<IfcrSpec> {
+    pub fn cteif5(&mut self) -> Cteif5W<'_, IfcrSpec> {
         Cteif5W::new(self, 19)
     }
     #[doc = "Bit 20 - Channel 6 Global interrupt clear"]
     #[inline(always)]
-    pub fn cgif6(&mut self) -> Cgif6W<IfcrSpec> {
+    pub fn cgif6(&mut self) -> Cgif6W<'_, IfcrSpec> {
         Cgif6W::new(self, 20)
     }
     #[doc = "Bit 21 - Channel 6 Transfer Complete clear"]
     #[inline(always)]
-    pub fn ctcif6(&mut self) -> Ctcif6W<IfcrSpec> {
+    pub fn ctcif6(&mut self) -> Ctcif6W<'_, IfcrSpec> {
         Ctcif6W::new(self, 21)
     }
     #[doc = "Bit 22 - Channel 6 Half Transfer clear"]
     #[inline(always)]
-    pub fn chtif6(&mut self) -> Chtif6W<IfcrSpec> {
+    pub fn chtif6(&mut self) -> Chtif6W<'_, IfcrSpec> {
         Chtif6W::new(self, 22)
     }
     #[doc = "Bit 23 - Channel 6 Transfer Error clear"]
     #[inline(always)]
-    pub fn cteif6(&mut self) -> Cteif6W<IfcrSpec> {
+    pub fn cteif6(&mut self) -> Cteif6W<'_, IfcrSpec> {
         Cteif6W::new(self, 23)
     }
     #[doc = "Bit 24 - Channel 7 Global interrupt clear"]
     #[inline(always)]
-    pub fn cgif7(&mut self) -> Cgif7W<IfcrSpec> {
+    pub fn cgif7(&mut self) -> Cgif7W<'_, IfcrSpec> {
         Cgif7W::new(self, 24)
     }
     #[doc = "Bit 25 - Channel 7 Transfer Complete clear"]
     #[inline(always)]
-    pub fn ctcif7(&mut self) -> Ctcif7W<IfcrSpec> {
+    pub fn ctcif7(&mut self) -> Ctcif7W<'_, IfcrSpec> {
         Ctcif7W::new(self, 25)
     }
     #[doc = "Bit 26 - Channel 7 Half Transfer clear"]
     #[inline(always)]
-    pub fn chtif7(&mut self) -> Chtif7W<IfcrSpec> {
+    pub fn chtif7(&mut self) -> Chtif7W<'_, IfcrSpec> {
         Chtif7W::new(self, 26)
     }
     #[doc = "Bit 27 - Channel 7 Transfer Error clear"]
     #[inline(always)]
-    pub fn cteif7(&mut self) -> Cteif7W<IfcrSpec> {
+    pub fn cteif7(&mut self) -> Cteif7W<'_, IfcrSpec> {
         Cteif7W::new(self, 27)
     }
 }

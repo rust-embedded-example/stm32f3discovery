@@ -169,92 +169,92 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Tamper 1 detection enable"]
     #[inline(always)]
-    pub fn tamp1e(&mut self) -> Tamp1eW<TafcrSpec> {
+    pub fn tamp1e(&mut self) -> Tamp1eW<'_, TafcrSpec> {
         Tamp1eW::new(self, 0)
     }
     #[doc = "Bit 1 - Active level for tamper 1"]
     #[inline(always)]
-    pub fn tamp1trg(&mut self) -> Tamp1trgW<TafcrSpec> {
+    pub fn tamp1trg(&mut self) -> Tamp1trgW<'_, TafcrSpec> {
         Tamp1trgW::new(self, 1)
     }
     #[doc = "Bit 2 - Tamper interrupt enable"]
     #[inline(always)]
-    pub fn tampie(&mut self) -> TampieW<TafcrSpec> {
+    pub fn tampie(&mut self) -> TampieW<'_, TafcrSpec> {
         TampieW::new(self, 2)
     }
     #[doc = "Bit 3 - Tamper 2 detection enable"]
     #[inline(always)]
-    pub fn tamp2e(&mut self) -> Tamp2eW<TafcrSpec> {
+    pub fn tamp2e(&mut self) -> Tamp2eW<'_, TafcrSpec> {
         Tamp2eW::new(self, 3)
     }
     #[doc = "Bit 4 - Active level for tamper 2"]
     #[inline(always)]
-    pub fn tamp2trg(&mut self) -> Tamp2trgW<TafcrSpec> {
+    pub fn tamp2trg(&mut self) -> Tamp2trgW<'_, TafcrSpec> {
         Tamp2trgW::new(self, 4)
     }
     #[doc = "Bit 5 - Tamper 3 detection enable"]
     #[inline(always)]
-    pub fn tamp3e(&mut self) -> Tamp3eW<TafcrSpec> {
+    pub fn tamp3e(&mut self) -> Tamp3eW<'_, TafcrSpec> {
         Tamp3eW::new(self, 5)
     }
     #[doc = "Bit 6 - Active level for tamper 3"]
     #[inline(always)]
-    pub fn tamp3trg(&mut self) -> Tamp3trgW<TafcrSpec> {
+    pub fn tamp3trg(&mut self) -> Tamp3trgW<'_, TafcrSpec> {
         Tamp3trgW::new(self, 6)
     }
     #[doc = "Bit 7 - Activate timestamp on tamper detection event"]
     #[inline(always)]
-    pub fn tampts(&mut self) -> TamptsW<TafcrSpec> {
+    pub fn tampts(&mut self) -> TamptsW<'_, TafcrSpec> {
         TamptsW::new(self, 7)
     }
     #[doc = "Bits 8:10 - Tamper sampling frequency"]
     #[inline(always)]
-    pub fn tampfreq(&mut self) -> TampfreqW<TafcrSpec> {
+    pub fn tampfreq(&mut self) -> TampfreqW<'_, TafcrSpec> {
         TampfreqW::new(self, 8)
     }
     #[doc = "Bits 11:12 - Tamper filter count"]
     #[inline(always)]
-    pub fn tampflt(&mut self) -> TampfltW<TafcrSpec> {
+    pub fn tampflt(&mut self) -> TampfltW<'_, TafcrSpec> {
         TampfltW::new(self, 11)
     }
     #[doc = "Bits 13:14 - Tamper precharge duration"]
     #[inline(always)]
-    pub fn tampprch(&mut self) -> TampprchW<TafcrSpec> {
+    pub fn tampprch(&mut self) -> TampprchW<'_, TafcrSpec> {
         TampprchW::new(self, 13)
     }
     #[doc = "Bit 15 - TAMPER pull-up disable"]
     #[inline(always)]
-    pub fn tamppudis(&mut self) -> TamppudisW<TafcrSpec> {
+    pub fn tamppudis(&mut self) -> TamppudisW<'_, TafcrSpec> {
         TamppudisW::new(self, 15)
     }
     #[doc = "Bit 18 - PC13 value"]
     #[inline(always)]
-    pub fn pc13value(&mut self) -> Pc13valueW<TafcrSpec> {
+    pub fn pc13value(&mut self) -> Pc13valueW<'_, TafcrSpec> {
         Pc13valueW::new(self, 18)
     }
     #[doc = "Bit 19 - PC13 mode"]
     #[inline(always)]
-    pub fn pc13mode(&mut self) -> Pc13modeW<TafcrSpec> {
+    pub fn pc13mode(&mut self) -> Pc13modeW<'_, TafcrSpec> {
         Pc13modeW::new(self, 19)
     }
     #[doc = "Bit 20 - PC14 value"]
     #[inline(always)]
-    pub fn pc14value(&mut self) -> Pc14valueW<TafcrSpec> {
+    pub fn pc14value(&mut self) -> Pc14valueW<'_, TafcrSpec> {
         Pc14valueW::new(self, 20)
     }
     #[doc = "Bit 21 - PC 14 mode"]
     #[inline(always)]
-    pub fn pc14mode(&mut self) -> Pc14modeW<TafcrSpec> {
+    pub fn pc14mode(&mut self) -> Pc14modeW<'_, TafcrSpec> {
         Pc14modeW::new(self, 21)
     }
     #[doc = "Bit 22 - PC15 value"]
     #[inline(always)]
-    pub fn pc15value(&mut self) -> Pc15valueW<TafcrSpec> {
+    pub fn pc15value(&mut self) -> Pc15valueW<'_, TafcrSpec> {
         Pc15valueW::new(self, 22)
     }
     #[doc = "Bit 23 - PC15 mode"]
     #[inline(always)]
-    pub fn pc15mode(&mut self) -> Pc15modeW<TafcrSpec> {
+    pub fn pc15mode(&mut self) -> Pc15modeW<'_, TafcrSpec> {
         Pc15modeW::new(self, 23)
     }
 }

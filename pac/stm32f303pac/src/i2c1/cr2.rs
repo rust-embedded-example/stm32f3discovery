@@ -124,67 +124,67 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Slave address bit 0 (master mode)"]
     #[inline(always)]
-    pub fn sadd0(&mut self) -> Sadd0W<Cr2Spec> {
+    pub fn sadd0(&mut self) -> Sadd0W<'_, Cr2Spec> {
         Sadd0W::new(self, 0)
     }
     #[doc = "Bits 1:7 - Slave address bit 7:1 (master mode)"]
     #[inline(always)]
-    pub fn sadd1(&mut self) -> Sadd1W<Cr2Spec> {
+    pub fn sadd1(&mut self) -> Sadd1W<'_, Cr2Spec> {
         Sadd1W::new(self, 1)
     }
     #[doc = "Bits 8:9 - Slave address bit 9:8 (master mode)"]
     #[inline(always)]
-    pub fn sadd8(&mut self) -> Sadd8W<Cr2Spec> {
+    pub fn sadd8(&mut self) -> Sadd8W<'_, Cr2Spec> {
         Sadd8W::new(self, 8)
     }
     #[doc = "Bit 10 - Transfer direction (master mode)"]
     #[inline(always)]
-    pub fn rd_wrn(&mut self) -> RdWrnW<Cr2Spec> {
+    pub fn rd_wrn(&mut self) -> RdWrnW<'_, Cr2Spec> {
         RdWrnW::new(self, 10)
     }
     #[doc = "Bit 11 - 10-bit addressing mode (master mode)"]
     #[inline(always)]
-    pub fn add10(&mut self) -> Add10W<Cr2Spec> {
+    pub fn add10(&mut self) -> Add10W<'_, Cr2Spec> {
         Add10W::new(self, 11)
     }
     #[doc = "Bit 12 - 10-bit address header only read direction (master receiver mode)"]
     #[inline(always)]
-    pub fn head10r(&mut self) -> Head10rW<Cr2Spec> {
+    pub fn head10r(&mut self) -> Head10rW<'_, Cr2Spec> {
         Head10rW::new(self, 12)
     }
     #[doc = "Bit 13 - Start generation"]
     #[inline(always)]
-    pub fn start(&mut self) -> StartW<Cr2Spec> {
+    pub fn start(&mut self) -> StartW<'_, Cr2Spec> {
         StartW::new(self, 13)
     }
     #[doc = "Bit 14 - Stop generation (master mode)"]
     #[inline(always)]
-    pub fn stop(&mut self) -> StopW<Cr2Spec> {
+    pub fn stop(&mut self) -> StopW<'_, Cr2Spec> {
         StopW::new(self, 14)
     }
     #[doc = "Bit 15 - NACK generation (slave mode)"]
     #[inline(always)]
-    pub fn nack(&mut self) -> NackW<Cr2Spec> {
+    pub fn nack(&mut self) -> NackW<'_, Cr2Spec> {
         NackW::new(self, 15)
     }
     #[doc = "Bits 16:23 - Number of bytes"]
     #[inline(always)]
-    pub fn nbytes(&mut self) -> NbytesW<Cr2Spec> {
+    pub fn nbytes(&mut self) -> NbytesW<'_, Cr2Spec> {
         NbytesW::new(self, 16)
     }
     #[doc = "Bit 24 - NBYTES reload mode"]
     #[inline(always)]
-    pub fn reload(&mut self) -> ReloadW<Cr2Spec> {
+    pub fn reload(&mut self) -> ReloadW<'_, Cr2Spec> {
         ReloadW::new(self, 24)
     }
     #[doc = "Bit 25 - Automatic end mode (master mode)"]
     #[inline(always)]
-    pub fn autoend(&mut self) -> AutoendW<Cr2Spec> {
+    pub fn autoend(&mut self) -> AutoendW<'_, Cr2Spec> {
         AutoendW::new(self, 25)
     }
     #[doc = "Bit 26 - Packet error checking byte"]
     #[inline(always)]
-    pub fn pecbyte(&mut self) -> PecbyteW<Cr2Spec> {
+    pub fn pecbyte(&mut self) -> PecbyteW<'_, Cr2Spec> {
         PecbyteW::new(self, 26)
     }
 }

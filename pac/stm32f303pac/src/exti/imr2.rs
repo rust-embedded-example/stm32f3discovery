@@ -43,22 +43,22 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Interrupt Mask on external/internal line 32"]
     #[inline(always)]
-    pub fn mr32(&mut self) -> Mr32W<Imr2Spec> {
+    pub fn mr32(&mut self) -> Mr32W<'_, Imr2Spec> {
         Mr32W::new(self, 0)
     }
     #[doc = "Bit 1 - Interrupt Mask on external/internal line 33"]
     #[inline(always)]
-    pub fn mr33(&mut self) -> Mr33W<Imr2Spec> {
+    pub fn mr33(&mut self) -> Mr33W<'_, Imr2Spec> {
         Mr33W::new(self, 1)
     }
     #[doc = "Bit 2 - Interrupt Mask on external/internal line 34"]
     #[inline(always)]
-    pub fn mr34(&mut self) -> Mr34W<Imr2Spec> {
+    pub fn mr34(&mut self) -> Mr34W<'_, Imr2Spec> {
         Mr34W::new(self, 2)
     }
     #[doc = "Bit 3 - Interrupt Mask on external/internal line 35"]
     #[inline(always)]
-    pub fn mr35(&mut self) -> Mr35W<Imr2Spec> {
+    pub fn mr35(&mut self) -> Mr35W<'_, Imr2Spec> {
         Mr35W::new(self, 3)
     }
 }

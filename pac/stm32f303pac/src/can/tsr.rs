@@ -191,77 +191,77 @@ impl R {
 impl W {
     #[doc = "Bit 0 - RQCP0"]
     #[inline(always)]
-    pub fn rqcp0(&mut self) -> Rqcp0W<TsrSpec> {
+    pub fn rqcp0(&mut self) -> Rqcp0W<'_, TsrSpec> {
         Rqcp0W::new(self, 0)
     }
     #[doc = "Bit 1 - TXOK0"]
     #[inline(always)]
-    pub fn txok0(&mut self) -> Txok0W<TsrSpec> {
+    pub fn txok0(&mut self) -> Txok0W<'_, TsrSpec> {
         Txok0W::new(self, 1)
     }
     #[doc = "Bit 2 - ALST0"]
     #[inline(always)]
-    pub fn alst0(&mut self) -> Alst0W<TsrSpec> {
+    pub fn alst0(&mut self) -> Alst0W<'_, TsrSpec> {
         Alst0W::new(self, 2)
     }
     #[doc = "Bit 3 - TERR0"]
     #[inline(always)]
-    pub fn terr0(&mut self) -> Terr0W<TsrSpec> {
+    pub fn terr0(&mut self) -> Terr0W<'_, TsrSpec> {
         Terr0W::new(self, 3)
     }
     #[doc = "Bit 7 - ABRQ0"]
     #[inline(always)]
-    pub fn abrq0(&mut self) -> Abrq0W<TsrSpec> {
+    pub fn abrq0(&mut self) -> Abrq0W<'_, TsrSpec> {
         Abrq0W::new(self, 7)
     }
     #[doc = "Bit 8 - RQCP1"]
     #[inline(always)]
-    pub fn rqcp1(&mut self) -> Rqcp1W<TsrSpec> {
+    pub fn rqcp1(&mut self) -> Rqcp1W<'_, TsrSpec> {
         Rqcp1W::new(self, 8)
     }
     #[doc = "Bit 9 - TXOK1"]
     #[inline(always)]
-    pub fn txok1(&mut self) -> Txok1W<TsrSpec> {
+    pub fn txok1(&mut self) -> Txok1W<'_, TsrSpec> {
         Txok1W::new(self, 9)
     }
     #[doc = "Bit 10 - ALST1"]
     #[inline(always)]
-    pub fn alst1(&mut self) -> Alst1W<TsrSpec> {
+    pub fn alst1(&mut self) -> Alst1W<'_, TsrSpec> {
         Alst1W::new(self, 10)
     }
     #[doc = "Bit 11 - TERR1"]
     #[inline(always)]
-    pub fn terr1(&mut self) -> Terr1W<TsrSpec> {
+    pub fn terr1(&mut self) -> Terr1W<'_, TsrSpec> {
         Terr1W::new(self, 11)
     }
     #[doc = "Bit 15 - ABRQ1"]
     #[inline(always)]
-    pub fn abrq1(&mut self) -> Abrq1W<TsrSpec> {
+    pub fn abrq1(&mut self) -> Abrq1W<'_, TsrSpec> {
         Abrq1W::new(self, 15)
     }
     #[doc = "Bit 16 - RQCP2"]
     #[inline(always)]
-    pub fn rqcp2(&mut self) -> Rqcp2W<TsrSpec> {
+    pub fn rqcp2(&mut self) -> Rqcp2W<'_, TsrSpec> {
         Rqcp2W::new(self, 16)
     }
     #[doc = "Bit 17 - TXOK2"]
     #[inline(always)]
-    pub fn txok2(&mut self) -> Txok2W<TsrSpec> {
+    pub fn txok2(&mut self) -> Txok2W<'_, TsrSpec> {
         Txok2W::new(self, 17)
     }
     #[doc = "Bit 18 - ALST2"]
     #[inline(always)]
-    pub fn alst2(&mut self) -> Alst2W<TsrSpec> {
+    pub fn alst2(&mut self) -> Alst2W<'_, TsrSpec> {
         Alst2W::new(self, 18)
     }
     #[doc = "Bit 19 - TERR2"]
     #[inline(always)]
-    pub fn terr2(&mut self) -> Terr2W<TsrSpec> {
+    pub fn terr2(&mut self) -> Terr2W<'_, TsrSpec> {
         Terr2W::new(self, 19)
     }
     #[doc = "Bit 23 - ABRQ2"]
     #[inline(always)]
-    pub fn abrq2(&mut self) -> Abrq2W<TsrSpec> {
+    pub fn abrq2(&mut self) -> Abrq2W<'_, TsrSpec> {
         Abrq2W::new(self, 23)
     }
 }

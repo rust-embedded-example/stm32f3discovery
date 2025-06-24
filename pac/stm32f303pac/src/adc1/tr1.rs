@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bits 0:11 - LT1"]
     #[inline(always)]
-    pub fn lt1(&mut self) -> Lt1W<Tr1Spec> {
+    pub fn lt1(&mut self) -> Lt1W<'_, Tr1Spec> {
         Lt1W::new(self, 0)
     }
     #[doc = "Bits 16:27 - HT1"]
     #[inline(always)]
-    pub fn ht1(&mut self) -> Ht1W<Tr1Spec> {
+    pub fn ht1(&mut self) -> Ht1W<'_, Tr1Spec> {
         Ht1W::new(self, 16)
     }
 }

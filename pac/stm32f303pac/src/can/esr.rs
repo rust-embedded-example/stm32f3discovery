@@ -51,7 +51,7 @@ impl R {
 impl W {
     #[doc = "Bits 4:6 - LEC"]
     #[inline(always)]
-    pub fn lec(&mut self) -> LecW<EsrSpec> {
+    pub fn lec(&mut self) -> LecW<'_, EsrSpec> {
         LecW::new(self, 4)
     }
 }

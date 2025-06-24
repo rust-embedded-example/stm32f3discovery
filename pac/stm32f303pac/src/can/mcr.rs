@@ -97,52 +97,52 @@ impl R {
 impl W {
     #[doc = "Bit 0 - INRQ"]
     #[inline(always)]
-    pub fn inrq(&mut self) -> InrqW<McrSpec> {
+    pub fn inrq(&mut self) -> InrqW<'_, McrSpec> {
         InrqW::new(self, 0)
     }
     #[doc = "Bit 1 - SLEEP"]
     #[inline(always)]
-    pub fn sleep(&mut self) -> SleepW<McrSpec> {
+    pub fn sleep(&mut self) -> SleepW<'_, McrSpec> {
         SleepW::new(self, 1)
     }
     #[doc = "Bit 2 - TXFP"]
     #[inline(always)]
-    pub fn txfp(&mut self) -> TxfpW<McrSpec> {
+    pub fn txfp(&mut self) -> TxfpW<'_, McrSpec> {
         TxfpW::new(self, 2)
     }
     #[doc = "Bit 3 - RFLM"]
     #[inline(always)]
-    pub fn rflm(&mut self) -> RflmW<McrSpec> {
+    pub fn rflm(&mut self) -> RflmW<'_, McrSpec> {
         RflmW::new(self, 3)
     }
     #[doc = "Bit 4 - NART"]
     #[inline(always)]
-    pub fn nart(&mut self) -> NartW<McrSpec> {
+    pub fn nart(&mut self) -> NartW<'_, McrSpec> {
         NartW::new(self, 4)
     }
     #[doc = "Bit 5 - AWUM"]
     #[inline(always)]
-    pub fn awum(&mut self) -> AwumW<McrSpec> {
+    pub fn awum(&mut self) -> AwumW<'_, McrSpec> {
         AwumW::new(self, 5)
     }
     #[doc = "Bit 6 - ABOM"]
     #[inline(always)]
-    pub fn abom(&mut self) -> AbomW<McrSpec> {
+    pub fn abom(&mut self) -> AbomW<'_, McrSpec> {
         AbomW::new(self, 6)
     }
     #[doc = "Bit 7 - TTCM"]
     #[inline(always)]
-    pub fn ttcm(&mut self) -> TtcmW<McrSpec> {
+    pub fn ttcm(&mut self) -> TtcmW<'_, McrSpec> {
         TtcmW::new(self, 7)
     }
     #[doc = "Bit 15 - RESET"]
     #[inline(always)]
-    pub fn reset(&mut self) -> ResetW<McrSpec> {
+    pub fn reset(&mut self) -> ResetW<'_, McrSpec> {
         ResetW::new(self, 15)
     }
     #[doc = "Bit 16 - DBF"]
     #[inline(always)]
-    pub fn dbf(&mut self) -> DbfW<McrSpec> {
+    pub fn dbf(&mut self) -> DbfW<'_, McrSpec> {
         DbfW::new(self, 16)
     }
 }

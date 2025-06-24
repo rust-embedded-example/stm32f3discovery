@@ -259,142 +259,142 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Filter mode"]
     #[inline(always)]
-    pub fn fbm0(&mut self) -> Fbm0W<Fm1rSpec> {
+    pub fn fbm0(&mut self) -> Fbm0W<'_, Fm1rSpec> {
         Fbm0W::new(self, 0)
     }
     #[doc = "Bit 1 - Filter mode"]
     #[inline(always)]
-    pub fn fbm1(&mut self) -> Fbm1W<Fm1rSpec> {
+    pub fn fbm1(&mut self) -> Fbm1W<'_, Fm1rSpec> {
         Fbm1W::new(self, 1)
     }
     #[doc = "Bit 2 - Filter mode"]
     #[inline(always)]
-    pub fn fbm2(&mut self) -> Fbm2W<Fm1rSpec> {
+    pub fn fbm2(&mut self) -> Fbm2W<'_, Fm1rSpec> {
         Fbm2W::new(self, 2)
     }
     #[doc = "Bit 3 - Filter mode"]
     #[inline(always)]
-    pub fn fbm3(&mut self) -> Fbm3W<Fm1rSpec> {
+    pub fn fbm3(&mut self) -> Fbm3W<'_, Fm1rSpec> {
         Fbm3W::new(self, 3)
     }
     #[doc = "Bit 4 - Filter mode"]
     #[inline(always)]
-    pub fn fbm4(&mut self) -> Fbm4W<Fm1rSpec> {
+    pub fn fbm4(&mut self) -> Fbm4W<'_, Fm1rSpec> {
         Fbm4W::new(self, 4)
     }
     #[doc = "Bit 5 - Filter mode"]
     #[inline(always)]
-    pub fn fbm5(&mut self) -> Fbm5W<Fm1rSpec> {
+    pub fn fbm5(&mut self) -> Fbm5W<'_, Fm1rSpec> {
         Fbm5W::new(self, 5)
     }
     #[doc = "Bit 6 - Filter mode"]
     #[inline(always)]
-    pub fn fbm6(&mut self) -> Fbm6W<Fm1rSpec> {
+    pub fn fbm6(&mut self) -> Fbm6W<'_, Fm1rSpec> {
         Fbm6W::new(self, 6)
     }
     #[doc = "Bit 7 - Filter mode"]
     #[inline(always)]
-    pub fn fbm7(&mut self) -> Fbm7W<Fm1rSpec> {
+    pub fn fbm7(&mut self) -> Fbm7W<'_, Fm1rSpec> {
         Fbm7W::new(self, 7)
     }
     #[doc = "Bit 8 - Filter mode"]
     #[inline(always)]
-    pub fn fbm8(&mut self) -> Fbm8W<Fm1rSpec> {
+    pub fn fbm8(&mut self) -> Fbm8W<'_, Fm1rSpec> {
         Fbm8W::new(self, 8)
     }
     #[doc = "Bit 9 - Filter mode"]
     #[inline(always)]
-    pub fn fbm9(&mut self) -> Fbm9W<Fm1rSpec> {
+    pub fn fbm9(&mut self) -> Fbm9W<'_, Fm1rSpec> {
         Fbm9W::new(self, 9)
     }
     #[doc = "Bit 10 - Filter mode"]
     #[inline(always)]
-    pub fn fbm10(&mut self) -> Fbm10W<Fm1rSpec> {
+    pub fn fbm10(&mut self) -> Fbm10W<'_, Fm1rSpec> {
         Fbm10W::new(self, 10)
     }
     #[doc = "Bit 11 - Filter mode"]
     #[inline(always)]
-    pub fn fbm11(&mut self) -> Fbm11W<Fm1rSpec> {
+    pub fn fbm11(&mut self) -> Fbm11W<'_, Fm1rSpec> {
         Fbm11W::new(self, 11)
     }
     #[doc = "Bit 12 - Filter mode"]
     #[inline(always)]
-    pub fn fbm12(&mut self) -> Fbm12W<Fm1rSpec> {
+    pub fn fbm12(&mut self) -> Fbm12W<'_, Fm1rSpec> {
         Fbm12W::new(self, 12)
     }
     #[doc = "Bit 13 - Filter mode"]
     #[inline(always)]
-    pub fn fbm13(&mut self) -> Fbm13W<Fm1rSpec> {
+    pub fn fbm13(&mut self) -> Fbm13W<'_, Fm1rSpec> {
         Fbm13W::new(self, 13)
     }
     #[doc = "Bit 14 - Filter mode"]
     #[inline(always)]
-    pub fn fbm14(&mut self) -> Fbm14W<Fm1rSpec> {
+    pub fn fbm14(&mut self) -> Fbm14W<'_, Fm1rSpec> {
         Fbm14W::new(self, 14)
     }
     #[doc = "Bit 15 - Filter mode"]
     #[inline(always)]
-    pub fn fbm15(&mut self) -> Fbm15W<Fm1rSpec> {
+    pub fn fbm15(&mut self) -> Fbm15W<'_, Fm1rSpec> {
         Fbm15W::new(self, 15)
     }
     #[doc = "Bit 16 - Filter mode"]
     #[inline(always)]
-    pub fn fbm16(&mut self) -> Fbm16W<Fm1rSpec> {
+    pub fn fbm16(&mut self) -> Fbm16W<'_, Fm1rSpec> {
         Fbm16W::new(self, 16)
     }
     #[doc = "Bit 17 - Filter mode"]
     #[inline(always)]
-    pub fn fbm17(&mut self) -> Fbm17W<Fm1rSpec> {
+    pub fn fbm17(&mut self) -> Fbm17W<'_, Fm1rSpec> {
         Fbm17W::new(self, 17)
     }
     #[doc = "Bit 18 - Filter mode"]
     #[inline(always)]
-    pub fn fbm18(&mut self) -> Fbm18W<Fm1rSpec> {
+    pub fn fbm18(&mut self) -> Fbm18W<'_, Fm1rSpec> {
         Fbm18W::new(self, 18)
     }
     #[doc = "Bit 19 - Filter mode"]
     #[inline(always)]
-    pub fn fbm19(&mut self) -> Fbm19W<Fm1rSpec> {
+    pub fn fbm19(&mut self) -> Fbm19W<'_, Fm1rSpec> {
         Fbm19W::new(self, 19)
     }
     #[doc = "Bit 20 - Filter mode"]
     #[inline(always)]
-    pub fn fbm20(&mut self) -> Fbm20W<Fm1rSpec> {
+    pub fn fbm20(&mut self) -> Fbm20W<'_, Fm1rSpec> {
         Fbm20W::new(self, 20)
     }
     #[doc = "Bit 21 - Filter mode"]
     #[inline(always)]
-    pub fn fbm21(&mut self) -> Fbm21W<Fm1rSpec> {
+    pub fn fbm21(&mut self) -> Fbm21W<'_, Fm1rSpec> {
         Fbm21W::new(self, 21)
     }
     #[doc = "Bit 22 - Filter mode"]
     #[inline(always)]
-    pub fn fbm22(&mut self) -> Fbm22W<Fm1rSpec> {
+    pub fn fbm22(&mut self) -> Fbm22W<'_, Fm1rSpec> {
         Fbm22W::new(self, 22)
     }
     #[doc = "Bit 23 - Filter mode"]
     #[inline(always)]
-    pub fn fbm23(&mut self) -> Fbm23W<Fm1rSpec> {
+    pub fn fbm23(&mut self) -> Fbm23W<'_, Fm1rSpec> {
         Fbm23W::new(self, 23)
     }
     #[doc = "Bit 24 - Filter mode"]
     #[inline(always)]
-    pub fn fbm24(&mut self) -> Fbm24W<Fm1rSpec> {
+    pub fn fbm24(&mut self) -> Fbm24W<'_, Fm1rSpec> {
         Fbm24W::new(self, 24)
     }
     #[doc = "Bit 25 - Filter mode"]
     #[inline(always)]
-    pub fn fbm25(&mut self) -> Fbm25W<Fm1rSpec> {
+    pub fn fbm25(&mut self) -> Fbm25W<'_, Fm1rSpec> {
         Fbm25W::new(self, 25)
     }
     #[doc = "Bit 26 - Filter mode"]
     #[inline(always)]
-    pub fn fbm26(&mut self) -> Fbm26W<Fm1rSpec> {
+    pub fn fbm26(&mut self) -> Fbm26W<'_, Fm1rSpec> {
         Fbm26W::new(self, 26)
     }
     #[doc = "Bit 27 - Filter mode"]
     #[inline(always)]
-    pub fn fbm27(&mut self) -> Fbm27W<Fm1rSpec> {
+    pub fn fbm27(&mut self) -> Fbm27W<'_, Fm1rSpec> {
         Fbm27W::new(self, 27)
     }
 }

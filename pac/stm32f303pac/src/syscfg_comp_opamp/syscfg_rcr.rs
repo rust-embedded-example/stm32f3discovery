@@ -79,42 +79,42 @@ impl R {
 impl W {
     #[doc = "Bit 0 - CCM SRAM page write protection bit"]
     #[inline(always)]
-    pub fn page0_wp(&mut self) -> Page0WpW<SyscfgRcrSpec> {
+    pub fn page0_wp(&mut self) -> Page0WpW<'_, SyscfgRcrSpec> {
         Page0WpW::new(self, 0)
     }
     #[doc = "Bit 1 - CCM SRAM page write protection bit"]
     #[inline(always)]
-    pub fn page1_wp(&mut self) -> Page1WpW<SyscfgRcrSpec> {
+    pub fn page1_wp(&mut self) -> Page1WpW<'_, SyscfgRcrSpec> {
         Page1WpW::new(self, 1)
     }
     #[doc = "Bit 2 - CCM SRAM page write protection bit"]
     #[inline(always)]
-    pub fn page2_wp(&mut self) -> Page2WpW<SyscfgRcrSpec> {
+    pub fn page2_wp(&mut self) -> Page2WpW<'_, SyscfgRcrSpec> {
         Page2WpW::new(self, 2)
     }
     #[doc = "Bit 3 - CCM SRAM page write protection bit"]
     #[inline(always)]
-    pub fn page3_wp(&mut self) -> Page3WpW<SyscfgRcrSpec> {
+    pub fn page3_wp(&mut self) -> Page3WpW<'_, SyscfgRcrSpec> {
         Page3WpW::new(self, 3)
     }
     #[doc = "Bit 4 - CCM SRAM page write protection bit"]
     #[inline(always)]
-    pub fn page4_wp(&mut self) -> Page4WpW<SyscfgRcrSpec> {
+    pub fn page4_wp(&mut self) -> Page4WpW<'_, SyscfgRcrSpec> {
         Page4WpW::new(self, 4)
     }
     #[doc = "Bit 5 - CCM SRAM page write protection bit"]
     #[inline(always)]
-    pub fn page5_wp(&mut self) -> Page5WpW<SyscfgRcrSpec> {
+    pub fn page5_wp(&mut self) -> Page5WpW<'_, SyscfgRcrSpec> {
         Page5WpW::new(self, 5)
     }
     #[doc = "Bit 6 - CCM SRAM page write protection bit"]
     #[inline(always)]
-    pub fn page6_wp(&mut self) -> Page6WpW<SyscfgRcrSpec> {
+    pub fn page6_wp(&mut self) -> Page6WpW<'_, SyscfgRcrSpec> {
         Page6WpW::new(self, 6)
     }
     #[doc = "Bit 7 - CCM SRAM page write protection bit"]
     #[inline(always)]
-    pub fn page7_wp(&mut self) -> Page7WpW<SyscfgRcrSpec> {
+    pub fn page7_wp(&mut self) -> Page7WpW<'_, SyscfgRcrSpec> {
         Page7WpW::new(self, 7)
     }
 }

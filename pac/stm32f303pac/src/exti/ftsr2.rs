@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Falling trigger event configuration bit of line 32"]
     #[inline(always)]
-    pub fn tr32(&mut self) -> Tr32W<Ftsr2Spec> {
+    pub fn tr32(&mut self) -> Tr32W<'_, Ftsr2Spec> {
         Tr32W::new(self, 0)
     }
     #[doc = "Bit 1 - Falling trigger event configuration bit of line 33"]
     #[inline(always)]
-    pub fn tr33(&mut self) -> Tr33W<Ftsr2Spec> {
+    pub fn tr33(&mut self) -> Tr33W<'_, Ftsr2Spec> {
         Tr33W::new(self, 1)
     }
 }

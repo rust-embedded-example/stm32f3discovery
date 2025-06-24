@@ -259,142 +259,142 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc0(&mut self) -> Fsc0W<Fs1rSpec> {
+    pub fn fsc0(&mut self) -> Fsc0W<'_, Fs1rSpec> {
         Fsc0W::new(self, 0)
     }
     #[doc = "Bit 1 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc1(&mut self) -> Fsc1W<Fs1rSpec> {
+    pub fn fsc1(&mut self) -> Fsc1W<'_, Fs1rSpec> {
         Fsc1W::new(self, 1)
     }
     #[doc = "Bit 2 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc2(&mut self) -> Fsc2W<Fs1rSpec> {
+    pub fn fsc2(&mut self) -> Fsc2W<'_, Fs1rSpec> {
         Fsc2W::new(self, 2)
     }
     #[doc = "Bit 3 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc3(&mut self) -> Fsc3W<Fs1rSpec> {
+    pub fn fsc3(&mut self) -> Fsc3W<'_, Fs1rSpec> {
         Fsc3W::new(self, 3)
     }
     #[doc = "Bit 4 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc4(&mut self) -> Fsc4W<Fs1rSpec> {
+    pub fn fsc4(&mut self) -> Fsc4W<'_, Fs1rSpec> {
         Fsc4W::new(self, 4)
     }
     #[doc = "Bit 5 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc5(&mut self) -> Fsc5W<Fs1rSpec> {
+    pub fn fsc5(&mut self) -> Fsc5W<'_, Fs1rSpec> {
         Fsc5W::new(self, 5)
     }
     #[doc = "Bit 6 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc6(&mut self) -> Fsc6W<Fs1rSpec> {
+    pub fn fsc6(&mut self) -> Fsc6W<'_, Fs1rSpec> {
         Fsc6W::new(self, 6)
     }
     #[doc = "Bit 7 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc7(&mut self) -> Fsc7W<Fs1rSpec> {
+    pub fn fsc7(&mut self) -> Fsc7W<'_, Fs1rSpec> {
         Fsc7W::new(self, 7)
     }
     #[doc = "Bit 8 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc8(&mut self) -> Fsc8W<Fs1rSpec> {
+    pub fn fsc8(&mut self) -> Fsc8W<'_, Fs1rSpec> {
         Fsc8W::new(self, 8)
     }
     #[doc = "Bit 9 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc9(&mut self) -> Fsc9W<Fs1rSpec> {
+    pub fn fsc9(&mut self) -> Fsc9W<'_, Fs1rSpec> {
         Fsc9W::new(self, 9)
     }
     #[doc = "Bit 10 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc10(&mut self) -> Fsc10W<Fs1rSpec> {
+    pub fn fsc10(&mut self) -> Fsc10W<'_, Fs1rSpec> {
         Fsc10W::new(self, 10)
     }
     #[doc = "Bit 11 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc11(&mut self) -> Fsc11W<Fs1rSpec> {
+    pub fn fsc11(&mut self) -> Fsc11W<'_, Fs1rSpec> {
         Fsc11W::new(self, 11)
     }
     #[doc = "Bit 12 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc12(&mut self) -> Fsc12W<Fs1rSpec> {
+    pub fn fsc12(&mut self) -> Fsc12W<'_, Fs1rSpec> {
         Fsc12W::new(self, 12)
     }
     #[doc = "Bit 13 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc13(&mut self) -> Fsc13W<Fs1rSpec> {
+    pub fn fsc13(&mut self) -> Fsc13W<'_, Fs1rSpec> {
         Fsc13W::new(self, 13)
     }
     #[doc = "Bit 14 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc14(&mut self) -> Fsc14W<Fs1rSpec> {
+    pub fn fsc14(&mut self) -> Fsc14W<'_, Fs1rSpec> {
         Fsc14W::new(self, 14)
     }
     #[doc = "Bit 15 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc15(&mut self) -> Fsc15W<Fs1rSpec> {
+    pub fn fsc15(&mut self) -> Fsc15W<'_, Fs1rSpec> {
         Fsc15W::new(self, 15)
     }
     #[doc = "Bit 16 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc16(&mut self) -> Fsc16W<Fs1rSpec> {
+    pub fn fsc16(&mut self) -> Fsc16W<'_, Fs1rSpec> {
         Fsc16W::new(self, 16)
     }
     #[doc = "Bit 17 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc17(&mut self) -> Fsc17W<Fs1rSpec> {
+    pub fn fsc17(&mut self) -> Fsc17W<'_, Fs1rSpec> {
         Fsc17W::new(self, 17)
     }
     #[doc = "Bit 18 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc18(&mut self) -> Fsc18W<Fs1rSpec> {
+    pub fn fsc18(&mut self) -> Fsc18W<'_, Fs1rSpec> {
         Fsc18W::new(self, 18)
     }
     #[doc = "Bit 19 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc19(&mut self) -> Fsc19W<Fs1rSpec> {
+    pub fn fsc19(&mut self) -> Fsc19W<'_, Fs1rSpec> {
         Fsc19W::new(self, 19)
     }
     #[doc = "Bit 20 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc20(&mut self) -> Fsc20W<Fs1rSpec> {
+    pub fn fsc20(&mut self) -> Fsc20W<'_, Fs1rSpec> {
         Fsc20W::new(self, 20)
     }
     #[doc = "Bit 21 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc21(&mut self) -> Fsc21W<Fs1rSpec> {
+    pub fn fsc21(&mut self) -> Fsc21W<'_, Fs1rSpec> {
         Fsc21W::new(self, 21)
     }
     #[doc = "Bit 22 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc22(&mut self) -> Fsc22W<Fs1rSpec> {
+    pub fn fsc22(&mut self) -> Fsc22W<'_, Fs1rSpec> {
         Fsc22W::new(self, 22)
     }
     #[doc = "Bit 23 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc23(&mut self) -> Fsc23W<Fs1rSpec> {
+    pub fn fsc23(&mut self) -> Fsc23W<'_, Fs1rSpec> {
         Fsc23W::new(self, 23)
     }
     #[doc = "Bit 24 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc24(&mut self) -> Fsc24W<Fs1rSpec> {
+    pub fn fsc24(&mut self) -> Fsc24W<'_, Fs1rSpec> {
         Fsc24W::new(self, 24)
     }
     #[doc = "Bit 25 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc25(&mut self) -> Fsc25W<Fs1rSpec> {
+    pub fn fsc25(&mut self) -> Fsc25W<'_, Fs1rSpec> {
         Fsc25W::new(self, 25)
     }
     #[doc = "Bit 26 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc26(&mut self) -> Fsc26W<Fs1rSpec> {
+    pub fn fsc26(&mut self) -> Fsc26W<'_, Fs1rSpec> {
         Fsc26W::new(self, 26)
     }
     #[doc = "Bit 27 - Filter scale configuration"]
     #[inline(always)]
-    pub fn fsc27(&mut self) -> Fsc27W<Fs1rSpec> {
+    pub fn fsc27(&mut self) -> Fsc27W<'_, Fs1rSpec> {
         Fsc27W::new(self, 27)
     }
 }

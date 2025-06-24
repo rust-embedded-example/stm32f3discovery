@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 3:15 - Buffer table"]
     #[inline(always)]
-    pub fn btable(&mut self) -> BtableW<BtableSpec> {
+    pub fn btable(&mut self) -> BtableW<'_, BtableSpec> {
         BtableW::new(self, 3)
     }
 }

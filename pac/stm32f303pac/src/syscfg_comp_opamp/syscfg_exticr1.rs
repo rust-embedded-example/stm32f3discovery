@@ -43,22 +43,22 @@ impl R {
 impl W {
     #[doc = "Bits 0:3 - EXTI 0 configuration bits"]
     #[inline(always)]
-    pub fn exti0(&mut self) -> Exti0W<SyscfgExticr1Spec> {
+    pub fn exti0(&mut self) -> Exti0W<'_, SyscfgExticr1Spec> {
         Exti0W::new(self, 0)
     }
     #[doc = "Bits 4:7 - EXTI 1 configuration bits"]
     #[inline(always)]
-    pub fn exti1(&mut self) -> Exti1W<SyscfgExticr1Spec> {
+    pub fn exti1(&mut self) -> Exti1W<'_, SyscfgExticr1Spec> {
         Exti1W::new(self, 4)
     }
     #[doc = "Bits 8:11 - EXTI 2 configuration bits"]
     #[inline(always)]
-    pub fn exti2(&mut self) -> Exti2W<SyscfgExticr1Spec> {
+    pub fn exti2(&mut self) -> Exti2W<'_, SyscfgExticr1Spec> {
         Exti2W::new(self, 8)
     }
     #[doc = "Bits 12:15 - EXTI 3 configuration bits"]
     #[inline(always)]
-    pub fn exti3(&mut self) -> Exti3W<SyscfgExticr1Spec> {
+    pub fn exti3(&mut self) -> Exti3W<'_, SyscfgExticr1Spec> {
         Exti3W::new(self, 12)
     }
 }

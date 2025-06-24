@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:15 - Number of data to transfer"]
     #[inline(always)]
-    pub fn ndt(&mut self) -> NdtW<Cndtr2Spec> {
+    pub fn ndt(&mut self) -> NdtW<'_, Cndtr2Spec> {
         NdtW::new(self, 0)
     }
 }

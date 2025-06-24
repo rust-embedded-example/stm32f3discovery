@@ -241,132 +241,132 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Falling trigger event configuration of line 0"]
     #[inline(always)]
-    pub fn tr0(&mut self) -> Tr0W<Ftsr1Spec> {
+    pub fn tr0(&mut self) -> Tr0W<'_, Ftsr1Spec> {
         Tr0W::new(self, 0)
     }
     #[doc = "Bit 1 - Falling trigger event configuration of line 1"]
     #[inline(always)]
-    pub fn tr1(&mut self) -> Tr1W<Ftsr1Spec> {
+    pub fn tr1(&mut self) -> Tr1W<'_, Ftsr1Spec> {
         Tr1W::new(self, 1)
     }
     #[doc = "Bit 2 - Falling trigger event configuration of line 2"]
     #[inline(always)]
-    pub fn tr2(&mut self) -> Tr2W<Ftsr1Spec> {
+    pub fn tr2(&mut self) -> Tr2W<'_, Ftsr1Spec> {
         Tr2W::new(self, 2)
     }
     #[doc = "Bit 3 - Falling trigger event configuration of line 3"]
     #[inline(always)]
-    pub fn tr3(&mut self) -> Tr3W<Ftsr1Spec> {
+    pub fn tr3(&mut self) -> Tr3W<'_, Ftsr1Spec> {
         Tr3W::new(self, 3)
     }
     #[doc = "Bit 4 - Falling trigger event configuration of line 4"]
     #[inline(always)]
-    pub fn tr4(&mut self) -> Tr4W<Ftsr1Spec> {
+    pub fn tr4(&mut self) -> Tr4W<'_, Ftsr1Spec> {
         Tr4W::new(self, 4)
     }
     #[doc = "Bit 5 - Falling trigger event configuration of line 5"]
     #[inline(always)]
-    pub fn tr5(&mut self) -> Tr5W<Ftsr1Spec> {
+    pub fn tr5(&mut self) -> Tr5W<'_, Ftsr1Spec> {
         Tr5W::new(self, 5)
     }
     #[doc = "Bit 6 - Falling trigger event configuration of line 6"]
     #[inline(always)]
-    pub fn tr6(&mut self) -> Tr6W<Ftsr1Spec> {
+    pub fn tr6(&mut self) -> Tr6W<'_, Ftsr1Spec> {
         Tr6W::new(self, 6)
     }
     #[doc = "Bit 7 - Falling trigger event configuration of line 7"]
     #[inline(always)]
-    pub fn tr7(&mut self) -> Tr7W<Ftsr1Spec> {
+    pub fn tr7(&mut self) -> Tr7W<'_, Ftsr1Spec> {
         Tr7W::new(self, 7)
     }
     #[doc = "Bit 8 - Falling trigger event configuration of line 8"]
     #[inline(always)]
-    pub fn tr8(&mut self) -> Tr8W<Ftsr1Spec> {
+    pub fn tr8(&mut self) -> Tr8W<'_, Ftsr1Spec> {
         Tr8W::new(self, 8)
     }
     #[doc = "Bit 9 - Falling trigger event configuration of line 9"]
     #[inline(always)]
-    pub fn tr9(&mut self) -> Tr9W<Ftsr1Spec> {
+    pub fn tr9(&mut self) -> Tr9W<'_, Ftsr1Spec> {
         Tr9W::new(self, 9)
     }
     #[doc = "Bit 10 - Falling trigger event configuration of line 10"]
     #[inline(always)]
-    pub fn tr10(&mut self) -> Tr10W<Ftsr1Spec> {
+    pub fn tr10(&mut self) -> Tr10W<'_, Ftsr1Spec> {
         Tr10W::new(self, 10)
     }
     #[doc = "Bit 11 - Falling trigger event configuration of line 11"]
     #[inline(always)]
-    pub fn tr11(&mut self) -> Tr11W<Ftsr1Spec> {
+    pub fn tr11(&mut self) -> Tr11W<'_, Ftsr1Spec> {
         Tr11W::new(self, 11)
     }
     #[doc = "Bit 12 - Falling trigger event configuration of line 12"]
     #[inline(always)]
-    pub fn tr12(&mut self) -> Tr12W<Ftsr1Spec> {
+    pub fn tr12(&mut self) -> Tr12W<'_, Ftsr1Spec> {
         Tr12W::new(self, 12)
     }
     #[doc = "Bit 13 - Falling trigger event configuration of line 13"]
     #[inline(always)]
-    pub fn tr13(&mut self) -> Tr13W<Ftsr1Spec> {
+    pub fn tr13(&mut self) -> Tr13W<'_, Ftsr1Spec> {
         Tr13W::new(self, 13)
     }
     #[doc = "Bit 14 - Falling trigger event configuration of line 14"]
     #[inline(always)]
-    pub fn tr14(&mut self) -> Tr14W<Ftsr1Spec> {
+    pub fn tr14(&mut self) -> Tr14W<'_, Ftsr1Spec> {
         Tr14W::new(self, 14)
     }
     #[doc = "Bit 15 - Falling trigger event configuration of line 15"]
     #[inline(always)]
-    pub fn tr15(&mut self) -> Tr15W<Ftsr1Spec> {
+    pub fn tr15(&mut self) -> Tr15W<'_, Ftsr1Spec> {
         Tr15W::new(self, 15)
     }
     #[doc = "Bit 16 - Falling trigger event configuration of line 16"]
     #[inline(always)]
-    pub fn tr16(&mut self) -> Tr16W<Ftsr1Spec> {
+    pub fn tr16(&mut self) -> Tr16W<'_, Ftsr1Spec> {
         Tr16W::new(self, 16)
     }
     #[doc = "Bit 17 - Falling trigger event configuration of line 17"]
     #[inline(always)]
-    pub fn tr17(&mut self) -> Tr17W<Ftsr1Spec> {
+    pub fn tr17(&mut self) -> Tr17W<'_, Ftsr1Spec> {
         Tr17W::new(self, 17)
     }
     #[doc = "Bit 18 - Falling trigger event configuration of line 18"]
     #[inline(always)]
-    pub fn tr18(&mut self) -> Tr18W<Ftsr1Spec> {
+    pub fn tr18(&mut self) -> Tr18W<'_, Ftsr1Spec> {
         Tr18W::new(self, 18)
     }
     #[doc = "Bit 19 - Falling trigger event configuration of line 19"]
     #[inline(always)]
-    pub fn tr19(&mut self) -> Tr19W<Ftsr1Spec> {
+    pub fn tr19(&mut self) -> Tr19W<'_, Ftsr1Spec> {
         Tr19W::new(self, 19)
     }
     #[doc = "Bit 20 - Falling trigger event configuration of line 20"]
     #[inline(always)]
-    pub fn tr20(&mut self) -> Tr20W<Ftsr1Spec> {
+    pub fn tr20(&mut self) -> Tr20W<'_, Ftsr1Spec> {
         Tr20W::new(self, 20)
     }
     #[doc = "Bit 21 - Falling trigger event configuration of line 21"]
     #[inline(always)]
-    pub fn tr21(&mut self) -> Tr21W<Ftsr1Spec> {
+    pub fn tr21(&mut self) -> Tr21W<'_, Ftsr1Spec> {
         Tr21W::new(self, 21)
     }
     #[doc = "Bit 22 - Falling trigger event configuration of line 22"]
     #[inline(always)]
-    pub fn tr22(&mut self) -> Tr22W<Ftsr1Spec> {
+    pub fn tr22(&mut self) -> Tr22W<'_, Ftsr1Spec> {
         Tr22W::new(self, 22)
     }
     #[doc = "Bit 29 - Falling trigger event configuration of line 29"]
     #[inline(always)]
-    pub fn tr29(&mut self) -> Tr29W<Ftsr1Spec> {
+    pub fn tr29(&mut self) -> Tr29W<'_, Ftsr1Spec> {
         Tr29W::new(self, 29)
     }
     #[doc = "Bit 30 - Falling trigger event configuration of line 30."]
     #[inline(always)]
-    pub fn tr30(&mut self) -> Tr30W<Ftsr1Spec> {
+    pub fn tr30(&mut self) -> Tr30W<'_, Ftsr1Spec> {
         Tr30W::new(self, 30)
     }
     #[doc = "Bit 31 - Falling trigger event configuration of line 31"]
     #[inline(always)]
-    pub fn tr31(&mut self) -> Tr31W<Ftsr1Spec> {
+    pub fn tr31(&mut self) -> Tr31W<'_, Ftsr1Spec> {
         Tr31W::new(self, 31)
     }
 }

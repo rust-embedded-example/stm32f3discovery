@@ -124,67 +124,67 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Force USB Reset"]
     #[inline(always)]
-    pub fn fres(&mut self) -> FresW<UsbCntrSpec> {
+    pub fn fres(&mut self) -> FresW<'_, UsbCntrSpec> {
         FresW::new(self, 0)
     }
     #[doc = "Bit 1 - Power down"]
     #[inline(always)]
-    pub fn pdwn(&mut self) -> PdwnW<UsbCntrSpec> {
+    pub fn pdwn(&mut self) -> PdwnW<'_, UsbCntrSpec> {
         PdwnW::new(self, 1)
     }
     #[doc = "Bit 2 - Low-power mode"]
     #[inline(always)]
-    pub fn lpmode(&mut self) -> LpmodeW<UsbCntrSpec> {
+    pub fn lpmode(&mut self) -> LpmodeW<'_, UsbCntrSpec> {
         LpmodeW::new(self, 2)
     }
     #[doc = "Bit 3 - Force suspend"]
     #[inline(always)]
-    pub fn fsusp(&mut self) -> FsuspW<UsbCntrSpec> {
+    pub fn fsusp(&mut self) -> FsuspW<'_, UsbCntrSpec> {
         FsuspW::new(self, 3)
     }
     #[doc = "Bit 4 - Resume request"]
     #[inline(always)]
-    pub fn resume(&mut self) -> ResumeW<UsbCntrSpec> {
+    pub fn resume(&mut self) -> ResumeW<'_, UsbCntrSpec> {
         ResumeW::new(self, 4)
     }
     #[doc = "Bit 8 - Expected start of frame interrupt mask"]
     #[inline(always)]
-    pub fn esofm(&mut self) -> EsofmW<UsbCntrSpec> {
+    pub fn esofm(&mut self) -> EsofmW<'_, UsbCntrSpec> {
         EsofmW::new(self, 8)
     }
     #[doc = "Bit 9 - Start of frame interrupt mask"]
     #[inline(always)]
-    pub fn sofm(&mut self) -> SofmW<UsbCntrSpec> {
+    pub fn sofm(&mut self) -> SofmW<'_, UsbCntrSpec> {
         SofmW::new(self, 9)
     }
     #[doc = "Bit 10 - USB reset interrupt mask"]
     #[inline(always)]
-    pub fn resetm(&mut self) -> ResetmW<UsbCntrSpec> {
+    pub fn resetm(&mut self) -> ResetmW<'_, UsbCntrSpec> {
         ResetmW::new(self, 10)
     }
     #[doc = "Bit 11 - Suspend mode interrupt mask"]
     #[inline(always)]
-    pub fn suspm(&mut self) -> SuspmW<UsbCntrSpec> {
+    pub fn suspm(&mut self) -> SuspmW<'_, UsbCntrSpec> {
         SuspmW::new(self, 11)
     }
     #[doc = "Bit 12 - Wakeup interrupt mask"]
     #[inline(always)]
-    pub fn wkupm(&mut self) -> WkupmW<UsbCntrSpec> {
+    pub fn wkupm(&mut self) -> WkupmW<'_, UsbCntrSpec> {
         WkupmW::new(self, 12)
     }
     #[doc = "Bit 13 - Error interrupt mask"]
     #[inline(always)]
-    pub fn errm(&mut self) -> ErrmW<UsbCntrSpec> {
+    pub fn errm(&mut self) -> ErrmW<'_, UsbCntrSpec> {
         ErrmW::new(self, 13)
     }
     #[doc = "Bit 14 - Packet memory area over / underrun interrupt mask"]
     #[inline(always)]
-    pub fn pmaovrm(&mut self) -> PmaovrmW<UsbCntrSpec> {
+    pub fn pmaovrm(&mut self) -> PmaovrmW<'_, UsbCntrSpec> {
         PmaovrmW::new(self, 14)
     }
     #[doc = "Bit 15 - Correct transfer interrupt mask"]
     #[inline(always)]
-    pub fn ctrm(&mut self) -> CtrmW<UsbCntrSpec> {
+    pub fn ctrm(&mut self) -> CtrmW<'_, UsbCntrSpec> {
         CtrmW::new(self, 15)
     }
 }

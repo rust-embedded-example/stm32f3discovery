@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:31 - BKP"]
     #[inline(always)]
-    pub fn bkp(&mut self) -> BkpW<Bkp9rSpec> {
+    pub fn bkp(&mut self) -> BkpW<'_, Bkp9rSpec> {
         BkpW::new(self, 0)
     }
 }

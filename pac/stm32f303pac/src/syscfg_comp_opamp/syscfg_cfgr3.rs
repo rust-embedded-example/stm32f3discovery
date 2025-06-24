@@ -52,27 +52,27 @@ impl R {
 impl W {
     #[doc = "Bits 0:1 - SPI1_RX DMA remapping bit"]
     #[inline(always)]
-    pub fn spi1_rx_dma_rmp(&mut self) -> Spi1RxDmaRmpW<SyscfgCfgr3Spec> {
+    pub fn spi1_rx_dma_rmp(&mut self) -> Spi1RxDmaRmpW<'_, SyscfgCfgr3Spec> {
         Spi1RxDmaRmpW::new(self, 0)
     }
     #[doc = "Bits 2:3 - SPI1_TX DMA remapping bit"]
     #[inline(always)]
-    pub fn spi1_tx_dma_rmp(&mut self) -> Spi1TxDmaRmpW<SyscfgCfgr3Spec> {
+    pub fn spi1_tx_dma_rmp(&mut self) -> Spi1TxDmaRmpW<'_, SyscfgCfgr3Spec> {
         Spi1TxDmaRmpW::new(self, 2)
     }
     #[doc = "Bits 4:5 - I2C1_RX DMA remapping bit"]
     #[inline(always)]
-    pub fn i2c1_rx_dma_rmp(&mut self) -> I2c1RxDmaRmpW<SyscfgCfgr3Spec> {
+    pub fn i2c1_rx_dma_rmp(&mut self) -> I2c1RxDmaRmpW<'_, SyscfgCfgr3Spec> {
         I2c1RxDmaRmpW::new(self, 4)
     }
     #[doc = "Bits 6:7 - I2C1_TX DMA remapping bit"]
     #[inline(always)]
-    pub fn i2c1_tx_dma_rmp(&mut self) -> I2c1TxDmaRmpW<SyscfgCfgr3Spec> {
+    pub fn i2c1_tx_dma_rmp(&mut self) -> I2c1TxDmaRmpW<'_, SyscfgCfgr3Spec> {
         I2c1TxDmaRmpW::new(self, 6)
     }
     #[doc = "Bits 8:9 - ADC2 DMA channel remapping bit"]
     #[inline(always)]
-    pub fn adc2_dma_rmp(&mut self) -> Adc2DmaRmpW<SyscfgCfgr3Spec> {
+    pub fn adc2_dma_rmp(&mut self) -> Adc2DmaRmpW<'_, SyscfgCfgr3Spec> {
         Adc2DmaRmpW::new(self, 8)
     }
 }

@@ -34,17 +34,17 @@ impl R {
 impl W {
     #[doc = "Bits 0:3 - DLC"]
     #[inline(always)]
-    pub fn dlc(&mut self) -> DlcW<Tdt0rSpec> {
+    pub fn dlc(&mut self) -> DlcW<'_, Tdt0rSpec> {
         DlcW::new(self, 0)
     }
     #[doc = "Bit 8 - TGT"]
     #[inline(always)]
-    pub fn tgt(&mut self) -> TgtW<Tdt0rSpec> {
+    pub fn tgt(&mut self) -> TgtW<'_, Tdt0rSpec> {
         TgtW::new(self, 8)
     }
     #[doc = "Bits 16:31 - TIME"]
     #[inline(always)]
-    pub fn time(&mut self) -> TimeW<Tdt0rSpec> {
+    pub fn time(&mut self) -> TimeW<'_, Tdt0rSpec> {
         TimeW::new(self, 16)
     }
 }

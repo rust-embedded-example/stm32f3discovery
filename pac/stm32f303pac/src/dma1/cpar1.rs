@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:31 - Peripheral address"]
     #[inline(always)]
-    pub fn pa(&mut self) -> PaW<Cpar1Spec> {
+    pub fn pa(&mut self) -> PaW<'_, Cpar1Spec> {
         PaW::new(self, 0)
     }
 }

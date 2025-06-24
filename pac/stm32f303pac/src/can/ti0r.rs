@@ -52,27 +52,27 @@ impl R {
 impl W {
     #[doc = "Bit 0 - TXRQ"]
     #[inline(always)]
-    pub fn txrq(&mut self) -> TxrqW<Ti0rSpec> {
+    pub fn txrq(&mut self) -> TxrqW<'_, Ti0rSpec> {
         TxrqW::new(self, 0)
     }
     #[doc = "Bit 1 - RTR"]
     #[inline(always)]
-    pub fn rtr(&mut self) -> RtrW<Ti0rSpec> {
+    pub fn rtr(&mut self) -> RtrW<'_, Ti0rSpec> {
         RtrW::new(self, 1)
     }
     #[doc = "Bit 2 - IDE"]
     #[inline(always)]
-    pub fn ide(&mut self) -> IdeW<Ti0rSpec> {
+    pub fn ide(&mut self) -> IdeW<'_, Ti0rSpec> {
         IdeW::new(self, 2)
     }
     #[doc = "Bits 3:20 - EXID"]
     #[inline(always)]
-    pub fn exid(&mut self) -> ExidW<Ti0rSpec> {
+    pub fn exid(&mut self) -> ExidW<'_, Ti0rSpec> {
         ExidW::new(self, 3)
     }
     #[doc = "Bits 21:31 - STID"]
     #[inline(always)]
-    pub fn stid(&mut self) -> StidW<Ti0rSpec> {
+    pub fn stid(&mut self) -> StidW<'_, Ti0rSpec> {
         StidW::new(self, 21)
     }
 }

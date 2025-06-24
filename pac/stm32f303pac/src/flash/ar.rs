@@ -5,7 +5,7 @@ pub type FarW<'a, REG> = crate::FieldWriter<'a, REG, 32, u32>;
 impl W {
     #[doc = "Bits 0:31 - Flash address"]
     #[inline(always)]
-    pub fn far(&mut self) -> FarW<ArSpec> {
+    pub fn far(&mut self) -> FarW<'_, ArSpec> {
         FarW::new(self, 0)
     }
 }

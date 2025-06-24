@@ -76,17 +76,17 @@ impl R {
 impl W {
     #[doc = "Bit 2 - ERRI"]
     #[inline(always)]
-    pub fn erri(&mut self) -> ErriW<MsrSpec> {
+    pub fn erri(&mut self) -> ErriW<'_, MsrSpec> {
         ErriW::new(self, 2)
     }
     #[doc = "Bit 3 - WKUI"]
     #[inline(always)]
-    pub fn wkui(&mut self) -> WkuiW<MsrSpec> {
+    pub fn wkui(&mut self) -> WkuiW<'_, MsrSpec> {
         WkuiW::new(self, 3)
     }
     #[doc = "Bit 4 - SLAKI"]
     #[inline(always)]
-    pub fn slaki(&mut self) -> SlakiW<MsrSpec> {
+    pub fn slaki(&mut self) -> SlakiW<'_, MsrSpec> {
         SlakiW::new(self, 4)
     }
 }

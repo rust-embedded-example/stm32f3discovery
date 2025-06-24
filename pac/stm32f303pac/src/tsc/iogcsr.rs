@@ -139,52 +139,52 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Analog I/O group x enable"]
     #[inline(always)]
-    pub fn g1e(&mut self) -> G1eW<IogcsrSpec> {
+    pub fn g1e(&mut self) -> G1eW<'_, IogcsrSpec> {
         G1eW::new(self, 0)
     }
     #[doc = "Bit 1 - Analog I/O group x enable"]
     #[inline(always)]
-    pub fn g2e(&mut self) -> G2eW<IogcsrSpec> {
+    pub fn g2e(&mut self) -> G2eW<'_, IogcsrSpec> {
         G2eW::new(self, 1)
     }
     #[doc = "Bit 2 - Analog I/O group x enable"]
     #[inline(always)]
-    pub fn g3e(&mut self) -> G3eW<IogcsrSpec> {
+    pub fn g3e(&mut self) -> G3eW<'_, IogcsrSpec> {
         G3eW::new(self, 2)
     }
     #[doc = "Bit 3 - Analog I/O group x enable"]
     #[inline(always)]
-    pub fn g4e(&mut self) -> G4eW<IogcsrSpec> {
+    pub fn g4e(&mut self) -> G4eW<'_, IogcsrSpec> {
         G4eW::new(self, 3)
     }
     #[doc = "Bit 4 - Analog I/O group x enable"]
     #[inline(always)]
-    pub fn g5e(&mut self) -> G5eW<IogcsrSpec> {
+    pub fn g5e(&mut self) -> G5eW<'_, IogcsrSpec> {
         G5eW::new(self, 4)
     }
     #[doc = "Bit 5 - Analog I/O group x enable"]
     #[inline(always)]
-    pub fn g6e(&mut self) -> G6eW<IogcsrSpec> {
+    pub fn g6e(&mut self) -> G6eW<'_, IogcsrSpec> {
         G6eW::new(self, 5)
     }
     #[doc = "Bit 6 - Analog I/O group x enable"]
     #[inline(always)]
-    pub fn g7e(&mut self) -> G7eW<IogcsrSpec> {
+    pub fn g7e(&mut self) -> G7eW<'_, IogcsrSpec> {
         G7eW::new(self, 6)
     }
     #[doc = "Bit 7 - Analog I/O group x enable"]
     #[inline(always)]
-    pub fn g8e(&mut self) -> G8eW<IogcsrSpec> {
+    pub fn g8e(&mut self) -> G8eW<'_, IogcsrSpec> {
         G8eW::new(self, 7)
     }
     #[doc = "Bit 22 - Analog I/O group x status"]
     #[inline(always)]
-    pub fn g7s(&mut self) -> G7sW<IogcsrSpec> {
+    pub fn g7s(&mut self) -> G7sW<'_, IogcsrSpec> {
         G7sW::new(self, 22)
     }
     #[doc = "Bit 23 - Analog I/O group x status"]
     #[inline(always)]
-    pub fn g8s(&mut self) -> G8sW<IogcsrSpec> {
+    pub fn g8s(&mut self) -> G8sW<'_, IogcsrSpec> {
         G8sW::new(self, 23)
     }
 }

@@ -34,17 +34,17 @@ impl R {
 impl W {
     #[doc = "Bits 0:15 - Low counter value"]
     #[inline(always)]
-    pub fn cntl(&mut self) -> CntlW<CntSpec> {
+    pub fn cntl(&mut self) -> CntlW<'_, CntSpec> {
         CntlW::new(self, 0)
     }
     #[doc = "Bits 16:30 - High counter value"]
     #[inline(always)]
-    pub fn cnth(&mut self) -> CnthW<CntSpec> {
+    pub fn cnth(&mut self) -> CnthW<'_, CntSpec> {
         CnthW::new(self, 16)
     }
     #[doc = "Bit 31 - if IUFREMAP=0 than CNT with read write access else UIFCPY with read only access"]
     #[inline(always)]
-    pub fn cnt_or_uifcpy(&mut self) -> CntOrUifcpyW<CntSpec> {
+    pub fn cnt_or_uifcpy(&mut self) -> CntOrUifcpyW<'_, CntSpec> {
         CntOrUifcpyW::new(self, 31)
     }
 }

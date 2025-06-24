@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:15 - Capture/Compare 3 value"]
     #[inline(always)]
-    pub fn ccr3(&mut self) -> Ccr3W<Ccr3Spec> {
+    pub fn ccr3(&mut self) -> Ccr3W<'_, Ccr3Spec> {
         Ccr3W::new(self, 0)
     }
 }

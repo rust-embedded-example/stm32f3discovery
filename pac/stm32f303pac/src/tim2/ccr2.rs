@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bits 0:15 - Low Capture/Compare 2 value"]
     #[inline(always)]
-    pub fn ccr2l(&mut self) -> Ccr2lW<Ccr2Spec> {
+    pub fn ccr2l(&mut self) -> Ccr2lW<'_, Ccr2Spec> {
         Ccr2lW::new(self, 0)
     }
     #[doc = "Bits 16:31 - High Capture/Compare 2 value (on TIM2)"]
     #[inline(always)]
-    pub fn ccr2h(&mut self) -> Ccr2hW<Ccr2Spec> {
+    pub fn ccr2h(&mut self) -> Ccr2hW<'_, Ccr2Spec> {
         Ccr2hW::new(self, 16)
     }
 }

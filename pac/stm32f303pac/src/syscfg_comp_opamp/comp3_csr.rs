@@ -95,47 +95,47 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Comparator 3 enable"]
     #[inline(always)]
-    pub fn comp3en(&mut self) -> Comp3enW<Comp3CsrSpec> {
+    pub fn comp3en(&mut self) -> Comp3enW<'_, Comp3CsrSpec> {
         Comp3enW::new(self, 0)
     }
     #[doc = "Bits 2:3 - Comparator 3 mode"]
     #[inline(always)]
-    pub fn comp3mode(&mut self) -> Comp3modeW<Comp3CsrSpec> {
+    pub fn comp3mode(&mut self) -> Comp3modeW<'_, Comp3CsrSpec> {
         Comp3modeW::new(self, 2)
     }
     #[doc = "Bits 4:6 - Comparator 3 inverting input selection"]
     #[inline(always)]
-    pub fn comp3insel(&mut self) -> Comp3inselW<Comp3CsrSpec> {
+    pub fn comp3insel(&mut self) -> Comp3inselW<'_, Comp3CsrSpec> {
         Comp3inselW::new(self, 4)
     }
     #[doc = "Bit 7 - Comparator 3 non inverted input selection"]
     #[inline(always)]
-    pub fn comp3inpsel(&mut self) -> Comp3inpselW<Comp3CsrSpec> {
+    pub fn comp3inpsel(&mut self) -> Comp3inpselW<'_, Comp3CsrSpec> {
         Comp3inpselW::new(self, 7)
     }
     #[doc = "Bits 10:13 - Comparator 3 output selection"]
     #[inline(always)]
-    pub fn comp3_out_sel(&mut self) -> Comp3OutSelW<Comp3CsrSpec> {
+    pub fn comp3_out_sel(&mut self) -> Comp3OutSelW<'_, Comp3CsrSpec> {
         Comp3OutSelW::new(self, 10)
     }
     #[doc = "Bit 15 - Comparator 3 output polarity"]
     #[inline(always)]
-    pub fn comp3pol(&mut self) -> Comp3polW<Comp3CsrSpec> {
+    pub fn comp3pol(&mut self) -> Comp3polW<'_, Comp3CsrSpec> {
         Comp3polW::new(self, 15)
     }
     #[doc = "Bits 16:17 - Comparator 3 hysteresis"]
     #[inline(always)]
-    pub fn comp3hyst(&mut self) -> Comp3hystW<Comp3CsrSpec> {
+    pub fn comp3hyst(&mut self) -> Comp3hystW<'_, Comp3CsrSpec> {
         Comp3hystW::new(self, 16)
     }
     #[doc = "Bits 18:20 - Comparator 3 blanking source"]
     #[inline(always)]
-    pub fn comp3_blanking(&mut self) -> Comp3BlankingW<Comp3CsrSpec> {
+    pub fn comp3_blanking(&mut self) -> Comp3BlankingW<'_, Comp3CsrSpec> {
         Comp3BlankingW::new(self, 18)
     }
     #[doc = "Bit 31 - Comparator 3 lock"]
     #[inline(always)]
-    pub fn comp3lock(&mut self) -> Comp3lockW<Comp3CsrSpec> {
+    pub fn comp3lock(&mut self) -> Comp3lockW<'_, Comp3CsrSpec> {
         Comp3lockW::new(self, 31)
     }
 }

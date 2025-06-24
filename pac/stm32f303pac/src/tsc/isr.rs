@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bit 0 - End of acquisition flag"]
     #[inline(always)]
-    pub fn eoaf(&mut self) -> EoafW<IsrSpec> {
+    pub fn eoaf(&mut self) -> EoafW<'_, IsrSpec> {
         EoafW::new(self, 0)
     }
     #[doc = "Bit 1 - Max count error flag"]
     #[inline(always)]
-    pub fn mcef(&mut self) -> McefW<IsrSpec> {
+    pub fn mcef(&mut self) -> McefW<'_, IsrSpec> {
         McefW::new(self, 1)
     }
 }

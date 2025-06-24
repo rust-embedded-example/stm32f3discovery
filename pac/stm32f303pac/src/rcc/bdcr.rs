@@ -68,32 +68,32 @@ impl R {
 impl W {
     #[doc = "Bit 0 - External Low Speed oscillator enable"]
     #[inline(always)]
-    pub fn lseon(&mut self) -> LseonW<BdcrSpec> {
+    pub fn lseon(&mut self) -> LseonW<'_, BdcrSpec> {
         LseonW::new(self, 0)
     }
     #[doc = "Bit 2 - External Low Speed oscillator bypass"]
     #[inline(always)]
-    pub fn lsebyp(&mut self) -> LsebypW<BdcrSpec> {
+    pub fn lsebyp(&mut self) -> LsebypW<'_, BdcrSpec> {
         LsebypW::new(self, 2)
     }
     #[doc = "Bits 3:4 - LSE oscillator drive capability"]
     #[inline(always)]
-    pub fn lsedrv(&mut self) -> LsedrvW<BdcrSpec> {
+    pub fn lsedrv(&mut self) -> LsedrvW<'_, BdcrSpec> {
         LsedrvW::new(self, 3)
     }
     #[doc = "Bits 8:9 - RTC clock source selection"]
     #[inline(always)]
-    pub fn rtcsel(&mut self) -> RtcselW<BdcrSpec> {
+    pub fn rtcsel(&mut self) -> RtcselW<'_, BdcrSpec> {
         RtcselW::new(self, 8)
     }
     #[doc = "Bit 15 - RTC clock enable"]
     #[inline(always)]
-    pub fn rtcen(&mut self) -> RtcenW<BdcrSpec> {
+    pub fn rtcen(&mut self) -> RtcenW<'_, BdcrSpec> {
         RtcenW::new(self, 15)
     }
     #[doc = "Bit 16 - Backup domain software reset"]
     #[inline(always)]
-    pub fn bdrst(&mut self) -> BdrstW<BdcrSpec> {
+    pub fn bdrst(&mut self) -> BdrstW<'_, BdcrSpec> {
         BdrstW::new(self, 16)
     }
 }

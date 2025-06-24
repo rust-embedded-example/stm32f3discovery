@@ -115,62 +115,62 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Capture/Compare 1 output enable"]
     #[inline(always)]
-    pub fn cc1e(&mut self) -> Cc1eW<CcerSpec> {
+    pub fn cc1e(&mut self) -> Cc1eW<'_, CcerSpec> {
         Cc1eW::new(self, 0)
     }
     #[doc = "Bit 1 - Capture/Compare 1 output Polarity"]
     #[inline(always)]
-    pub fn cc1p(&mut self) -> Cc1pW<CcerSpec> {
+    pub fn cc1p(&mut self) -> Cc1pW<'_, CcerSpec> {
         Cc1pW::new(self, 1)
     }
     #[doc = "Bit 3 - Capture/Compare 1 output Polarity"]
     #[inline(always)]
-    pub fn cc1np(&mut self) -> Cc1npW<CcerSpec> {
+    pub fn cc1np(&mut self) -> Cc1npW<'_, CcerSpec> {
         Cc1npW::new(self, 3)
     }
     #[doc = "Bit 4 - Capture/Compare 2 output enable"]
     #[inline(always)]
-    pub fn cc2e(&mut self) -> Cc2eW<CcerSpec> {
+    pub fn cc2e(&mut self) -> Cc2eW<'_, CcerSpec> {
         Cc2eW::new(self, 4)
     }
     #[doc = "Bit 5 - Capture/Compare 2 output Polarity"]
     #[inline(always)]
-    pub fn cc2p(&mut self) -> Cc2pW<CcerSpec> {
+    pub fn cc2p(&mut self) -> Cc2pW<'_, CcerSpec> {
         Cc2pW::new(self, 5)
     }
     #[doc = "Bit 7 - Capture/Compare 2 output Polarity"]
     #[inline(always)]
-    pub fn cc2np(&mut self) -> Cc2npW<CcerSpec> {
+    pub fn cc2np(&mut self) -> Cc2npW<'_, CcerSpec> {
         Cc2npW::new(self, 7)
     }
     #[doc = "Bit 8 - Capture/Compare 3 output enable"]
     #[inline(always)]
-    pub fn cc3e(&mut self) -> Cc3eW<CcerSpec> {
+    pub fn cc3e(&mut self) -> Cc3eW<'_, CcerSpec> {
         Cc3eW::new(self, 8)
     }
     #[doc = "Bit 9 - Capture/Compare 3 output Polarity"]
     #[inline(always)]
-    pub fn cc3p(&mut self) -> Cc3pW<CcerSpec> {
+    pub fn cc3p(&mut self) -> Cc3pW<'_, CcerSpec> {
         Cc3pW::new(self, 9)
     }
     #[doc = "Bit 11 - Capture/Compare 3 output Polarity"]
     #[inline(always)]
-    pub fn cc3np(&mut self) -> Cc3npW<CcerSpec> {
+    pub fn cc3np(&mut self) -> Cc3npW<'_, CcerSpec> {
         Cc3npW::new(self, 11)
     }
     #[doc = "Bit 12 - Capture/Compare 4 output enable"]
     #[inline(always)]
-    pub fn cc4e(&mut self) -> Cc4eW<CcerSpec> {
+    pub fn cc4e(&mut self) -> Cc4eW<'_, CcerSpec> {
         Cc4eW::new(self, 12)
     }
     #[doc = "Bit 13 - Capture/Compare 3 output Polarity"]
     #[inline(always)]
-    pub fn cc4p(&mut self) -> Cc4pW<CcerSpec> {
+    pub fn cc4p(&mut self) -> Cc4pW<'_, CcerSpec> {
         Cc4pW::new(self, 13)
     }
     #[doc = "Bit 15 - Capture/Compare 3 output Polarity"]
     #[inline(always)]
-    pub fn cc4np(&mut self) -> Cc4npW<CcerSpec> {
+    pub fn cc4np(&mut self) -> Cc4npW<'_, CcerSpec> {
         Cc4npW::new(self, 15)
     }
 }

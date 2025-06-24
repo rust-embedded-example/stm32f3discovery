@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:15 - Data register"]
     #[inline(always)]
-    pub fn dr(&mut self) -> DrW<DrSpec> {
+    pub fn dr(&mut self) -> DrW<'_, DrSpec> {
         DrW::new(self, 0)
     }
 }

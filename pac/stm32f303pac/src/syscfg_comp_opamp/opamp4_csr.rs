@@ -149,77 +149,77 @@ impl R {
 impl W {
     #[doc = "Bit 0 - OPAMP4 enable"]
     #[inline(always)]
-    pub fn opamp4en(&mut self) -> Opamp4enW<Opamp4CsrSpec> {
+    pub fn opamp4en(&mut self) -> Opamp4enW<'_, Opamp4CsrSpec> {
         Opamp4enW::new(self, 0)
     }
     #[doc = "Bit 1 - FORCE_VP"]
     #[inline(always)]
-    pub fn force_vp(&mut self) -> ForceVpW<Opamp4CsrSpec> {
+    pub fn force_vp(&mut self) -> ForceVpW<'_, Opamp4CsrSpec> {
         ForceVpW::new(self, 1)
     }
     #[doc = "Bits 2:3 - OPAMP4 Non inverting input selection"]
     #[inline(always)]
-    pub fn vp_sel(&mut self) -> VpSelW<Opamp4CsrSpec> {
+    pub fn vp_sel(&mut self) -> VpSelW<'_, Opamp4CsrSpec> {
         VpSelW::new(self, 2)
     }
     #[doc = "Bits 5:6 - OPAMP4 inverting input selection"]
     #[inline(always)]
-    pub fn vm_sel(&mut self) -> VmSelW<Opamp4CsrSpec> {
+    pub fn vm_sel(&mut self) -> VmSelW<'_, Opamp4CsrSpec> {
         VmSelW::new(self, 5)
     }
     #[doc = "Bit 7 - Timer controlled Mux mode enable"]
     #[inline(always)]
-    pub fn tcm_en(&mut self) -> TcmEnW<Opamp4CsrSpec> {
+    pub fn tcm_en(&mut self) -> TcmEnW<'_, Opamp4CsrSpec> {
         TcmEnW::new(self, 7)
     }
     #[doc = "Bit 8 - OPAMP4 inverting input secondary selection"]
     #[inline(always)]
-    pub fn vms_sel(&mut self) -> VmsSelW<Opamp4CsrSpec> {
+    pub fn vms_sel(&mut self) -> VmsSelW<'_, Opamp4CsrSpec> {
         VmsSelW::new(self, 8)
     }
     #[doc = "Bits 9:10 - OPAMP4 Non inverting input secondary selection"]
     #[inline(always)]
-    pub fn vps_sel(&mut self) -> VpsSelW<Opamp4CsrSpec> {
+    pub fn vps_sel(&mut self) -> VpsSelW<'_, Opamp4CsrSpec> {
         VpsSelW::new(self, 9)
     }
     #[doc = "Bit 11 - Calibration mode enable"]
     #[inline(always)]
-    pub fn calon(&mut self) -> CalonW<Opamp4CsrSpec> {
+    pub fn calon(&mut self) -> CalonW<'_, Opamp4CsrSpec> {
         CalonW::new(self, 11)
     }
     #[doc = "Bits 12:13 - Calibration selection"]
     #[inline(always)]
-    pub fn calsel(&mut self) -> CalselW<Opamp4CsrSpec> {
+    pub fn calsel(&mut self) -> CalselW<'_, Opamp4CsrSpec> {
         CalselW::new(self, 12)
     }
     #[doc = "Bits 14:17 - Gain in PGA mode"]
     #[inline(always)]
-    pub fn pga_gain(&mut self) -> PgaGainW<Opamp4CsrSpec> {
+    pub fn pga_gain(&mut self) -> PgaGainW<'_, Opamp4CsrSpec> {
         PgaGainW::new(self, 14)
     }
     #[doc = "Bit 18 - User trimming enable"]
     #[inline(always)]
-    pub fn user_trim(&mut self) -> UserTrimW<Opamp4CsrSpec> {
+    pub fn user_trim(&mut self) -> UserTrimW<'_, Opamp4CsrSpec> {
         UserTrimW::new(self, 18)
     }
     #[doc = "Bits 19:23 - Offset trimming value (PMOS)"]
     #[inline(always)]
-    pub fn trimoffsetp(&mut self) -> TrimoffsetpW<Opamp4CsrSpec> {
+    pub fn trimoffsetp(&mut self) -> TrimoffsetpW<'_, Opamp4CsrSpec> {
         TrimoffsetpW::new(self, 19)
     }
     #[doc = "Bits 24:28 - Offset trimming value (NMOS)"]
     #[inline(always)]
-    pub fn trimoffsetn(&mut self) -> TrimoffsetnW<Opamp4CsrSpec> {
+    pub fn trimoffsetn(&mut self) -> TrimoffsetnW<'_, Opamp4CsrSpec> {
         TrimoffsetnW::new(self, 24)
     }
     #[doc = "Bit 29 - TSTREF"]
     #[inline(always)]
-    pub fn tstref(&mut self) -> TstrefW<Opamp4CsrSpec> {
+    pub fn tstref(&mut self) -> TstrefW<'_, Opamp4CsrSpec> {
         TstrefW::new(self, 29)
     }
     #[doc = "Bit 31 - OPAMP 4 lock"]
     #[inline(always)]
-    pub fn lock(&mut self) -> LockW<Opamp4CsrSpec> {
+    pub fn lock(&mut self) -> LockW<'_, Opamp4CsrSpec> {
         LockW::new(self, 31)
     }
 }

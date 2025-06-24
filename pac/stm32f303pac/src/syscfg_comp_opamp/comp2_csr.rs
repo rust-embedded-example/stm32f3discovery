@@ -106,57 +106,57 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Comparator 2 enable"]
     #[inline(always)]
-    pub fn comp2en(&mut self) -> Comp2enW<Comp2CsrSpec> {
+    pub fn comp2en(&mut self) -> Comp2enW<'_, Comp2CsrSpec> {
         Comp2enW::new(self, 0)
     }
     #[doc = "Bits 2:3 - Comparator 2 mode"]
     #[inline(always)]
-    pub fn comp2mode(&mut self) -> Comp2modeW<Comp2CsrSpec> {
+    pub fn comp2mode(&mut self) -> Comp2modeW<'_, Comp2CsrSpec> {
         Comp2modeW::new(self, 2)
     }
     #[doc = "Bits 4:6 - Comparator 2 inverting input selection"]
     #[inline(always)]
-    pub fn comp2insel(&mut self) -> Comp2inselW<Comp2CsrSpec> {
+    pub fn comp2insel(&mut self) -> Comp2inselW<'_, Comp2CsrSpec> {
         Comp2inselW::new(self, 4)
     }
     #[doc = "Bit 7 - Comparator 2 non inverted input selection"]
     #[inline(always)]
-    pub fn comp2inpsel(&mut self) -> Comp2inpselW<Comp2CsrSpec> {
+    pub fn comp2inpsel(&mut self) -> Comp2inpselW<'_, Comp2CsrSpec> {
         Comp2inpselW::new(self, 7)
     }
     #[doc = "Bit 9 - Comparator 1inverting input selection"]
     #[inline(always)]
-    pub fn comp2inmsel(&mut self) -> Comp2inmselW<Comp2CsrSpec> {
+    pub fn comp2inmsel(&mut self) -> Comp2inmselW<'_, Comp2CsrSpec> {
         Comp2inmselW::new(self, 9)
     }
     #[doc = "Bits 10:13 - Comparator 2 output selection"]
     #[inline(always)]
-    pub fn comp2_out_sel(&mut self) -> Comp2OutSelW<Comp2CsrSpec> {
+    pub fn comp2_out_sel(&mut self) -> Comp2OutSelW<'_, Comp2CsrSpec> {
         Comp2OutSelW::new(self, 10)
     }
     #[doc = "Bit 15 - Comparator 2 output polarity"]
     #[inline(always)]
-    pub fn comp2pol(&mut self) -> Comp2polW<Comp2CsrSpec> {
+    pub fn comp2pol(&mut self) -> Comp2polW<'_, Comp2CsrSpec> {
         Comp2polW::new(self, 15)
     }
     #[doc = "Bits 16:17 - Comparator 2 hysteresis"]
     #[inline(always)]
-    pub fn comp2hyst(&mut self) -> Comp2hystW<Comp2CsrSpec> {
+    pub fn comp2hyst(&mut self) -> Comp2hystW<'_, Comp2CsrSpec> {
         Comp2hystW::new(self, 16)
     }
     #[doc = "Bits 18:20 - Comparator 2 blanking source"]
     #[inline(always)]
-    pub fn comp2_blanking(&mut self) -> Comp2BlankingW<Comp2CsrSpec> {
+    pub fn comp2_blanking(&mut self) -> Comp2BlankingW<'_, Comp2CsrSpec> {
         Comp2BlankingW::new(self, 18)
     }
     #[doc = "Bit 30 - Comparator 2 output"]
     #[inline(always)]
-    pub fn comp2out(&mut self) -> Comp2outW<Comp2CsrSpec> {
+    pub fn comp2out(&mut self) -> Comp2outW<'_, Comp2CsrSpec> {
         Comp2outW::new(self, 30)
     }
     #[doc = "Bit 31 - Comparator 2 lock"]
     #[inline(always)]
-    pub fn comp2lock(&mut self) -> Comp2lockW<Comp2CsrSpec> {
+    pub fn comp2lock(&mut self) -> Comp2lockW<'_, Comp2CsrSpec> {
         Comp2lockW::new(self, 31)
     }
 }

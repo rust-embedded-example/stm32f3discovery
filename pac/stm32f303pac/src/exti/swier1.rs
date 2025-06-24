@@ -241,132 +241,132 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Software Interrupt on line 0"]
     #[inline(always)]
-    pub fn swier0(&mut self) -> Swier0W<Swier1Spec> {
+    pub fn swier0(&mut self) -> Swier0W<'_, Swier1Spec> {
         Swier0W::new(self, 0)
     }
     #[doc = "Bit 1 - Software Interrupt on line 1"]
     #[inline(always)]
-    pub fn swier1(&mut self) -> Swier1W<Swier1Spec> {
+    pub fn swier1(&mut self) -> Swier1W<'_, Swier1Spec> {
         Swier1W::new(self, 1)
     }
     #[doc = "Bit 2 - Software Interrupt on line 2"]
     #[inline(always)]
-    pub fn swier2(&mut self) -> Swier2W<Swier1Spec> {
+    pub fn swier2(&mut self) -> Swier2W<'_, Swier1Spec> {
         Swier2W::new(self, 2)
     }
     #[doc = "Bit 3 - Software Interrupt on line 3"]
     #[inline(always)]
-    pub fn swier3(&mut self) -> Swier3W<Swier1Spec> {
+    pub fn swier3(&mut self) -> Swier3W<'_, Swier1Spec> {
         Swier3W::new(self, 3)
     }
     #[doc = "Bit 4 - Software Interrupt on line 4"]
     #[inline(always)]
-    pub fn swier4(&mut self) -> Swier4W<Swier1Spec> {
+    pub fn swier4(&mut self) -> Swier4W<'_, Swier1Spec> {
         Swier4W::new(self, 4)
     }
     #[doc = "Bit 5 - Software Interrupt on line 5"]
     #[inline(always)]
-    pub fn swier5(&mut self) -> Swier5W<Swier1Spec> {
+    pub fn swier5(&mut self) -> Swier5W<'_, Swier1Spec> {
         Swier5W::new(self, 5)
     }
     #[doc = "Bit 6 - Software Interrupt on line 6"]
     #[inline(always)]
-    pub fn swier6(&mut self) -> Swier6W<Swier1Spec> {
+    pub fn swier6(&mut self) -> Swier6W<'_, Swier1Spec> {
         Swier6W::new(self, 6)
     }
     #[doc = "Bit 7 - Software Interrupt on line 7"]
     #[inline(always)]
-    pub fn swier7(&mut self) -> Swier7W<Swier1Spec> {
+    pub fn swier7(&mut self) -> Swier7W<'_, Swier1Spec> {
         Swier7W::new(self, 7)
     }
     #[doc = "Bit 8 - Software Interrupt on line 8"]
     #[inline(always)]
-    pub fn swier8(&mut self) -> Swier8W<Swier1Spec> {
+    pub fn swier8(&mut self) -> Swier8W<'_, Swier1Spec> {
         Swier8W::new(self, 8)
     }
     #[doc = "Bit 9 - Software Interrupt on line 9"]
     #[inline(always)]
-    pub fn swier9(&mut self) -> Swier9W<Swier1Spec> {
+    pub fn swier9(&mut self) -> Swier9W<'_, Swier1Spec> {
         Swier9W::new(self, 9)
     }
     #[doc = "Bit 10 - Software Interrupt on line 10"]
     #[inline(always)]
-    pub fn swier10(&mut self) -> Swier10W<Swier1Spec> {
+    pub fn swier10(&mut self) -> Swier10W<'_, Swier1Spec> {
         Swier10W::new(self, 10)
     }
     #[doc = "Bit 11 - Software Interrupt on line 11"]
     #[inline(always)]
-    pub fn swier11(&mut self) -> Swier11W<Swier1Spec> {
+    pub fn swier11(&mut self) -> Swier11W<'_, Swier1Spec> {
         Swier11W::new(self, 11)
     }
     #[doc = "Bit 12 - Software Interrupt on line 12"]
     #[inline(always)]
-    pub fn swier12(&mut self) -> Swier12W<Swier1Spec> {
+    pub fn swier12(&mut self) -> Swier12W<'_, Swier1Spec> {
         Swier12W::new(self, 12)
     }
     #[doc = "Bit 13 - Software Interrupt on line 13"]
     #[inline(always)]
-    pub fn swier13(&mut self) -> Swier13W<Swier1Spec> {
+    pub fn swier13(&mut self) -> Swier13W<'_, Swier1Spec> {
         Swier13W::new(self, 13)
     }
     #[doc = "Bit 14 - Software Interrupt on line 14"]
     #[inline(always)]
-    pub fn swier14(&mut self) -> Swier14W<Swier1Spec> {
+    pub fn swier14(&mut self) -> Swier14W<'_, Swier1Spec> {
         Swier14W::new(self, 14)
     }
     #[doc = "Bit 15 - Software Interrupt on line 15"]
     #[inline(always)]
-    pub fn swier15(&mut self) -> Swier15W<Swier1Spec> {
+    pub fn swier15(&mut self) -> Swier15W<'_, Swier1Spec> {
         Swier15W::new(self, 15)
     }
     #[doc = "Bit 16 - Software Interrupt on line 16"]
     #[inline(always)]
-    pub fn swier16(&mut self) -> Swier16W<Swier1Spec> {
+    pub fn swier16(&mut self) -> Swier16W<'_, Swier1Spec> {
         Swier16W::new(self, 16)
     }
     #[doc = "Bit 17 - Software Interrupt on line 17"]
     #[inline(always)]
-    pub fn swier17(&mut self) -> Swier17W<Swier1Spec> {
+    pub fn swier17(&mut self) -> Swier17W<'_, Swier1Spec> {
         Swier17W::new(self, 17)
     }
     #[doc = "Bit 18 - Software Interrupt on line 18"]
     #[inline(always)]
-    pub fn swier18(&mut self) -> Swier18W<Swier1Spec> {
+    pub fn swier18(&mut self) -> Swier18W<'_, Swier1Spec> {
         Swier18W::new(self, 18)
     }
     #[doc = "Bit 19 - Software Interrupt on line 19"]
     #[inline(always)]
-    pub fn swier19(&mut self) -> Swier19W<Swier1Spec> {
+    pub fn swier19(&mut self) -> Swier19W<'_, Swier1Spec> {
         Swier19W::new(self, 19)
     }
     #[doc = "Bit 20 - Software Interrupt on line 20"]
     #[inline(always)]
-    pub fn swier20(&mut self) -> Swier20W<Swier1Spec> {
+    pub fn swier20(&mut self) -> Swier20W<'_, Swier1Spec> {
         Swier20W::new(self, 20)
     }
     #[doc = "Bit 21 - Software Interrupt on line 21"]
     #[inline(always)]
-    pub fn swier21(&mut self) -> Swier21W<Swier1Spec> {
+    pub fn swier21(&mut self) -> Swier21W<'_, Swier1Spec> {
         Swier21W::new(self, 21)
     }
     #[doc = "Bit 22 - Software Interrupt on line 22"]
     #[inline(always)]
-    pub fn swier22(&mut self) -> Swier22W<Swier1Spec> {
+    pub fn swier22(&mut self) -> Swier22W<'_, Swier1Spec> {
         Swier22W::new(self, 22)
     }
     #[doc = "Bit 29 - Software Interrupt on line 29"]
     #[inline(always)]
-    pub fn swier29(&mut self) -> Swier29W<Swier1Spec> {
+    pub fn swier29(&mut self) -> Swier29W<'_, Swier1Spec> {
         Swier29W::new(self, 29)
     }
     #[doc = "Bit 30 - Software Interrupt on line 309"]
     #[inline(always)]
-    pub fn swier30(&mut self) -> Swier30W<Swier1Spec> {
+    pub fn swier30(&mut self) -> Swier30W<'_, Swier1Spec> {
         Swier30W::new(self, 30)
     }
     #[doc = "Bit 31 - Software Interrupt on line 319"]
     #[inline(always)]
-    pub fn swier31(&mut self) -> Swier31W<Swier1Spec> {
+    pub fn swier31(&mut self) -> Swier31W<'_, Swier1Spec> {
         Swier31W::new(self, 31)
     }
 }

@@ -79,42 +79,42 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Device address"]
     #[inline(always)]
-    pub fn add(&mut self) -> AddW<DaddrSpec> {
+    pub fn add(&mut self) -> AddW<'_, DaddrSpec> {
         AddW::new(self, 0)
     }
     #[doc = "Bit 1 - Device address"]
     #[inline(always)]
-    pub fn add1(&mut self) -> Add1W<DaddrSpec> {
+    pub fn add1(&mut self) -> Add1W<'_, DaddrSpec> {
         Add1W::new(self, 1)
     }
     #[doc = "Bit 2 - Device address"]
     #[inline(always)]
-    pub fn add2(&mut self) -> Add2W<DaddrSpec> {
+    pub fn add2(&mut self) -> Add2W<'_, DaddrSpec> {
         Add2W::new(self, 2)
     }
     #[doc = "Bit 3 - Device address"]
     #[inline(always)]
-    pub fn add3(&mut self) -> Add3W<DaddrSpec> {
+    pub fn add3(&mut self) -> Add3W<'_, DaddrSpec> {
         Add3W::new(self, 3)
     }
     #[doc = "Bit 4 - Device address"]
     #[inline(always)]
-    pub fn add4(&mut self) -> Add4W<DaddrSpec> {
+    pub fn add4(&mut self) -> Add4W<'_, DaddrSpec> {
         Add4W::new(self, 4)
     }
     #[doc = "Bit 5 - Device address"]
     #[inline(always)]
-    pub fn add5(&mut self) -> Add5W<DaddrSpec> {
+    pub fn add5(&mut self) -> Add5W<'_, DaddrSpec> {
         Add5W::new(self, 5)
     }
     #[doc = "Bit 6 - Device address"]
     #[inline(always)]
-    pub fn add6(&mut self) -> Add6W<DaddrSpec> {
+    pub fn add6(&mut self) -> Add6W<'_, DaddrSpec> {
         Add6W::new(self, 6)
     }
     #[doc = "Bit 7 - Enable function"]
     #[inline(always)]
-    pub fn ef(&mut self) -> EfW<DaddrSpec> {
+    pub fn ef(&mut self) -> EfW<'_, DaddrSpec> {
         EfW::new(self, 7)
     }
 }

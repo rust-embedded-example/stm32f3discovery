@@ -95,47 +95,47 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Comparator 7 enable"]
     #[inline(always)]
-    pub fn comp7en(&mut self) -> Comp7enW<Comp7CsrSpec> {
+    pub fn comp7en(&mut self) -> Comp7enW<'_, Comp7CsrSpec> {
         Comp7enW::new(self, 0)
     }
     #[doc = "Bits 2:3 - Comparator 7 mode"]
     #[inline(always)]
-    pub fn comp7mode(&mut self) -> Comp7modeW<Comp7CsrSpec> {
+    pub fn comp7mode(&mut self) -> Comp7modeW<'_, Comp7CsrSpec> {
         Comp7modeW::new(self, 2)
     }
     #[doc = "Bits 4:6 - Comparator 7 inverting input selection"]
     #[inline(always)]
-    pub fn comp7insel(&mut self) -> Comp7inselW<Comp7CsrSpec> {
+    pub fn comp7insel(&mut self) -> Comp7inselW<'_, Comp7CsrSpec> {
         Comp7inselW::new(self, 4)
     }
     #[doc = "Bit 7 - Comparator 7 non inverted input selection"]
     #[inline(always)]
-    pub fn comp7inpsel(&mut self) -> Comp7inpselW<Comp7CsrSpec> {
+    pub fn comp7inpsel(&mut self) -> Comp7inpselW<'_, Comp7CsrSpec> {
         Comp7inpselW::new(self, 7)
     }
     #[doc = "Bits 10:13 - Comparator 7 output selection"]
     #[inline(always)]
-    pub fn comp7_out_sel(&mut self) -> Comp7OutSelW<Comp7CsrSpec> {
+    pub fn comp7_out_sel(&mut self) -> Comp7OutSelW<'_, Comp7CsrSpec> {
         Comp7OutSelW::new(self, 10)
     }
     #[doc = "Bit 15 - Comparator 7 output polarity"]
     #[inline(always)]
-    pub fn comp7pol(&mut self) -> Comp7polW<Comp7CsrSpec> {
+    pub fn comp7pol(&mut self) -> Comp7polW<'_, Comp7CsrSpec> {
         Comp7polW::new(self, 15)
     }
     #[doc = "Bits 16:17 - Comparator 7 hysteresis"]
     #[inline(always)]
-    pub fn comp7hyst(&mut self) -> Comp7hystW<Comp7CsrSpec> {
+    pub fn comp7hyst(&mut self) -> Comp7hystW<'_, Comp7CsrSpec> {
         Comp7hystW::new(self, 16)
     }
     #[doc = "Bits 18:20 - Comparator 7 blanking source"]
     #[inline(always)]
-    pub fn comp7_blanking(&mut self) -> Comp7BlankingW<Comp7CsrSpec> {
+    pub fn comp7_blanking(&mut self) -> Comp7BlankingW<'_, Comp7CsrSpec> {
         Comp7BlankingW::new(self, 18)
     }
     #[doc = "Bit 31 - Comparator 7 lock"]
     #[inline(always)]
-    pub fn comp7lock(&mut self) -> Comp7lockW<Comp7CsrSpec> {
+    pub fn comp7lock(&mut self) -> Comp7lockW<'_, Comp7CsrSpec> {
         Comp7lockW::new(self, 31)
     }
 }

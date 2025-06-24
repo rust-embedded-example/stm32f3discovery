@@ -79,42 +79,42 @@ impl R {
 impl W {
     #[doc = "Bit 0 - SYSCFG and COMP reset"]
     #[inline(always)]
-    pub fn syscfgrst(&mut self) -> SyscfgrstW<Apb2rstrSpec> {
+    pub fn syscfgrst(&mut self) -> SyscfgrstW<'_, Apb2rstrSpec> {
         SyscfgrstW::new(self, 0)
     }
     #[doc = "Bit 11 - TIM1 timer reset"]
     #[inline(always)]
-    pub fn tim1rst(&mut self) -> Tim1rstW<Apb2rstrSpec> {
+    pub fn tim1rst(&mut self) -> Tim1rstW<'_, Apb2rstrSpec> {
         Tim1rstW::new(self, 11)
     }
     #[doc = "Bit 12 - SPI 1 reset"]
     #[inline(always)]
-    pub fn spi1rst(&mut self) -> Spi1rstW<Apb2rstrSpec> {
+    pub fn spi1rst(&mut self) -> Spi1rstW<'_, Apb2rstrSpec> {
         Spi1rstW::new(self, 12)
     }
     #[doc = "Bit 13 - TIM8 timer reset"]
     #[inline(always)]
-    pub fn tim8rst(&mut self) -> Tim8rstW<Apb2rstrSpec> {
+    pub fn tim8rst(&mut self) -> Tim8rstW<'_, Apb2rstrSpec> {
         Tim8rstW::new(self, 13)
     }
     #[doc = "Bit 14 - USART1 reset"]
     #[inline(always)]
-    pub fn usart1rst(&mut self) -> Usart1rstW<Apb2rstrSpec> {
+    pub fn usart1rst(&mut self) -> Usart1rstW<'_, Apb2rstrSpec> {
         Usart1rstW::new(self, 14)
     }
     #[doc = "Bit 16 - TIM15 timer reset"]
     #[inline(always)]
-    pub fn tim15rst(&mut self) -> Tim15rstW<Apb2rstrSpec> {
+    pub fn tim15rst(&mut self) -> Tim15rstW<'_, Apb2rstrSpec> {
         Tim15rstW::new(self, 16)
     }
     #[doc = "Bit 17 - TIM16 timer reset"]
     #[inline(always)]
-    pub fn tim16rst(&mut self) -> Tim16rstW<Apb2rstrSpec> {
+    pub fn tim16rst(&mut self) -> Tim16rstW<'_, Apb2rstrSpec> {
         Tim16rstW::new(self, 17)
     }
     #[doc = "Bit 18 - TIM17 timer reset"]
     #[inline(always)]
-    pub fn tim17rst(&mut self) -> Tim17rstW<Apb2rstrSpec> {
+    pub fn tim17rst(&mut self) -> Tim17rstW<'_, Apb2rstrSpec> {
         Tim17rstW::new(self, 18)
     }
 }

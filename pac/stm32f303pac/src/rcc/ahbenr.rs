@@ -160,87 +160,87 @@ impl R {
 impl W {
     #[doc = "Bit 0 - DMA1 clock enable"]
     #[inline(always)]
-    pub fn dmaen(&mut self) -> DmaenW<AhbenrSpec> {
+    pub fn dmaen(&mut self) -> DmaenW<'_, AhbenrSpec> {
         DmaenW::new(self, 0)
     }
     #[doc = "Bit 1 - DMA2 clock enable"]
     #[inline(always)]
-    pub fn dma2en(&mut self) -> Dma2enW<AhbenrSpec> {
+    pub fn dma2en(&mut self) -> Dma2enW<'_, AhbenrSpec> {
         Dma2enW::new(self, 1)
     }
     #[doc = "Bit 2 - SRAM interface clock enable"]
     #[inline(always)]
-    pub fn sramen(&mut self) -> SramenW<AhbenrSpec> {
+    pub fn sramen(&mut self) -> SramenW<'_, AhbenrSpec> {
         SramenW::new(self, 2)
     }
     #[doc = "Bit 4 - FLITF clock enable"]
     #[inline(always)]
-    pub fn flitfen(&mut self) -> FlitfenW<AhbenrSpec> {
+    pub fn flitfen(&mut self) -> FlitfenW<'_, AhbenrSpec> {
         FlitfenW::new(self, 4)
     }
     #[doc = "Bit 5 - FMC clock enable"]
     #[inline(always)]
-    pub fn fmcen(&mut self) -> FmcenW<AhbenrSpec> {
+    pub fn fmcen(&mut self) -> FmcenW<'_, AhbenrSpec> {
         FmcenW::new(self, 5)
     }
     #[doc = "Bit 6 - CRC clock enable"]
     #[inline(always)]
-    pub fn crcen(&mut self) -> CrcenW<AhbenrSpec> {
+    pub fn crcen(&mut self) -> CrcenW<'_, AhbenrSpec> {
         CrcenW::new(self, 6)
     }
     #[doc = "Bit 16 - IO port H clock enable"]
     #[inline(always)]
-    pub fn iophen(&mut self) -> IophenW<AhbenrSpec> {
+    pub fn iophen(&mut self) -> IophenW<'_, AhbenrSpec> {
         IophenW::new(self, 16)
     }
     #[doc = "Bit 17 - I/O port A clock enable"]
     #[inline(always)]
-    pub fn iopaen(&mut self) -> IopaenW<AhbenrSpec> {
+    pub fn iopaen(&mut self) -> IopaenW<'_, AhbenrSpec> {
         IopaenW::new(self, 17)
     }
     #[doc = "Bit 18 - I/O port B clock enable"]
     #[inline(always)]
-    pub fn iopben(&mut self) -> IopbenW<AhbenrSpec> {
+    pub fn iopben(&mut self) -> IopbenW<'_, AhbenrSpec> {
         IopbenW::new(self, 18)
     }
     #[doc = "Bit 19 - I/O port C clock enable"]
     #[inline(always)]
-    pub fn iopcen(&mut self) -> IopcenW<AhbenrSpec> {
+    pub fn iopcen(&mut self) -> IopcenW<'_, AhbenrSpec> {
         IopcenW::new(self, 19)
     }
     #[doc = "Bit 20 - I/O port D clock enable"]
     #[inline(always)]
-    pub fn iopden(&mut self) -> IopdenW<AhbenrSpec> {
+    pub fn iopden(&mut self) -> IopdenW<'_, AhbenrSpec> {
         IopdenW::new(self, 20)
     }
     #[doc = "Bit 21 - I/O port E clock enable"]
     #[inline(always)]
-    pub fn iopeen(&mut self) -> IopeenW<AhbenrSpec> {
+    pub fn iopeen(&mut self) -> IopeenW<'_, AhbenrSpec> {
         IopeenW::new(self, 21)
     }
     #[doc = "Bit 22 - I/O port F clock enable"]
     #[inline(always)]
-    pub fn iopfen(&mut self) -> IopfenW<AhbenrSpec> {
+    pub fn iopfen(&mut self) -> IopfenW<'_, AhbenrSpec> {
         IopfenW::new(self, 22)
     }
     #[doc = "Bit 23 - I/O port G clock enable"]
     #[inline(always)]
-    pub fn iopgen(&mut self) -> IopgenW<AhbenrSpec> {
+    pub fn iopgen(&mut self) -> IopgenW<'_, AhbenrSpec> {
         IopgenW::new(self, 23)
     }
     #[doc = "Bit 24 - Touch sensing controller clock enable"]
     #[inline(always)]
-    pub fn tscen(&mut self) -> TscenW<AhbenrSpec> {
+    pub fn tscen(&mut self) -> TscenW<'_, AhbenrSpec> {
         TscenW::new(self, 24)
     }
     #[doc = "Bit 28 - ADC1 and ADC2 clock enable"]
     #[inline(always)]
-    pub fn adc12en(&mut self) -> Adc12enW<AhbenrSpec> {
+    pub fn adc12en(&mut self) -> Adc12enW<'_, AhbenrSpec> {
         Adc12enW::new(self, 28)
     }
     #[doc = "Bit 29 - ADC3 and ADC4 clock enable"]
     #[inline(always)]
-    pub fn adc34en(&mut self) -> Adc34enW<AhbenrSpec> {
+    pub fn adc34en(&mut self) -> Adc34enW<'_, AhbenrSpec> {
         Adc34enW::new(self, 29)
     }
 }

@@ -187,102 +187,102 @@ impl R {
 impl W {
     #[doc = "Bit 0 - USART enable"]
     #[inline(always)]
-    pub fn ue(&mut self) -> UeW<Cr1Spec> {
+    pub fn ue(&mut self) -> UeW<'_, Cr1Spec> {
         UeW::new(self, 0)
     }
     #[doc = "Bit 1 - USART enable in Stop mode"]
     #[inline(always)]
-    pub fn uesm(&mut self) -> UesmW<Cr1Spec> {
+    pub fn uesm(&mut self) -> UesmW<'_, Cr1Spec> {
         UesmW::new(self, 1)
     }
     #[doc = "Bit 2 - Receiver enable"]
     #[inline(always)]
-    pub fn re(&mut self) -> ReW<Cr1Spec> {
+    pub fn re(&mut self) -> ReW<'_, Cr1Spec> {
         ReW::new(self, 2)
     }
     #[doc = "Bit 3 - Transmitter enable"]
     #[inline(always)]
-    pub fn te(&mut self) -> TeW<Cr1Spec> {
+    pub fn te(&mut self) -> TeW<'_, Cr1Spec> {
         TeW::new(self, 3)
     }
     #[doc = "Bit 4 - IDLE interrupt enable"]
     #[inline(always)]
-    pub fn idleie(&mut self) -> IdleieW<Cr1Spec> {
+    pub fn idleie(&mut self) -> IdleieW<'_, Cr1Spec> {
         IdleieW::new(self, 4)
     }
     #[doc = "Bit 5 - RXNE interrupt enable"]
     #[inline(always)]
-    pub fn rxneie(&mut self) -> RxneieW<Cr1Spec> {
+    pub fn rxneie(&mut self) -> RxneieW<'_, Cr1Spec> {
         RxneieW::new(self, 5)
     }
     #[doc = "Bit 6 - Transmission complete interrupt enable"]
     #[inline(always)]
-    pub fn tcie(&mut self) -> TcieW<Cr1Spec> {
+    pub fn tcie(&mut self) -> TcieW<'_, Cr1Spec> {
         TcieW::new(self, 6)
     }
     #[doc = "Bit 7 - interrupt enable"]
     #[inline(always)]
-    pub fn txeie(&mut self) -> TxeieW<Cr1Spec> {
+    pub fn txeie(&mut self) -> TxeieW<'_, Cr1Spec> {
         TxeieW::new(self, 7)
     }
     #[doc = "Bit 8 - PE interrupt enable"]
     #[inline(always)]
-    pub fn peie(&mut self) -> PeieW<Cr1Spec> {
+    pub fn peie(&mut self) -> PeieW<'_, Cr1Spec> {
         PeieW::new(self, 8)
     }
     #[doc = "Bit 9 - Parity selection"]
     #[inline(always)]
-    pub fn ps(&mut self) -> PsW<Cr1Spec> {
+    pub fn ps(&mut self) -> PsW<'_, Cr1Spec> {
         PsW::new(self, 9)
     }
     #[doc = "Bit 10 - Parity control enable"]
     #[inline(always)]
-    pub fn pce(&mut self) -> PceW<Cr1Spec> {
+    pub fn pce(&mut self) -> PceW<'_, Cr1Spec> {
         PceW::new(self, 10)
     }
     #[doc = "Bit 11 - Receiver wakeup method"]
     #[inline(always)]
-    pub fn wake(&mut self) -> WakeW<Cr1Spec> {
+    pub fn wake(&mut self) -> WakeW<'_, Cr1Spec> {
         WakeW::new(self, 11)
     }
     #[doc = "Bit 12 - Word length"]
     #[inline(always)]
-    pub fn m(&mut self) -> MW<Cr1Spec> {
+    pub fn m(&mut self) -> MW<'_, Cr1Spec> {
         MW::new(self, 12)
     }
     #[doc = "Bit 13 - Mute mode enable"]
     #[inline(always)]
-    pub fn mme(&mut self) -> MmeW<Cr1Spec> {
+    pub fn mme(&mut self) -> MmeW<'_, Cr1Spec> {
         MmeW::new(self, 13)
     }
     #[doc = "Bit 14 - Character match interrupt enable"]
     #[inline(always)]
-    pub fn cmie(&mut self) -> CmieW<Cr1Spec> {
+    pub fn cmie(&mut self) -> CmieW<'_, Cr1Spec> {
         CmieW::new(self, 14)
     }
     #[doc = "Bit 15 - Oversampling mode"]
     #[inline(always)]
-    pub fn over8(&mut self) -> Over8W<Cr1Spec> {
+    pub fn over8(&mut self) -> Over8W<'_, Cr1Spec> {
         Over8W::new(self, 15)
     }
     #[doc = "Bits 16:20 - Driver Enable deassertion time"]
     #[inline(always)]
-    pub fn dedt(&mut self) -> DedtW<Cr1Spec> {
+    pub fn dedt(&mut self) -> DedtW<'_, Cr1Spec> {
         DedtW::new(self, 16)
     }
     #[doc = "Bits 21:25 - Driver Enable assertion time"]
     #[inline(always)]
-    pub fn deat(&mut self) -> DeatW<Cr1Spec> {
+    pub fn deat(&mut self) -> DeatW<'_, Cr1Spec> {
         DeatW::new(self, 21)
     }
     #[doc = "Bit 26 - Receiver timeout interrupt enable"]
     #[inline(always)]
-    pub fn rtoie(&mut self) -> RtoieW<Cr1Spec> {
+    pub fn rtoie(&mut self) -> RtoieW<'_, Cr1Spec> {
         RtoieW::new(self, 26)
     }
     #[doc = "Bit 27 - End of Block interrupt enable"]
     #[inline(always)]
-    pub fn eobie(&mut self) -> EobieW<Cr1Spec> {
+    pub fn eobie(&mut self) -> EobieW<'_, Cr1Spec> {
         EobieW::new(self, 27)
     }
 }

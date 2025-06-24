@@ -115,62 +115,62 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Channel enable"]
     #[inline(always)]
-    pub fn en(&mut self) -> EnW<Ccr5Spec> {
+    pub fn en(&mut self) -> EnW<'_, Ccr5Spec> {
         EnW::new(self, 0)
     }
     #[doc = "Bit 1 - Transfer complete interrupt enable"]
     #[inline(always)]
-    pub fn tcie(&mut self) -> TcieW<Ccr5Spec> {
+    pub fn tcie(&mut self) -> TcieW<'_, Ccr5Spec> {
         TcieW::new(self, 1)
     }
     #[doc = "Bit 2 - Half Transfer interrupt enable"]
     #[inline(always)]
-    pub fn htie(&mut self) -> HtieW<Ccr5Spec> {
+    pub fn htie(&mut self) -> HtieW<'_, Ccr5Spec> {
         HtieW::new(self, 2)
     }
     #[doc = "Bit 3 - Transfer error interrupt enable"]
     #[inline(always)]
-    pub fn teie(&mut self) -> TeieW<Ccr5Spec> {
+    pub fn teie(&mut self) -> TeieW<'_, Ccr5Spec> {
         TeieW::new(self, 3)
     }
     #[doc = "Bit 4 - Data transfer direction"]
     #[inline(always)]
-    pub fn dir(&mut self) -> DirW<Ccr5Spec> {
+    pub fn dir(&mut self) -> DirW<'_, Ccr5Spec> {
         DirW::new(self, 4)
     }
     #[doc = "Bit 5 - Circular mode"]
     #[inline(always)]
-    pub fn circ(&mut self) -> CircW<Ccr5Spec> {
+    pub fn circ(&mut self) -> CircW<'_, Ccr5Spec> {
         CircW::new(self, 5)
     }
     #[doc = "Bit 6 - Peripheral increment mode"]
     #[inline(always)]
-    pub fn pinc(&mut self) -> PincW<Ccr5Spec> {
+    pub fn pinc(&mut self) -> PincW<'_, Ccr5Spec> {
         PincW::new(self, 6)
     }
     #[doc = "Bit 7 - Memory increment mode"]
     #[inline(always)]
-    pub fn minc(&mut self) -> MincW<Ccr5Spec> {
+    pub fn minc(&mut self) -> MincW<'_, Ccr5Spec> {
         MincW::new(self, 7)
     }
     #[doc = "Bits 8:9 - Peripheral size"]
     #[inline(always)]
-    pub fn psize(&mut self) -> PsizeW<Ccr5Spec> {
+    pub fn psize(&mut self) -> PsizeW<'_, Ccr5Spec> {
         PsizeW::new(self, 8)
     }
     #[doc = "Bits 10:11 - Memory size"]
     #[inline(always)]
-    pub fn msize(&mut self) -> MsizeW<Ccr5Spec> {
+    pub fn msize(&mut self) -> MsizeW<'_, Ccr5Spec> {
         MsizeW::new(self, 10)
     }
     #[doc = "Bits 12:13 - Channel Priority level"]
     #[inline(always)]
-    pub fn pl(&mut self) -> PlW<Ccr5Spec> {
+    pub fn pl(&mut self) -> PlW<'_, Ccr5Spec> {
         PlW::new(self, 12)
     }
     #[doc = "Bit 14 - Memory to memory mode"]
     #[inline(always)]
-    pub fn mem2mem(&mut self) -> Mem2memW<Ccr5Spec> {
+    pub fn mem2mem(&mut self) -> Mem2memW<'_, Ccr5Spec> {
         Mem2memW::new(self, 14)
     }
 }

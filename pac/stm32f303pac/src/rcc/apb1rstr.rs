@@ -178,97 +178,97 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Timer 2 reset"]
     #[inline(always)]
-    pub fn tim2rst(&mut self) -> Tim2rstW<Apb1rstrSpec> {
+    pub fn tim2rst(&mut self) -> Tim2rstW<'_, Apb1rstrSpec> {
         Tim2rstW::new(self, 0)
     }
     #[doc = "Bit 1 - Timer 3 reset"]
     #[inline(always)]
-    pub fn tim3rst(&mut self) -> Tim3rstW<Apb1rstrSpec> {
+    pub fn tim3rst(&mut self) -> Tim3rstW<'_, Apb1rstrSpec> {
         Tim3rstW::new(self, 1)
     }
     #[doc = "Bit 2 - Timer 14 reset"]
     #[inline(always)]
-    pub fn tim4rst(&mut self) -> Tim4rstW<Apb1rstrSpec> {
+    pub fn tim4rst(&mut self) -> Tim4rstW<'_, Apb1rstrSpec> {
         Tim4rstW::new(self, 2)
     }
     #[doc = "Bit 4 - Timer 6 reset"]
     #[inline(always)]
-    pub fn tim6rst(&mut self) -> Tim6rstW<Apb1rstrSpec> {
+    pub fn tim6rst(&mut self) -> Tim6rstW<'_, Apb1rstrSpec> {
         Tim6rstW::new(self, 4)
     }
     #[doc = "Bit 5 - Timer 7 reset"]
     #[inline(always)]
-    pub fn tim7rst(&mut self) -> Tim7rstW<Apb1rstrSpec> {
+    pub fn tim7rst(&mut self) -> Tim7rstW<'_, Apb1rstrSpec> {
         Tim7rstW::new(self, 5)
     }
     #[doc = "Bit 11 - Window watchdog reset"]
     #[inline(always)]
-    pub fn wwdgrst(&mut self) -> WwdgrstW<Apb1rstrSpec> {
+    pub fn wwdgrst(&mut self) -> WwdgrstW<'_, Apb1rstrSpec> {
         WwdgrstW::new(self, 11)
     }
     #[doc = "Bit 14 - SPI2 reset"]
     #[inline(always)]
-    pub fn spi2rst(&mut self) -> Spi2rstW<Apb1rstrSpec> {
+    pub fn spi2rst(&mut self) -> Spi2rstW<'_, Apb1rstrSpec> {
         Spi2rstW::new(self, 14)
     }
     #[doc = "Bit 15 - SPI3 reset"]
     #[inline(always)]
-    pub fn spi3rst(&mut self) -> Spi3rstW<Apb1rstrSpec> {
+    pub fn spi3rst(&mut self) -> Spi3rstW<'_, Apb1rstrSpec> {
         Spi3rstW::new(self, 15)
     }
     #[doc = "Bit 17 - USART 2 reset"]
     #[inline(always)]
-    pub fn usart2rst(&mut self) -> Usart2rstW<Apb1rstrSpec> {
+    pub fn usart2rst(&mut self) -> Usart2rstW<'_, Apb1rstrSpec> {
         Usart2rstW::new(self, 17)
     }
     #[doc = "Bit 18 - USART3 reset"]
     #[inline(always)]
-    pub fn usart3rst(&mut self) -> Usart3rstW<Apb1rstrSpec> {
+    pub fn usart3rst(&mut self) -> Usart3rstW<'_, Apb1rstrSpec> {
         Usart3rstW::new(self, 18)
     }
     #[doc = "Bit 19 - UART 4 reset"]
     #[inline(always)]
-    pub fn uart4rst(&mut self) -> Uart4rstW<Apb1rstrSpec> {
+    pub fn uart4rst(&mut self) -> Uart4rstW<'_, Apb1rstrSpec> {
         Uart4rstW::new(self, 19)
     }
     #[doc = "Bit 20 - UART 5 reset"]
     #[inline(always)]
-    pub fn uart5rst(&mut self) -> Uart5rstW<Apb1rstrSpec> {
+    pub fn uart5rst(&mut self) -> Uart5rstW<'_, Apb1rstrSpec> {
         Uart5rstW::new(self, 20)
     }
     #[doc = "Bit 21 - I2C1 reset"]
     #[inline(always)]
-    pub fn i2c1rst(&mut self) -> I2c1rstW<Apb1rstrSpec> {
+    pub fn i2c1rst(&mut self) -> I2c1rstW<'_, Apb1rstrSpec> {
         I2c1rstW::new(self, 21)
     }
     #[doc = "Bit 22 - I2C2 reset"]
     #[inline(always)]
-    pub fn i2c2rst(&mut self) -> I2c2rstW<Apb1rstrSpec> {
+    pub fn i2c2rst(&mut self) -> I2c2rstW<'_, Apb1rstrSpec> {
         I2c2rstW::new(self, 22)
     }
     #[doc = "Bit 23 - USB reset"]
     #[inline(always)]
-    pub fn usbrst(&mut self) -> UsbrstW<Apb1rstrSpec> {
+    pub fn usbrst(&mut self) -> UsbrstW<'_, Apb1rstrSpec> {
         UsbrstW::new(self, 23)
     }
     #[doc = "Bit 25 - CAN reset"]
     #[inline(always)]
-    pub fn canrst(&mut self) -> CanrstW<Apb1rstrSpec> {
+    pub fn canrst(&mut self) -> CanrstW<'_, Apb1rstrSpec> {
         CanrstW::new(self, 25)
     }
     #[doc = "Bit 28 - Power interface reset"]
     #[inline(always)]
-    pub fn pwrrst(&mut self) -> PwrrstW<Apb1rstrSpec> {
+    pub fn pwrrst(&mut self) -> PwrrstW<'_, Apb1rstrSpec> {
         PwrrstW::new(self, 28)
     }
     #[doc = "Bit 29 - DAC interface reset"]
     #[inline(always)]
-    pub fn dacrst(&mut self) -> DacrstW<Apb1rstrSpec> {
+    pub fn dacrst(&mut self) -> DacrstW<'_, Apb1rstrSpec> {
         DacrstW::new(self, 29)
     }
     #[doc = "Bit 30 - I2C3 reset"]
     #[inline(always)]
-    pub fn i2c3rst(&mut self) -> I2c3rstW<Apb1rstrSpec> {
+    pub fn i2c3rst(&mut self) -> I2c3rstW<'_, Apb1rstrSpec> {
         I2c3rstW::new(self, 30)
     }
 }

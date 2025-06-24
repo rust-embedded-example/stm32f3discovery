@@ -133,72 +133,72 @@ impl R {
 impl W {
     #[doc = "Bit 0 - TMEIE"]
     #[inline(always)]
-    pub fn tmeie(&mut self) -> TmeieW<IerSpec> {
+    pub fn tmeie(&mut self) -> TmeieW<'_, IerSpec> {
         TmeieW::new(self, 0)
     }
     #[doc = "Bit 1 - FMPIE0"]
     #[inline(always)]
-    pub fn fmpie0(&mut self) -> Fmpie0W<IerSpec> {
+    pub fn fmpie0(&mut self) -> Fmpie0W<'_, IerSpec> {
         Fmpie0W::new(self, 1)
     }
     #[doc = "Bit 2 - FFIE0"]
     #[inline(always)]
-    pub fn ffie0(&mut self) -> Ffie0W<IerSpec> {
+    pub fn ffie0(&mut self) -> Ffie0W<'_, IerSpec> {
         Ffie0W::new(self, 2)
     }
     #[doc = "Bit 3 - FOVIE0"]
     #[inline(always)]
-    pub fn fovie0(&mut self) -> Fovie0W<IerSpec> {
+    pub fn fovie0(&mut self) -> Fovie0W<'_, IerSpec> {
         Fovie0W::new(self, 3)
     }
     #[doc = "Bit 4 - FMPIE1"]
     #[inline(always)]
-    pub fn fmpie1(&mut self) -> Fmpie1W<IerSpec> {
+    pub fn fmpie1(&mut self) -> Fmpie1W<'_, IerSpec> {
         Fmpie1W::new(self, 4)
     }
     #[doc = "Bit 5 - FFIE1"]
     #[inline(always)]
-    pub fn ffie1(&mut self) -> Ffie1W<IerSpec> {
+    pub fn ffie1(&mut self) -> Ffie1W<'_, IerSpec> {
         Ffie1W::new(self, 5)
     }
     #[doc = "Bit 6 - FOVIE1"]
     #[inline(always)]
-    pub fn fovie1(&mut self) -> Fovie1W<IerSpec> {
+    pub fn fovie1(&mut self) -> Fovie1W<'_, IerSpec> {
         Fovie1W::new(self, 6)
     }
     #[doc = "Bit 8 - EWGIE"]
     #[inline(always)]
-    pub fn ewgie(&mut self) -> EwgieW<IerSpec> {
+    pub fn ewgie(&mut self) -> EwgieW<'_, IerSpec> {
         EwgieW::new(self, 8)
     }
     #[doc = "Bit 9 - EPVIE"]
     #[inline(always)]
-    pub fn epvie(&mut self) -> EpvieW<IerSpec> {
+    pub fn epvie(&mut self) -> EpvieW<'_, IerSpec> {
         EpvieW::new(self, 9)
     }
     #[doc = "Bit 10 - BOFIE"]
     #[inline(always)]
-    pub fn bofie(&mut self) -> BofieW<IerSpec> {
+    pub fn bofie(&mut self) -> BofieW<'_, IerSpec> {
         BofieW::new(self, 10)
     }
     #[doc = "Bit 11 - LECIE"]
     #[inline(always)]
-    pub fn lecie(&mut self) -> LecieW<IerSpec> {
+    pub fn lecie(&mut self) -> LecieW<'_, IerSpec> {
         LecieW::new(self, 11)
     }
     #[doc = "Bit 15 - ERRIE"]
     #[inline(always)]
-    pub fn errie(&mut self) -> ErrieW<IerSpec> {
+    pub fn errie(&mut self) -> ErrieW<'_, IerSpec> {
         ErrieW::new(self, 15)
     }
     #[doc = "Bit 16 - WKUIE"]
     #[inline(always)]
-    pub fn wkuie(&mut self) -> WkuieW<IerSpec> {
+    pub fn wkuie(&mut self) -> WkuieW<'_, IerSpec> {
         WkuieW::new(self, 16)
     }
     #[doc = "Bit 17 - SLKIE"]
     #[inline(always)]
-    pub fn slkie(&mut self) -> SlkieW<IerSpec> {
+    pub fn slkie(&mut self) -> SlkieW<'_, IerSpec> {
         SlkieW::new(self, 17)
     }
 }

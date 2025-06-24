@@ -43,22 +43,22 @@ impl R {
 impl W {
     #[doc = "Bits 0:7 - ATTSETx"]
     #[inline(always)]
-    pub fn attsetx(&mut self) -> AttsetxW<Patt3Spec> {
+    pub fn attsetx(&mut self) -> AttsetxW<'_, Patt3Spec> {
         AttsetxW::new(self, 0)
     }
     #[doc = "Bits 8:15 - ATTWAITx"]
     #[inline(always)]
-    pub fn attwaitx(&mut self) -> AttwaitxW<Patt3Spec> {
+    pub fn attwaitx(&mut self) -> AttwaitxW<'_, Patt3Spec> {
         AttwaitxW::new(self, 8)
     }
     #[doc = "Bits 16:23 - ATTHOLDx"]
     #[inline(always)]
-    pub fn attholdx(&mut self) -> AttholdxW<Patt3Spec> {
+    pub fn attholdx(&mut self) -> AttholdxW<'_, Patt3Spec> {
         AttholdxW::new(self, 16)
     }
     #[doc = "Bits 24:31 - ATTHIZx"]
     #[inline(always)]
-    pub fn atthizx(&mut self) -> AtthizxW<Patt3Spec> {
+    pub fn atthizx(&mut self) -> AtthizxW<'_, Patt3Spec> {
         AtthizxW::new(self, 24)
     }
 }

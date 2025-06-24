@@ -43,22 +43,22 @@ impl R {
 impl W {
     #[doc = "Bits 0:7 - MEMSETx"]
     #[inline(always)]
-    pub fn memsetx(&mut self) -> MemsetxW<Pmem4Spec> {
+    pub fn memsetx(&mut self) -> MemsetxW<'_, Pmem4Spec> {
         MemsetxW::new(self, 0)
     }
     #[doc = "Bits 8:15 - MEMWAITx"]
     #[inline(always)]
-    pub fn memwaitx(&mut self) -> MemwaitxW<Pmem4Spec> {
+    pub fn memwaitx(&mut self) -> MemwaitxW<'_, Pmem4Spec> {
         MemwaitxW::new(self, 8)
     }
     #[doc = "Bits 16:23 - MEMHOLDx"]
     #[inline(always)]
-    pub fn memholdx(&mut self) -> MemholdxW<Pmem4Spec> {
+    pub fn memholdx(&mut self) -> MemholdxW<'_, Pmem4Spec> {
         MemholdxW::new(self, 16)
     }
     #[doc = "Bits 24:31 - MEMHIZx"]
     #[inline(always)]
-    pub fn memhizx(&mut self) -> MemhizxW<Pmem4Spec> {
+    pub fn memhizx(&mut self) -> MemhizxW<'_, Pmem4Spec> {
         MemhizxW::new(self, 24)
     }
 }

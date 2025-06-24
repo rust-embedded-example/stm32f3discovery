@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 4:15 - DAC channel2 12-bit left-aligned data"]
     #[inline(always)]
-    pub fn dacc2dhr(&mut self) -> Dacc2dhrW<Dhr12l2Spec> {
+    pub fn dacc2dhr(&mut self) -> Dacc2dhrW<'_, Dhr12l2Spec> {
         Dacc2dhrW::new(self, 4)
     }
 }

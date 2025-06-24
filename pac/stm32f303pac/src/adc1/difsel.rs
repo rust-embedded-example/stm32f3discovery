@@ -23,7 +23,7 @@ impl R {
 impl W {
     #[doc = "Bits 1:15 - Differential mode for channels 15 to 1"]
     #[inline(always)]
-    pub fn difsel_1_15(&mut self) -> Difsel1_15W<DifselSpec> {
+    pub fn difsel_1_15(&mut self) -> Difsel1_15W<'_, DifselSpec> {
         Difsel1_15W::new(self, 1)
     }
 }

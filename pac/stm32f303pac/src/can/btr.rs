@@ -61,32 +61,32 @@ impl R {
 impl W {
     #[doc = "Bits 0:9 - BRP"]
     #[inline(always)]
-    pub fn brp(&mut self) -> BrpW<BtrSpec> {
+    pub fn brp(&mut self) -> BrpW<'_, BtrSpec> {
         BrpW::new(self, 0)
     }
     #[doc = "Bits 16:19 - TS1"]
     #[inline(always)]
-    pub fn ts1(&mut self) -> Ts1W<BtrSpec> {
+    pub fn ts1(&mut self) -> Ts1W<'_, BtrSpec> {
         Ts1W::new(self, 16)
     }
     #[doc = "Bits 20:22 - TS2"]
     #[inline(always)]
-    pub fn ts2(&mut self) -> Ts2W<BtrSpec> {
+    pub fn ts2(&mut self) -> Ts2W<'_, BtrSpec> {
         Ts2W::new(self, 20)
     }
     #[doc = "Bits 24:25 - SJW"]
     #[inline(always)]
-    pub fn sjw(&mut self) -> SjwW<BtrSpec> {
+    pub fn sjw(&mut self) -> SjwW<'_, BtrSpec> {
         SjwW::new(self, 24)
     }
     #[doc = "Bit 30 - LBKM"]
     #[inline(always)]
-    pub fn lbkm(&mut self) -> LbkmW<BtrSpec> {
+    pub fn lbkm(&mut self) -> LbkmW<'_, BtrSpec> {
         LbkmW::new(self, 30)
     }
     #[doc = "Bit 31 - SILM"]
     #[inline(always)]
-    pub fn silm(&mut self) -> SilmW<BtrSpec> {
+    pub fn silm(&mut self) -> SilmW<'_, BtrSpec> {
         SilmW::new(self, 31)
     }
 }

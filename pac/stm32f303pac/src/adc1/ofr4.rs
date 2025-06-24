@@ -34,17 +34,17 @@ impl R {
 impl W {
     #[doc = "Bits 0:11 - OFFSET4"]
     #[inline(always)]
-    pub fn offset4(&mut self) -> Offset4W<Ofr4Spec> {
+    pub fn offset4(&mut self) -> Offset4W<'_, Ofr4Spec> {
         Offset4W::new(self, 0)
     }
     #[doc = "Bits 26:30 - OFFSET4_CH"]
     #[inline(always)]
-    pub fn offset4_ch(&mut self) -> Offset4ChW<Ofr4Spec> {
+    pub fn offset4_ch(&mut self) -> Offset4ChW<'_, Ofr4Spec> {
         Offset4ChW::new(self, 26)
     }
     #[doc = "Bit 31 - OFFSET4_EN"]
     #[inline(always)]
-    pub fn offset4_en(&mut self) -> Offset4EnW<Ofr4Spec> {
+    pub fn offset4_en(&mut self) -> Offset4EnW<'_, Ofr4Spec> {
         Offset4EnW::new(self, 31)
     }
 }

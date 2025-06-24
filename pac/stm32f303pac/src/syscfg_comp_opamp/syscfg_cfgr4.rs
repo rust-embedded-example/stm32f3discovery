@@ -133,72 +133,72 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Controls the Input trigger of ADC12 regular channel EXT2"]
     #[inline(always)]
-    pub fn adc12_ext2_rmp(&mut self) -> Adc12Ext2RmpW<SyscfgCfgr4Spec> {
+    pub fn adc12_ext2_rmp(&mut self) -> Adc12Ext2RmpW<'_, SyscfgCfgr4Spec> {
         Adc12Ext2RmpW::new(self, 0)
     }
     #[doc = "Bit 1 - Controls the Input trigger of ADC12 regular channel EXT3"]
     #[inline(always)]
-    pub fn adc12_ext3_rmp(&mut self) -> Adc12Ext3RmpW<SyscfgCfgr4Spec> {
+    pub fn adc12_ext3_rmp(&mut self) -> Adc12Ext3RmpW<'_, SyscfgCfgr4Spec> {
         Adc12Ext3RmpW::new(self, 1)
     }
     #[doc = "Bit 2 - Controls the Input trigger of ADC12 regular channel EXT5"]
     #[inline(always)]
-    pub fn adc12_ext5_rmp(&mut self) -> Adc12Ext5RmpW<SyscfgCfgr4Spec> {
+    pub fn adc12_ext5_rmp(&mut self) -> Adc12Ext5RmpW<'_, SyscfgCfgr4Spec> {
         Adc12Ext5RmpW::new(self, 2)
     }
     #[doc = "Bit 3 - Controls the Input trigger of ADC12 regular channel EXT13"]
     #[inline(always)]
-    pub fn adc12_ext13_rmp(&mut self) -> Adc12Ext13RmpW<SyscfgCfgr4Spec> {
+    pub fn adc12_ext13_rmp(&mut self) -> Adc12Ext13RmpW<'_, SyscfgCfgr4Spec> {
         Adc12Ext13RmpW::new(self, 3)
     }
     #[doc = "Bit 4 - Controls the Input trigger of ADC12 regular channel EXT15"]
     #[inline(always)]
-    pub fn adc12_ext15_rmp(&mut self) -> Adc12Ext15RmpW<SyscfgCfgr4Spec> {
+    pub fn adc12_ext15_rmp(&mut self) -> Adc12Ext15RmpW<'_, SyscfgCfgr4Spec> {
         Adc12Ext15RmpW::new(self, 4)
     }
     #[doc = "Bit 5 - Controls the Input trigger of ADC12 injected channel EXTI3"]
     #[inline(always)]
-    pub fn adc12_jext3_rmp(&mut self) -> Adc12Jext3RmpW<SyscfgCfgr4Spec> {
+    pub fn adc12_jext3_rmp(&mut self) -> Adc12Jext3RmpW<'_, SyscfgCfgr4Spec> {
         Adc12Jext3RmpW::new(self, 5)
     }
     #[doc = "Bit 6 - Controls the Input trigger of ADC12 injected channel EXTI6"]
     #[inline(always)]
-    pub fn adc12_jext6_rmp(&mut self) -> Adc12Jext6RmpW<SyscfgCfgr4Spec> {
+    pub fn adc12_jext6_rmp(&mut self) -> Adc12Jext6RmpW<'_, SyscfgCfgr4Spec> {
         Adc12Jext6RmpW::new(self, 6)
     }
     #[doc = "Bit 7 - Controls the Input trigger of ADC12 injected channel EXTI13"]
     #[inline(always)]
-    pub fn adc12_jext13_rmp(&mut self) -> Adc12Jext13RmpW<SyscfgCfgr4Spec> {
+    pub fn adc12_jext13_rmp(&mut self) -> Adc12Jext13RmpW<'_, SyscfgCfgr4Spec> {
         Adc12Jext13RmpW::new(self, 7)
     }
     #[doc = "Bit 8 - Controls the Input trigger of ADC34 regular channel EXT5"]
     #[inline(always)]
-    pub fn adc34_ext5_rmp(&mut self) -> Adc34Ext5RmpW<SyscfgCfgr4Spec> {
+    pub fn adc34_ext5_rmp(&mut self) -> Adc34Ext5RmpW<'_, SyscfgCfgr4Spec> {
         Adc34Ext5RmpW::new(self, 8)
     }
     #[doc = "Bit 9 - Controls the Input trigger of ADC34 regular channel EXT6"]
     #[inline(always)]
-    pub fn adc34_ext6_rmp(&mut self) -> Adc34Ext6RmpW<SyscfgCfgr4Spec> {
+    pub fn adc34_ext6_rmp(&mut self) -> Adc34Ext6RmpW<'_, SyscfgCfgr4Spec> {
         Adc34Ext6RmpW::new(self, 9)
     }
     #[doc = "Bit 10 - Controls the Input trigger of ADC34 regular channel EXT15"]
     #[inline(always)]
-    pub fn adc34_ext15_rmp(&mut self) -> Adc34Ext15RmpW<SyscfgCfgr4Spec> {
+    pub fn adc34_ext15_rmp(&mut self) -> Adc34Ext15RmpW<'_, SyscfgCfgr4Spec> {
         Adc34Ext15RmpW::new(self, 10)
     }
     #[doc = "Bit 11 - Controls the Input trigger of ADC34 injected channel JEXT5"]
     #[inline(always)]
-    pub fn adc34_jext5_rmp(&mut self) -> Adc34Jext5RmpW<SyscfgCfgr4Spec> {
+    pub fn adc34_jext5_rmp(&mut self) -> Adc34Jext5RmpW<'_, SyscfgCfgr4Spec> {
         Adc34Jext5RmpW::new(self, 11)
     }
     #[doc = "Bit 12 - Controls the Input trigger of ADC34 injected channel JEXT11"]
     #[inline(always)]
-    pub fn adc34_jext11_rmp(&mut self) -> Adc34Jext11RmpW<SyscfgCfgr4Spec> {
+    pub fn adc34_jext11_rmp(&mut self) -> Adc34Jext11RmpW<'_, SyscfgCfgr4Spec> {
         Adc34Jext11RmpW::new(self, 12)
     }
     #[doc = "Bit 13 - Controls the Input trigger of ADC34 injected channel JEXT14"]
     #[inline(always)]
-    pub fn adc34_jext14_rmp(&mut self) -> Adc34Jext14RmpW<SyscfgCfgr4Spec> {
+    pub fn adc34_jext14_rmp(&mut self) -> Adc34Jext14RmpW<'_, SyscfgCfgr4Spec> {
         Adc34Jext14RmpW::new(self, 13)
     }
 }

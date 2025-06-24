@@ -70,37 +70,37 @@ impl R {
 impl W {
     #[doc = "Bits 0:3 - ADDSET"]
     #[inline(always)]
-    pub fn addset(&mut self) -> AddsetW<Bwtr1Spec> {
+    pub fn addset(&mut self) -> AddsetW<'_, Bwtr1Spec> {
         AddsetW::new(self, 0)
     }
     #[doc = "Bits 4:7 - ADDHLD"]
     #[inline(always)]
-    pub fn addhld(&mut self) -> AddhldW<Bwtr1Spec> {
+    pub fn addhld(&mut self) -> AddhldW<'_, Bwtr1Spec> {
         AddhldW::new(self, 4)
     }
     #[doc = "Bits 8:15 - DATAST"]
     #[inline(always)]
-    pub fn datast(&mut self) -> DatastW<Bwtr1Spec> {
+    pub fn datast(&mut self) -> DatastW<'_, Bwtr1Spec> {
         DatastW::new(self, 8)
     }
     #[doc = "Bits 16:19 - Bus turnaround phase duration"]
     #[inline(always)]
-    pub fn busturn(&mut self) -> BusturnW<Bwtr1Spec> {
+    pub fn busturn(&mut self) -> BusturnW<'_, Bwtr1Spec> {
         BusturnW::new(self, 16)
     }
     #[doc = "Bits 20:23 - CLKDIV"]
     #[inline(always)]
-    pub fn clkdiv(&mut self) -> ClkdivW<Bwtr1Spec> {
+    pub fn clkdiv(&mut self) -> ClkdivW<'_, Bwtr1Spec> {
         ClkdivW::new(self, 20)
     }
     #[doc = "Bits 24:27 - DATLAT"]
     #[inline(always)]
-    pub fn datlat(&mut self) -> DatlatW<Bwtr1Spec> {
+    pub fn datlat(&mut self) -> DatlatW<'_, Bwtr1Spec> {
         DatlatW::new(self, 24)
     }
     #[doc = "Bits 28:29 - ACCMOD"]
     #[inline(always)]
-    pub fn accmod(&mut self) -> AccmodW<Bwtr1Spec> {
+    pub fn accmod(&mut self) -> AccmodW<'_, Bwtr1Spec> {
         AccmodW::new(self, 28)
     }
 }

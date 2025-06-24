@@ -106,57 +106,57 @@ impl R {
 impl W {
     #[doc = "Bit 8 - LSI Ready Interrupt Enable"]
     #[inline(always)]
-    pub fn lsirdyie(&mut self) -> LsirdyieW<CirSpec> {
+    pub fn lsirdyie(&mut self) -> LsirdyieW<'_, CirSpec> {
         LsirdyieW::new(self, 8)
     }
     #[doc = "Bit 9 - LSE Ready Interrupt Enable"]
     #[inline(always)]
-    pub fn lserdyie(&mut self) -> LserdyieW<CirSpec> {
+    pub fn lserdyie(&mut self) -> LserdyieW<'_, CirSpec> {
         LserdyieW::new(self, 9)
     }
     #[doc = "Bit 10 - HSI Ready Interrupt Enable"]
     #[inline(always)]
-    pub fn hsirdyie(&mut self) -> HsirdyieW<CirSpec> {
+    pub fn hsirdyie(&mut self) -> HsirdyieW<'_, CirSpec> {
         HsirdyieW::new(self, 10)
     }
     #[doc = "Bit 11 - HSE Ready Interrupt Enable"]
     #[inline(always)]
-    pub fn hserdyie(&mut self) -> HserdyieW<CirSpec> {
+    pub fn hserdyie(&mut self) -> HserdyieW<'_, CirSpec> {
         HserdyieW::new(self, 11)
     }
     #[doc = "Bit 12 - PLL Ready Interrupt Enable"]
     #[inline(always)]
-    pub fn pllrdyie(&mut self) -> PllrdyieW<CirSpec> {
+    pub fn pllrdyie(&mut self) -> PllrdyieW<'_, CirSpec> {
         PllrdyieW::new(self, 12)
     }
     #[doc = "Bit 16 - LSI Ready Interrupt Clear"]
     #[inline(always)]
-    pub fn lsirdyc(&mut self) -> LsirdycW<CirSpec> {
+    pub fn lsirdyc(&mut self) -> LsirdycW<'_, CirSpec> {
         LsirdycW::new(self, 16)
     }
     #[doc = "Bit 17 - LSE Ready Interrupt Clear"]
     #[inline(always)]
-    pub fn lserdyc(&mut self) -> LserdycW<CirSpec> {
+    pub fn lserdyc(&mut self) -> LserdycW<'_, CirSpec> {
         LserdycW::new(self, 17)
     }
     #[doc = "Bit 18 - HSI Ready Interrupt Clear"]
     #[inline(always)]
-    pub fn hsirdyc(&mut self) -> HsirdycW<CirSpec> {
+    pub fn hsirdyc(&mut self) -> HsirdycW<'_, CirSpec> {
         HsirdycW::new(self, 18)
     }
     #[doc = "Bit 19 - HSE Ready Interrupt Clear"]
     #[inline(always)]
-    pub fn hserdyc(&mut self) -> HserdycW<CirSpec> {
+    pub fn hserdyc(&mut self) -> HserdycW<'_, CirSpec> {
         HserdycW::new(self, 19)
     }
     #[doc = "Bit 20 - PLL Ready Interrupt Clear"]
     #[inline(always)]
-    pub fn pllrdyc(&mut self) -> PllrdycW<CirSpec> {
+    pub fn pllrdyc(&mut self) -> PllrdycW<'_, CirSpec> {
         PllrdycW::new(self, 20)
     }
     #[doc = "Bit 23 - Clock security system interrupt clear"]
     #[inline(always)]
-    pub fn cssc(&mut self) -> CsscW<CirSpec> {
+    pub fn cssc(&mut self) -> CsscW<'_, CirSpec> {
         CsscW::new(self, 23)
     }
 }

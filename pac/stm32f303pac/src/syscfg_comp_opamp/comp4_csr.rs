@@ -104,52 +104,52 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Comparator 4 enable"]
     #[inline(always)]
-    pub fn comp4en(&mut self) -> Comp4enW<Comp4CsrSpec> {
+    pub fn comp4en(&mut self) -> Comp4enW<'_, Comp4CsrSpec> {
         Comp4enW::new(self, 0)
     }
     #[doc = "Bits 2:3 - Comparator 4 mode"]
     #[inline(always)]
-    pub fn comp4mode(&mut self) -> Comp4modeW<Comp4CsrSpec> {
+    pub fn comp4mode(&mut self) -> Comp4modeW<'_, Comp4CsrSpec> {
         Comp4modeW::new(self, 2)
     }
     #[doc = "Bits 4:6 - Comparator 4 inverting input selection"]
     #[inline(always)]
-    pub fn comp4insel(&mut self) -> Comp4inselW<Comp4CsrSpec> {
+    pub fn comp4insel(&mut self) -> Comp4inselW<'_, Comp4CsrSpec> {
         Comp4inselW::new(self, 4)
     }
     #[doc = "Bit 7 - Comparator 4 non inverted input selection"]
     #[inline(always)]
-    pub fn comp4inpsel(&mut self) -> Comp4inpselW<Comp4CsrSpec> {
+    pub fn comp4inpsel(&mut self) -> Comp4inpselW<'_, Comp4CsrSpec> {
         Comp4inpselW::new(self, 7)
     }
     #[doc = "Bit 9 - Comparator 4 window mode"]
     #[inline(always)]
-    pub fn com4winmode(&mut self) -> Com4winmodeW<Comp4CsrSpec> {
+    pub fn com4winmode(&mut self) -> Com4winmodeW<'_, Comp4CsrSpec> {
         Com4winmodeW::new(self, 9)
     }
     #[doc = "Bits 10:13 - Comparator 4 output selection"]
     #[inline(always)]
-    pub fn comp4_out_sel(&mut self) -> Comp4OutSelW<Comp4CsrSpec> {
+    pub fn comp4_out_sel(&mut self) -> Comp4OutSelW<'_, Comp4CsrSpec> {
         Comp4OutSelW::new(self, 10)
     }
     #[doc = "Bit 15 - Comparator 4 output polarity"]
     #[inline(always)]
-    pub fn comp4pol(&mut self) -> Comp4polW<Comp4CsrSpec> {
+    pub fn comp4pol(&mut self) -> Comp4polW<'_, Comp4CsrSpec> {
         Comp4polW::new(self, 15)
     }
     #[doc = "Bits 16:17 - Comparator 4 hysteresis"]
     #[inline(always)]
-    pub fn comp4hyst(&mut self) -> Comp4hystW<Comp4CsrSpec> {
+    pub fn comp4hyst(&mut self) -> Comp4hystW<'_, Comp4CsrSpec> {
         Comp4hystW::new(self, 16)
     }
     #[doc = "Bits 18:20 - Comparator 4 blanking source"]
     #[inline(always)]
-    pub fn comp4_blanking(&mut self) -> Comp4BlankingW<Comp4CsrSpec> {
+    pub fn comp4_blanking(&mut self) -> Comp4BlankingW<'_, Comp4CsrSpec> {
         Comp4BlankingW::new(self, 18)
     }
     #[doc = "Bit 31 - Comparator 4 lock"]
     #[inline(always)]
-    pub fn comp4lock(&mut self) -> Comp4lockW<Comp4CsrSpec> {
+    pub fn comp4lock(&mut self) -> Comp4lockW<'_, Comp4CsrSpec> {
         Comp4lockW::new(self, 31)
     }
 }

@@ -7,12 +7,12 @@ pub type Swtrig2W<'a, REG> = crate::BitWriter<'a, REG>;
 impl W {
     #[doc = "Bit 0 - DAC channel1 software trigger"]
     #[inline(always)]
-    pub fn swtrig1(&mut self) -> Swtrig1W<SwtrigrSpec> {
+    pub fn swtrig1(&mut self) -> Swtrig1W<'_, SwtrigrSpec> {
         Swtrig1W::new(self, 0)
     }
     #[doc = "Bit 1 - DAC channel2 software trigger"]
     #[inline(always)]
-    pub fn swtrig2(&mut self) -> Swtrig2W<SwtrigrSpec> {
+    pub fn swtrig2(&mut self) -> Swtrig2W<'_, SwtrigrSpec> {
         Swtrig2W::new(self, 1)
     }
 }

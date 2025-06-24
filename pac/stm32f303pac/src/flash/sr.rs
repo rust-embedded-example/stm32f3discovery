@@ -41,17 +41,17 @@ impl R {
 impl W {
     #[doc = "Bit 2 - Programming error"]
     #[inline(always)]
-    pub fn pgerr(&mut self) -> PgerrW<SrSpec> {
+    pub fn pgerr(&mut self) -> PgerrW<'_, SrSpec> {
         PgerrW::new(self, 2)
     }
     #[doc = "Bit 4 - Write protection error"]
     #[inline(always)]
-    pub fn wrprt(&mut self) -> WrprtW<SrSpec> {
+    pub fn wrprt(&mut self) -> WrprtW<'_, SrSpec> {
         WrprtW::new(self, 4)
     }
     #[doc = "Bit 5 - End of operation"]
     #[inline(always)]
-    pub fn eop(&mut self) -> EopW<SrSpec> {
+    pub fn eop(&mut self) -> EopW<'_, SrSpec> {
         EopW::new(self, 5)
     }
 }

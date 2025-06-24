@@ -106,57 +106,57 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Programming"]
     #[inline(always)]
-    pub fn pg(&mut self) -> PgW<CrSpec> {
+    pub fn pg(&mut self) -> PgW<'_, CrSpec> {
         PgW::new(self, 0)
     }
     #[doc = "Bit 1 - Page erase"]
     #[inline(always)]
-    pub fn per(&mut self) -> PerW<CrSpec> {
+    pub fn per(&mut self) -> PerW<'_, CrSpec> {
         PerW::new(self, 1)
     }
     #[doc = "Bit 2 - Mass erase"]
     #[inline(always)]
-    pub fn mer(&mut self) -> MerW<CrSpec> {
+    pub fn mer(&mut self) -> MerW<'_, CrSpec> {
         MerW::new(self, 2)
     }
     #[doc = "Bit 4 - Option byte programming"]
     #[inline(always)]
-    pub fn optpg(&mut self) -> OptpgW<CrSpec> {
+    pub fn optpg(&mut self) -> OptpgW<'_, CrSpec> {
         OptpgW::new(self, 4)
     }
     #[doc = "Bit 5 - Option byte erase"]
     #[inline(always)]
-    pub fn opter(&mut self) -> OpterW<CrSpec> {
+    pub fn opter(&mut self) -> OpterW<'_, CrSpec> {
         OpterW::new(self, 5)
     }
     #[doc = "Bit 6 - Start"]
     #[inline(always)]
-    pub fn strt(&mut self) -> StrtW<CrSpec> {
+    pub fn strt(&mut self) -> StrtW<'_, CrSpec> {
         StrtW::new(self, 6)
     }
     #[doc = "Bit 7 - Lock"]
     #[inline(always)]
-    pub fn lock(&mut self) -> LockW<CrSpec> {
+    pub fn lock(&mut self) -> LockW<'_, CrSpec> {
         LockW::new(self, 7)
     }
     #[doc = "Bit 9 - Option bytes write enable"]
     #[inline(always)]
-    pub fn optwre(&mut self) -> OptwreW<CrSpec> {
+    pub fn optwre(&mut self) -> OptwreW<'_, CrSpec> {
         OptwreW::new(self, 9)
     }
     #[doc = "Bit 10 - Error interrupt enable"]
     #[inline(always)]
-    pub fn errie(&mut self) -> ErrieW<CrSpec> {
+    pub fn errie(&mut self) -> ErrieW<'_, CrSpec> {
         ErrieW::new(self, 10)
     }
     #[doc = "Bit 12 - End of operation interrupt enable"]
     #[inline(always)]
-    pub fn eopie(&mut self) -> EopieW<CrSpec> {
+    pub fn eopie(&mut self) -> EopieW<'_, CrSpec> {
         EopieW::new(self, 12)
     }
     #[doc = "Bit 13 - Force option byte loading"]
     #[inline(always)]
-    pub fn force_optload(&mut self) -> ForceOptloadW<CrSpec> {
+    pub fn force_optload(&mut self) -> ForceOptloadW<'_, CrSpec> {
         ForceOptloadW::new(self, 13)
     }
 }

@@ -43,22 +43,22 @@ impl R {
 impl W {
     #[doc = "Bits 0:7 - DATA0"]
     #[inline(always)]
-    pub fn data0(&mut self) -> Data0W<Tdl0rSpec> {
+    pub fn data0(&mut self) -> Data0W<'_, Tdl0rSpec> {
         Data0W::new(self, 0)
     }
     #[doc = "Bits 8:15 - DATA1"]
     #[inline(always)]
-    pub fn data1(&mut self) -> Data1W<Tdl0rSpec> {
+    pub fn data1(&mut self) -> Data1W<'_, Tdl0rSpec> {
         Data1W::new(self, 8)
     }
     #[doc = "Bits 16:23 - DATA2"]
     #[inline(always)]
-    pub fn data2(&mut self) -> Data2W<Tdl0rSpec> {
+    pub fn data2(&mut self) -> Data2W<'_, Tdl0rSpec> {
         Data2W::new(self, 16)
     }
     #[doc = "Bits 24:31 - DATA3"]
     #[inline(always)]
-    pub fn data3(&mut self) -> Data3W<Tdl0rSpec> {
+    pub fn data3(&mut self) -> Data3W<'_, Tdl0rSpec> {
         Data3W::new(self, 24)
     }
 }

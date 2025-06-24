@@ -259,142 +259,142 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Filter active"]
     #[inline(always)]
-    pub fn fact0(&mut self) -> Fact0W<Fa1rSpec> {
+    pub fn fact0(&mut self) -> Fact0W<'_, Fa1rSpec> {
         Fact0W::new(self, 0)
     }
     #[doc = "Bit 1 - Filter active"]
     #[inline(always)]
-    pub fn fact1(&mut self) -> Fact1W<Fa1rSpec> {
+    pub fn fact1(&mut self) -> Fact1W<'_, Fa1rSpec> {
         Fact1W::new(self, 1)
     }
     #[doc = "Bit 2 - Filter active"]
     #[inline(always)]
-    pub fn fact2(&mut self) -> Fact2W<Fa1rSpec> {
+    pub fn fact2(&mut self) -> Fact2W<'_, Fa1rSpec> {
         Fact2W::new(self, 2)
     }
     #[doc = "Bit 3 - Filter active"]
     #[inline(always)]
-    pub fn fact3(&mut self) -> Fact3W<Fa1rSpec> {
+    pub fn fact3(&mut self) -> Fact3W<'_, Fa1rSpec> {
         Fact3W::new(self, 3)
     }
     #[doc = "Bit 4 - Filter active"]
     #[inline(always)]
-    pub fn fact4(&mut self) -> Fact4W<Fa1rSpec> {
+    pub fn fact4(&mut self) -> Fact4W<'_, Fa1rSpec> {
         Fact4W::new(self, 4)
     }
     #[doc = "Bit 5 - Filter active"]
     #[inline(always)]
-    pub fn fact5(&mut self) -> Fact5W<Fa1rSpec> {
+    pub fn fact5(&mut self) -> Fact5W<'_, Fa1rSpec> {
         Fact5W::new(self, 5)
     }
     #[doc = "Bit 6 - Filter active"]
     #[inline(always)]
-    pub fn fact6(&mut self) -> Fact6W<Fa1rSpec> {
+    pub fn fact6(&mut self) -> Fact6W<'_, Fa1rSpec> {
         Fact6W::new(self, 6)
     }
     #[doc = "Bit 7 - Filter active"]
     #[inline(always)]
-    pub fn fact7(&mut self) -> Fact7W<Fa1rSpec> {
+    pub fn fact7(&mut self) -> Fact7W<'_, Fa1rSpec> {
         Fact7W::new(self, 7)
     }
     #[doc = "Bit 8 - Filter active"]
     #[inline(always)]
-    pub fn fact8(&mut self) -> Fact8W<Fa1rSpec> {
+    pub fn fact8(&mut self) -> Fact8W<'_, Fa1rSpec> {
         Fact8W::new(self, 8)
     }
     #[doc = "Bit 9 - Filter active"]
     #[inline(always)]
-    pub fn fact9(&mut self) -> Fact9W<Fa1rSpec> {
+    pub fn fact9(&mut self) -> Fact9W<'_, Fa1rSpec> {
         Fact9W::new(self, 9)
     }
     #[doc = "Bit 10 - Filter active"]
     #[inline(always)]
-    pub fn fact10(&mut self) -> Fact10W<Fa1rSpec> {
+    pub fn fact10(&mut self) -> Fact10W<'_, Fa1rSpec> {
         Fact10W::new(self, 10)
     }
     #[doc = "Bit 11 - Filter active"]
     #[inline(always)]
-    pub fn fact11(&mut self) -> Fact11W<Fa1rSpec> {
+    pub fn fact11(&mut self) -> Fact11W<'_, Fa1rSpec> {
         Fact11W::new(self, 11)
     }
     #[doc = "Bit 12 - Filter active"]
     #[inline(always)]
-    pub fn fact12(&mut self) -> Fact12W<Fa1rSpec> {
+    pub fn fact12(&mut self) -> Fact12W<'_, Fa1rSpec> {
         Fact12W::new(self, 12)
     }
     #[doc = "Bit 13 - Filter active"]
     #[inline(always)]
-    pub fn fact13(&mut self) -> Fact13W<Fa1rSpec> {
+    pub fn fact13(&mut self) -> Fact13W<'_, Fa1rSpec> {
         Fact13W::new(self, 13)
     }
     #[doc = "Bit 14 - Filter active"]
     #[inline(always)]
-    pub fn fact14(&mut self) -> Fact14W<Fa1rSpec> {
+    pub fn fact14(&mut self) -> Fact14W<'_, Fa1rSpec> {
         Fact14W::new(self, 14)
     }
     #[doc = "Bit 15 - Filter active"]
     #[inline(always)]
-    pub fn fact15(&mut self) -> Fact15W<Fa1rSpec> {
+    pub fn fact15(&mut self) -> Fact15W<'_, Fa1rSpec> {
         Fact15W::new(self, 15)
     }
     #[doc = "Bit 16 - Filter active"]
     #[inline(always)]
-    pub fn fact16(&mut self) -> Fact16W<Fa1rSpec> {
+    pub fn fact16(&mut self) -> Fact16W<'_, Fa1rSpec> {
         Fact16W::new(self, 16)
     }
     #[doc = "Bit 17 - Filter active"]
     #[inline(always)]
-    pub fn fact17(&mut self) -> Fact17W<Fa1rSpec> {
+    pub fn fact17(&mut self) -> Fact17W<'_, Fa1rSpec> {
         Fact17W::new(self, 17)
     }
     #[doc = "Bit 18 - Filter active"]
     #[inline(always)]
-    pub fn fact18(&mut self) -> Fact18W<Fa1rSpec> {
+    pub fn fact18(&mut self) -> Fact18W<'_, Fa1rSpec> {
         Fact18W::new(self, 18)
     }
     #[doc = "Bit 19 - Filter active"]
     #[inline(always)]
-    pub fn fact19(&mut self) -> Fact19W<Fa1rSpec> {
+    pub fn fact19(&mut self) -> Fact19W<'_, Fa1rSpec> {
         Fact19W::new(self, 19)
     }
     #[doc = "Bit 20 - Filter active"]
     #[inline(always)]
-    pub fn fact20(&mut self) -> Fact20W<Fa1rSpec> {
+    pub fn fact20(&mut self) -> Fact20W<'_, Fa1rSpec> {
         Fact20W::new(self, 20)
     }
     #[doc = "Bit 21 - Filter active"]
     #[inline(always)]
-    pub fn fact21(&mut self) -> Fact21W<Fa1rSpec> {
+    pub fn fact21(&mut self) -> Fact21W<'_, Fa1rSpec> {
         Fact21W::new(self, 21)
     }
     #[doc = "Bit 22 - Filter active"]
     #[inline(always)]
-    pub fn fact22(&mut self) -> Fact22W<Fa1rSpec> {
+    pub fn fact22(&mut self) -> Fact22W<'_, Fa1rSpec> {
         Fact22W::new(self, 22)
     }
     #[doc = "Bit 23 - Filter active"]
     #[inline(always)]
-    pub fn fact23(&mut self) -> Fact23W<Fa1rSpec> {
+    pub fn fact23(&mut self) -> Fact23W<'_, Fa1rSpec> {
         Fact23W::new(self, 23)
     }
     #[doc = "Bit 24 - Filter active"]
     #[inline(always)]
-    pub fn fact24(&mut self) -> Fact24W<Fa1rSpec> {
+    pub fn fact24(&mut self) -> Fact24W<'_, Fa1rSpec> {
         Fact24W::new(self, 24)
     }
     #[doc = "Bit 25 - Filter active"]
     #[inline(always)]
-    pub fn fact25(&mut self) -> Fact25W<Fa1rSpec> {
+    pub fn fact25(&mut self) -> Fact25W<'_, Fa1rSpec> {
         Fact25W::new(self, 25)
     }
     #[doc = "Bit 26 - Filter active"]
     #[inline(always)]
-    pub fn fact26(&mut self) -> Fact26W<Fa1rSpec> {
+    pub fn fact26(&mut self) -> Fact26W<'_, Fa1rSpec> {
         Fact26W::new(self, 26)
     }
     #[doc = "Bit 27 - Filter active"]
     #[inline(always)]
-    pub fn fact27(&mut self) -> Fact27W<Fa1rSpec> {
+    pub fn fact27(&mut self) -> Fact27W<'_, Fa1rSpec> {
         Fact27W::new(self, 27)
     }
 }

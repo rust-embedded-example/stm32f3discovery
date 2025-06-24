@@ -95,47 +95,47 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Internal low speed oscillator enable"]
     #[inline(always)]
-    pub fn lsion(&mut self) -> LsionW<CsrSpec> {
+    pub fn lsion(&mut self) -> LsionW<'_, CsrSpec> {
         LsionW::new(self, 0)
     }
     #[doc = "Bit 24 - Remove reset flag"]
     #[inline(always)]
-    pub fn rmvf(&mut self) -> RmvfW<CsrSpec> {
+    pub fn rmvf(&mut self) -> RmvfW<'_, CsrSpec> {
         RmvfW::new(self, 24)
     }
     #[doc = "Bit 25 - Option byte loader reset flag"]
     #[inline(always)]
-    pub fn oblrstf(&mut self) -> OblrstfW<CsrSpec> {
+    pub fn oblrstf(&mut self) -> OblrstfW<'_, CsrSpec> {
         OblrstfW::new(self, 25)
     }
     #[doc = "Bit 26 - PIN reset flag"]
     #[inline(always)]
-    pub fn pinrstf(&mut self) -> PinrstfW<CsrSpec> {
+    pub fn pinrstf(&mut self) -> PinrstfW<'_, CsrSpec> {
         PinrstfW::new(self, 26)
     }
     #[doc = "Bit 27 - POR/PDR reset flag"]
     #[inline(always)]
-    pub fn porrstf(&mut self) -> PorrstfW<CsrSpec> {
+    pub fn porrstf(&mut self) -> PorrstfW<'_, CsrSpec> {
         PorrstfW::new(self, 27)
     }
     #[doc = "Bit 28 - Software reset flag"]
     #[inline(always)]
-    pub fn sftrstf(&mut self) -> SftrstfW<CsrSpec> {
+    pub fn sftrstf(&mut self) -> SftrstfW<'_, CsrSpec> {
         SftrstfW::new(self, 28)
     }
     #[doc = "Bit 29 - Independent watchdog reset flag"]
     #[inline(always)]
-    pub fn iwdgrstf(&mut self) -> IwdgrstfW<CsrSpec> {
+    pub fn iwdgrstf(&mut self) -> IwdgrstfW<'_, CsrSpec> {
         IwdgrstfW::new(self, 29)
     }
     #[doc = "Bit 30 - Window watchdog reset flag"]
     #[inline(always)]
-    pub fn wwdgrstf(&mut self) -> WwdgrstfW<CsrSpec> {
+    pub fn wwdgrstf(&mut self) -> WwdgrstfW<'_, CsrSpec> {
         WwdgrstfW::new(self, 30)
     }
     #[doc = "Bit 31 - Low-power reset flag"]
     #[inline(always)]
-    pub fn lpwrrstf(&mut self) -> LpwrrstfW<CsrSpec> {
+    pub fn lpwrrstf(&mut self) -> LpwrrstfW<'_, CsrSpec> {
         LpwrrstfW::new(self, 31)
     }
 }

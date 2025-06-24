@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:15 - CRC polynomial register"]
     #[inline(always)]
-    pub fn crcpoly(&mut self) -> CrcpolyW<CrcprSpec> {
+    pub fn crcpoly(&mut self) -> CrcpolyW<'_, CrcprSpec> {
         CrcpolyW::new(self, 0)
     }
 }

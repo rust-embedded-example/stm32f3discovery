@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:31 - Programmable initial CRC value"]
     #[inline(always)]
-    pub fn init(&mut self) -> InitW<InitSpec> {
+    pub fn init(&mut self) -> InitW<'_, InitSpec> {
         InitW::new(self, 0)
     }
 }

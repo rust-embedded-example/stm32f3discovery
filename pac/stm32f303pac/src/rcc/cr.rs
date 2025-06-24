@@ -89,32 +89,32 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Internal High Speed clock enable"]
     #[inline(always)]
-    pub fn hsion(&mut self) -> HsionW<CrSpec> {
+    pub fn hsion(&mut self) -> HsionW<'_, CrSpec> {
         HsionW::new(self, 0)
     }
     #[doc = "Bits 3:7 - Internal High Speed clock trimming"]
     #[inline(always)]
-    pub fn hsitrim(&mut self) -> HsitrimW<CrSpec> {
+    pub fn hsitrim(&mut self) -> HsitrimW<'_, CrSpec> {
         HsitrimW::new(self, 3)
     }
     #[doc = "Bit 16 - External High Speed clock enable"]
     #[inline(always)]
-    pub fn hseon(&mut self) -> HseonW<CrSpec> {
+    pub fn hseon(&mut self) -> HseonW<'_, CrSpec> {
         HseonW::new(self, 16)
     }
     #[doc = "Bit 18 - External High Speed clock Bypass"]
     #[inline(always)]
-    pub fn hsebyp(&mut self) -> HsebypW<CrSpec> {
+    pub fn hsebyp(&mut self) -> HsebypW<'_, CrSpec> {
         HsebypW::new(self, 18)
     }
     #[doc = "Bit 19 - Clock Security System enable"]
     #[inline(always)]
-    pub fn csson(&mut self) -> CssonW<CrSpec> {
+    pub fn csson(&mut self) -> CssonW<'_, CrSpec> {
         CssonW::new(self, 19)
     }
     #[doc = "Bit 24 - PLL enable"]
     #[inline(always)]
-    pub fn pllon(&mut self) -> PllonW<CrSpec> {
+    pub fn pllon(&mut self) -> PllonW<'_, CrSpec> {
         PllonW::new(self, 24)
     }
 }

@@ -104,52 +104,52 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Comparator 6 enable"]
     #[inline(always)]
-    pub fn comp6en(&mut self) -> Comp6enW<Comp6CsrSpec> {
+    pub fn comp6en(&mut self) -> Comp6enW<'_, Comp6CsrSpec> {
         Comp6enW::new(self, 0)
     }
     #[doc = "Bits 2:3 - Comparator 6 mode"]
     #[inline(always)]
-    pub fn comp6mode(&mut self) -> Comp6modeW<Comp6CsrSpec> {
+    pub fn comp6mode(&mut self) -> Comp6modeW<'_, Comp6CsrSpec> {
         Comp6modeW::new(self, 2)
     }
     #[doc = "Bits 4:6 - Comparator 6 inverting input selection"]
     #[inline(always)]
-    pub fn comp6insel(&mut self) -> Comp6inselW<Comp6CsrSpec> {
+    pub fn comp6insel(&mut self) -> Comp6inselW<'_, Comp6CsrSpec> {
         Comp6inselW::new(self, 4)
     }
     #[doc = "Bit 7 - Comparator 6 non inverted input selection"]
     #[inline(always)]
-    pub fn comp6inpsel(&mut self) -> Comp6inpselW<Comp6CsrSpec> {
+    pub fn comp6inpsel(&mut self) -> Comp6inpselW<'_, Comp6CsrSpec> {
         Comp6inpselW::new(self, 7)
     }
     #[doc = "Bit 9 - Comparator 6 window mode"]
     #[inline(always)]
-    pub fn com6winmode(&mut self) -> Com6winmodeW<Comp6CsrSpec> {
+    pub fn com6winmode(&mut self) -> Com6winmodeW<'_, Comp6CsrSpec> {
         Com6winmodeW::new(self, 9)
     }
     #[doc = "Bits 10:13 - Comparator 6 output selection"]
     #[inline(always)]
-    pub fn comp6_out_sel(&mut self) -> Comp6OutSelW<Comp6CsrSpec> {
+    pub fn comp6_out_sel(&mut self) -> Comp6OutSelW<'_, Comp6CsrSpec> {
         Comp6OutSelW::new(self, 10)
     }
     #[doc = "Bit 15 - Comparator 6 output polarity"]
     #[inline(always)]
-    pub fn comp6pol(&mut self) -> Comp6polW<Comp6CsrSpec> {
+    pub fn comp6pol(&mut self) -> Comp6polW<'_, Comp6CsrSpec> {
         Comp6polW::new(self, 15)
     }
     #[doc = "Bits 16:17 - Comparator 6 hysteresis"]
     #[inline(always)]
-    pub fn comp6hyst(&mut self) -> Comp6hystW<Comp6CsrSpec> {
+    pub fn comp6hyst(&mut self) -> Comp6hystW<'_, Comp6CsrSpec> {
         Comp6hystW::new(self, 16)
     }
     #[doc = "Bits 18:20 - Comparator 6 blanking source"]
     #[inline(always)]
-    pub fn comp6_blanking(&mut self) -> Comp6BlankingW<Comp6CsrSpec> {
+    pub fn comp6_blanking(&mut self) -> Comp6BlankingW<'_, Comp6CsrSpec> {
         Comp6BlankingW::new(self, 18)
     }
     #[doc = "Bit 31 - Comparator 6 lock"]
     #[inline(always)]
-    pub fn comp6lock(&mut self) -> Comp6lockW<Comp6CsrSpec> {
+    pub fn comp6lock(&mut self) -> Comp6lockW<'_, Comp6CsrSpec> {
         Comp6lockW::new(self, 31)
     }
 }

@@ -79,42 +79,42 @@ impl R {
 impl W {
     #[doc = "Bit 1 - PWAITEN"]
     #[inline(always)]
-    pub fn pwaiten(&mut self) -> PwaitenW<Pcr2Spec> {
+    pub fn pwaiten(&mut self) -> PwaitenW<'_, Pcr2Spec> {
         PwaitenW::new(self, 1)
     }
     #[doc = "Bit 2 - PBKEN"]
     #[inline(always)]
-    pub fn pbken(&mut self) -> PbkenW<Pcr2Spec> {
+    pub fn pbken(&mut self) -> PbkenW<'_, Pcr2Spec> {
         PbkenW::new(self, 2)
     }
     #[doc = "Bit 3 - PTYP"]
     #[inline(always)]
-    pub fn ptyp(&mut self) -> PtypW<Pcr2Spec> {
+    pub fn ptyp(&mut self) -> PtypW<'_, Pcr2Spec> {
         PtypW::new(self, 3)
     }
     #[doc = "Bits 4:5 - PWID"]
     #[inline(always)]
-    pub fn pwid(&mut self) -> PwidW<Pcr2Spec> {
+    pub fn pwid(&mut self) -> PwidW<'_, Pcr2Spec> {
         PwidW::new(self, 4)
     }
     #[doc = "Bit 6 - ECCEN"]
     #[inline(always)]
-    pub fn eccen(&mut self) -> EccenW<Pcr2Spec> {
+    pub fn eccen(&mut self) -> EccenW<'_, Pcr2Spec> {
         EccenW::new(self, 6)
     }
     #[doc = "Bits 9:12 - TCLR"]
     #[inline(always)]
-    pub fn tclr(&mut self) -> TclrW<Pcr2Spec> {
+    pub fn tclr(&mut self) -> TclrW<'_, Pcr2Spec> {
         TclrW::new(self, 9)
     }
     #[doc = "Bits 13:16 - TAR"]
     #[inline(always)]
-    pub fn tar(&mut self) -> TarW<Pcr2Spec> {
+    pub fn tar(&mut self) -> TarW<'_, Pcr2Spec> {
         TarW::new(self, 13)
     }
     #[doc = "Bits 17:19 - ECCPS"]
     #[inline(always)]
-    pub fn eccps(&mut self) -> EccpsW<Pcr2Spec> {
+    pub fn eccps(&mut self) -> EccpsW<'_, Pcr2Spec> {
         EccpsW::new(self, 17)
     }
 }

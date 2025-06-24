@@ -5,7 +5,7 @@ pub type KeyW<'a, REG> = crate::FieldWriter<'a, REG, 16, u16>;
 impl W {
     #[doc = "Bits 0:15 - Key value"]
     #[inline(always)]
-    pub fn key(&mut self) -> KeyW<KrSpec> {
+    pub fn key(&mut self) -> KeyW<'_, KrSpec> {
         KeyW::new(self, 0)
     }
 }

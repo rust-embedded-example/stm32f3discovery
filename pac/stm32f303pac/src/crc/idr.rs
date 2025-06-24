@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:7 - General-purpose 8-bit data register bits"]
     #[inline(always)]
-    pub fn idr(&mut self) -> IdrW<IdrSpec> {
+    pub fn idr(&mut self) -> IdrW<'_, IdrSpec> {
         IdrW::new(self, 0)
     }
 }

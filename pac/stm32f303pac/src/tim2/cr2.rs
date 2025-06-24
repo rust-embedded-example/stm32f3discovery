@@ -34,17 +34,17 @@ impl R {
 impl W {
     #[doc = "Bit 3 - Capture/compare DMA selection"]
     #[inline(always)]
-    pub fn ccds(&mut self) -> CcdsW<Cr2Spec> {
+    pub fn ccds(&mut self) -> CcdsW<'_, Cr2Spec> {
         CcdsW::new(self, 3)
     }
     #[doc = "Bits 4:6 - Master mode selection"]
     #[inline(always)]
-    pub fn mms(&mut self) -> MmsW<Cr2Spec> {
+    pub fn mms(&mut self) -> MmsW<'_, Cr2Spec> {
         MmsW::new(self, 4)
     }
     #[doc = "Bit 7 - TI1 selection"]
     #[inline(always)]
-    pub fn ti1s(&mut self) -> Ti1sW<Cr2Spec> {
+    pub fn ti1s(&mut self) -> Ti1sW<'_, Cr2Spec> {
         Ti1sW::new(self, 7)
     }
 }

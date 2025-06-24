@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:2 - Prescaler divider"]
     #[inline(always)]
-    pub fn pr(&mut self) -> PrW<PrSpec> {
+    pub fn pr(&mut self) -> PrW<'_, PrSpec> {
         PrW::new(self, 0)
     }
 }

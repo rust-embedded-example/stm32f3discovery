@@ -295,162 +295,162 @@ impl R {
 impl W {
     #[doc = "Bit 0 - G1_IO1 channel mode"]
     #[inline(always)]
-    pub fn g1_io1(&mut self) -> G1Io1W<IoccrSpec> {
+    pub fn g1_io1(&mut self) -> G1Io1W<'_, IoccrSpec> {
         G1Io1W::new(self, 0)
     }
     #[doc = "Bit 1 - G1_IO2 channel mode"]
     #[inline(always)]
-    pub fn g1_io2(&mut self) -> G1Io2W<IoccrSpec> {
+    pub fn g1_io2(&mut self) -> G1Io2W<'_, IoccrSpec> {
         G1Io2W::new(self, 1)
     }
     #[doc = "Bit 2 - G1_IO3 channel mode"]
     #[inline(always)]
-    pub fn g1_io3(&mut self) -> G1Io3W<IoccrSpec> {
+    pub fn g1_io3(&mut self) -> G1Io3W<'_, IoccrSpec> {
         G1Io3W::new(self, 2)
     }
     #[doc = "Bit 3 - G1_IO4 channel mode"]
     #[inline(always)]
-    pub fn g1_io4(&mut self) -> G1Io4W<IoccrSpec> {
+    pub fn g1_io4(&mut self) -> G1Io4W<'_, IoccrSpec> {
         G1Io4W::new(self, 3)
     }
     #[doc = "Bit 4 - G2_IO1 channel mode"]
     #[inline(always)]
-    pub fn g2_io1(&mut self) -> G2Io1W<IoccrSpec> {
+    pub fn g2_io1(&mut self) -> G2Io1W<'_, IoccrSpec> {
         G2Io1W::new(self, 4)
     }
     #[doc = "Bit 5 - G2_IO2 channel mode"]
     #[inline(always)]
-    pub fn g2_io2(&mut self) -> G2Io2W<IoccrSpec> {
+    pub fn g2_io2(&mut self) -> G2Io2W<'_, IoccrSpec> {
         G2Io2W::new(self, 5)
     }
     #[doc = "Bit 6 - G2_IO3 channel mode"]
     #[inline(always)]
-    pub fn g2_io3(&mut self) -> G2Io3W<IoccrSpec> {
+    pub fn g2_io3(&mut self) -> G2Io3W<'_, IoccrSpec> {
         G2Io3W::new(self, 6)
     }
     #[doc = "Bit 7 - G2_IO4 channel mode"]
     #[inline(always)]
-    pub fn g2_io4(&mut self) -> G2Io4W<IoccrSpec> {
+    pub fn g2_io4(&mut self) -> G2Io4W<'_, IoccrSpec> {
         G2Io4W::new(self, 7)
     }
     #[doc = "Bit 8 - G3_IO1 channel mode"]
     #[inline(always)]
-    pub fn g3_io1(&mut self) -> G3Io1W<IoccrSpec> {
+    pub fn g3_io1(&mut self) -> G3Io1W<'_, IoccrSpec> {
         G3Io1W::new(self, 8)
     }
     #[doc = "Bit 9 - G3_IO2 channel mode"]
     #[inline(always)]
-    pub fn g3_io2(&mut self) -> G3Io2W<IoccrSpec> {
+    pub fn g3_io2(&mut self) -> G3Io2W<'_, IoccrSpec> {
         G3Io2W::new(self, 9)
     }
     #[doc = "Bit 10 - G3_IO3 channel mode"]
     #[inline(always)]
-    pub fn g3_io3(&mut self) -> G3Io3W<IoccrSpec> {
+    pub fn g3_io3(&mut self) -> G3Io3W<'_, IoccrSpec> {
         G3Io3W::new(self, 10)
     }
     #[doc = "Bit 11 - G3_IO4 channel mode"]
     #[inline(always)]
-    pub fn g3_io4(&mut self) -> G3Io4W<IoccrSpec> {
+    pub fn g3_io4(&mut self) -> G3Io4W<'_, IoccrSpec> {
         G3Io4W::new(self, 11)
     }
     #[doc = "Bit 12 - G4_IO1 channel mode"]
     #[inline(always)]
-    pub fn g4_io1(&mut self) -> G4Io1W<IoccrSpec> {
+    pub fn g4_io1(&mut self) -> G4Io1W<'_, IoccrSpec> {
         G4Io1W::new(self, 12)
     }
     #[doc = "Bit 13 - G4_IO2 channel mode"]
     #[inline(always)]
-    pub fn g4_io2(&mut self) -> G4Io2W<IoccrSpec> {
+    pub fn g4_io2(&mut self) -> G4Io2W<'_, IoccrSpec> {
         G4Io2W::new(self, 13)
     }
     #[doc = "Bit 14 - G4_IO3 channel mode"]
     #[inline(always)]
-    pub fn g4_io3(&mut self) -> G4Io3W<IoccrSpec> {
+    pub fn g4_io3(&mut self) -> G4Io3W<'_, IoccrSpec> {
         G4Io3W::new(self, 14)
     }
     #[doc = "Bit 15 - G4_IO4 channel mode"]
     #[inline(always)]
-    pub fn g4_io4(&mut self) -> G4Io4W<IoccrSpec> {
+    pub fn g4_io4(&mut self) -> G4Io4W<'_, IoccrSpec> {
         G4Io4W::new(self, 15)
     }
     #[doc = "Bit 16 - G5_IO1 channel mode"]
     #[inline(always)]
-    pub fn g5_io1(&mut self) -> G5Io1W<IoccrSpec> {
+    pub fn g5_io1(&mut self) -> G5Io1W<'_, IoccrSpec> {
         G5Io1W::new(self, 16)
     }
     #[doc = "Bit 17 - G5_IO2 channel mode"]
     #[inline(always)]
-    pub fn g5_io2(&mut self) -> G5Io2W<IoccrSpec> {
+    pub fn g5_io2(&mut self) -> G5Io2W<'_, IoccrSpec> {
         G5Io2W::new(self, 17)
     }
     #[doc = "Bit 18 - G5_IO3 channel mode"]
     #[inline(always)]
-    pub fn g5_io3(&mut self) -> G5Io3W<IoccrSpec> {
+    pub fn g5_io3(&mut self) -> G5Io3W<'_, IoccrSpec> {
         G5Io3W::new(self, 18)
     }
     #[doc = "Bit 19 - G5_IO4 channel mode"]
     #[inline(always)]
-    pub fn g5_io4(&mut self) -> G5Io4W<IoccrSpec> {
+    pub fn g5_io4(&mut self) -> G5Io4W<'_, IoccrSpec> {
         G5Io4W::new(self, 19)
     }
     #[doc = "Bit 20 - G6_IO1 channel mode"]
     #[inline(always)]
-    pub fn g6_io1(&mut self) -> G6Io1W<IoccrSpec> {
+    pub fn g6_io1(&mut self) -> G6Io1W<'_, IoccrSpec> {
         G6Io1W::new(self, 20)
     }
     #[doc = "Bit 21 - G6_IO2 channel mode"]
     #[inline(always)]
-    pub fn g6_io2(&mut self) -> G6Io2W<IoccrSpec> {
+    pub fn g6_io2(&mut self) -> G6Io2W<'_, IoccrSpec> {
         G6Io2W::new(self, 21)
     }
     #[doc = "Bit 22 - G6_IO3 channel mode"]
     #[inline(always)]
-    pub fn g6_io3(&mut self) -> G6Io3W<IoccrSpec> {
+    pub fn g6_io3(&mut self) -> G6Io3W<'_, IoccrSpec> {
         G6Io3W::new(self, 22)
     }
     #[doc = "Bit 23 - G6_IO4 channel mode"]
     #[inline(always)]
-    pub fn g6_io4(&mut self) -> G6Io4W<IoccrSpec> {
+    pub fn g6_io4(&mut self) -> G6Io4W<'_, IoccrSpec> {
         G6Io4W::new(self, 23)
     }
     #[doc = "Bit 24 - G7_IO1 channel mode"]
     #[inline(always)]
-    pub fn g7_io1(&mut self) -> G7Io1W<IoccrSpec> {
+    pub fn g7_io1(&mut self) -> G7Io1W<'_, IoccrSpec> {
         G7Io1W::new(self, 24)
     }
     #[doc = "Bit 25 - G7_IO2 channel mode"]
     #[inline(always)]
-    pub fn g7_io2(&mut self) -> G7Io2W<IoccrSpec> {
+    pub fn g7_io2(&mut self) -> G7Io2W<'_, IoccrSpec> {
         G7Io2W::new(self, 25)
     }
     #[doc = "Bit 26 - G7_IO3 channel mode"]
     #[inline(always)]
-    pub fn g7_io3(&mut self) -> G7Io3W<IoccrSpec> {
+    pub fn g7_io3(&mut self) -> G7Io3W<'_, IoccrSpec> {
         G7Io3W::new(self, 26)
     }
     #[doc = "Bit 27 - G7_IO4 channel mode"]
     #[inline(always)]
-    pub fn g7_io4(&mut self) -> G7Io4W<IoccrSpec> {
+    pub fn g7_io4(&mut self) -> G7Io4W<'_, IoccrSpec> {
         G7Io4W::new(self, 27)
     }
     #[doc = "Bit 28 - G8_IO1 channel mode"]
     #[inline(always)]
-    pub fn g8_io1(&mut self) -> G8Io1W<IoccrSpec> {
+    pub fn g8_io1(&mut self) -> G8Io1W<'_, IoccrSpec> {
         G8Io1W::new(self, 28)
     }
     #[doc = "Bit 29 - G8_IO2 channel mode"]
     #[inline(always)]
-    pub fn g8_io2(&mut self) -> G8Io2W<IoccrSpec> {
+    pub fn g8_io2(&mut self) -> G8Io2W<'_, IoccrSpec> {
         G8Io2W::new(self, 29)
     }
     #[doc = "Bit 30 - G8_IO3 channel mode"]
     #[inline(always)]
-    pub fn g8_io3(&mut self) -> G8Io3W<IoccrSpec> {
+    pub fn g8_io3(&mut self) -> G8Io3W<'_, IoccrSpec> {
         G8Io3W::new(self, 30)
     }
     #[doc = "Bit 31 - G8_IO4 channel mode"]
     #[inline(always)]
-    pub fn g8_io4(&mut self) -> G8Io4W<IoccrSpec> {
+    pub fn g8_io4(&mut self) -> G8Io4W<'_, IoccrSpec> {
         G8Io4W::new(self, 31)
     }
 }

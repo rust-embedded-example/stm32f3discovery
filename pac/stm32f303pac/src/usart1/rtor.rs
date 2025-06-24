@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bits 0:23 - Receiver timeout value"]
     #[inline(always)]
-    pub fn rto(&mut self) -> RtoW<RtorSpec> {
+    pub fn rto(&mut self) -> RtoW<'_, RtorSpec> {
         RtoW::new(self, 0)
     }
     #[doc = "Bits 24:31 - Block Length"]
     #[inline(always)]
-    pub fn blen(&mut self) -> BlenW<RtorSpec> {
+    pub fn blen(&mut self) -> BlenW<'_, RtorSpec> {
         BlenW::new(self, 24)
     }
 }

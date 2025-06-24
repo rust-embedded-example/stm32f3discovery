@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Software interrupt on line 32"]
     #[inline(always)]
-    pub fn swier32(&mut self) -> Swier32W<Swier2Spec> {
+    pub fn swier32(&mut self) -> Swier32W<'_, Swier2Spec> {
         Swier32W::new(self, 0)
     }
     #[doc = "Bit 1 - Software interrupt on line 33"]
     #[inline(always)]
-    pub fn swier33(&mut self) -> Swier33W<Swier2Spec> {
+    pub fn swier33(&mut self) -> Swier33W<'_, Swier2Spec> {
         Swier33W::new(self, 1)
     }
 }

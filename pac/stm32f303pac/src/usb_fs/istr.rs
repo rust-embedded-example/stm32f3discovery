@@ -91,37 +91,37 @@ impl R {
 impl W {
     #[doc = "Bit 8 - Expected start frame"]
     #[inline(always)]
-    pub fn esof(&mut self) -> EsofW<IstrSpec> {
+    pub fn esof(&mut self) -> EsofW<'_, IstrSpec> {
         EsofW::new(self, 8)
     }
     #[doc = "Bit 9 - start of frame"]
     #[inline(always)]
-    pub fn sof(&mut self) -> SofW<IstrSpec> {
+    pub fn sof(&mut self) -> SofW<'_, IstrSpec> {
         SofW::new(self, 9)
     }
     #[doc = "Bit 10 - reset request"]
     #[inline(always)]
-    pub fn reset(&mut self) -> ResetW<IstrSpec> {
+    pub fn reset(&mut self) -> ResetW<'_, IstrSpec> {
         ResetW::new(self, 10)
     }
     #[doc = "Bit 11 - Suspend mode request"]
     #[inline(always)]
-    pub fn susp(&mut self) -> SuspW<IstrSpec> {
+    pub fn susp(&mut self) -> SuspW<'_, IstrSpec> {
         SuspW::new(self, 11)
     }
     #[doc = "Bit 12 - Wakeup"]
     #[inline(always)]
-    pub fn wkup(&mut self) -> WkupW<IstrSpec> {
+    pub fn wkup(&mut self) -> WkupW<'_, IstrSpec> {
         WkupW::new(self, 12)
     }
     #[doc = "Bit 13 - Error"]
     #[inline(always)]
-    pub fn err(&mut self) -> ErrW<IstrSpec> {
+    pub fn err(&mut self) -> ErrW<'_, IstrSpec> {
         ErrW::new(self, 13)
     }
     #[doc = "Bit 14 - Packet memory area over / underrun"]
     #[inline(always)]
-    pub fn pmaovr(&mut self) -> PmaovrW<IstrSpec> {
+    pub fn pmaovr(&mut self) -> PmaovrW<'_, IstrSpec> {
         PmaovrW::new(self, 14)
     }
 }

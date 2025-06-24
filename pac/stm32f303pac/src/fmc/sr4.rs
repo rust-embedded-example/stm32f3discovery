@@ -68,32 +68,32 @@ impl R {
 impl W {
     #[doc = "Bit 0 - IRS"]
     #[inline(always)]
-    pub fn irs(&mut self) -> IrsW<Sr4Spec> {
+    pub fn irs(&mut self) -> IrsW<'_, Sr4Spec> {
         IrsW::new(self, 0)
     }
     #[doc = "Bit 1 - ILS"]
     #[inline(always)]
-    pub fn ils(&mut self) -> IlsW<Sr4Spec> {
+    pub fn ils(&mut self) -> IlsW<'_, Sr4Spec> {
         IlsW::new(self, 1)
     }
     #[doc = "Bit 2 - IFS"]
     #[inline(always)]
-    pub fn ifs(&mut self) -> IfsW<Sr4Spec> {
+    pub fn ifs(&mut self) -> IfsW<'_, Sr4Spec> {
         IfsW::new(self, 2)
     }
     #[doc = "Bit 3 - IREN"]
     #[inline(always)]
-    pub fn iren(&mut self) -> IrenW<Sr4Spec> {
+    pub fn iren(&mut self) -> IrenW<'_, Sr4Spec> {
         IrenW::new(self, 3)
     }
     #[doc = "Bit 4 - ILEN"]
     #[inline(always)]
-    pub fn ilen(&mut self) -> IlenW<Sr4Spec> {
+    pub fn ilen(&mut self) -> IlenW<'_, Sr4Spec> {
         IlenW::new(self, 4)
     }
     #[doc = "Bit 5 - IFEN"]
     #[inline(always)]
-    pub fn ifen(&mut self) -> IfenW<Sr4Spec> {
+    pub fn ifen(&mut self) -> IfenW<'_, Sr4Spec> {
         IfenW::new(self, 5)
     }
 }

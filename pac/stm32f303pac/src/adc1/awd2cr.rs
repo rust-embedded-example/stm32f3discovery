@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 1:18 - AWD2CH"]
     #[inline(always)]
-    pub fn awd2ch(&mut self) -> Awd2chW<Awd2crSpec> {
+    pub fn awd2ch(&mut self) -> Awd2chW<'_, Awd2crSpec> {
         Awd2chW::new(self, 1)
     }
 }

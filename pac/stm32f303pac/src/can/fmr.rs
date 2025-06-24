@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Filter init mode"]
     #[inline(always)]
-    pub fn finit(&mut self) -> FinitW<FmrSpec> {
+    pub fn finit(&mut self) -> FinitW<'_, FmrSpec> {
         FinitW::new(self, 0)
     }
     #[doc = "Bits 8:13 - CAN2 start bank"]
     #[inline(always)]
-    pub fn can2sb(&mut self) -> Can2sbW<FmrSpec> {
+    pub fn can2sb(&mut self) -> Can2sbW<'_, FmrSpec> {
         Can2sbW::new(self, 8)
     }
 }

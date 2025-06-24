@@ -5,7 +5,7 @@ pub type OptkeyrW<'a, REG> = crate::FieldWriter<'a, REG, 32, u32>;
 impl W {
     #[doc = "Bits 0:31 - Option byte key"]
     #[inline(always)]
-    pub fn optkeyr(&mut self) -> OptkeyrW<OptkeyrSpec> {
+    pub fn optkeyr(&mut self) -> OptkeyrW<'_, OptkeyrSpec> {
         OptkeyrW::new(self, 0)
     }
 }

@@ -95,47 +95,47 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Comparator 5 enable"]
     #[inline(always)]
-    pub fn comp5en(&mut self) -> Comp5enW<Comp5CsrSpec> {
+    pub fn comp5en(&mut self) -> Comp5enW<'_, Comp5CsrSpec> {
         Comp5enW::new(self, 0)
     }
     #[doc = "Bits 2:3 - Comparator 5 mode"]
     #[inline(always)]
-    pub fn comp5mode(&mut self) -> Comp5modeW<Comp5CsrSpec> {
+    pub fn comp5mode(&mut self) -> Comp5modeW<'_, Comp5CsrSpec> {
         Comp5modeW::new(self, 2)
     }
     #[doc = "Bits 4:6 - Comparator 5 inverting input selection"]
     #[inline(always)]
-    pub fn comp5insel(&mut self) -> Comp5inselW<Comp5CsrSpec> {
+    pub fn comp5insel(&mut self) -> Comp5inselW<'_, Comp5CsrSpec> {
         Comp5inselW::new(self, 4)
     }
     #[doc = "Bit 7 - Comparator 5 non inverted input selection"]
     #[inline(always)]
-    pub fn comp5inpsel(&mut self) -> Comp5inpselW<Comp5CsrSpec> {
+    pub fn comp5inpsel(&mut self) -> Comp5inpselW<'_, Comp5CsrSpec> {
         Comp5inpselW::new(self, 7)
     }
     #[doc = "Bits 10:13 - Comparator 5 output selection"]
     #[inline(always)]
-    pub fn comp5_out_sel(&mut self) -> Comp5OutSelW<Comp5CsrSpec> {
+    pub fn comp5_out_sel(&mut self) -> Comp5OutSelW<'_, Comp5CsrSpec> {
         Comp5OutSelW::new(self, 10)
     }
     #[doc = "Bit 15 - Comparator 5 output polarity"]
     #[inline(always)]
-    pub fn comp5pol(&mut self) -> Comp5polW<Comp5CsrSpec> {
+    pub fn comp5pol(&mut self) -> Comp5polW<'_, Comp5CsrSpec> {
         Comp5polW::new(self, 15)
     }
     #[doc = "Bits 16:17 - Comparator 5 hysteresis"]
     #[inline(always)]
-    pub fn comp5hyst(&mut self) -> Comp5hystW<Comp5CsrSpec> {
+    pub fn comp5hyst(&mut self) -> Comp5hystW<'_, Comp5CsrSpec> {
         Comp5hystW::new(self, 16)
     }
     #[doc = "Bits 18:20 - Comparator 5 blanking source"]
     #[inline(always)]
-    pub fn comp5_blanking(&mut self) -> Comp5BlankingW<Comp5CsrSpec> {
+    pub fn comp5_blanking(&mut self) -> Comp5BlankingW<'_, Comp5CsrSpec> {
         Comp5BlankingW::new(self, 18)
     }
     #[doc = "Bit 31 - Comparator 5 lock"]
     #[inline(always)]
-    pub fn comp5lock(&mut self) -> Comp5lockW<Comp5CsrSpec> {
+    pub fn comp5lock(&mut self) -> Comp5lockW<'_, Comp5CsrSpec> {
         Comp5lockW::new(self, 31)
     }
 }

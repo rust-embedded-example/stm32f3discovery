@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:15 - Auto-reload value"]
     #[inline(always)]
-    pub fn arr(&mut self) -> ArrW<ArrSpec> {
+    pub fn arr(&mut self) -> ArrW<'_, ArrSpec> {
         ArrW::new(self, 0)
     }
 }

@@ -187,102 +187,102 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Timer 2 clock enable"]
     #[inline(always)]
-    pub fn tim2en(&mut self) -> Tim2enW<Apb1enrSpec> {
+    pub fn tim2en(&mut self) -> Tim2enW<'_, Apb1enrSpec> {
         Tim2enW::new(self, 0)
     }
     #[doc = "Bit 1 - Timer 3 clock enable"]
     #[inline(always)]
-    pub fn tim3en(&mut self) -> Tim3enW<Apb1enrSpec> {
+    pub fn tim3en(&mut self) -> Tim3enW<'_, Apb1enrSpec> {
         Tim3enW::new(self, 1)
     }
     #[doc = "Bit 2 - Timer 4 clock enable"]
     #[inline(always)]
-    pub fn tim4en(&mut self) -> Tim4enW<Apb1enrSpec> {
+    pub fn tim4en(&mut self) -> Tim4enW<'_, Apb1enrSpec> {
         Tim4enW::new(self, 2)
     }
     #[doc = "Bit 4 - Timer 6 clock enable"]
     #[inline(always)]
-    pub fn tim6en(&mut self) -> Tim6enW<Apb1enrSpec> {
+    pub fn tim6en(&mut self) -> Tim6enW<'_, Apb1enrSpec> {
         Tim6enW::new(self, 4)
     }
     #[doc = "Bit 5 - Timer 7 clock enable"]
     #[inline(always)]
-    pub fn tim7en(&mut self) -> Tim7enW<Apb1enrSpec> {
+    pub fn tim7en(&mut self) -> Tim7enW<'_, Apb1enrSpec> {
         Tim7enW::new(self, 5)
     }
     #[doc = "Bit 11 - Window watchdog clock enable"]
     #[inline(always)]
-    pub fn wwdgen(&mut self) -> WwdgenW<Apb1enrSpec> {
+    pub fn wwdgen(&mut self) -> WwdgenW<'_, Apb1enrSpec> {
         WwdgenW::new(self, 11)
     }
     #[doc = "Bit 14 - SPI 2 clock enable"]
     #[inline(always)]
-    pub fn spi2en(&mut self) -> Spi2enW<Apb1enrSpec> {
+    pub fn spi2en(&mut self) -> Spi2enW<'_, Apb1enrSpec> {
         Spi2enW::new(self, 14)
     }
     #[doc = "Bit 15 - SPI 3 clock enable"]
     #[inline(always)]
-    pub fn spi3en(&mut self) -> Spi3enW<Apb1enrSpec> {
+    pub fn spi3en(&mut self) -> Spi3enW<'_, Apb1enrSpec> {
         Spi3enW::new(self, 15)
     }
     #[doc = "Bit 17 - USART 2 clock enable"]
     #[inline(always)]
-    pub fn usart2en(&mut self) -> Usart2enW<Apb1enrSpec> {
+    pub fn usart2en(&mut self) -> Usart2enW<'_, Apb1enrSpec> {
         Usart2enW::new(self, 17)
     }
     #[doc = "Bit 18 - USART 3 clock enable"]
     #[inline(always)]
-    pub fn usart3en(&mut self) -> Usart3enW<Apb1enrSpec> {
+    pub fn usart3en(&mut self) -> Usart3enW<'_, Apb1enrSpec> {
         Usart3enW::new(self, 18)
     }
     #[doc = "Bit 19 - USART 4 clock enable"]
     #[inline(always)]
-    pub fn usart4en(&mut self) -> Usart4enW<Apb1enrSpec> {
+    pub fn usart4en(&mut self) -> Usart4enW<'_, Apb1enrSpec> {
         Usart4enW::new(self, 19)
     }
     #[doc = "Bit 20 - USART 5 clock enable"]
     #[inline(always)]
-    pub fn usart5en(&mut self) -> Usart5enW<Apb1enrSpec> {
+    pub fn usart5en(&mut self) -> Usart5enW<'_, Apb1enrSpec> {
         Usart5enW::new(self, 20)
     }
     #[doc = "Bit 21 - I2C 1 clock enable"]
     #[inline(always)]
-    pub fn i2c1en(&mut self) -> I2c1enW<Apb1enrSpec> {
+    pub fn i2c1en(&mut self) -> I2c1enW<'_, Apb1enrSpec> {
         I2c1enW::new(self, 21)
     }
     #[doc = "Bit 22 - I2C 2 clock enable"]
     #[inline(always)]
-    pub fn i2c2en(&mut self) -> I2c2enW<Apb1enrSpec> {
+    pub fn i2c2en(&mut self) -> I2c2enW<'_, Apb1enrSpec> {
         I2c2enW::new(self, 22)
     }
     #[doc = "Bit 23 - USB clock enable"]
     #[inline(always)]
-    pub fn usben(&mut self) -> UsbenW<Apb1enrSpec> {
+    pub fn usben(&mut self) -> UsbenW<'_, Apb1enrSpec> {
         UsbenW::new(self, 23)
     }
     #[doc = "Bit 25 - CAN clock enable"]
     #[inline(always)]
-    pub fn canen(&mut self) -> CanenW<Apb1enrSpec> {
+    pub fn canen(&mut self) -> CanenW<'_, Apb1enrSpec> {
         CanenW::new(self, 25)
     }
     #[doc = "Bit 26 - DAC2 interface clock enable"]
     #[inline(always)]
-    pub fn dac2en(&mut self) -> Dac2enW<Apb1enrSpec> {
+    pub fn dac2en(&mut self) -> Dac2enW<'_, Apb1enrSpec> {
         Dac2enW::new(self, 26)
     }
     #[doc = "Bit 28 - Power interface clock enable"]
     #[inline(always)]
-    pub fn pwren(&mut self) -> PwrenW<Apb1enrSpec> {
+    pub fn pwren(&mut self) -> PwrenW<'_, Apb1enrSpec> {
         PwrenW::new(self, 28)
     }
     #[doc = "Bit 29 - DAC interface clock enable"]
     #[inline(always)]
-    pub fn dacen(&mut self) -> DacenW<Apb1enrSpec> {
+    pub fn dacen(&mut self) -> DacenW<'_, Apb1enrSpec> {
         DacenW::new(self, 29)
     }
     #[doc = "Bit 30 - I2C3 clock enable"]
     #[inline(always)]
-    pub fn i2c3en(&mut self) -> I2c3enW<Apb1enrSpec> {
+    pub fn i2c3en(&mut self) -> I2c3enW<'_, Apb1enrSpec> {
         I2c3enW::new(self, 30)
     }
 }

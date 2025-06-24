@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:31 - Memory address"]
     #[inline(always)]
-    pub fn ma(&mut self) -> MaW<Cmar7Spec> {
+    pub fn ma(&mut self) -> MaW<'_, Cmar7Spec> {
         MaW::new(self, 0)
     }
 }

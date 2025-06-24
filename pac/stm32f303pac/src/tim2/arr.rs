@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bits 0:15 - Low Auto-reload value"]
     #[inline(always)]
-    pub fn arrl(&mut self) -> ArrlW<ArrSpec> {
+    pub fn arrl(&mut self) -> ArrlW<'_, ArrSpec> {
         ArrlW::new(self, 0)
     }
     #[doc = "Bits 16:31 - High Auto-reload value"]
     #[inline(always)]
-    pub fn arrh(&mut self) -> ArrhW<ArrSpec> {
+    pub fn arrh(&mut self) -> ArrhW<'_, ArrSpec> {
         ArrhW::new(self, 16)
     }
 }

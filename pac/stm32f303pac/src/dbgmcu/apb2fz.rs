@@ -43,22 +43,22 @@ impl R {
 impl W {
     #[doc = "Bit 2 - Debug Timer 15 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim15_stop(&mut self) -> DbgTim15StopW<Apb2fzSpec> {
+    pub fn dbg_tim15_stop(&mut self) -> DbgTim15StopW<'_, Apb2fzSpec> {
         DbgTim15StopW::new(self, 2)
     }
     #[doc = "Bit 3 - Debug Timer 16 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim16_stop(&mut self) -> DbgTim16StopW<Apb2fzSpec> {
+    pub fn dbg_tim16_stop(&mut self) -> DbgTim16StopW<'_, Apb2fzSpec> {
         DbgTim16StopW::new(self, 3)
     }
     #[doc = "Bit 4 - Debug Timer 17 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim17_sto(&mut self) -> DbgTim17StoW<Apb2fzSpec> {
+    pub fn dbg_tim17_sto(&mut self) -> DbgTim17StoW<'_, Apb2fzSpec> {
         DbgTim17StoW::new(self, 4)
     }
     #[doc = "Bit 5 - Debug Timer 19 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim19_stop(&mut self) -> DbgTim19StopW<Apb2fzSpec> {
+    pub fn dbg_tim19_stop(&mut self) -> DbgTim19StopW<'_, Apb2fzSpec> {
         DbgTim19StopW::new(self, 5)
     }
 }

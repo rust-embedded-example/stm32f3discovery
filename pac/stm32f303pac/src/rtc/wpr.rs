@@ -5,7 +5,7 @@ pub type KeyW<'a, REG> = crate::FieldWriter<'a, REG, 8>;
 impl W {
     #[doc = "Bits 0:7 - Write protection key"]
     #[inline(always)]
-    pub fn key(&mut self) -> KeyW<WprSpec> {
+    pub fn key(&mut self) -> KeyW<'_, WprSpec> {
         KeyW::new(self, 0)
     }
 }

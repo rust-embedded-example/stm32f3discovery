@@ -7,12 +7,12 @@ pub type Add1sW<'a, REG> = crate::BitWriter<'a, REG>;
 impl W {
     #[doc = "Bits 0:14 - Subtract a fraction of a second"]
     #[inline(always)]
-    pub fn subfs(&mut self) -> SubfsW<ShiftrSpec> {
+    pub fn subfs(&mut self) -> SubfsW<'_, ShiftrSpec> {
         SubfsW::new(self, 0)
     }
     #[doc = "Bit 31 - Add one second"]
     #[inline(always)]
-    pub fn add1s(&mut self) -> Add1sW<ShiftrSpec> {
+    pub fn add1s(&mut self) -> Add1sW<'_, ShiftrSpec> {
         Add1sW::new(self, 31)
     }
 }

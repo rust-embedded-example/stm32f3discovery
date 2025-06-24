@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Rising trigger event configuration bit of line 32"]
     #[inline(always)]
-    pub fn tr32(&mut self) -> Tr32W<Rtsr2Spec> {
+    pub fn tr32(&mut self) -> Tr32W<'_, Rtsr2Spec> {
         Tr32W::new(self, 0)
     }
     #[doc = "Bit 1 - Rising trigger event configuration bit of line 33"]
     #[inline(always)]
-    pub fn tr33(&mut self) -> Tr33W<Rtsr2Spec> {
+    pub fn tr33(&mut self) -> Tr33W<'_, Rtsr2Spec> {
         Tr33W::new(self, 1)
     }
 }

@@ -151,82 +151,82 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Debug Timer 2 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim2_stop(&mut self) -> DbgTim2StopW<Apb1fzSpec> {
+    pub fn dbg_tim2_stop(&mut self) -> DbgTim2StopW<'_, Apb1fzSpec> {
         DbgTim2StopW::new(self, 0)
     }
     #[doc = "Bit 1 - Debug Timer 3 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim3_stop(&mut self) -> DbgTim3StopW<Apb1fzSpec> {
+    pub fn dbg_tim3_stop(&mut self) -> DbgTim3StopW<'_, Apb1fzSpec> {
         DbgTim3StopW::new(self, 1)
     }
     #[doc = "Bit 2 - Debug Timer 4 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim4_stop(&mut self) -> DbgTim4StopW<Apb1fzSpec> {
+    pub fn dbg_tim4_stop(&mut self) -> DbgTim4StopW<'_, Apb1fzSpec> {
         DbgTim4StopW::new(self, 2)
     }
     #[doc = "Bit 3 - Debug Timer 5 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim5_stop(&mut self) -> DbgTim5StopW<Apb1fzSpec> {
+    pub fn dbg_tim5_stop(&mut self) -> DbgTim5StopW<'_, Apb1fzSpec> {
         DbgTim5StopW::new(self, 3)
     }
     #[doc = "Bit 4 - Debug Timer 6 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim6_stop(&mut self) -> DbgTim6StopW<Apb1fzSpec> {
+    pub fn dbg_tim6_stop(&mut self) -> DbgTim6StopW<'_, Apb1fzSpec> {
         DbgTim6StopW::new(self, 4)
     }
     #[doc = "Bit 5 - Debug Timer 7 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim7_stop(&mut self) -> DbgTim7StopW<Apb1fzSpec> {
+    pub fn dbg_tim7_stop(&mut self) -> DbgTim7StopW<'_, Apb1fzSpec> {
         DbgTim7StopW::new(self, 5)
     }
     #[doc = "Bit 6 - Debug Timer 12 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim12_stop(&mut self) -> DbgTim12StopW<Apb1fzSpec> {
+    pub fn dbg_tim12_stop(&mut self) -> DbgTim12StopW<'_, Apb1fzSpec> {
         DbgTim12StopW::new(self, 6)
     }
     #[doc = "Bit 7 - Debug Timer 13 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim13_stop(&mut self) -> DbgTim13StopW<Apb1fzSpec> {
+    pub fn dbg_tim13_stop(&mut self) -> DbgTim13StopW<'_, Apb1fzSpec> {
         DbgTim13StopW::new(self, 7)
     }
     #[doc = "Bit 8 - Debug Timer 14 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_timer14_stop(&mut self) -> DbgTimer14StopW<Apb1fzSpec> {
+    pub fn dbg_timer14_stop(&mut self) -> DbgTimer14StopW<'_, Apb1fzSpec> {
         DbgTimer14StopW::new(self, 8)
     }
     #[doc = "Bit 9 - Debug Timer 18 stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_tim18_stop(&mut self) -> DbgTim18StopW<Apb1fzSpec> {
+    pub fn dbg_tim18_stop(&mut self) -> DbgTim18StopW<'_, Apb1fzSpec> {
         DbgTim18StopW::new(self, 9)
     }
     #[doc = "Bit 10 - Debug RTC stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_rtc_stop(&mut self) -> DbgRtcStopW<Apb1fzSpec> {
+    pub fn dbg_rtc_stop(&mut self) -> DbgRtcStopW<'_, Apb1fzSpec> {
         DbgRtcStopW::new(self, 10)
     }
     #[doc = "Bit 11 - Debug Window Wachdog stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_wwdg_stop(&mut self) -> DbgWwdgStopW<Apb1fzSpec> {
+    pub fn dbg_wwdg_stop(&mut self) -> DbgWwdgStopW<'_, Apb1fzSpec> {
         DbgWwdgStopW::new(self, 11)
     }
     #[doc = "Bit 12 - Debug Independent Wachdog stopped when Core is halted"]
     #[inline(always)]
-    pub fn dbg_iwdg_stop(&mut self) -> DbgIwdgStopW<Apb1fzSpec> {
+    pub fn dbg_iwdg_stop(&mut self) -> DbgIwdgStopW<'_, Apb1fzSpec> {
         DbgIwdgStopW::new(self, 12)
     }
     #[doc = "Bit 21 - SMBUS timeout mode stopped when Core is halted"]
     #[inline(always)]
-    pub fn i2c1_smbus_timeout(&mut self) -> I2c1SmbusTimeoutW<Apb1fzSpec> {
+    pub fn i2c1_smbus_timeout(&mut self) -> I2c1SmbusTimeoutW<'_, Apb1fzSpec> {
         I2c1SmbusTimeoutW::new(self, 21)
     }
     #[doc = "Bit 22 - SMBUS timeout mode stopped when Core is halted"]
     #[inline(always)]
-    pub fn i2c2_smbus_timeout(&mut self) -> I2c2SmbusTimeoutW<Apb1fzSpec> {
+    pub fn i2c2_smbus_timeout(&mut self) -> I2c2SmbusTimeoutW<'_, Apb1fzSpec> {
         I2c2SmbusTimeoutW::new(self, 22)
     }
     #[doc = "Bit 25 - Debug CAN stopped when core is halted"]
     #[inline(always)]
-    pub fn dbg_can_stop(&mut self) -> DbgCanStopW<Apb1fzSpec> {
+    pub fn dbg_can_stop(&mut self) -> DbgCanStopW<'_, Apb1fzSpec> {
         DbgCanStopW::new(self, 25)
     }
 }

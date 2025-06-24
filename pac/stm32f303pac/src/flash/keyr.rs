@@ -5,7 +5,7 @@ pub type FkeyrW<'a, REG> = crate::FieldWriter<'a, REG, 32, u32>;
 impl W {
     #[doc = "Bits 0:31 - Flash Key"]
     #[inline(always)]
-    pub fn fkeyr(&mut self) -> FkeyrW<KeyrSpec> {
+    pub fn fkeyr(&mut self) -> FkeyrW<'_, KeyrSpec> {
         FkeyrW::new(self, 0)
     }
 }

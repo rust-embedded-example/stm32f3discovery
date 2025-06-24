@@ -79,42 +79,42 @@ impl R {
 impl W {
     #[doc = "Bit 0 - SYSCFG clock enable"]
     #[inline(always)]
-    pub fn syscfgen(&mut self) -> SyscfgenW<Apb2enrSpec> {
+    pub fn syscfgen(&mut self) -> SyscfgenW<'_, Apb2enrSpec> {
         SyscfgenW::new(self, 0)
     }
     #[doc = "Bit 11 - TIM1 Timer clock enable"]
     #[inline(always)]
-    pub fn tim1en(&mut self) -> Tim1enW<Apb2enrSpec> {
+    pub fn tim1en(&mut self) -> Tim1enW<'_, Apb2enrSpec> {
         Tim1enW::new(self, 11)
     }
     #[doc = "Bit 12 - SPI 1 clock enable"]
     #[inline(always)]
-    pub fn spi1en(&mut self) -> Spi1enW<Apb2enrSpec> {
+    pub fn spi1en(&mut self) -> Spi1enW<'_, Apb2enrSpec> {
         Spi1enW::new(self, 12)
     }
     #[doc = "Bit 13 - TIM8 Timer clock enable"]
     #[inline(always)]
-    pub fn tim8en(&mut self) -> Tim8enW<Apb2enrSpec> {
+    pub fn tim8en(&mut self) -> Tim8enW<'_, Apb2enrSpec> {
         Tim8enW::new(self, 13)
     }
     #[doc = "Bit 14 - USART1 clock enable"]
     #[inline(always)]
-    pub fn usart1en(&mut self) -> Usart1enW<Apb2enrSpec> {
+    pub fn usart1en(&mut self) -> Usart1enW<'_, Apb2enrSpec> {
         Usart1enW::new(self, 14)
     }
     #[doc = "Bit 16 - TIM15 timer clock enable"]
     #[inline(always)]
-    pub fn tim15en(&mut self) -> Tim15enW<Apb2enrSpec> {
+    pub fn tim15en(&mut self) -> Tim15enW<'_, Apb2enrSpec> {
         Tim15enW::new(self, 16)
     }
     #[doc = "Bit 17 - TIM16 timer clock enable"]
     #[inline(always)]
-    pub fn tim16en(&mut self) -> Tim16enW<Apb2enrSpec> {
+    pub fn tim16en(&mut self) -> Tim16enW<'_, Apb2enrSpec> {
         Tim16enW::new(self, 17)
     }
     #[doc = "Bit 18 - TIM17 timer clock enable"]
     #[inline(always)]
-    pub fn tim17en(&mut self) -> Tim17enW<Apb2enrSpec> {
+    pub fn tim17en(&mut self) -> Tim17enW<'_, Apb2enrSpec> {
         Tim17enW::new(self, 18)
     }
 }

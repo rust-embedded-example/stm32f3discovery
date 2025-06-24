@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bit 13 - DAC channel1 DMA underrun flag"]
     #[inline(always)]
-    pub fn dmaudr1(&mut self) -> Dmaudr1W<SrSpec> {
+    pub fn dmaudr1(&mut self) -> Dmaudr1W<'_, SrSpec> {
         Dmaudr1W::new(self, 13)
     }
     #[doc = "Bit 29 - DAC channel2 DMA underrun flag"]
     #[inline(always)]
-    pub fn dmaudr2(&mut self) -> Dmaudr2W<SrSpec> {
+    pub fn dmaudr2(&mut self) -> Dmaudr2W<'_, SrSpec> {
         Dmaudr2W::new(self, 29)
     }
 }

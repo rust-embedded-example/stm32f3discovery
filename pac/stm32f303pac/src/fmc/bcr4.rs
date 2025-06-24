@@ -133,72 +133,72 @@ impl R {
 impl W {
     #[doc = "Bit 0 - MBKEN"]
     #[inline(always)]
-    pub fn mbken(&mut self) -> MbkenW<Bcr4Spec> {
+    pub fn mbken(&mut self) -> MbkenW<'_, Bcr4Spec> {
         MbkenW::new(self, 0)
     }
     #[doc = "Bit 1 - MUXEN"]
     #[inline(always)]
-    pub fn muxen(&mut self) -> MuxenW<Bcr4Spec> {
+    pub fn muxen(&mut self) -> MuxenW<'_, Bcr4Spec> {
         MuxenW::new(self, 1)
     }
     #[doc = "Bits 2:3 - MTYP"]
     #[inline(always)]
-    pub fn mtyp(&mut self) -> MtypW<Bcr4Spec> {
+    pub fn mtyp(&mut self) -> MtypW<'_, Bcr4Spec> {
         MtypW::new(self, 2)
     }
     #[doc = "Bits 4:5 - MWID"]
     #[inline(always)]
-    pub fn mwid(&mut self) -> MwidW<Bcr4Spec> {
+    pub fn mwid(&mut self) -> MwidW<'_, Bcr4Spec> {
         MwidW::new(self, 4)
     }
     #[doc = "Bit 6 - FACCEN"]
     #[inline(always)]
-    pub fn faccen(&mut self) -> FaccenW<Bcr4Spec> {
+    pub fn faccen(&mut self) -> FaccenW<'_, Bcr4Spec> {
         FaccenW::new(self, 6)
     }
     #[doc = "Bit 8 - BURSTEN"]
     #[inline(always)]
-    pub fn bursten(&mut self) -> BurstenW<Bcr4Spec> {
+    pub fn bursten(&mut self) -> BurstenW<'_, Bcr4Spec> {
         BurstenW::new(self, 8)
     }
     #[doc = "Bit 9 - WAITPOL"]
     #[inline(always)]
-    pub fn waitpol(&mut self) -> WaitpolW<Bcr4Spec> {
+    pub fn waitpol(&mut self) -> WaitpolW<'_, Bcr4Spec> {
         WaitpolW::new(self, 9)
     }
     #[doc = "Bit 10 - WRAPMOD"]
     #[inline(always)]
-    pub fn wrapmod(&mut self) -> WrapmodW<Bcr4Spec> {
+    pub fn wrapmod(&mut self) -> WrapmodW<'_, Bcr4Spec> {
         WrapmodW::new(self, 10)
     }
     #[doc = "Bit 11 - WAITCFG"]
     #[inline(always)]
-    pub fn waitcfg(&mut self) -> WaitcfgW<Bcr4Spec> {
+    pub fn waitcfg(&mut self) -> WaitcfgW<'_, Bcr4Spec> {
         WaitcfgW::new(self, 11)
     }
     #[doc = "Bit 12 - WREN"]
     #[inline(always)]
-    pub fn wren(&mut self) -> WrenW<Bcr4Spec> {
+    pub fn wren(&mut self) -> WrenW<'_, Bcr4Spec> {
         WrenW::new(self, 12)
     }
     #[doc = "Bit 13 - WAITEN"]
     #[inline(always)]
-    pub fn waiten(&mut self) -> WaitenW<Bcr4Spec> {
+    pub fn waiten(&mut self) -> WaitenW<'_, Bcr4Spec> {
         WaitenW::new(self, 13)
     }
     #[doc = "Bit 14 - EXTMOD"]
     #[inline(always)]
-    pub fn extmod(&mut self) -> ExtmodW<Bcr4Spec> {
+    pub fn extmod(&mut self) -> ExtmodW<'_, Bcr4Spec> {
         ExtmodW::new(self, 14)
     }
     #[doc = "Bit 15 - ASYNCWAIT"]
     #[inline(always)]
-    pub fn asyncwait(&mut self) -> AsyncwaitW<Bcr4Spec> {
+    pub fn asyncwait(&mut self) -> AsyncwaitW<'_, Bcr4Spec> {
         AsyncwaitW::new(self, 15)
     }
     #[doc = "Bit 19 - CBURSTRW"]
     #[inline(always)]
-    pub fn cburstrw(&mut self) -> CburstrwW<Bcr4Spec> {
+    pub fn cburstrw(&mut self) -> CburstrwW<'_, Bcr4Spec> {
         CburstrwW::new(self, 19)
     }
 }

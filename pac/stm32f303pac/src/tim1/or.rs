@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bits 0:1 - TIM1_ETR_ADC1 remapping capability"]
     #[inline(always)]
-    pub fn tim1_etr_adc1_rmp(&mut self) -> Tim1EtrAdc1RmpW<OrSpec> {
+    pub fn tim1_etr_adc1_rmp(&mut self) -> Tim1EtrAdc1RmpW<'_, OrSpec> {
         Tim1EtrAdc1RmpW::new(self, 0)
     }
     #[doc = "Bits 2:3 - TIM1_ETR_ADC4 remapping capability"]
     #[inline(always)]
-    pub fn tim1_etr_adc4_rmp(&mut self) -> Tim1EtrAdc4RmpW<OrSpec> {
+    pub fn tim1_etr_adc4_rmp(&mut self) -> Tim1EtrAdc4RmpW<'_, OrSpec> {
         Tim1EtrAdc4RmpW::new(self, 2)
     }
 }

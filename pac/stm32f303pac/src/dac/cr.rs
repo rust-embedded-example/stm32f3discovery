@@ -151,82 +151,82 @@ impl R {
 impl W {
     #[doc = "Bit 0 - DAC channel1 enable"]
     #[inline(always)]
-    pub fn en1(&mut self) -> En1W<CrSpec> {
+    pub fn en1(&mut self) -> En1W<'_, CrSpec> {
         En1W::new(self, 0)
     }
     #[doc = "Bit 1 - DAC channel1 output buffer disable"]
     #[inline(always)]
-    pub fn boff1(&mut self) -> Boff1W<CrSpec> {
+    pub fn boff1(&mut self) -> Boff1W<'_, CrSpec> {
         Boff1W::new(self, 1)
     }
     #[doc = "Bit 2 - DAC channel1 trigger enable"]
     #[inline(always)]
-    pub fn ten1(&mut self) -> Ten1W<CrSpec> {
+    pub fn ten1(&mut self) -> Ten1W<'_, CrSpec> {
         Ten1W::new(self, 2)
     }
     #[doc = "Bits 3:5 - DAC channel1 trigger selection"]
     #[inline(always)]
-    pub fn tsel1(&mut self) -> Tsel1W<CrSpec> {
+    pub fn tsel1(&mut self) -> Tsel1W<'_, CrSpec> {
         Tsel1W::new(self, 3)
     }
     #[doc = "Bits 6:7 - DAC channel1 noise/triangle wave generation enable"]
     #[inline(always)]
-    pub fn wave1(&mut self) -> Wave1W<CrSpec> {
+    pub fn wave1(&mut self) -> Wave1W<'_, CrSpec> {
         Wave1W::new(self, 6)
     }
     #[doc = "Bits 8:11 - DAC channel1 mask/amplitude selector"]
     #[inline(always)]
-    pub fn mamp1(&mut self) -> Mamp1W<CrSpec> {
+    pub fn mamp1(&mut self) -> Mamp1W<'_, CrSpec> {
         Mamp1W::new(self, 8)
     }
     #[doc = "Bit 12 - DAC channel1 DMA enable"]
     #[inline(always)]
-    pub fn dmaen1(&mut self) -> Dmaen1W<CrSpec> {
+    pub fn dmaen1(&mut self) -> Dmaen1W<'_, CrSpec> {
         Dmaen1W::new(self, 12)
     }
     #[doc = "Bit 13 - DAC channel1 DMA Underrun Interrupt enable"]
     #[inline(always)]
-    pub fn dmaudrie1(&mut self) -> Dmaudrie1W<CrSpec> {
+    pub fn dmaudrie1(&mut self) -> Dmaudrie1W<'_, CrSpec> {
         Dmaudrie1W::new(self, 13)
     }
     #[doc = "Bit 16 - DAC channel2 enable"]
     #[inline(always)]
-    pub fn en2(&mut self) -> En2W<CrSpec> {
+    pub fn en2(&mut self) -> En2W<'_, CrSpec> {
         En2W::new(self, 16)
     }
     #[doc = "Bit 17 - DAC channel2 output buffer disable"]
     #[inline(always)]
-    pub fn boff2(&mut self) -> Boff2W<CrSpec> {
+    pub fn boff2(&mut self) -> Boff2W<'_, CrSpec> {
         Boff2W::new(self, 17)
     }
     #[doc = "Bit 18 - DAC channel2 trigger enable"]
     #[inline(always)]
-    pub fn ten2(&mut self) -> Ten2W<CrSpec> {
+    pub fn ten2(&mut self) -> Ten2W<'_, CrSpec> {
         Ten2W::new(self, 18)
     }
     #[doc = "Bits 19:21 - DAC channel2 trigger selection"]
     #[inline(always)]
-    pub fn tsel2(&mut self) -> Tsel2W<CrSpec> {
+    pub fn tsel2(&mut self) -> Tsel2W<'_, CrSpec> {
         Tsel2W::new(self, 19)
     }
     #[doc = "Bits 22:23 - DAC channel2 noise/triangle wave generation enable"]
     #[inline(always)]
-    pub fn wave2(&mut self) -> Wave2W<CrSpec> {
+    pub fn wave2(&mut self) -> Wave2W<'_, CrSpec> {
         Wave2W::new(self, 22)
     }
     #[doc = "Bits 24:27 - DAC channel2 mask/amplitude selector"]
     #[inline(always)]
-    pub fn mamp2(&mut self) -> Mamp2W<CrSpec> {
+    pub fn mamp2(&mut self) -> Mamp2W<'_, CrSpec> {
         Mamp2W::new(self, 24)
     }
     #[doc = "Bit 28 - DAC channel2 DMA enable"]
     #[inline(always)]
-    pub fn dmaen2(&mut self) -> Dmaen2W<CrSpec> {
+    pub fn dmaen2(&mut self) -> Dmaen2W<'_, CrSpec> {
         Dmaen2W::new(self, 28)
     }
     #[doc = "Bit 29 - DAC channel2 DMA underrun interrupt enable"]
     #[inline(always)]
-    pub fn dmaudrie2(&mut self) -> Dmaudrie2W<CrSpec> {
+    pub fn dmaudrie2(&mut self) -> Dmaudrie2W<'_, CrSpec> {
         Dmaudrie2W::new(self, 29)
     }
 }

@@ -295,162 +295,162 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Filter bits"]
     #[inline(always)]
-    pub fn fb0(&mut self) -> Fb0W<F11r1Spec> {
+    pub fn fb0(&mut self) -> Fb0W<'_, F11r1Spec> {
         Fb0W::new(self, 0)
     }
     #[doc = "Bit 1 - Filter bits"]
     #[inline(always)]
-    pub fn fb1(&mut self) -> Fb1W<F11r1Spec> {
+    pub fn fb1(&mut self) -> Fb1W<'_, F11r1Spec> {
         Fb1W::new(self, 1)
     }
     #[doc = "Bit 2 - Filter bits"]
     #[inline(always)]
-    pub fn fb2(&mut self) -> Fb2W<F11r1Spec> {
+    pub fn fb2(&mut self) -> Fb2W<'_, F11r1Spec> {
         Fb2W::new(self, 2)
     }
     #[doc = "Bit 3 - Filter bits"]
     #[inline(always)]
-    pub fn fb3(&mut self) -> Fb3W<F11r1Spec> {
+    pub fn fb3(&mut self) -> Fb3W<'_, F11r1Spec> {
         Fb3W::new(self, 3)
     }
     #[doc = "Bit 4 - Filter bits"]
     #[inline(always)]
-    pub fn fb4(&mut self) -> Fb4W<F11r1Spec> {
+    pub fn fb4(&mut self) -> Fb4W<'_, F11r1Spec> {
         Fb4W::new(self, 4)
     }
     #[doc = "Bit 5 - Filter bits"]
     #[inline(always)]
-    pub fn fb5(&mut self) -> Fb5W<F11r1Spec> {
+    pub fn fb5(&mut self) -> Fb5W<'_, F11r1Spec> {
         Fb5W::new(self, 5)
     }
     #[doc = "Bit 6 - Filter bits"]
     #[inline(always)]
-    pub fn fb6(&mut self) -> Fb6W<F11r1Spec> {
+    pub fn fb6(&mut self) -> Fb6W<'_, F11r1Spec> {
         Fb6W::new(self, 6)
     }
     #[doc = "Bit 7 - Filter bits"]
     #[inline(always)]
-    pub fn fb7(&mut self) -> Fb7W<F11r1Spec> {
+    pub fn fb7(&mut self) -> Fb7W<'_, F11r1Spec> {
         Fb7W::new(self, 7)
     }
     #[doc = "Bit 8 - Filter bits"]
     #[inline(always)]
-    pub fn fb8(&mut self) -> Fb8W<F11r1Spec> {
+    pub fn fb8(&mut self) -> Fb8W<'_, F11r1Spec> {
         Fb8W::new(self, 8)
     }
     #[doc = "Bit 9 - Filter bits"]
     #[inline(always)]
-    pub fn fb9(&mut self) -> Fb9W<F11r1Spec> {
+    pub fn fb9(&mut self) -> Fb9W<'_, F11r1Spec> {
         Fb9W::new(self, 9)
     }
     #[doc = "Bit 10 - Filter bits"]
     #[inline(always)]
-    pub fn fb10(&mut self) -> Fb10W<F11r1Spec> {
+    pub fn fb10(&mut self) -> Fb10W<'_, F11r1Spec> {
         Fb10W::new(self, 10)
     }
     #[doc = "Bit 11 - Filter bits"]
     #[inline(always)]
-    pub fn fb11(&mut self) -> Fb11W<F11r1Spec> {
+    pub fn fb11(&mut self) -> Fb11W<'_, F11r1Spec> {
         Fb11W::new(self, 11)
     }
     #[doc = "Bit 12 - Filter bits"]
     #[inline(always)]
-    pub fn fb12(&mut self) -> Fb12W<F11r1Spec> {
+    pub fn fb12(&mut self) -> Fb12W<'_, F11r1Spec> {
         Fb12W::new(self, 12)
     }
     #[doc = "Bit 13 - Filter bits"]
     #[inline(always)]
-    pub fn fb13(&mut self) -> Fb13W<F11r1Spec> {
+    pub fn fb13(&mut self) -> Fb13W<'_, F11r1Spec> {
         Fb13W::new(self, 13)
     }
     #[doc = "Bit 14 - Filter bits"]
     #[inline(always)]
-    pub fn fb14(&mut self) -> Fb14W<F11r1Spec> {
+    pub fn fb14(&mut self) -> Fb14W<'_, F11r1Spec> {
         Fb14W::new(self, 14)
     }
     #[doc = "Bit 15 - Filter bits"]
     #[inline(always)]
-    pub fn fb15(&mut self) -> Fb15W<F11r1Spec> {
+    pub fn fb15(&mut self) -> Fb15W<'_, F11r1Spec> {
         Fb15W::new(self, 15)
     }
     #[doc = "Bit 16 - Filter bits"]
     #[inline(always)]
-    pub fn fb16(&mut self) -> Fb16W<F11r1Spec> {
+    pub fn fb16(&mut self) -> Fb16W<'_, F11r1Spec> {
         Fb16W::new(self, 16)
     }
     #[doc = "Bit 17 - Filter bits"]
     #[inline(always)]
-    pub fn fb17(&mut self) -> Fb17W<F11r1Spec> {
+    pub fn fb17(&mut self) -> Fb17W<'_, F11r1Spec> {
         Fb17W::new(self, 17)
     }
     #[doc = "Bit 18 - Filter bits"]
     #[inline(always)]
-    pub fn fb18(&mut self) -> Fb18W<F11r1Spec> {
+    pub fn fb18(&mut self) -> Fb18W<'_, F11r1Spec> {
         Fb18W::new(self, 18)
     }
     #[doc = "Bit 19 - Filter bits"]
     #[inline(always)]
-    pub fn fb19(&mut self) -> Fb19W<F11r1Spec> {
+    pub fn fb19(&mut self) -> Fb19W<'_, F11r1Spec> {
         Fb19W::new(self, 19)
     }
     #[doc = "Bit 20 - Filter bits"]
     #[inline(always)]
-    pub fn fb20(&mut self) -> Fb20W<F11r1Spec> {
+    pub fn fb20(&mut self) -> Fb20W<'_, F11r1Spec> {
         Fb20W::new(self, 20)
     }
     #[doc = "Bit 21 - Filter bits"]
     #[inline(always)]
-    pub fn fb21(&mut self) -> Fb21W<F11r1Spec> {
+    pub fn fb21(&mut self) -> Fb21W<'_, F11r1Spec> {
         Fb21W::new(self, 21)
     }
     #[doc = "Bit 22 - Filter bits"]
     #[inline(always)]
-    pub fn fb22(&mut self) -> Fb22W<F11r1Spec> {
+    pub fn fb22(&mut self) -> Fb22W<'_, F11r1Spec> {
         Fb22W::new(self, 22)
     }
     #[doc = "Bit 23 - Filter bits"]
     #[inline(always)]
-    pub fn fb23(&mut self) -> Fb23W<F11r1Spec> {
+    pub fn fb23(&mut self) -> Fb23W<'_, F11r1Spec> {
         Fb23W::new(self, 23)
     }
     #[doc = "Bit 24 - Filter bits"]
     #[inline(always)]
-    pub fn fb24(&mut self) -> Fb24W<F11r1Spec> {
+    pub fn fb24(&mut self) -> Fb24W<'_, F11r1Spec> {
         Fb24W::new(self, 24)
     }
     #[doc = "Bit 25 - Filter bits"]
     #[inline(always)]
-    pub fn fb25(&mut self) -> Fb25W<F11r1Spec> {
+    pub fn fb25(&mut self) -> Fb25W<'_, F11r1Spec> {
         Fb25W::new(self, 25)
     }
     #[doc = "Bit 26 - Filter bits"]
     #[inline(always)]
-    pub fn fb26(&mut self) -> Fb26W<F11r1Spec> {
+    pub fn fb26(&mut self) -> Fb26W<'_, F11r1Spec> {
         Fb26W::new(self, 26)
     }
     #[doc = "Bit 27 - Filter bits"]
     #[inline(always)]
-    pub fn fb27(&mut self) -> Fb27W<F11r1Spec> {
+    pub fn fb27(&mut self) -> Fb27W<'_, F11r1Spec> {
         Fb27W::new(self, 27)
     }
     #[doc = "Bit 28 - Filter bits"]
     #[inline(always)]
-    pub fn fb28(&mut self) -> Fb28W<F11r1Spec> {
+    pub fn fb28(&mut self) -> Fb28W<'_, F11r1Spec> {
         Fb28W::new(self, 28)
     }
     #[doc = "Bit 29 - Filter bits"]
     #[inline(always)]
-    pub fn fb29(&mut self) -> Fb29W<F11r1Spec> {
+    pub fn fb29(&mut self) -> Fb29W<'_, F11r1Spec> {
         Fb29W::new(self, 29)
     }
     #[doc = "Bit 30 - Filter bits"]
     #[inline(always)]
-    pub fn fb30(&mut self) -> Fb30W<F11r1Spec> {
+    pub fn fb30(&mut self) -> Fb30W<'_, F11r1Spec> {
         Fb30W::new(self, 30)
     }
     #[doc = "Bit 31 - Filter bits"]
     #[inline(always)]
-    pub fn fb31(&mut self) -> Fb31W<F11r1Spec> {
+    pub fn fb31(&mut self) -> Fb31W<'_, F11r1Spec> {
         Fb31W::new(self, 31)
     }
 }

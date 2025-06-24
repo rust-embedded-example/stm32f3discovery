@@ -32,12 +32,12 @@ impl R {
 impl W {
     #[doc = "Bits 0:2 - LATENCY"]
     #[inline(always)]
-    pub fn latency(&mut self) -> LatencyW<AcrSpec> {
+    pub fn latency(&mut self) -> LatencyW<'_, AcrSpec> {
         LatencyW::new(self, 0)
     }
     #[doc = "Bit 4 - PRFTBE"]
     #[inline(always)]
-    pub fn prftbe(&mut self) -> PrftbeW<AcrSpec> {
+    pub fn prftbe(&mut self) -> PrftbeW<'_, AcrSpec> {
         PrftbeW::new(self, 4)
     }
 }

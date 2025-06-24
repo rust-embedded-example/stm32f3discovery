@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:7 - Repetition counter value"]
     #[inline(always)]
-    pub fn rep(&mut self) -> RepW<RcrSpec> {
+    pub fn rep(&mut self) -> RepW<'_, RcrSpec> {
         RepW::new(self, 0)
     }
 }

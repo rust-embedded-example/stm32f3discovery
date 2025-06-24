@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Update interrupt flag"]
     #[inline(always)]
-    pub fn uif(&mut self) -> UifW<SrSpec> {
+    pub fn uif(&mut self) -> UifW<'_, SrSpec> {
         UifW::new(self, 0)
     }
 }

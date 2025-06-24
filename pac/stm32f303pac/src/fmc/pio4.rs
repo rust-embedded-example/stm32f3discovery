@@ -43,22 +43,22 @@ impl R {
 impl W {
     #[doc = "Bits 0:7 - IOSETx"]
     #[inline(always)]
-    pub fn iosetx(&mut self) -> IosetxW<Pio4Spec> {
+    pub fn iosetx(&mut self) -> IosetxW<'_, Pio4Spec> {
         IosetxW::new(self, 0)
     }
     #[doc = "Bits 8:15 - IOWAITx"]
     #[inline(always)]
-    pub fn iowaitx(&mut self) -> IowaitxW<Pio4Spec> {
+    pub fn iowaitx(&mut self) -> IowaitxW<'_, Pio4Spec> {
         IowaitxW::new(self, 8)
     }
     #[doc = "Bits 16:23 - IOHOLDx"]
     #[inline(always)]
-    pub fn ioholdx(&mut self) -> IoholdxW<Pio4Spec> {
+    pub fn ioholdx(&mut self) -> IoholdxW<'_, Pio4Spec> {
         IoholdxW::new(self, 16)
     }
     #[doc = "Bits 24:31 - IOHIZx"]
     #[inline(always)]
-    pub fn iohizx(&mut self) -> IohizxW<Pio4Spec> {
+    pub fn iohizx(&mut self) -> IohizxW<'_, Pio4Spec> {
         IohizxW::new(self, 24)
     }
 }

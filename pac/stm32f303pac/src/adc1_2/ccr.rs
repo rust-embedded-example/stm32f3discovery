@@ -79,42 +79,42 @@ impl R {
 impl W {
     #[doc = "Bits 0:4 - Multi ADC mode selection"]
     #[inline(always)]
-    pub fn mult(&mut self) -> MultW<CcrSpec> {
+    pub fn mult(&mut self) -> MultW<'_, CcrSpec> {
         MultW::new(self, 0)
     }
     #[doc = "Bits 8:11 - Delay between 2 sampling phases"]
     #[inline(always)]
-    pub fn delay(&mut self) -> DelayW<CcrSpec> {
+    pub fn delay(&mut self) -> DelayW<'_, CcrSpec> {
         DelayW::new(self, 8)
     }
     #[doc = "Bit 13 - DMA configuration (for multi-ADC mode)"]
     #[inline(always)]
-    pub fn dmacfg(&mut self) -> DmacfgW<CcrSpec> {
+    pub fn dmacfg(&mut self) -> DmacfgW<'_, CcrSpec> {
         DmacfgW::new(self, 13)
     }
     #[doc = "Bits 14:15 - Direct memory access mode for multi ADC mode"]
     #[inline(always)]
-    pub fn mdma(&mut self) -> MdmaW<CcrSpec> {
+    pub fn mdma(&mut self) -> MdmaW<'_, CcrSpec> {
         MdmaW::new(self, 14)
     }
     #[doc = "Bits 16:17 - ADC clock mode"]
     #[inline(always)]
-    pub fn ckmode(&mut self) -> CkmodeW<CcrSpec> {
+    pub fn ckmode(&mut self) -> CkmodeW<'_, CcrSpec> {
         CkmodeW::new(self, 16)
     }
     #[doc = "Bit 22 - VREFINT enable"]
     #[inline(always)]
-    pub fn vrefen(&mut self) -> VrefenW<CcrSpec> {
+    pub fn vrefen(&mut self) -> VrefenW<'_, CcrSpec> {
         VrefenW::new(self, 22)
     }
     #[doc = "Bit 23 - Temperature sensor enable"]
     #[inline(always)]
-    pub fn tsen(&mut self) -> TsenW<CcrSpec> {
+    pub fn tsen(&mut self) -> TsenW<'_, CcrSpec> {
         TsenW::new(self, 23)
     }
     #[doc = "Bit 24 - VBAT enable"]
     #[inline(always)]
-    pub fn vbaten(&mut self) -> VbatenW<CcrSpec> {
+    pub fn vbaten(&mut self) -> VbatenW<'_, CcrSpec> {
         VbatenW::new(self, 24)
     }
 }

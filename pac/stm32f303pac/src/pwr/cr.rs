@@ -70,37 +70,37 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Low-power deep sleep"]
     #[inline(always)]
-    pub fn lpds(&mut self) -> LpdsW<CrSpec> {
+    pub fn lpds(&mut self) -> LpdsW<'_, CrSpec> {
         LpdsW::new(self, 0)
     }
     #[doc = "Bit 1 - Power down deepsleep"]
     #[inline(always)]
-    pub fn pdds(&mut self) -> PddsW<CrSpec> {
+    pub fn pdds(&mut self) -> PddsW<'_, CrSpec> {
         PddsW::new(self, 1)
     }
     #[doc = "Bit 2 - Clear wakeup flag"]
     #[inline(always)]
-    pub fn cwuf(&mut self) -> CwufW<CrSpec> {
+    pub fn cwuf(&mut self) -> CwufW<'_, CrSpec> {
         CwufW::new(self, 2)
     }
     #[doc = "Bit 3 - Clear standby flag"]
     #[inline(always)]
-    pub fn csbf(&mut self) -> CsbfW<CrSpec> {
+    pub fn csbf(&mut self) -> CsbfW<'_, CrSpec> {
         CsbfW::new(self, 3)
     }
     #[doc = "Bit 4 - Power voltage detector enable"]
     #[inline(always)]
-    pub fn pvde(&mut self) -> PvdeW<CrSpec> {
+    pub fn pvde(&mut self) -> PvdeW<'_, CrSpec> {
         PvdeW::new(self, 4)
     }
     #[doc = "Bits 5:7 - PVD level selection"]
     #[inline(always)]
-    pub fn pls(&mut self) -> PlsW<CrSpec> {
+    pub fn pls(&mut self) -> PlsW<'_, CrSpec> {
         PlsW::new(self, 5)
     }
     #[doc = "Bit 8 - Disable backup domain write protection"]
     #[inline(always)]
-    pub fn dbp(&mut self) -> DbpW<CrSpec> {
+    pub fn dbp(&mut self) -> DbpW<'_, CrSpec> {
         DbpW::new(self, 8)
     }
 }

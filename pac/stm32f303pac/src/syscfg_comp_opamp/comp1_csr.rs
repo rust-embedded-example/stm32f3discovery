@@ -95,47 +95,47 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Comparator 1 enable"]
     #[inline(always)]
-    pub fn comp1en(&mut self) -> Comp1enW<Comp1CsrSpec> {
+    pub fn comp1en(&mut self) -> Comp1enW<'_, Comp1CsrSpec> {
         Comp1enW::new(self, 0)
     }
     #[doc = "Bit 1 - COMP1_INP_DAC"]
     #[inline(always)]
-    pub fn comp1_inp_dac(&mut self) -> Comp1InpDacW<Comp1CsrSpec> {
+    pub fn comp1_inp_dac(&mut self) -> Comp1InpDacW<'_, Comp1CsrSpec> {
         Comp1InpDacW::new(self, 1)
     }
     #[doc = "Bits 2:3 - Comparator 1 mode"]
     #[inline(always)]
-    pub fn comp1mode(&mut self) -> Comp1modeW<Comp1CsrSpec> {
+    pub fn comp1mode(&mut self) -> Comp1modeW<'_, Comp1CsrSpec> {
         Comp1modeW::new(self, 2)
     }
     #[doc = "Bits 4:6 - Comparator 1 inverting input selection"]
     #[inline(always)]
-    pub fn comp1insel(&mut self) -> Comp1inselW<Comp1CsrSpec> {
+    pub fn comp1insel(&mut self) -> Comp1inselW<'_, Comp1CsrSpec> {
         Comp1inselW::new(self, 4)
     }
     #[doc = "Bits 10:13 - Comparator 1 output selection"]
     #[inline(always)]
-    pub fn comp1_out_sel(&mut self) -> Comp1OutSelW<Comp1CsrSpec> {
+    pub fn comp1_out_sel(&mut self) -> Comp1OutSelW<'_, Comp1CsrSpec> {
         Comp1OutSelW::new(self, 10)
     }
     #[doc = "Bit 15 - Comparator 1 output polarity"]
     #[inline(always)]
-    pub fn comp1pol(&mut self) -> Comp1polW<Comp1CsrSpec> {
+    pub fn comp1pol(&mut self) -> Comp1polW<'_, Comp1CsrSpec> {
         Comp1polW::new(self, 15)
     }
     #[doc = "Bits 16:17 - Comparator 1 hysteresis"]
     #[inline(always)]
-    pub fn comp1hyst(&mut self) -> Comp1hystW<Comp1CsrSpec> {
+    pub fn comp1hyst(&mut self) -> Comp1hystW<'_, Comp1CsrSpec> {
         Comp1hystW::new(self, 16)
     }
     #[doc = "Bits 18:20 - Comparator 1 blanking source"]
     #[inline(always)]
-    pub fn comp1_blanking(&mut self) -> Comp1BlankingW<Comp1CsrSpec> {
+    pub fn comp1_blanking(&mut self) -> Comp1BlankingW<'_, Comp1CsrSpec> {
         Comp1BlankingW::new(self, 18)
     }
     #[doc = "Bit 31 - Comparator 1 lock"]
     #[inline(always)]
-    pub fn comp1lock(&mut self) -> Comp1lockW<Comp1CsrSpec> {
+    pub fn comp1lock(&mut self) -> Comp1lockW<'_, Comp1CsrSpec> {
         Comp1lockW::new(self, 31)
     }
 }

@@ -52,27 +52,27 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Cortex-M0 LOCKUP bit enable bit"]
     #[inline(always)]
-    pub fn locup_lock(&mut self) -> LocupLockW<SyscfgCfgr2Spec> {
+    pub fn locup_lock(&mut self) -> LocupLockW<'_, SyscfgCfgr2Spec> {
         LocupLockW::new(self, 0)
     }
     #[doc = "Bit 1 - SRAM parity lock bit"]
     #[inline(always)]
-    pub fn sram_parity_lock(&mut self) -> SramParityLockW<SyscfgCfgr2Spec> {
+    pub fn sram_parity_lock(&mut self) -> SramParityLockW<'_, SyscfgCfgr2Spec> {
         SramParityLockW::new(self, 1)
     }
     #[doc = "Bit 2 - PVD lock enable bit"]
     #[inline(always)]
-    pub fn pvd_lock(&mut self) -> PvdLockW<SyscfgCfgr2Spec> {
+    pub fn pvd_lock(&mut self) -> PvdLockW<'_, SyscfgCfgr2Spec> {
         PvdLockW::new(self, 2)
     }
     #[doc = "Bit 4 - Bypass address bit 29 in parity calculation"]
     #[inline(always)]
-    pub fn byp_add_par(&mut self) -> BypAddParW<SyscfgCfgr2Spec> {
+    pub fn byp_add_par(&mut self) -> BypAddParW<'_, SyscfgCfgr2Spec> {
         BypAddParW::new(self, 4)
     }
     #[doc = "Bit 8 - SRAM parity flag"]
     #[inline(always)]
-    pub fn sram_pef(&mut self) -> SramPefW<SyscfgCfgr2Spec> {
+    pub fn sram_pef(&mut self) -> SramPefW<'_, SyscfgCfgr2Spec> {
         SramPefW::new(self, 8)
     }
 }

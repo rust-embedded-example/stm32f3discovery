@@ -259,142 +259,142 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Filter FIFO assignment for filter 0"]
     #[inline(always)]
-    pub fn ffa0(&mut self) -> Ffa0W<Ffa1rSpec> {
+    pub fn ffa0(&mut self) -> Ffa0W<'_, Ffa1rSpec> {
         Ffa0W::new(self, 0)
     }
     #[doc = "Bit 1 - Filter FIFO assignment for filter 1"]
     #[inline(always)]
-    pub fn ffa1(&mut self) -> Ffa1W<Ffa1rSpec> {
+    pub fn ffa1(&mut self) -> Ffa1W<'_, Ffa1rSpec> {
         Ffa1W::new(self, 1)
     }
     #[doc = "Bit 2 - Filter FIFO assignment for filter 2"]
     #[inline(always)]
-    pub fn ffa2(&mut self) -> Ffa2W<Ffa1rSpec> {
+    pub fn ffa2(&mut self) -> Ffa2W<'_, Ffa1rSpec> {
         Ffa2W::new(self, 2)
     }
     #[doc = "Bit 3 - Filter FIFO assignment for filter 3"]
     #[inline(always)]
-    pub fn ffa3(&mut self) -> Ffa3W<Ffa1rSpec> {
+    pub fn ffa3(&mut self) -> Ffa3W<'_, Ffa1rSpec> {
         Ffa3W::new(self, 3)
     }
     #[doc = "Bit 4 - Filter FIFO assignment for filter 4"]
     #[inline(always)]
-    pub fn ffa4(&mut self) -> Ffa4W<Ffa1rSpec> {
+    pub fn ffa4(&mut self) -> Ffa4W<'_, Ffa1rSpec> {
         Ffa4W::new(self, 4)
     }
     #[doc = "Bit 5 - Filter FIFO assignment for filter 5"]
     #[inline(always)]
-    pub fn ffa5(&mut self) -> Ffa5W<Ffa1rSpec> {
+    pub fn ffa5(&mut self) -> Ffa5W<'_, Ffa1rSpec> {
         Ffa5W::new(self, 5)
     }
     #[doc = "Bit 6 - Filter FIFO assignment for filter 6"]
     #[inline(always)]
-    pub fn ffa6(&mut self) -> Ffa6W<Ffa1rSpec> {
+    pub fn ffa6(&mut self) -> Ffa6W<'_, Ffa1rSpec> {
         Ffa6W::new(self, 6)
     }
     #[doc = "Bit 7 - Filter FIFO assignment for filter 7"]
     #[inline(always)]
-    pub fn ffa7(&mut self) -> Ffa7W<Ffa1rSpec> {
+    pub fn ffa7(&mut self) -> Ffa7W<'_, Ffa1rSpec> {
         Ffa7W::new(self, 7)
     }
     #[doc = "Bit 8 - Filter FIFO assignment for filter 8"]
     #[inline(always)]
-    pub fn ffa8(&mut self) -> Ffa8W<Ffa1rSpec> {
+    pub fn ffa8(&mut self) -> Ffa8W<'_, Ffa1rSpec> {
         Ffa8W::new(self, 8)
     }
     #[doc = "Bit 9 - Filter FIFO assignment for filter 9"]
     #[inline(always)]
-    pub fn ffa9(&mut self) -> Ffa9W<Ffa1rSpec> {
+    pub fn ffa9(&mut self) -> Ffa9W<'_, Ffa1rSpec> {
         Ffa9W::new(self, 9)
     }
     #[doc = "Bit 10 - Filter FIFO assignment for filter 10"]
     #[inline(always)]
-    pub fn ffa10(&mut self) -> Ffa10W<Ffa1rSpec> {
+    pub fn ffa10(&mut self) -> Ffa10W<'_, Ffa1rSpec> {
         Ffa10W::new(self, 10)
     }
     #[doc = "Bit 11 - Filter FIFO assignment for filter 11"]
     #[inline(always)]
-    pub fn ffa11(&mut self) -> Ffa11W<Ffa1rSpec> {
+    pub fn ffa11(&mut self) -> Ffa11W<'_, Ffa1rSpec> {
         Ffa11W::new(self, 11)
     }
     #[doc = "Bit 12 - Filter FIFO assignment for filter 12"]
     #[inline(always)]
-    pub fn ffa12(&mut self) -> Ffa12W<Ffa1rSpec> {
+    pub fn ffa12(&mut self) -> Ffa12W<'_, Ffa1rSpec> {
         Ffa12W::new(self, 12)
     }
     #[doc = "Bit 13 - Filter FIFO assignment for filter 13"]
     #[inline(always)]
-    pub fn ffa13(&mut self) -> Ffa13W<Ffa1rSpec> {
+    pub fn ffa13(&mut self) -> Ffa13W<'_, Ffa1rSpec> {
         Ffa13W::new(self, 13)
     }
     #[doc = "Bit 14 - Filter FIFO assignment for filter 14"]
     #[inline(always)]
-    pub fn ffa14(&mut self) -> Ffa14W<Ffa1rSpec> {
+    pub fn ffa14(&mut self) -> Ffa14W<'_, Ffa1rSpec> {
         Ffa14W::new(self, 14)
     }
     #[doc = "Bit 15 - Filter FIFO assignment for filter 15"]
     #[inline(always)]
-    pub fn ffa15(&mut self) -> Ffa15W<Ffa1rSpec> {
+    pub fn ffa15(&mut self) -> Ffa15W<'_, Ffa1rSpec> {
         Ffa15W::new(self, 15)
     }
     #[doc = "Bit 16 - Filter FIFO assignment for filter 16"]
     #[inline(always)]
-    pub fn ffa16(&mut self) -> Ffa16W<Ffa1rSpec> {
+    pub fn ffa16(&mut self) -> Ffa16W<'_, Ffa1rSpec> {
         Ffa16W::new(self, 16)
     }
     #[doc = "Bit 17 - Filter FIFO assignment for filter 17"]
     #[inline(always)]
-    pub fn ffa17(&mut self) -> Ffa17W<Ffa1rSpec> {
+    pub fn ffa17(&mut self) -> Ffa17W<'_, Ffa1rSpec> {
         Ffa17W::new(self, 17)
     }
     #[doc = "Bit 18 - Filter FIFO assignment for filter 18"]
     #[inline(always)]
-    pub fn ffa18(&mut self) -> Ffa18W<Ffa1rSpec> {
+    pub fn ffa18(&mut self) -> Ffa18W<'_, Ffa1rSpec> {
         Ffa18W::new(self, 18)
     }
     #[doc = "Bit 19 - Filter FIFO assignment for filter 19"]
     #[inline(always)]
-    pub fn ffa19(&mut self) -> Ffa19W<Ffa1rSpec> {
+    pub fn ffa19(&mut self) -> Ffa19W<'_, Ffa1rSpec> {
         Ffa19W::new(self, 19)
     }
     #[doc = "Bit 20 - Filter FIFO assignment for filter 20"]
     #[inline(always)]
-    pub fn ffa20(&mut self) -> Ffa20W<Ffa1rSpec> {
+    pub fn ffa20(&mut self) -> Ffa20W<'_, Ffa1rSpec> {
         Ffa20W::new(self, 20)
     }
     #[doc = "Bit 21 - Filter FIFO assignment for filter 21"]
     #[inline(always)]
-    pub fn ffa21(&mut self) -> Ffa21W<Ffa1rSpec> {
+    pub fn ffa21(&mut self) -> Ffa21W<'_, Ffa1rSpec> {
         Ffa21W::new(self, 21)
     }
     #[doc = "Bit 22 - Filter FIFO assignment for filter 22"]
     #[inline(always)]
-    pub fn ffa22(&mut self) -> Ffa22W<Ffa1rSpec> {
+    pub fn ffa22(&mut self) -> Ffa22W<'_, Ffa1rSpec> {
         Ffa22W::new(self, 22)
     }
     #[doc = "Bit 23 - Filter FIFO assignment for filter 23"]
     #[inline(always)]
-    pub fn ffa23(&mut self) -> Ffa23W<Ffa1rSpec> {
+    pub fn ffa23(&mut self) -> Ffa23W<'_, Ffa1rSpec> {
         Ffa23W::new(self, 23)
     }
     #[doc = "Bit 24 - Filter FIFO assignment for filter 24"]
     #[inline(always)]
-    pub fn ffa24(&mut self) -> Ffa24W<Ffa1rSpec> {
+    pub fn ffa24(&mut self) -> Ffa24W<'_, Ffa1rSpec> {
         Ffa24W::new(self, 24)
     }
     #[doc = "Bit 25 - Filter FIFO assignment for filter 25"]
     #[inline(always)]
-    pub fn ffa25(&mut self) -> Ffa25W<Ffa1rSpec> {
+    pub fn ffa25(&mut self) -> Ffa25W<'_, Ffa1rSpec> {
         Ffa25W::new(self, 25)
     }
     #[doc = "Bit 26 - Filter FIFO assignment for filter 26"]
     #[inline(always)]
-    pub fn ffa26(&mut self) -> Ffa26W<Ffa1rSpec> {
+    pub fn ffa26(&mut self) -> Ffa26W<'_, Ffa1rSpec> {
         Ffa26W::new(self, 26)
     }
     #[doc = "Bit 27 - Filter FIFO assignment for filter 27"]
     #[inline(always)]
-    pub fn ffa27(&mut self) -> Ffa27W<Ffa1rSpec> {
+    pub fn ffa27(&mut self) -> Ffa27W<'_, Ffa1rSpec> {
         Ffa27W::new(self, 27)
     }
 }

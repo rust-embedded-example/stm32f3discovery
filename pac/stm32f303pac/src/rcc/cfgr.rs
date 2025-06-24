@@ -111,52 +111,52 @@ impl R {
 impl W {
     #[doc = "Bits 0:1 - System clock Switch"]
     #[inline(always)]
-    pub fn sw(&mut self) -> SwW<CfgrSpec> {
+    pub fn sw(&mut self) -> SwW<'_, CfgrSpec> {
         SwW::new(self, 0)
     }
     #[doc = "Bits 4:7 - AHB prescaler"]
     #[inline(always)]
-    pub fn hpre(&mut self) -> HpreW<CfgrSpec> {
+    pub fn hpre(&mut self) -> HpreW<'_, CfgrSpec> {
         HpreW::new(self, 4)
     }
     #[doc = "Bits 8:10 - APB Low speed prescaler (APB1)"]
     #[inline(always)]
-    pub fn ppre1(&mut self) -> Ppre1W<CfgrSpec> {
+    pub fn ppre1(&mut self) -> Ppre1W<'_, CfgrSpec> {
         Ppre1W::new(self, 8)
     }
     #[doc = "Bits 11:13 - APB high speed prescaler (APB2)"]
     #[inline(always)]
-    pub fn ppre2(&mut self) -> Ppre2W<CfgrSpec> {
+    pub fn ppre2(&mut self) -> Ppre2W<'_, CfgrSpec> {
         Ppre2W::new(self, 11)
     }
     #[doc = "Bits 15:16 - PLL entry clock source"]
     #[inline(always)]
-    pub fn pllsrc(&mut self) -> PllsrcW<CfgrSpec> {
+    pub fn pllsrc(&mut self) -> PllsrcW<'_, CfgrSpec> {
         PllsrcW::new(self, 15)
     }
     #[doc = "Bit 17 - HSE divider for PLL entry"]
     #[inline(always)]
-    pub fn pllxtpre(&mut self) -> PllxtpreW<CfgrSpec> {
+    pub fn pllxtpre(&mut self) -> PllxtpreW<'_, CfgrSpec> {
         PllxtpreW::new(self, 17)
     }
     #[doc = "Bits 18:21 - PLL Multiplication Factor"]
     #[inline(always)]
-    pub fn pllmul(&mut self) -> PllmulW<CfgrSpec> {
+    pub fn pllmul(&mut self) -> PllmulW<'_, CfgrSpec> {
         PllmulW::new(self, 18)
     }
     #[doc = "Bit 22 - USB prescaler"]
     #[inline(always)]
-    pub fn usbpres(&mut self) -> UsbpresW<CfgrSpec> {
+    pub fn usbpres(&mut self) -> UsbpresW<'_, CfgrSpec> {
         UsbpresW::new(self, 22)
     }
     #[doc = "Bit 23 - I2S external clock source selection"]
     #[inline(always)]
-    pub fn i2ssrc(&mut self) -> I2ssrcW<CfgrSpec> {
+    pub fn i2ssrc(&mut self) -> I2ssrcW<'_, CfgrSpec> {
         I2ssrcW::new(self, 23)
     }
     #[doc = "Bits 24:26 - Microcontroller clock output"]
     #[inline(always)]
-    pub fn mco(&mut self) -> McoW<CfgrSpec> {
+    pub fn mco(&mut self) -> McoW<'_, CfgrSpec> {
         McoW::new(self, 24)
     }
 }

@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bits 0:7 - Prescaler value"]
     #[inline(always)]
-    pub fn psc(&mut self) -> PscW<GtprSpec> {
+    pub fn psc(&mut self) -> PscW<'_, GtprSpec> {
         PscW::new(self, 0)
     }
     #[doc = "Bits 8:15 - Guard time value"]
     #[inline(always)]
-    pub fn gt(&mut self) -> GtW<GtprSpec> {
+    pub fn gt(&mut self) -> GtW<'_, GtprSpec> {
         GtW::new(self, 8)
     }
 }

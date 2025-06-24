@@ -41,17 +41,17 @@ impl R {
 impl W {
     #[doc = "Bit 3 - FULL1"]
     #[inline(always)]
-    pub fn full1(&mut self) -> Full1W<Rf1rSpec> {
+    pub fn full1(&mut self) -> Full1W<'_, Rf1rSpec> {
         Full1W::new(self, 3)
     }
     #[doc = "Bit 4 - FOVR1"]
     #[inline(always)]
-    pub fn fovr1(&mut self) -> Fovr1W<Rf1rSpec> {
+    pub fn fovr1(&mut self) -> Fovr1W<'_, Rf1rSpec> {
         Fovr1W::new(self, 4)
     }
     #[doc = "Bit 5 - RFOM1"]
     #[inline(always)]
-    pub fn rfom1(&mut self) -> Rfom1W<Rf1rSpec> {
+    pub fn rfom1(&mut self) -> Rfom1W<'_, Rf1rSpec> {
         Rfom1W::new(self, 5)
     }
 }

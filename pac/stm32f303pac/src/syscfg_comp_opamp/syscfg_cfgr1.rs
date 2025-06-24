@@ -160,87 +160,87 @@ impl R {
 impl W {
     #[doc = "Bits 0:1 - Memory mapping selection bits"]
     #[inline(always)]
-    pub fn mem_mode(&mut self) -> MemModeW<SyscfgCfgr1Spec> {
+    pub fn mem_mode(&mut self) -> MemModeW<'_, SyscfgCfgr1Spec> {
         MemModeW::new(self, 0)
     }
     #[doc = "Bit 5 - USB interrupt remap"]
     #[inline(always)]
-    pub fn usb_it_rmp(&mut self) -> UsbItRmpW<SyscfgCfgr1Spec> {
+    pub fn usb_it_rmp(&mut self) -> UsbItRmpW<'_, SyscfgCfgr1Spec> {
         UsbItRmpW::new(self, 5)
     }
     #[doc = "Bit 6 - Timer 1 ITR3 selection"]
     #[inline(always)]
-    pub fn tim1_itr_rmp(&mut self) -> Tim1ItrRmpW<SyscfgCfgr1Spec> {
+    pub fn tim1_itr_rmp(&mut self) -> Tim1ItrRmpW<'_, SyscfgCfgr1Spec> {
         Tim1ItrRmpW::new(self, 6)
     }
     #[doc = "Bit 7 - DAC trigger remap (when TSEL = 001)"]
     #[inline(always)]
-    pub fn dac_trig_rmp(&mut self) -> DacTrigRmpW<SyscfgCfgr1Spec> {
+    pub fn dac_trig_rmp(&mut self) -> DacTrigRmpW<'_, SyscfgCfgr1Spec> {
         DacTrigRmpW::new(self, 7)
     }
     #[doc = "Bit 8 - ADC24 DMA remapping bit"]
     #[inline(always)]
-    pub fn adc24_dma_rmp(&mut self) -> Adc24DmaRmpW<SyscfgCfgr1Spec> {
+    pub fn adc24_dma_rmp(&mut self) -> Adc24DmaRmpW<'_, SyscfgCfgr1Spec> {
         Adc24DmaRmpW::new(self, 8)
     }
     #[doc = "Bit 11 - TIM16 DMA request remapping bit"]
     #[inline(always)]
-    pub fn tim16_dma_rmp(&mut self) -> Tim16DmaRmpW<SyscfgCfgr1Spec> {
+    pub fn tim16_dma_rmp(&mut self) -> Tim16DmaRmpW<'_, SyscfgCfgr1Spec> {
         Tim16DmaRmpW::new(self, 11)
     }
     #[doc = "Bit 12 - TIM17 DMA request remapping bit"]
     #[inline(always)]
-    pub fn tim17_dma_rmp(&mut self) -> Tim17DmaRmpW<SyscfgCfgr1Spec> {
+    pub fn tim17_dma_rmp(&mut self) -> Tim17DmaRmpW<'_, SyscfgCfgr1Spec> {
         Tim17DmaRmpW::new(self, 12)
     }
     #[doc = "Bit 13 - TIM6 and DAC1 DMA request remapping bit"]
     #[inline(always)]
-    pub fn tim6_dac1_dma_rmp(&mut self) -> Tim6Dac1DmaRmpW<SyscfgCfgr1Spec> {
+    pub fn tim6_dac1_dma_rmp(&mut self) -> Tim6Dac1DmaRmpW<'_, SyscfgCfgr1Spec> {
         Tim6Dac1DmaRmpW::new(self, 13)
     }
     #[doc = "Bit 14 - TIM7 and DAC2 DMA request remapping bit"]
     #[inline(always)]
-    pub fn tim7_dac2_dma_rmp(&mut self) -> Tim7Dac2DmaRmpW<SyscfgCfgr1Spec> {
+    pub fn tim7_dac2_dma_rmp(&mut self) -> Tim7Dac2DmaRmpW<'_, SyscfgCfgr1Spec> {
         Tim7Dac2DmaRmpW::new(self, 14)
     }
     #[doc = "Bit 16 - Fast Mode Plus (FM+) driving capability activation bits."]
     #[inline(always)]
-    pub fn i2c_pb6_fm(&mut self) -> I2cPb6FmW<SyscfgCfgr1Spec> {
+    pub fn i2c_pb6_fm(&mut self) -> I2cPb6FmW<'_, SyscfgCfgr1Spec> {
         I2cPb6FmW::new(self, 16)
     }
     #[doc = "Bit 17 - Fast Mode Plus (FM+) driving capability activation bits."]
     #[inline(always)]
-    pub fn i2c_pb7_fm(&mut self) -> I2cPb7FmW<SyscfgCfgr1Spec> {
+    pub fn i2c_pb7_fm(&mut self) -> I2cPb7FmW<'_, SyscfgCfgr1Spec> {
         I2cPb7FmW::new(self, 17)
     }
     #[doc = "Bit 18 - Fast Mode Plus (FM+) driving capability activation bits."]
     #[inline(always)]
-    pub fn i2c_pb8_fm(&mut self) -> I2cPb8FmW<SyscfgCfgr1Spec> {
+    pub fn i2c_pb8_fm(&mut self) -> I2cPb8FmW<'_, SyscfgCfgr1Spec> {
         I2cPb8FmW::new(self, 18)
     }
     #[doc = "Bit 19 - Fast Mode Plus (FM+) driving capability activation bits."]
     #[inline(always)]
-    pub fn i2c_pb9_fm(&mut self) -> I2cPb9FmW<SyscfgCfgr1Spec> {
+    pub fn i2c_pb9_fm(&mut self) -> I2cPb9FmW<'_, SyscfgCfgr1Spec> {
         I2cPb9FmW::new(self, 19)
     }
     #[doc = "Bit 20 - I2C1 Fast Mode Plus"]
     #[inline(always)]
-    pub fn i2c1_fm(&mut self) -> I2c1FmW<SyscfgCfgr1Spec> {
+    pub fn i2c1_fm(&mut self) -> I2c1FmW<'_, SyscfgCfgr1Spec> {
         I2c1FmW::new(self, 20)
     }
     #[doc = "Bit 21 - I2C2 Fast Mode Plus"]
     #[inline(always)]
-    pub fn i2c2_fm(&mut self) -> I2c2FmW<SyscfgCfgr1Spec> {
+    pub fn i2c2_fm(&mut self) -> I2c2FmW<'_, SyscfgCfgr1Spec> {
         I2c2FmW::new(self, 21)
     }
     #[doc = "Bits 22:23 - Encoder mode"]
     #[inline(always)]
-    pub fn encoder_mode(&mut self) -> EncoderModeW<SyscfgCfgr1Spec> {
+    pub fn encoder_mode(&mut self) -> EncoderModeW<'_, SyscfgCfgr1Spec> {
         EncoderModeW::new(self, 22)
     }
     #[doc = "Bits 26:31 - Interrupt enable bits from FPU"]
     #[inline(always)]
-    pub fn fpu_it(&mut self) -> FpuItW<SyscfgCfgr1Spec> {
+    pub fn fpu_it(&mut self) -> FpuItW<'_, SyscfgCfgr1Spec> {
         FpuItW::new(self, 26)
     }
 }

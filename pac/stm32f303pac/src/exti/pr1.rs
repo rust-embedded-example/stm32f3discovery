@@ -241,132 +241,132 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Pending bit 0"]
     #[inline(always)]
-    pub fn pr0(&mut self) -> Pr0W<Pr1Spec> {
+    pub fn pr0(&mut self) -> Pr0W<'_, Pr1Spec> {
         Pr0W::new(self, 0)
     }
     #[doc = "Bit 1 - Pending bit 1"]
     #[inline(always)]
-    pub fn pr1(&mut self) -> Pr1W<Pr1Spec> {
+    pub fn pr1(&mut self) -> Pr1W<'_, Pr1Spec> {
         Pr1W::new(self, 1)
     }
     #[doc = "Bit 2 - Pending bit 2"]
     #[inline(always)]
-    pub fn pr2(&mut self) -> Pr2W<Pr1Spec> {
+    pub fn pr2(&mut self) -> Pr2W<'_, Pr1Spec> {
         Pr2W::new(self, 2)
     }
     #[doc = "Bit 3 - Pending bit 3"]
     #[inline(always)]
-    pub fn pr3(&mut self) -> Pr3W<Pr1Spec> {
+    pub fn pr3(&mut self) -> Pr3W<'_, Pr1Spec> {
         Pr3W::new(self, 3)
     }
     #[doc = "Bit 4 - Pending bit 4"]
     #[inline(always)]
-    pub fn pr4(&mut self) -> Pr4W<Pr1Spec> {
+    pub fn pr4(&mut self) -> Pr4W<'_, Pr1Spec> {
         Pr4W::new(self, 4)
     }
     #[doc = "Bit 5 - Pending bit 5"]
     #[inline(always)]
-    pub fn pr5(&mut self) -> Pr5W<Pr1Spec> {
+    pub fn pr5(&mut self) -> Pr5W<'_, Pr1Spec> {
         Pr5W::new(self, 5)
     }
     #[doc = "Bit 6 - Pending bit 6"]
     #[inline(always)]
-    pub fn pr6(&mut self) -> Pr6W<Pr1Spec> {
+    pub fn pr6(&mut self) -> Pr6W<'_, Pr1Spec> {
         Pr6W::new(self, 6)
     }
     #[doc = "Bit 7 - Pending bit 7"]
     #[inline(always)]
-    pub fn pr7(&mut self) -> Pr7W<Pr1Spec> {
+    pub fn pr7(&mut self) -> Pr7W<'_, Pr1Spec> {
         Pr7W::new(self, 7)
     }
     #[doc = "Bit 8 - Pending bit 8"]
     #[inline(always)]
-    pub fn pr8(&mut self) -> Pr8W<Pr1Spec> {
+    pub fn pr8(&mut self) -> Pr8W<'_, Pr1Spec> {
         Pr8W::new(self, 8)
     }
     #[doc = "Bit 9 - Pending bit 9"]
     #[inline(always)]
-    pub fn pr9(&mut self) -> Pr9W<Pr1Spec> {
+    pub fn pr9(&mut self) -> Pr9W<'_, Pr1Spec> {
         Pr9W::new(self, 9)
     }
     #[doc = "Bit 10 - Pending bit 10"]
     #[inline(always)]
-    pub fn pr10(&mut self) -> Pr10W<Pr1Spec> {
+    pub fn pr10(&mut self) -> Pr10W<'_, Pr1Spec> {
         Pr10W::new(self, 10)
     }
     #[doc = "Bit 11 - Pending bit 11"]
     #[inline(always)]
-    pub fn pr11(&mut self) -> Pr11W<Pr1Spec> {
+    pub fn pr11(&mut self) -> Pr11W<'_, Pr1Spec> {
         Pr11W::new(self, 11)
     }
     #[doc = "Bit 12 - Pending bit 12"]
     #[inline(always)]
-    pub fn pr12(&mut self) -> Pr12W<Pr1Spec> {
+    pub fn pr12(&mut self) -> Pr12W<'_, Pr1Spec> {
         Pr12W::new(self, 12)
     }
     #[doc = "Bit 13 - Pending bit 13"]
     #[inline(always)]
-    pub fn pr13(&mut self) -> Pr13W<Pr1Spec> {
+    pub fn pr13(&mut self) -> Pr13W<'_, Pr1Spec> {
         Pr13W::new(self, 13)
     }
     #[doc = "Bit 14 - Pending bit 14"]
     #[inline(always)]
-    pub fn pr14(&mut self) -> Pr14W<Pr1Spec> {
+    pub fn pr14(&mut self) -> Pr14W<'_, Pr1Spec> {
         Pr14W::new(self, 14)
     }
     #[doc = "Bit 15 - Pending bit 15"]
     #[inline(always)]
-    pub fn pr15(&mut self) -> Pr15W<Pr1Spec> {
+    pub fn pr15(&mut self) -> Pr15W<'_, Pr1Spec> {
         Pr15W::new(self, 15)
     }
     #[doc = "Bit 16 - Pending bit 16"]
     #[inline(always)]
-    pub fn pr16(&mut self) -> Pr16W<Pr1Spec> {
+    pub fn pr16(&mut self) -> Pr16W<'_, Pr1Spec> {
         Pr16W::new(self, 16)
     }
     #[doc = "Bit 17 - Pending bit 17"]
     #[inline(always)]
-    pub fn pr17(&mut self) -> Pr17W<Pr1Spec> {
+    pub fn pr17(&mut self) -> Pr17W<'_, Pr1Spec> {
         Pr17W::new(self, 17)
     }
     #[doc = "Bit 18 - Pending bit 18"]
     #[inline(always)]
-    pub fn pr18(&mut self) -> Pr18W<Pr1Spec> {
+    pub fn pr18(&mut self) -> Pr18W<'_, Pr1Spec> {
         Pr18W::new(self, 18)
     }
     #[doc = "Bit 19 - Pending bit 19"]
     #[inline(always)]
-    pub fn pr19(&mut self) -> Pr19W<Pr1Spec> {
+    pub fn pr19(&mut self) -> Pr19W<'_, Pr1Spec> {
         Pr19W::new(self, 19)
     }
     #[doc = "Bit 20 - Pending bit 20"]
     #[inline(always)]
-    pub fn pr20(&mut self) -> Pr20W<Pr1Spec> {
+    pub fn pr20(&mut self) -> Pr20W<'_, Pr1Spec> {
         Pr20W::new(self, 20)
     }
     #[doc = "Bit 21 - Pending bit 21"]
     #[inline(always)]
-    pub fn pr21(&mut self) -> Pr21W<Pr1Spec> {
+    pub fn pr21(&mut self) -> Pr21W<'_, Pr1Spec> {
         Pr21W::new(self, 21)
     }
     #[doc = "Bit 22 - Pending bit 22"]
     #[inline(always)]
-    pub fn pr22(&mut self) -> Pr22W<Pr1Spec> {
+    pub fn pr22(&mut self) -> Pr22W<'_, Pr1Spec> {
         Pr22W::new(self, 22)
     }
     #[doc = "Bit 29 - Pending bit 29"]
     #[inline(always)]
-    pub fn pr29(&mut self) -> Pr29W<Pr1Spec> {
+    pub fn pr29(&mut self) -> Pr29W<'_, Pr1Spec> {
         Pr29W::new(self, 29)
     }
     #[doc = "Bit 30 - Pending bit 30"]
     #[inline(always)]
-    pub fn pr30(&mut self) -> Pr30W<Pr1Spec> {
+    pub fn pr30(&mut self) -> Pr30W<'_, Pr1Spec> {
         Pr30W::new(self, 30)
     }
     #[doc = "Bit 31 - Pending bit 31"]
     #[inline(always)]
-    pub fn pr31(&mut self) -> Pr31W<Pr1Spec> {
+    pub fn pr31(&mut self) -> Pr31W<'_, Pr1Spec> {
         Pr31W::new(self, 31)
     }
 }

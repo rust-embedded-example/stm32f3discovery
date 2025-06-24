@@ -115,62 +115,62 @@ impl R {
 impl W {
     #[doc = "Bit 5 - FMC reset"]
     #[inline(always)]
-    pub fn fmcrst(&mut self) -> FmcrstW<AhbrstrSpec> {
+    pub fn fmcrst(&mut self) -> FmcrstW<'_, AhbrstrSpec> {
         FmcrstW::new(self, 5)
     }
     #[doc = "Bit 16 - I/O port H reset"]
     #[inline(always)]
-    pub fn iophrst(&mut self) -> IophrstW<AhbrstrSpec> {
+    pub fn iophrst(&mut self) -> IophrstW<'_, AhbrstrSpec> {
         IophrstW::new(self, 16)
     }
     #[doc = "Bit 17 - I/O port A reset"]
     #[inline(always)]
-    pub fn ioparst(&mut self) -> IoparstW<AhbrstrSpec> {
+    pub fn ioparst(&mut self) -> IoparstW<'_, AhbrstrSpec> {
         IoparstW::new(self, 17)
     }
     #[doc = "Bit 18 - I/O port B reset"]
     #[inline(always)]
-    pub fn iopbrst(&mut self) -> IopbrstW<AhbrstrSpec> {
+    pub fn iopbrst(&mut self) -> IopbrstW<'_, AhbrstrSpec> {
         IopbrstW::new(self, 18)
     }
     #[doc = "Bit 19 - I/O port C reset"]
     #[inline(always)]
-    pub fn iopcrst(&mut self) -> IopcrstW<AhbrstrSpec> {
+    pub fn iopcrst(&mut self) -> IopcrstW<'_, AhbrstrSpec> {
         IopcrstW::new(self, 19)
     }
     #[doc = "Bit 20 - I/O port D reset"]
     #[inline(always)]
-    pub fn iopdrst(&mut self) -> IopdrstW<AhbrstrSpec> {
+    pub fn iopdrst(&mut self) -> IopdrstW<'_, AhbrstrSpec> {
         IopdrstW::new(self, 20)
     }
     #[doc = "Bit 21 - I/O port E reset"]
     #[inline(always)]
-    pub fn ioperst(&mut self) -> IoperstW<AhbrstrSpec> {
+    pub fn ioperst(&mut self) -> IoperstW<'_, AhbrstrSpec> {
         IoperstW::new(self, 21)
     }
     #[doc = "Bit 22 - I/O port F reset"]
     #[inline(always)]
-    pub fn iopfrst(&mut self) -> IopfrstW<AhbrstrSpec> {
+    pub fn iopfrst(&mut self) -> IopfrstW<'_, AhbrstrSpec> {
         IopfrstW::new(self, 22)
     }
     #[doc = "Bit 23 - Touch sensing controller reset"]
     #[inline(always)]
-    pub fn iopgrst(&mut self) -> IopgrstW<AhbrstrSpec> {
+    pub fn iopgrst(&mut self) -> IopgrstW<'_, AhbrstrSpec> {
         IopgrstW::new(self, 23)
     }
     #[doc = "Bit 24 - Touch sensing controller reset"]
     #[inline(always)]
-    pub fn tscrst(&mut self) -> TscrstW<AhbrstrSpec> {
+    pub fn tscrst(&mut self) -> TscrstW<'_, AhbrstrSpec> {
         TscrstW::new(self, 24)
     }
     #[doc = "Bit 28 - ADC1 and ADC2 reset"]
     #[inline(always)]
-    pub fn adc12rst(&mut self) -> Adc12rstW<AhbrstrSpec> {
+    pub fn adc12rst(&mut self) -> Adc12rstW<'_, AhbrstrSpec> {
         Adc12rstW::new(self, 28)
     }
     #[doc = "Bit 29 - ADC3 and ADC4 reset"]
     #[inline(always)]
-    pub fn adc34rst(&mut self) -> Adc34rstW<AhbrstrSpec> {
+    pub fn adc34rst(&mut self) -> Adc34rstW<'_, AhbrstrSpec> {
         Adc34rstW::new(self, 29)
     }
 }

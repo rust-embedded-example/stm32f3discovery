@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bit 0 - End of acquisition interrupt enable"]
     #[inline(always)]
-    pub fn eoaie(&mut self) -> EoaieW<IerSpec> {
+    pub fn eoaie(&mut self) -> EoaieW<'_, IerSpec> {
         EoaieW::new(self, 0)
     }
     #[doc = "Bit 1 - Max count error interrupt enable"]
     #[inline(always)]
-    pub fn mceie(&mut self) -> MceieW<IerSpec> {
+    pub fn mceie(&mut self) -> MceieW<'_, IerSpec> {
         MceieW::new(self, 1)
     }
 }

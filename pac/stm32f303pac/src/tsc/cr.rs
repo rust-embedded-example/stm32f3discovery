@@ -115,62 +115,62 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Touch sensing controller enable"]
     #[inline(always)]
-    pub fn tsce(&mut self) -> TsceW<CrSpec> {
+    pub fn tsce(&mut self) -> TsceW<'_, CrSpec> {
         TsceW::new(self, 0)
     }
     #[doc = "Bit 1 - Start a new acquisition"]
     #[inline(always)]
-    pub fn start(&mut self) -> StartW<CrSpec> {
+    pub fn start(&mut self) -> StartW<'_, CrSpec> {
         StartW::new(self, 1)
     }
     #[doc = "Bit 2 - Acquisition mode"]
     #[inline(always)]
-    pub fn am(&mut self) -> AmW<CrSpec> {
+    pub fn am(&mut self) -> AmW<'_, CrSpec> {
         AmW::new(self, 2)
     }
     #[doc = "Bit 3 - Synchronization pin polarity"]
     #[inline(always)]
-    pub fn syncpol(&mut self) -> SyncpolW<CrSpec> {
+    pub fn syncpol(&mut self) -> SyncpolW<'_, CrSpec> {
         SyncpolW::new(self, 3)
     }
     #[doc = "Bit 4 - I/O Default mode"]
     #[inline(always)]
-    pub fn iodef(&mut self) -> IodefW<CrSpec> {
+    pub fn iodef(&mut self) -> IodefW<'_, CrSpec> {
         IodefW::new(self, 4)
     }
     #[doc = "Bits 5:7 - Max count value"]
     #[inline(always)]
-    pub fn mcv(&mut self) -> McvW<CrSpec> {
+    pub fn mcv(&mut self) -> McvW<'_, CrSpec> {
         McvW::new(self, 5)
     }
     #[doc = "Bits 12:14 - pulse generator prescaler"]
     #[inline(always)]
-    pub fn pgpsc(&mut self) -> PgpscW<CrSpec> {
+    pub fn pgpsc(&mut self) -> PgpscW<'_, CrSpec> {
         PgpscW::new(self, 12)
     }
     #[doc = "Bit 15 - Spread spectrum prescaler"]
     #[inline(always)]
-    pub fn sspsc(&mut self) -> SspscW<CrSpec> {
+    pub fn sspsc(&mut self) -> SspscW<'_, CrSpec> {
         SspscW::new(self, 15)
     }
     #[doc = "Bit 16 - Spread spectrum enable"]
     #[inline(always)]
-    pub fn sse(&mut self) -> SseW<CrSpec> {
+    pub fn sse(&mut self) -> SseW<'_, CrSpec> {
         SseW::new(self, 16)
     }
     #[doc = "Bits 17:23 - Spread spectrum deviation"]
     #[inline(always)]
-    pub fn ssd(&mut self) -> SsdW<CrSpec> {
+    pub fn ssd(&mut self) -> SsdW<'_, CrSpec> {
         SsdW::new(self, 17)
     }
     #[doc = "Bits 24:27 - Charge transfer pulse low"]
     #[inline(always)]
-    pub fn ctpl(&mut self) -> CtplW<CrSpec> {
+    pub fn ctpl(&mut self) -> CtplW<'_, CrSpec> {
         CtplW::new(self, 24)
     }
     #[doc = "Bits 28:31 - Charge transfer pulse high"]
     #[inline(always)]
-    pub fn ctph(&mut self) -> CtphW<CrSpec> {
+    pub fn ctph(&mut self) -> CtphW<'_, CrSpec> {
         CtphW::new(self, 28)
     }
 }

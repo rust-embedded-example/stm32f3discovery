@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bit 0 - Pending bit on line 32"]
     #[inline(always)]
-    pub fn pr32(&mut self) -> Pr32W<Pr2Spec> {
+    pub fn pr32(&mut self) -> Pr32W<'_, Pr2Spec> {
         Pr32W::new(self, 0)
     }
     #[doc = "Bit 1 - Pending bit on line 33"]
     #[inline(always)]
-    pub fn pr33(&mut self) -> Pr33W<Pr2Spec> {
+    pub fn pr33(&mut self) -> Pr33W<'_, Pr2Spec> {
         Pr33W::new(self, 1)
     }
 }

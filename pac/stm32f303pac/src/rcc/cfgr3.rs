@@ -97,52 +97,52 @@ impl R {
 impl W {
     #[doc = "Bits 0:1 - USART1 clock source selection"]
     #[inline(always)]
-    pub fn usart1sw(&mut self) -> Usart1swW<Cfgr3Spec> {
+    pub fn usart1sw(&mut self) -> Usart1swW<'_, Cfgr3Spec> {
         Usart1swW::new(self, 0)
     }
     #[doc = "Bit 4 - I2C1 clock source selection"]
     #[inline(always)]
-    pub fn i2c1sw(&mut self) -> I2c1swW<Cfgr3Spec> {
+    pub fn i2c1sw(&mut self) -> I2c1swW<'_, Cfgr3Spec> {
         I2c1swW::new(self, 4)
     }
     #[doc = "Bit 5 - I2C2 clock source selection"]
     #[inline(always)]
-    pub fn i2c2sw(&mut self) -> I2c2swW<Cfgr3Spec> {
+    pub fn i2c2sw(&mut self) -> I2c2swW<'_, Cfgr3Spec> {
         I2c2swW::new(self, 5)
     }
     #[doc = "Bit 6 - I2C3 clock source selection"]
     #[inline(always)]
-    pub fn i2c3sw(&mut self) -> I2c3swW<Cfgr3Spec> {
+    pub fn i2c3sw(&mut self) -> I2c3swW<'_, Cfgr3Spec> {
         I2c3swW::new(self, 6)
     }
     #[doc = "Bit 8 - Timer1 clock source selection"]
     #[inline(always)]
-    pub fn tim1sw(&mut self) -> Tim1swW<Cfgr3Spec> {
+    pub fn tim1sw(&mut self) -> Tim1swW<'_, Cfgr3Spec> {
         Tim1swW::new(self, 8)
     }
     #[doc = "Bit 9 - Timer8 clock source selection"]
     #[inline(always)]
-    pub fn tim8sw(&mut self) -> Tim8swW<Cfgr3Spec> {
+    pub fn tim8sw(&mut self) -> Tim8swW<'_, Cfgr3Spec> {
         Tim8swW::new(self, 9)
     }
     #[doc = "Bits 16:17 - USART2 clock source selection"]
     #[inline(always)]
-    pub fn usart2sw(&mut self) -> Usart2swW<Cfgr3Spec> {
+    pub fn usart2sw(&mut self) -> Usart2swW<'_, Cfgr3Spec> {
         Usart2swW::new(self, 16)
     }
     #[doc = "Bits 18:19 - USART3 clock source selection"]
     #[inline(always)]
-    pub fn usart3sw(&mut self) -> Usart3swW<Cfgr3Spec> {
+    pub fn usart3sw(&mut self) -> Usart3swW<'_, Cfgr3Spec> {
         Usart3swW::new(self, 18)
     }
     #[doc = "Bits 20:21 - UART4 clock source selection"]
     #[inline(always)]
-    pub fn uart4sw(&mut self) -> Uart4swW<Cfgr3Spec> {
+    pub fn uart4sw(&mut self) -> Uart4swW<'_, Cfgr3Spec> {
         Uart4swW::new(self, 20)
     }
     #[doc = "Bits 22:23 - UART5 clock source selection"]
     #[inline(always)]
-    pub fn uart5sw(&mut self) -> Uart5swW<Cfgr3Spec> {
+    pub fn uart5sw(&mut self) -> Uart5swW<'_, Cfgr3Spec> {
         Uart5swW::new(self, 22)
     }
 }

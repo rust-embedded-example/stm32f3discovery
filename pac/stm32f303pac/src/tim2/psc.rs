@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:15 - Prescaler value"]
     #[inline(always)]
-    pub fn psc(&mut self) -> PscW<PscSpec> {
+    pub fn psc(&mut self) -> PscW<'_, PscSpec> {
         PscW::new(self, 0)
     }
 }

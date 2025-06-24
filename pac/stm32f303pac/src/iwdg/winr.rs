@@ -16,7 +16,7 @@ impl R {
 impl W {
     #[doc = "Bits 0:11 - Watchdog counter window value"]
     #[inline(always)]
-    pub fn win(&mut self) -> WinW<WinrSpec> {
+    pub fn win(&mut self) -> WinW<'_, WinrSpec> {
         WinW::new(self, 0)
     }
 }

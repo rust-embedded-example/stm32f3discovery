@@ -61,32 +61,32 @@ impl R {
 impl W {
     #[doc = "Bits 0:1 - Capture/Compare 1 selection"]
     #[inline(always)]
-    pub fn cc1s(&mut self) -> Cc1sW<Ccmr1InputSpec> {
+    pub fn cc1s(&mut self) -> Cc1sW<'_, Ccmr1InputSpec> {
         Cc1sW::new(self, 0)
     }
     #[doc = "Bits 2:3 - Input capture 1 prescaler"]
     #[inline(always)]
-    pub fn ic1pcs(&mut self) -> Ic1pcsW<Ccmr1InputSpec> {
+    pub fn ic1pcs(&mut self) -> Ic1pcsW<'_, Ccmr1InputSpec> {
         Ic1pcsW::new(self, 2)
     }
     #[doc = "Bits 4:7 - Input capture 1 filter"]
     #[inline(always)]
-    pub fn ic1f(&mut self) -> Ic1fW<Ccmr1InputSpec> {
+    pub fn ic1f(&mut self) -> Ic1fW<'_, Ccmr1InputSpec> {
         Ic1fW::new(self, 4)
     }
     #[doc = "Bits 8:9 - Capture/Compare 2 selection"]
     #[inline(always)]
-    pub fn cc2s(&mut self) -> Cc2sW<Ccmr1InputSpec> {
+    pub fn cc2s(&mut self) -> Cc2sW<'_, Ccmr1InputSpec> {
         Cc2sW::new(self, 8)
     }
     #[doc = "Bits 10:11 - Input capture 2 prescaler"]
     #[inline(always)]
-    pub fn ic2pcs(&mut self) -> Ic2pcsW<Ccmr1InputSpec> {
+    pub fn ic2pcs(&mut self) -> Ic2pcsW<'_, Ccmr1InputSpec> {
         Ic2pcsW::new(self, 10)
     }
     #[doc = "Bits 12:15 - Input capture 2 filter"]
     #[inline(always)]
-    pub fn ic2f(&mut self) -> Ic2fW<Ccmr1InputSpec> {
+    pub fn ic2f(&mut self) -> Ic2fW<'_, Ccmr1InputSpec> {
         Ic2fW::new(self, 12)
     }
 }

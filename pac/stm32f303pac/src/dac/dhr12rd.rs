@@ -25,12 +25,12 @@ impl R {
 impl W {
     #[doc = "Bits 0:11 - DAC channel1 12-bit right-aligned data"]
     #[inline(always)]
-    pub fn dacc1dhr(&mut self) -> Dacc1dhrW<Dhr12rdSpec> {
+    pub fn dacc1dhr(&mut self) -> Dacc1dhrW<'_, Dhr12rdSpec> {
         Dacc1dhrW::new(self, 0)
     }
     #[doc = "Bits 16:27 - DAC channel2 12-bit right-aligned data"]
     #[inline(always)]
-    pub fn dacc2dhr(&mut self) -> Dacc2dhrW<Dhr12rdSpec> {
+    pub fn dacc2dhr(&mut self) -> Dacc2dhrW<'_, Dhr12rdSpec> {
         Dacc2dhrW::new(self, 16)
     }
 }

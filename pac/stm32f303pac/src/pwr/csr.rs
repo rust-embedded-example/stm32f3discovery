@@ -46,12 +46,12 @@ impl R {
 impl W {
     #[doc = "Bit 8 - Enable WKUP1 pin"]
     #[inline(always)]
-    pub fn ewup1(&mut self) -> Ewup1W<CsrSpec> {
+    pub fn ewup1(&mut self) -> Ewup1W<'_, CsrSpec> {
         Ewup1W::new(self, 8)
     }
     #[doc = "Bit 9 - Enable WKUP2 pin"]
     #[inline(always)]
-    pub fn ewup2(&mut self) -> Ewup2W<CsrSpec> {
+    pub fn ewup2(&mut self) -> Ewup2W<'_, CsrSpec> {
         Ewup2W::new(self, 9)
     }
 }
