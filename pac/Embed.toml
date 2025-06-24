@@ -11,7 +11,7 @@ enabled = true
 [default.general]
 chip = "STM32F303VCTx"
 log_level = "WARN"
-connect_under_reset = false
+connect_under_reset = true
 
 [default.rtt]
 enabled = true
@@ -19,4 +19,4 @@ up_mode = "NoBlockSkip"
 
 [default.gdb]
 enabled = true
-gdb_connection_string = "127.0.0.1:1337"
+gdb_connection_string = "127.0.0.1:3333"
