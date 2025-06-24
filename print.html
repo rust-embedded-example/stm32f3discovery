@@ -1402,7 +1402,99 @@ cargo flash --release --chip STM32F303VCTx
 </code></pre>
 <p>即可烧录成功。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="使用gdb调试"><a class="header" href="#使用gdb调试">使用gdb调试</a></h1>
-<p>todo</p>
+<p>STM32F3DISCOVRETY开发板中有ST-LINK接口，probe-rs与ST-LINK连接，GDB再与probe-rs连接，即可使用GDB调试。</p>
+<h2 id="创建embedtoml"><a class="header" href="#创建embedtoml">创建<code>./Embed.toml</code></a></h2>
+<p>为了让probe-rs与GDB进行通信，需要进行一些配置，创建配置文件<code>./Embed.toml</code>,内容为：</p>
+<pre><code class="language-toml">[default.probe]
+protocol = "Swd"
+
+[default.flashing]
+enabled = true
+restore_unwritten_bytes = false
+
+[default.reset]
+enabled = true
+
+[default.general]
+chip = "STM32F303VCTx"
+log_level = "WARN"
+connect_under_reset = false
+
+[default.rtt]
+enabled = true
+up_mode = "NoBlockSkip"
+
+[default.gdb]
+enabled = true
+gdb_connection_string = "127.0.0.1:1337"
+</code></pre>
+<h2 id="配置文件详解"><a class="header" href="#配置文件详解">配置文件详解</a></h2>
+<p>这个 <code>Embed.toml</code> 配置文件是 probe-rs 工具的配置文件，用于配置调试器与 STM32F3 开发板的连接和调试参数。下面是各个配置段的详细说明：</p>
+<h3 id="defaultprobe---调试探针配置"><a class="header" href="#defaultprobe---调试探针配置"><code>[default.probe]</code> - 调试探针配置</a></h3>
+<ul>
+<li><code>protocol = "Swd"</code>: 指定使用 SWD (Serial Wire Debug) 协议进行调试通信。SWD 是 ARM Cortex-M 处理器常用的调试协议，只需要两根线（SWDIO 和 SWCLK）。</li>
+</ul>
+<h3 id="defaultflashing---程序烧录配置"><a class="header" href="#defaultflashing---程序烧录配置"><code>[default.flashing]</code> - 程序烧录配置</a></h3>
+<ul>
+<li><code>enabled = true</code>: 启用程序烧录功能，允许 probe-rs 将编译好的程序烧录到芯片的 Flash 存储器中。</li>
+<li><code>restore_unwritten_bytes = false</code>: 不恢复未写入的字节。设置为 false 可以提高烧录速度，因为不需要保留 Flash 中未被覆盖的原有数据。</li>
+</ul>
+<h3 id="defaultreset---复位配置"><a class="header" href="#defaultreset---复位配置"><code>[default.reset]</code> - 复位配置</a></h3>
+<ul>
+<li><code>enabled = true</code>: 启用芯片复位功能。在调试开始时会自动复位芯片，确保程序从头开始执行。</li>
+</ul>
+<h3 id="defaultgeneral---通用配置"><a class="header" href="#defaultgeneral---通用配置"><code>[default.general]</code> - 通用配置</a></h3>
+<ul>
+<li><code>chip = "STM32F303VCTx"</code>: 指定目标芯片型号为 STM32F303VCTx，这是 STM32F3DISCOVERY 开发板上使用的微控制器。</li>
+<li><code>log_level = "WARN"</code>: 设置日志级别为警告级别，只显示警告和错误信息，减少调试输出的冗余信息。</li>
+<li><code>connect_under_reset = false</code>: 不在复位状态下连接芯片。设置为 false 表示正常连接，不需要保持芯片在复位状态。</li>
+</ul>
+<h3 id="defaultrtt---rtt-real-time-transfer-配置"><a class="header" href="#defaultrtt---rtt-real-time-transfer-配置"><code>[default.rtt]</code> - RTT (Real Time Transfer) 配置</a></h3>
+<ul>
+<li><code>enabled = true</code>: 启用 RTT 功能。RTT 是一种实时数据传输技术，允许在调试过程中高速传输数据而不影响程序执行。</li>
+<li><code>up_mode = "NoBlockSkip"</code>: 设置上行数据传输模式。"NoBlockSkip" 表示当缓冲区满时跳过新数据而不阻塞程序执行，确保实时性。</li>
+</ul>
+<h3 id="defaultgdb---gdb-调试器配置"><a class="header" href="#defaultgdb---gdb-调试器配置"><code>[default.gdb]</code> - GDB 调试器配置</a></h3>
+<ul>
+<li><code>enabled = true</code>: 启用 GDB 调试功能，允许使用 GDB 调试器连接到 probe-rs。</li>
+<li><code>gdb_connection_string = "127.0.0.1:1337"</code>: 设置 GDB 连接字符串。probe-rs 会在本地 IP 地址 127.0.0.1 的 1337 端口上启动 GDB 服务器，GDB 客户端可以通过这个地址连接进行调试。</li>
+</ul>
+<p>这个配置文件确保了 probe-rs 能够正确识别和连接 STM32F3DISCOVERY 开发板，并提供完整的调试功能，包括程序烧录、芯片复位、实时数据传输和 GDB 调试支持。</p>
+<h2 id="运行probe-rs"><a class="header" href="#运行probe-rs">运行probe-rs</a></h2>
+<p>执行：</p>
+<pre><code class="language-bash">cargo embed
+</code></pre>
+<p>即可运行probe-rs。
+运行成功将输出类似：</p>
+<pre><code class="language-bash">Terminal
+Starting simple LED blink program
+22:14:10.158: LED blink initialized on PE8
+22:14:10.158: LED ON
+</code></pre>
+<p>的内容。</p>
+<h2 id="运行gdb"><a class="header" href="#运行gdb">运行GDB</a></h2>
+<p>执行：</p>
+<pre><code class="language-bash">gdb-multiarch -q target/thumbv7em-none-eabihf/debug/pac
+</code></pre>
+<p>即可运行GDB。
+运行成功将输出类似：</p>
+<pre><code class="language-bash">Reading symbols from target/thumbv7em-none-eabihf/debug/pac...
+(gdb)
+</code></pre>
+<p>的内容。</p>
+<p>连接probe-rs，在gdb命令输入框中执行：</p>
+<pre><code class="language-bash">target remote 127.0.0.1:1337
+</code></pre>
+<p>成功后将输出类似：</p>
+<pre><code class="language-bash">(gdb) target remote 127.0.0.1:1337
+Remote debugging using 127.0.0.1:1337
+0x08000b5e in core::iter::range::{impl#5}::spec_next&lt;u32&gt; (self=0x20009e5c)
+    at /home/a/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/range.rs:764
+764	    fn spec_next(&amp;mut self) -&gt; Option&lt;T&gt; {
+(gdb)
+</code></pre>
+<p>的内容。</p>
+<p>之后可使用gdb命令进行调试。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="自定义链接器链接脚本内存"><a class="header" href="#自定义链接器链接脚本内存">自定义链接器、链接脚本、内存</a></h1>
 <p>todo</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hal工程"><a class="header" href="#hal工程">HAL工程</a></h1>
