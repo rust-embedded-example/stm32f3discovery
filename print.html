@@ -182,6 +182,8 @@
 <li><strong>熟悉嵌入式系统和 Linux 的群体</strong>：你可能拥有 C/C++ 嵌入式开发经验，并对 Rust 带来的新可能性感到好奇。</li>
 </ul>
 <p>当然，我们生活在一个激动人心的 AI 时代。即便您是初学者，也完全不必畏惧。借助强大的 AI 编码助手，您可以更快地跨越知识鸿沟，轻松地跟随本书的节奏，探索 Rust 在嵌入式世界中的无限魅力。</p>
+<h1 id="使用的硬件"><a class="header" href="#使用的硬件">使用的硬件</a></h1>
+<p>本教程使用的硬件为STM32F3DISCOVERY，此开发板上有一个ST-LINK调试芯片，因此无需使用ST-LINK调试器。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-语言介绍"><a class="header" href="#rust-语言介绍">Rust 语言介绍</a></h1>
 <h2 id="rust-语言安全性能与并发的未来之路"><a class="header" href="#rust-语言安全性能与并发的未来之路">Rust 语言：安全、性能与并发的未来之路</a></h2>
 <p>在软件开发的世界中，对高性能、高安全性和并发处理能力的需求从未停止。正是在这样的背景下，Rust 语言应运而生，并以其独特的魅力迅速崭露头角，成为开发者社区中备受瞩目的"明星"语言。从最初的实验项目到如今构建关键系统和前沿技术的基石，Rust 的发展历程清晰地勾勒出其非凡的潜力。</p>
@@ -704,9 +706,241 @@
 <p>然而，Rust 的强类型系统和严格的编译检查机制则提供了天然的屏障。 如果 AI 助手生成的 Rust 代码能够成功编译，那它在很大程度上就意味着内存安全和逻辑正确性。 这极大地降低了运行时错误的风险，确保了最终代码的可靠性和安全性。</p>
 <p>这意味着，即使 AI 助手生成了一些不完美的 Rust 代码，强大的 Rust 编译器也会充当一道坚实的防线，强制开发者在程序运行前就解决这些问题。 这种<strong>编译时保证</strong>显著降低了将 AI 生成代码投入生产环境的风险，从而确保了最终软件的高可靠性和安全性。</p>
 <p>因此，AI 编码助手的高效生成能力与 Rust 的严格可靠性相辅相成，共同为开发者提供了一个既能快速迭代、又能保证代码质量的强大工具组合</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="致谢"><a class="header" href="#致谢">致谢</a></h1>
-<p>光阴似箭，日月如梭，感谢刘若琳，正是因为她用自己宝贵的时间照顾我，才使得我有机会不断学习并完成此书。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="环境搭建"><a class="header" href="#环境搭建">环境搭建</a></h1>
+<p>本教程使用ubuntu操作系统，虚拟机也是可以的。若不会科学上网，可以询问AI，设置国内镜像源，包括ubuntu使用的国内镜像与Rust使用的国内镜像。</p>
+<h2 id="安装rust"><a class="header" href="#安装rust">安装Rust</a></h2>
+<p>访问 <a href="https://www.rust-lang.org/">Rust 官方网站</a>，点击最上方的<code>Install</code>，查看安装教程，进行安装。</p>
+<h2 id="安装交叉编译器"><a class="header" href="#安装交叉编译器">安装交叉编译器</a></h2>
+<p>我们需要在 Linux 操作系统下为 stm32f3x 系列芯片编译程序，这需要为 Rust 开发环境添加交叉编译能力。对于 stm32f3x 芯片，其对应的目标三元组（target triple）是 <code>thumbv7em-none-eabihf</code>。</p>
+<p>使用以下命令通过 <code>rustup</code> 安装：</p>
+<pre><code class="language-bash">rustup target add `thumbv7em-none-eabihf`
+</code></pre>
+<p>这个看起来很复杂的目标名称可以分解为以下几个部分：</p>
+<ul>
+<li>
+<p><strong><code>thumb</code></strong>: 指的是 ARM 处理器的 <strong>Thumb-2</strong> 指令集。这是一个 16/32 位混合指令集，旨在提高代码密度，减少内存占用，非常适用于资源受限的嵌入式系统。</p>
+</li>
+<li>
+<p><strong><code>v7em</code></strong>: 指的是 ARM 架构的特定版本。</p>
+<ul>
+<li><code>v7</code> 表示 <strong>ARMv7</strong> 架构。</li>
+<li><code>em</code> 表示这是一个高性能的嵌入式配置文件，支持 DSP (数字信号处理) 扩展和单精度浮点单元 (FPU)。这个目标通常用于 ARM Cortex-M4F 和 ARM Cortex-M7F 处理器。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>none</code></strong>: 表示这是一个 <strong>裸机 (bare-metal)</strong> 目标。这意味着编译出的程序不依赖任何操作系统（如 Linux 或 FreeRTOS），而是直接在硬件上运行。</p>
+</li>
+<li>
+<p><strong><code>eabi</code></strong>: 代表 <strong>嵌入式应用二进制接口 (Embedded Application Binary Interface)</strong>。ABI 定义了二进制代码之间如何交互的规则，例如：</p>
+<ul>
+<li>函数调用约定（如何传递参数、返回值）</li>
+<li>数据类型的大小和对齐方式</li>
+<li>寄存器的使用</li>
+<li>可执行文件格式</li>
+</ul>
+<p>EABI 专为嵌入式系统设计，针对有限资源进行了优化。</p>
+</li>
+<li>
+<p><strong><code>hf</code></strong>: 代表 <strong>硬浮点 (Hard Float)</strong>。这表示 ABI 假定目标处理器具有硬件浮点单元 (FPU)。浮点运算将由 FPU 直接处理，而不是通过软件模拟，从而带来显著的性能提升。</p>
+</li>
+</ul>
+<h3 id="交叉编译器解释"><a class="header" href="#交叉编译器解释">交叉编译器解释</a></h3>
+<p>想象一下：</p>
+<ul>
+<li>编译器就像一个工厂，负责把你的源代码（比如 Rust 代码）转换成可执行的程序。</li>
+<li><code>thumbv7em-none-eabihf</code> 就像工厂里的一张产品规格单，上面详细写明了：
+<ul>
+<li>"这个产品是要给 ARM Cortex-M4F/M7F 处理器用的。"</li>
+<li>"它不能依赖任何操作系统，直接在硬件上跑。"</li>
+<li>"它要用那种节省空间的 Thumb 指令。"</li>
+<li>"而且这个处理器有硬件浮点运算能力，所以请用最快的方式来处理浮点数。"</li>
+</ul>
+</li>
+</ul>
+<p>这就像你买了一个专门做某种菜的厨具套装。你的大厨房（Rust 编译器）本身很强大，能做很多菜，但要做出特定风味的菜（比如针对嵌入式设备的程序），你就需要额外的专门工具。</p>
+<h3 id="安装交叉工具链的原因"><a class="header" href="#安装交叉工具链的原因">安装交叉工具链的原因</a></h3>
+<p>安装支持 <code>thumbv7em-none-eabihf</code> 的工具链组件主要有以下几个原因：</p>
+<ol>
+<li>
+<p><strong>特定目标的代码生成</strong>：你的计算机（比如 Windows、macOS 或 Linux）使用的处理器架构和操作系统与嵌入式设备完全不同。为了让 Rust 编译器能够生成能在 ARM Cortex-M 微控制器上运行的机器码，它需要知道该目标平台的指令集、内存布局、调用约定等等。安装对应的工具链组件，就是给编译器提供了这些特定的"编译规则"。</p>
+</li>
+<li>
+<p><strong>交叉编译能力</strong>：你在自己的电脑上编写和编译代码，但目标程序是要在另一个不同的平台上运行。这种行为叫做交叉编译（Cross-Compiling）。为了实现这一点，Rust 需要针对目标平台的特定编译器后端、链接器和其他工具。</p>
+</li>
+<li>
+<p><strong>标准库支持</strong>：虽然 none 表示裸机环境没有操作系统，但 Rust 的核心库（core 和 alloc）仍然需要针对这个特定的裸机目标进行编译和优化。安装目标组件会确保你有这些库的正确版本。</p>
+</li>
+<li>
+<p><strong>rustup 的管理</strong>：rustup 是 Rust 官方的工具链管理器。它允许你在同一台机器上管理多个 Rust 版本和多个目标支持。当你执行 <code>rustup target add thumbv7em-none-eabihf</code> 命令时，rustup 会自动下载和配置所有必要的组件，以便你的 Rust 编译器能够针对这个目标进行编译。</p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="调试工具"><a class="header" href="#调试工具">调试工具</a></h1>
+<p><a href="%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/./%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.html">环境搭建</a>章节完成后，便可以在Linux系统下编译运行在STM32F3DISCOVERT上的程序了。本节介绍调试工具。</p>
+<h2 id="probe-rs"><a class="header" href="#probe-rs">probe-rs</a></h2>
+<p>probe-rs 是一个用 Rust 编写的现代化嵌入式调试工具包和库。它的目标是提供一套工具，用于与各种嵌入式微控制器 (MCU) 和调试探针进行交互，并提供一个直接接口，使其他软件能够利用其调试功能。</p>
+<p>简单来说，你可以把它理解为一个功能更强大、集成度更高的 OpenOCD 替代品，特别是在 Rust 嵌入式开发生态系统中。</p>
+<h3 id="主要特点和用途"><a class="header" href="#主要特点和用途">主要特点和用途</a></h3>
+<h4 id="广泛的调试探针支持"><a class="header" href="#广泛的调试探针支持">广泛的调试探针支持</a></h4>
+<p>支持多种常见的调试探针，例如：</p>
+<ul>
+<li>CMSIS-DAP</li>
+<li>ST-Link</li>
+<li>J-Link</li>
+<li>FTDI 探针</li>
+<li>ESP32 设备的 USB JTAG</li>
+<li>WLink</li>
+<li>Blackmagic probe 等</li>
+</ul>
+<h4 id="多架构支持"><a class="header" href="#多架构支持">多架构支持</a></h4>
+<p>能够通过 SWD (Serial Wire Debug) 或 JTAG 协议与以下架构的微控制器进行通信：</p>
+<ul>
+<li>ARM</li>
+<li>RISC-V</li>
+<li>Xtensa</li>
+</ul>
+<h4 id="强大的调试功能"><a class="header" href="#强大的调试功能">强大的调试功能</a></h4>
+<ul>
+<li><strong>内存读写</strong>：可以读取和写入目标设备的任意内存</li>
+<li><strong>控制执行</strong>：支持暂停、运行、单步执行任何核心，以及设置断点</li>
+<li><strong>跟踪功能</strong>：启用跟踪功能，帮助分析程序执行流程</li>
+<li><strong>下载固件</strong>：使用标准的 CMSIS-Pack 烧录算法下载 ELF、BIN 和 IHEX 格式的二进制文件</li>
+</ul>
+<h4 id="集成度高且易于使用"><a class="header" href="#集成度高且易于使用">集成度高且易于使用</a></h4>
+<ul>
+<li><strong>GDB 服务器</strong>：包含一个 GDB stub，可以与标准的 GDB 调试器集成，方便用户使用熟悉的调试工作流</li>
+<li><strong>Microsoft DAP (Debug Adapter Protocol) 服务器</strong>：实现了 Microsoft 的 DAP 协议，使得 VS Code 等支持 DAP 的 IDE 可以直接进行嵌入式调试</li>
+<li><strong>Cargo 集成</strong>：提供 cargo-flash 和 cargo-embed 等 Cargo 子命令，方便用户直接通过 Cargo 进行烧录、运行和调试
+<ul>
+<li><code>cargo-flash</code>：用于将编译后的 Rust 程序或其他 ELF/BIN/IHEX 文件烧录到目标设备上</li>
+<li><code>cargo-embed</code>：是 cargo-flash 的超集，提供更完整的调试体验，包括 GDB 支持、RTT (Real Time Transfers) 输出日志和配置文件支持</li>
+</ul>
+</li>
+</ul>
+<h4 id="实时传输-rtt-支持"><a class="header" href="#实时传输-rtt-支持">实时传输 (RTT) 支持</a></h4>
+<p>RTT 是一种在调试主机和目标设备之间通过多个环形缓冲区传输数据的机制，对于嵌入式系统的日志输出和数据交换非常有用。</p>
+<h4 id="嵌入式测试集成"><a class="header" href="#嵌入式测试集成">嵌入式测试集成</a></h4>
+<p>结合 embedded-test 库，probe-rs 可以作为嵌入式设备的测试运行器，支持在目标设备上运行集成测试，并与 libtest 兼容，方便在 IDE 中进行测试。</p>
+<h4 id="模块化设计"><a class="header" href="#模块化设计">模块化设计</a></h4>
+<p>probe-rs 不仅仅是一个独立的工具集，它还是一个可以集成到其他工具中的库，为更高级的嵌入式开发工具提供底层支持。</p>
+<h3 id="为什么选择-probe-rs"><a class="header" href="#为什么选择-probe-rs">为什么选择 probe-rs？</a></h3>
+<p>与传统的调试工具（如 OpenOCD、PyOCD 等）相比，probe-rs 旨在提供一个更现代、更集成、更稳定的解决方案，尤其在 Rust 嵌入式生态系统中。它通过直接提供调试探针接口，避免了额外的 GDB 层带来的复杂性和不稳定性，同时充分利用了 CoreSight 等调试协议的全部功能，实现实时内存和寄存器修改以及跟踪等高级功能。</p>
+<p>总的来说，probe-rs 是一个功能全面、易于集成且不断发展的嵌入式调试解决方案，对于使用 Rust 进行嵌入式开发的开发者来说，是一个非常有价值的工具。</p>
+<h3 id="安装"><a class="header" href="#安装">安装</a></h3>
+<p>访问 <a href="https://probe.rs/docs/getting-started/installation/">probe-rs 官网</a> 按教程进行下载。</p>
+<p>也也可以直接使用：</p>
+<pre><code class="language-bash">cargo install probe-rs-tools --locked
+</code></pre>
+<p>这个命令会为你安装 <code>probe-rs</code>,<code>cargo-flash</code>,<code>cargo-embed</code>。</p>
+<h2 id="gdb"><a class="header" href="#gdb">GDB</a></h2>
+<p><strong><a href="https://sourceware.org/gdb/">GDB (GNU Debugger)</a></strong> 是 GNU 软件系统中的标准调试器，一个强大且高度可移植的命令行调试工具。它允许你在程序执行时或程序崩溃后，深入检查程序的内部运行状态，帮助你理解程序行为、找出错误并修复问题。</p>
+<h3 id="gdb-的核心功能"><a class="header" href="#gdb-的核心功能">GDB 的核心功能</a></h3>
+<p>GDB 的强大之处在于它能让你对程序执行拥有细致入微的控制和观察能力：</p>
+<ul>
+<li><strong>启动程序</strong>：你可以用 GDB 运行你的程序，并指定任何命令行参数</li>
+<li><strong>暂停执行</strong>：你可以在程序的任何地方设置<strong>断点 (Breakpoints)</strong>，让程序在特定位置暂停执行。这可能是某个源代码行、某个函数入口，甚至是某个内存地址</li>
+<li><strong>单步执行</strong>：暂停后，你可以逐行或逐指令地<strong>单步 (Step)</strong> 执行程序，观察每一步的变化
+<ul>
+<li><code>step</code>：进入函数内部执行</li>
+<li><code>next</code>：执行当前行，如果遇到函数调用则跳过函数内部，直接执行到函数调用后的下一行</li>
+</ul>
+</li>
+<li><strong>检查数据</strong>：
+<ul>
+<li><strong>变量检查</strong>：查看程序中任意变量的当前值</li>
+<li><strong>内存检查</strong>：查看指定内存地址的内容</li>
+<li><strong>寄存器检查</strong>：查看 CPU 寄存器的当前状态</li>
+</ul>
+</li>
+<li><strong>修改数据</strong>：在程序暂停时，你可以修改变量的值或内存内容，以便测试不同的场景或修复临时问题</li>
+<li><strong>调用栈回溯</strong>：查看程序当前的<strong>调用栈 (Call Stack)</strong>，了解函数调用的层次，有助于追踪错误的源头</li>
+<li><strong>条件断点</strong>：设置只在特定条件满足时才触发的断点，这在调试循环或复杂逻辑时非常有用</li>
+<li><strong>观察点 (Watchpoints)</strong>：当某个变量或内存区域的值发生改变时，自动暂停程序</li>
+<li><strong>事后调试 (Post-mortem Debugging)</strong>：分析程序崩溃后生成的 <strong>core dump</strong> 文件，了解程序崩溃时的状态，找出导致崩溃的原因</li>
+</ul>
+<h3 id="gdb-的优势与应用场景"><a class="header" href="#gdb-的优势与应用场景">GDB 的优势与应用场景</a></h3>
+<ul>
+<li><strong>跨平台</strong>：GDB 可以在多种类 Unix 系统（如 Linux、macOS）上运行，并且支持多种架构（如 x86, ARM, RISC-V 等）</li>
+<li><strong>多语言支持</strong>：GDB 支持调试多种编程语言，包括：
+<ul>
+<li>C</li>
+<li>C++</li>
+<li>Objective-C</li>
+<li>Fortran</li>
+<li>Pascal</li>
+<li>Java (有限支持，主要用于调试本地库或 JVM 本身)</li>
+<li>Rust</li>
+<li>Go</li>
+<li>Ada</li>
+<li>Assembly</li>
+<li>Modula-2</li>
+<li>D</li>
+<li>OpenCL C</li>
+</ul>
+</li>
+<li><strong>命令行接口</strong>：尽管 GDB 是一个命令行工具，但它的命令结构清晰且功能强大，许多资深开发者更喜欢其精确的控制能力</li>
+<li><strong>远程调试</strong>：GDB 可以连接到远程目标（例如嵌入式设备、虚拟机上的程序）进行调试，这在嵌入式开发和跨系统调试中非常常见</li>
+</ul>
+<h3 id="安装gdb"><a class="header" href="#安装gdb">安装GDB</a></h3>
+<p>我们使用<code>gdb-multiarch(多架构gdb)</code>，可用于在linux系统调试其他架构芯片。</p>
+<p>使用如下命令安装：</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install gdb-multiarch
+</code></pre>
+<h3 id="简单的使用命令"><a class="header" href="#简单的使用命令">简单的使用命令</a></h3>
+<p>详细命令可以查阅 <a href="https://sourceware.org/gdb/">GDB 官网</a>，或使用AI辅助。</p>
+<h4 id="启动与退出"><a class="header" href="#启动与退出">启动与退出</a></h4>
+<ul>
+<li><code>gdb &lt;program&gt;</code>：启动 GDB 并加载程序</li>
+<li><code>run</code> 或 <code>r</code>：运行程序（可加参数，如 <code>run arg1 arg2</code>）</li>
+<li><code>quit</code> 或 <code>q</code>：退出 GDB</li>
+</ul>
+<h4 id="断点管理"><a class="header" href="#断点管理">断点管理</a></h4>
+<ul>
+<li><code>break &lt;location&gt;</code> 或 <code>b &lt;location&gt;</code>：在指定位置设置断点（如 <code>b main</code> 或 <code>b file.c:line</code>）</li>
+<li><code>info breakpoints</code> 或 <code>info b</code>：列出所有断点信息</li>
+<li><code>delete &lt;number&gt;</code> 或 <code>d &lt;number&gt;</code>：删除指定编号的断点（编号从 <code>info b</code> 获取）</li>
+<li><code>disable &lt;number&gt;</code>：禁用断点</li>
+<li><code>enable &lt;number&gt;</code>：启用断点</li>
+</ul>
+<h4 id="程序执行"><a class="header" href="#程序执行">程序执行</a></h4>
+<ul>
+<li><code>next</code> 或 <code>n</code>：执行下一行代码（跳过函数调用）</li>
+<li><code>step</code> 或 <code>s</code>：进入函数内部</li>
+<li><code>continue</code> 或 <code>c</code>：继续运行直到下一个断点或程序结束</li>
+<li><code>finish</code>：运行直到当前函数返回</li>
+</ul>
+<h4 id="查看信息"><a class="header" href="#查看信息">查看信息</a></h4>
+<ul>
+<li><code>print &lt;expression&gt;</code> 或 <code>p &lt;expression&gt;</code>：打印变量或表达式的值（如 <code>p x</code>）</li>
+<li><code>display &lt;expression&gt;</code>：每次暂停时自动显示表达式值</li>
+<li><code>info locals</code>：显示当前函数的局部变量</li>
+<li><code>info registers</code>：显示寄存器内容</li>
+<li><code>backtrace</code> 或 <code>bt</code>：显示调用栈</li>
+</ul>
+<h4 id="源码查看"><a class="header" href="#源码查看">源码查看</a></h4>
+<ul>
+<li><code>list</code> 或 <code>l</code>：显示当前源码（默认 10 行）</li>
+<li><code>list &lt;location&gt;</code>：显示指定位置的源码（如 <code>list main</code>）</li>
+<li><code>set listsize &lt;n&gt;</code>：设置每次显示的行数</li>
+</ul>
+<h4 id="远程调试"><a class="header" href="#远程调试">远程调试</a></h4>
+<ul>
+<li><code>target remote &lt;host:port&gt;</code>：连接到远程调试服务器（如 <code>target remote localhost:1234</code>）</li>
+<li><code>detach</code>：断开远程目标连接</li>
+</ul>
+<h4 id="其他常用"><a class="header" href="#其他常用">其他常用</a></h4>
+<ul>
+<li><code>set &lt;variable&gt; = &lt;value&gt;</code>：修改变量值（如 <code>set x = 10</code>）</li>
+<li><code>watch &lt;expression&gt;</code>：监视表达式变化（如 <code>watch x</code>）</li>
+<li><code>kill</code>：终止当前运行的程序</li>
+<li><code>help &lt;command&gt;</code>：查看命令帮助</li>
+</ul>
+<h4 id="提示"><a class="header" href="#提示">提示</a></h4>
+<ul>
+<li>使用 Tab 补全命令</li>
+<li>可通过 <code>.gdbinit</code> 文件自定义 GDB 配置</li>
+<li>调试前确保程序编译时加 <code>-g</code> 标志以包含调试信息</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pac工程"><a class="header" href="#pac工程">PAC工程</a></h1>
 <p>TODO</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hal工程"><a class="header" href="#hal工程">HAL工程</a></h1>

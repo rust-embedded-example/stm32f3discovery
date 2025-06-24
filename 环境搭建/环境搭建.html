@@ -167,16 +167,83 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="环境搭建"><a class="header" href="#环境搭建">环境搭建</a></h1>
+<p>本教程使用ubuntu操作系统，虚拟机也是可以的。若不会科学上网，可以询问AI，设置国内镜像源，包括ubuntu使用的国内镜像与Rust使用的国内镜像。</p>
+<h2 id="安装rust"><a class="header" href="#安装rust">安装Rust</a></h2>
+<p>访问 <a href="https://www.rust-lang.org/">Rust 官方网站</a>，点击最上方的<code>Install</code>，查看安装教程，进行安装。</p>
+<h2 id="安装交叉编译器"><a class="header" href="#安装交叉编译器">安装交叉编译器</a></h2>
+<p>我们需要在 Linux 操作系统下为 stm32f3x 系列芯片编译程序，这需要为 Rust 开发环境添加交叉编译能力。对于 stm32f3x 芯片，其对应的目标三元组（target triple）是 <code>thumbv7em-none-eabihf</code>。</p>
+<p>使用以下命令通过 <code>rustup</code> 安装：</p>
+<pre><code class="language-bash">rustup target add `thumbv7em-none-eabihf`
+</code></pre>
+<p>这个看起来很复杂的目标名称可以分解为以下几个部分：</p>
+<ul>
+<li>
+<p><strong><code>thumb</code></strong>: 指的是 ARM 处理器的 <strong>Thumb-2</strong> 指令集。这是一个 16/32 位混合指令集，旨在提高代码密度，减少内存占用，非常适用于资源受限的嵌入式系统。</p>
+</li>
+<li>
+<p><strong><code>v7em</code></strong>: 指的是 ARM 架构的特定版本。</p>
+<ul>
+<li><code>v7</code> 表示 <strong>ARMv7</strong> 架构。</li>
+<li><code>em</code> 表示这是一个高性能的嵌入式配置文件，支持 DSP (数字信号处理) 扩展和单精度浮点单元 (FPU)。这个目标通常用于 ARM Cortex-M4F 和 ARM Cortex-M7F 处理器。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>none</code></strong>: 表示这是一个 <strong>裸机 (bare-metal)</strong> 目标。这意味着编译出的程序不依赖任何操作系统（如 Linux 或 FreeRTOS），而是直接在硬件上运行。</p>
+</li>
+<li>
+<p><strong><code>eabi</code></strong>: 代表 <strong>嵌入式应用二进制接口 (Embedded Application Binary Interface)</strong>。ABI 定义了二进制代码之间如何交互的规则，例如：</p>
+<ul>
+<li>函数调用约定（如何传递参数、返回值）</li>
+<li>数据类型的大小和对齐方式</li>
+<li>寄存器的使用</li>
+<li>可执行文件格式</li>
+</ul>
+<p>EABI 专为嵌入式系统设计，针对有限资源进行了优化。</p>
+</li>
+<li>
+<p><strong><code>hf</code></strong>: 代表 <strong>硬浮点 (Hard Float)</strong>。这表示 ABI 假定目标处理器具有硬件浮点单元 (FPU)。浮点运算将由 FPU 直接处理，而不是通过软件模拟，从而带来显著的性能提升。</p>
+</li>
+</ul>
+<h3 id="交叉编译器解释"><a class="header" href="#交叉编译器解释">交叉编译器解释</a></h3>
+<p>想象一下：</p>
+<ul>
+<li>编译器就像一个工厂，负责把你的源代码（比如 Rust 代码）转换成可执行的程序。</li>
+<li><code>thumbv7em-none-eabihf</code> 就像工厂里的一张产品规格单，上面详细写明了：
+<ul>
+<li>"这个产品是要给 ARM Cortex-M4F/M7F 处理器用的。"</li>
+<li>"它不能依赖任何操作系统，直接在硬件上跑。"</li>
+<li>"它要用那种节省空间的 Thumb 指令。"</li>
+<li>"而且这个处理器有硬件浮点运算能力，所以请用最快的方式来处理浮点数。"</li>
+</ul>
+</li>
+</ul>
+<p>这就像你买了一个专门做某种菜的厨具套装。你的大厨房（Rust 编译器）本身很强大，能做很多菜，但要做出特定风味的菜（比如针对嵌入式设备的程序），你就需要额外的专门工具。</p>
+<h3 id="安装交叉工具链的原因"><a class="header" href="#安装交叉工具链的原因">安装交叉工具链的原因</a></h3>
+<p>安装支持 <code>thumbv7em-none-eabihf</code> 的工具链组件主要有以下几个原因：</p>
+<ol>
+<li>
+<p><strong>特定目标的代码生成</strong>：你的计算机（比如 Windows、macOS 或 Linux）使用的处理器架构和操作系统与嵌入式设备完全不同。为了让 Rust 编译器能够生成能在 ARM Cortex-M 微控制器上运行的机器码，它需要知道该目标平台的指令集、内存布局、调用约定等等。安装对应的工具链组件，就是给编译器提供了这些特定的"编译规则"。</p>
+</li>
+<li>
+<p><strong>交叉编译能力</strong>：你在自己的电脑上编写和编译代码，但目标程序是要在另一个不同的平台上运行。这种行为叫做交叉编译（Cross-Compiling）。为了实现这一点，Rust 需要针对目标平台的特定编译器后端、链接器和其他工具。</p>
+</li>
+<li>
+<p><strong>标准库支持</strong>：虽然 none 表示裸机环境没有操作系统，但 Rust 的核心库（core 和 alloc）仍然需要针对这个特定的裸机目标进行编译和优化。安装目标组件会确保你有这些库的正确版本。</p>
+</li>
+<li>
+<p><strong>rustup 的管理</strong>：rustup 是 Rust 官方的工具链管理器。它允许你在同一台机器上管理多个 Rust 版本和多个目标支持。当你执行 <code>rustup target add thumbv7em-none-eabihf</code> 命令时，rustup 会自动下载和配置所有必要的组件，以便你的 Rust 编译器能够针对这个目标进行编译。</p>
+</li>
+</ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../前言/致谢.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../前言/Rust与AI编码助手.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../PAC/PAC.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../环境搭建/调试工具.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -186,11 +253,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../前言/致谢.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../前言/Rust与AI编码助手.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../PAC/PAC.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../环境搭建/调试工具.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
