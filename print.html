@@ -944,10 +944,467 @@ sudo apt install gdb-multiarch
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pac工程"><a class="header" href="#pac工程">PAC工程</a></h1>
 <p>PAC(Peripheral Access Crate)具体是指使用svd2rust工具生成设备描述文件。本章将详细表述如何从PAC开始构建并调试工程。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="创建基础工程"><a class="header" href="#创建基础工程">创建基础工程</a></h1>
+<p>使用命令创建一个基本的工程：</p>
+<pre><code class="language-bash">cargo new pac
+cd pac
+cargo run
+</code></pre>
+<p>将输出:</p>
+<pre><code class="language-bash">   Compiling pac v0.1.0 (/home/a/workspace/embedded/stm32f3discovery/pac)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running `target/debug/pac`
+Hello, world!
+</code></pre>
+<p>说明基本工程建立完成。本章后续所有路径均以pac文件夹为根目录，即<code>main.rs</code>所在路径表示为<code>./src/main,rs</code></p>
+<h1 id="no_std"><a class="header" href="#no_std">no_std</a></h1>
+<p>我们制作的工程是运行在裸机环境中的，因此不支持<code>std</code>库，更多信息请阅读 <a href="https://docs.rust-embedded.org/book/intro/no-std.html">rust embedded book</a>。</p>
+<h1 id="修改mainrs"><a class="header" href="#修改mainrs">修改<code>main.rs</code></a></h1>
+<pre><code class="language-rust ignore">#![no_main]
+#![no_std]
+
+use cortex_m_rt::entry;
+use panic_rtt_target as _;
+use rtt_target::{rprintln, rtt_init_print};
+
+#[entry]
+fn main() -&gt; ! {
+    rtt_init_print!();
+    rprintln!("Hello, world!");
+
+    loop {}
+}</code></pre>
+<h2 id="代码逐行解释"><a class="header" href="#代码逐行解释">代码逐行解释</a></h2>
+<h3 id="1-属性声明"><a class="header" href="#1-属性声明">1. 属性声明</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span>#![no_main]
+#![no_std]
+<span class="boring">fn main() {
+</span><span class="boring">}</span></code></pre></pre>
+<p><strong><code>#![no_main]</code></strong></p>
+<ul>
+<li>告诉Rust编译器不要使用标准的<code>main</code>函数作为程序入口点</li>
+<li>在嵌入式系统中，我们需要自定义入口点来初始化硬件</li>
+<li>这是因为嵌入式设备的启动过程与普通桌面程序不同</li>
+</ul>
+<p><strong><code>#![no_std]</code></strong></p>
+<ul>
+<li>禁用Rust标准库（std）</li>
+<li>因为嵌入式设备没有操作系统，无法使用依赖操作系统的标准库功能</li>
+<li>只使用<code>core</code>库，这是Rust的核心功能，不依赖操作系统</li>
+<li>这样可以大大减小程序的体积和内存占用</li>
+</ul>
+<h3 id="2-导入依赖"><a class="header" href="#2-导入依赖">2. 导入依赖</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use cortex_m_rt::entry;
+use panic_rtt_target as _;
+use rtt_target::{rprintln, rtt_init_print};
+<span class="boring">}</span></code></pre></pre>
+<p><strong><code>use cortex_m_rt::entry;</code></strong></p>
+<ul>
+<li><code>cortex_m_rt</code>是ARM Cortex-M微控制器的运行时库</li>
+<li><code>entry</code>宏定义了程序的入口点，替代标准的<code>main</code>函数</li>
+<li>它会生成必要的启动代码和中断向量表</li>
+</ul>
+<p><strong><code>use panic_rtt_target as _;</code></strong></p>
+<ul>
+<li>导入panic处理程序，使用RTT（Real-Time Transfer）输出panic信息</li>
+<li><code>as _</code>表示导入但不直接使用变量名，只是为了让编译器知道这个模块存在</li>
+<li>当程序发生panic时，错误信息会通过RTT输出到调试器</li>
+</ul>
+<p><strong><code>use rtt_target::{rprintln, rtt_init_print};</code></strong></p>
+<ul>
+<li><code>rtt_target</code>是RTT通信库，用于与调试器进行实时通信</li>
+<li><code>rprintln!</code>：类似标准库的<code>println!</code>，但输出到RTT通道而不是标准输出</li>
+<li><code>rtt_init_print!</code>：初始化RTT打印功能的宏</li>
+</ul>
+<h3 id="3-主函数定义"><a class="header" href="#3-主函数定义">3. 主函数定义</a></h3>
+<pre><pre class="playground"><code class="language-rust">#[entry]
+fn main() -&gt; ! {</code></pre></pre>
+<p><strong><code>#[entry]</code></strong></p>
+<ul>
+<li>这是一个属性宏，标记这个函数为程序的真正入口点</li>
+<li>编译器会生成必要的启动代码，包括栈指针初始化、静态变量初始化等</li>
+<li>替代了标准的<code>main</code>函数</li>
+</ul>
+<p><strong><code>fn main() -&gt; !</code></strong></p>
+<ul>
+<li>函数返回类型<code>!</code>表示"永不返回"（never类型）</li>
+<li>在嵌入式系统中，主函数通常是一个无限循环，永远不会正常退出</li>
+<li>这确保了程序会持续运行，直到设备断电或重置</li>
+</ul>
+<h3 id="4-函数体"><a class="header" href="#4-函数体">4. 函数体</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>    rtt_init_print!();
+    rprintln!("Hello, world!");
+
+    loop {}
+<span class="boring">}</span></code></pre></pre>
+<p><strong><code>rtt_init_print!();</code></strong></p>
+<ul>
+<li>初始化RTT打印系统</li>
+<li>设置与调试器的通信通道</li>
+<li>必须在使用<code>rprintln!</code>之前调用</li>
+</ul>
+<p><strong><code>rprintln!("Hello, world!");</code></strong></p>
+<ul>
+<li>通过RTT输出"Hello, world!"消息</li>
+<li>这个消息会显示在调试器的控制台中（如probe-rs、OpenOCD等）</li>
+<li>语法与标准的<code>println!</code>相同，但输出目标不同</li>
+</ul>
+<p><strong><code>loop {}</code></strong></p>
+<ul>
+<li>无限循环，防止程序退出</li>
+<li>在嵌入式系统中，程序应该持续运行</li>
+<li>如果没有这个循环，程序会尝试返回，但由于返回类型是<code>!</code>，会导致编译错误</li>
+</ul>
+<h2 id="整体功能说明"><a class="header" href="#整体功能说明">整体功能说明</a></h2>
+<p>这段代码实现了一个最基本的嵌入式"Hello World"程序：</p>
+<ol>
+<li><strong>初始化阶段</strong>：设置RTT通信通道</li>
+<li><strong>输出阶段</strong>：打印欢迎消息</li>
+<li><strong>运行阶段</strong>：进入无限循环保持程序运行</li>
+</ol>
+<p>这是学习Rust嵌入式开发的第一步，为后续的硬件操作和更复杂的功能打下基础。</p>
+<h1 id="修改cargotoml"><a class="header" href="#修改cargotoml">修改<code>Cargo.toml</code></a></h1>
+<pre><code class="language-toml">name = "pac"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7.5"
+rtt-target = "0.6.1"
+panic-rtt-target = "0.1.3"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+</code></pre>
+<h2 id="cargotoml配置解释"><a class="header" href="#cargotoml配置解释">Cargo.toml配置解释</a></h2>
+<h3 id="1-项目基本信息"><a class="header" href="#1-项目基本信息">1. 项目基本信息</a></h3>
+<pre><code class="language-toml">name = "pac"
+version = "0.1.0"
+edition = "2024"
+</code></pre>
+<p><strong><code>name = "pac"</code></strong></p>
+<ul>
+<li>定义项目名称为"pac"</li>
+<li>这个名称会用作生成的二进制文件名</li>
+<li>对应我们创建的PAC（Peripheral Access Crate）项目</li>
+</ul>
+<p><strong><code>version = "0.1.0"</code></strong></p>
+<ul>
+<li>项目版本号，遵循语义化版本控制（Semantic Versioning）</li>
+<li>格式为：主版本号.次版本号.修订号</li>
+</ul>
+<p><strong><code>edition = "2024"</code></strong></p>
+<ul>
+<li>指定使用Rust 2024版本</li>
+<li>Rust版本决定了可用的语言特性和默认行为</li>
+<li>2024版本包含了最新的语言改进和特性</li>
+</ul>
+<h3 id="2-依赖库配置"><a class="header" href="#2-依赖库配置">2. 依赖库配置</a></h3>
+<pre><code class="language-toml">[dependencies]
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7.5"
+rtt-target = "0.6.1"
+panic-rtt-target = "0.1.3"
+</code></pre>
+<p><strong><code>cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }</code></strong></p>
+<ul>
+<li>ARM Cortex-M微控制器的底层访问库</li>
+<li>提供对Cortex-M特定功能的访问，如NVIC（中断控制器）、系统控制寄存器等</li>
+<li><code>features = ["critical-section-single-core"]</code>：启用单核临界区功能，用于在中断处理中保护共享数据</li>
+</ul>
+<p><strong><code>cortex-m-rt = "0.7.5"</code></strong></p>
+<ul>
+<li>Cortex-M运行时库</li>
+<li>提供启动代码、中断向量表、内存布局等</li>
+<li>包含<code>#[entry]</code>宏的实现</li>
+</ul>
+<p><strong><code>rtt-target = "0.6.1"</code></strong></p>
+<ul>
+<li>RTT（Real-Time Transfer）通信库</li>
+<li>实现与调试器的实时数据传输</li>
+<li>提供<code>rprintln!</code>等打印宏</li>
+</ul>
+<p><strong><code>panic-rtt-target = "0.1.3"</code></strong></p>
+<ul>
+<li>RTT panic处理器</li>
+<li>当程序发生panic时，通过RTT输出错误信息到调试器</li>
+<li>替代标准的panic处理机制</li>
+</ul>
+<h3 id="3-编译配置文件"><a class="header" href="#3-编译配置文件">3. 编译配置文件</a></h3>
+<pre><code class="language-toml">[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+</code></pre>
+<p><strong><code>[profile.dev]</code> 和 <code>[profile.release]</code></strong></p>
+<ul>
+<li>分别配置开发模式和发布模式的编译选项</li>
+<li><code>dev</code>：用于开发和调试，通常编译速度快但优化程度低</li>
+<li><code>release</code>：用于最终发布，编译时间长但代码高度优化</li>
+</ul>
+<p><strong><code>panic = "abort"</code></strong></p>
+<ul>
+<li>设置panic行为为"abort"（中止）而不是"unwind"（展开）</li>
+<li>在嵌入式系统中，通常选择abort因为：
+<ul>
+<li><strong>节省空间</strong>：不需要包含展开代码，减小二进制文件大小</li>
+<li><strong>简化处理</strong>：直接终止程序，不进行复杂的栈展开</li>
+<li><strong>确定性行为</strong>：在资源受限的环境中提供可预测的行为</li>
+</ul>
+</li>
+</ul>
+<h2 id="为什么需要这些配置"><a class="header" href="#为什么需要这些配置">为什么需要这些配置？</a></h2>
+<h3 id="嵌入式特殊需求"><a class="header" href="#嵌入式特殊需求">嵌入式特殊需求</a></h3>
+<ol>
+<li><strong>资源限制</strong>：嵌入式设备内存和存储空间有限，需要精简的依赖</li>
+<li><strong>实时性</strong>：需要确定性的行为，避免复杂的运行时机制</li>
+<li><strong>调试困难</strong>：没有标准输出，需要特殊的调试通信方式（RTT）</li>
+<li><strong>硬件相关</strong>：需要直接访问硬件寄存器和中断系统</li>
+</ol>
+<h3 id="依赖选择原因"><a class="header" href="#依赖选择原因">依赖选择原因</a></h3>
+<ul>
+<li><strong>cortex-m系列</strong>：提供ARM Cortex-M架构的底层支持</li>
+<li><strong>rtt系列</strong>：解决嵌入式调试输出问题</li>
+<li><strong>panic配置</strong>：优化资源使用，提供确定性行为</li>
+</ul>
+<p>这个配置为嵌入式Rust开发提供了完整的基础环境。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="创建pac-crate"><a class="header" href="#创建pac-crate">创建PAC crate</a></h1>
+<p>pac 是使用<code>svd2rust</code>工具处理芯片的<code>svd</code>文件得到的。</p>
+<h2 id="获取stm32f303的svd文件"><a class="header" href="#获取stm32f303的svd文件">获取stm32f303的<code>svd</code>文件</a></h2>
+<p>推荐从官网获取,<a href="https://www.st.com/resource/en/svd/stm32f3-svd.zip">点击此处,开始下载</a>。将跳转到ST官网并进行下载。下载完成后得到一个压缩包，解压并找到<code>STM32F303.svd</code>文件。</p>
+<h2 id="创建stm32f303pac-crate"><a class="header" href="#创建stm32f303pac-crate">创建stm32f303pac crate</a></h2>
+<p>在根目录下创建一个crate：</p>
+<pre><code class="language-bash">cargo new stm32f303pac
+</code></pre>
+<p>将<code>STM32F303.svd</code>文件移动到`./stm32f303pac/下。</p>
+<h2 id="安装svd2rust"><a class="header" href="#安装svd2rust">安装<code>svd2rust</code></a></h2>
+<p><code>svd2rust</code>用以提取<code>STM32F303.svd</code>文件中的芯片信息，并生成crate文件。运行：</p>
+<pre><code class="language-bash">cargo install svd2rust
+</code></pre>
+<h2 id="安装cargo-form"><a class="header" href="#安装cargo-form">安装<code>cargo-form</code></a></h2>
+<p>安装<code>cargo-form</code>用以格式化pac crate，运行：</p>
+<pre><code class="language-bash">cargo install form
+</code></pre>
+<h2 id="生成pac-crate"><a class="header" href="#生成pac-crate">生成pac crate</a></h2>
+<p>在路径<code>./stm32f303pac/</code>下运行：</p>
+<pre><code class="language-bash">svd2rust -i STM32F303.svd
+rm -rf src
+form -i lib.rs -o src/ &amp;&amp; rm lib.rs
+cargo fmt
+</code></pre>
+<h2 id="修改stm32f303paccargotoml"><a class="header" href="#修改stm32f303paccargotoml">修改<code>./stm32f303pac/Cargo.toml</code></a></h2>
+<p>需要修改<code>./stm32f303pac/Cargo.toml</code>，使得启用<code>rt</code>,更方便使用这个crate。修改后如下：</p>
+<pre><code class="language-bash">[package]
+name = "stm32f303pac"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+critical-section = { version = "1.2", optional = true }
+cortex-m = "0.7.7"
+cortex-m-rt = { version = "0.7.5", optional = true }
+vcell = "0.1.3"
+
+[features]
+rt = ["cortex-m-rt/device"]
+</code></pre>
+<h2 id="编译"><a class="header" href="#编译">编译</a></h2>
+<p>在<code>./stm32f303pac/</code>路径下运行:</p>
+<pre><code class="language-bash">cargo build
+</code></pre>
+<p>若有错误与告警，按提示修复错误与告警，可以使用AI辅助。</p>
+<p>完成后得到一个<code>stm32f303pac crate</code>。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="完善工程"><a class="header" href="#完善工程">完善工程</a></h1>
+<p>在<a href="PAC/./%E5%88%9B%E5%BB%BAPAC%E5%BA%93.html">上一章</a>中，创建了<code>stm32f303 crate</code>，这一章将这个<code>crate</code>引入pac工程。</p>
+<h2 id="添加编译设置"><a class="header" href="#添加编译设置">添加编译设置</a></h2>
+<p>在根目录下创建<code>.cargo/config.toml</code>，内容为:</p>
+<pre><code class="language-toml">[target.thumbv7em-none-eabihf]
+rustflags = ["-C", "link-arg=-Tlink.x"]
+
+[build]
+target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
+</code></pre>
+<h2 id="cargoconfigtoml配置解释"><a class="header" href="#cargoconfigtoml配置解释">.cargo/config.toml配置解释</a></h2>
+<p>这个配置文件是Cargo的项目级配置，用于设置特定于该项目的构建参数。它会影响所有在该项目目录下执行的<code>cargo</code>命令。</p>
+<h3 id="1-目标平台特定配置"><a class="header" href="#1-目标平台特定配置">1. 目标平台特定配置</a></h3>
+<pre><code class="language-toml">[target.thumbv7em-none-eabihf]
+rustflags = ["-C", "link-arg=-Tlink.x"]
+</code></pre>
+<p><strong><code>[target.thumbv7em-none-eabihf]</code></strong></p>
+<ul>
+<li>为特定目标平台（thumbv7em-none-eabihf）设置编译选项</li>
+<li>这个目标对应ARM Cortex-M4F和Cortex-M7F微控制器</li>
+<li>只有在编译到这个目标时，这些设置才会生效</li>
+</ul>
+<p><strong><code>rustflags = ["-C", "link-arg=-Tlink.x"]</code></strong></p>
+<ul>
+<li>向Rust编译器传递额外的编译标志</li>
+<li><code>-C</code>：告诉rustc这是一个编译器选项</li>
+<li><code>link-arg=-Tlink.x</code>：向链接器传递参数
+<ul>
+<li><code>-T</code>：指定链接脚本（linker script）</li>
+<li><code>link.x</code>：链接脚本文件名，由<code>cortex-m-rt</code> crate提供</li>
+<li>这个脚本定义了内存布局、启动代码位置、中断向量表等关键信息</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-默认构建目标"><a class="header" href="#2-默认构建目标">2. 默认构建目标</a></h3>
+<pre><code class="language-toml">[build]
+target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
+</code></pre>
+<p><strong><code>target = "thumbv7em-none-eabihf"</code></strong></p>
+<ul>
+<li>设置项目的默认编译目标</li>
+<li>无需每次运行<code>cargo build</code>时手动指定<code>--target</code>参数</li>
+<li>自动为STM32F303等Cortex-M4F微控制器进行交叉编译</li>
+</ul>
+<p><strong>注释说明</strong></p>
+<ul>
+<li><code>Cortex-M4F and Cortex-M7F (with FPU)</code>：明确这个目标适用于带浮点单元的Cortex-M4F和M7F</li>
+<li>STM32F303使用的是Cortex-M4F内核，完全匹配这个目标</li>
+</ul>
+<h2 id="配置文件的作用"><a class="header" href="#配置文件的作用">配置文件的作用</a></h2>
+<h3 id="1-简化构建流程"><a class="header" href="#1-简化构建流程">1. <strong>简化构建流程</strong></a></h3>
+<ul>
+<li>无需每次手动指定目标平台</li>
+<li>自动应用正确的链接参数</li>
+<li>提供一致的构建环境</li>
+</ul>
+<h3 id="2-链接脚本管理"><a class="header" href="#2-链接脚本管理">2. <strong>链接脚本管理</strong></a></h3>
+<ul>
+<li><code>link.x</code>由<code>cortex-m-rt</code>提供，包含：
+<ul>
+<li>内存区域定义（FLASH、RAM地址和大小）</li>
+<li>启动代码入口点</li>
+<li>中断向量表布局</li>
+<li>栈指针初始化</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-项目标准化"><a class="header" href="#3-项目标准化">3. <strong>项目标准化</strong></a></h3>
+<ul>
+<li>确保团队成员使用相同的构建配置</li>
+<li>避免因构建参数不同导致的问题</li>
+<li>提供可重现的构建结果</li>
+</ul>
+<h2 id="为什么需要这些配置-1"><a class="header" href="#为什么需要这些配置-1">为什么需要这些配置？</a></h2>
+<h3 id="嵌入式特殊需求-1"><a class="header" href="#嵌入式特殊需求-1">嵌入式特殊需求</a></h3>
+<ol>
+<li><strong>内存布局控制</strong>：嵌入式设备有特定的内存映射，需要链接脚本精确定义</li>
+<li><strong>启动代码</strong>：微控制器需要特殊的启动序列，不同于普通程序</li>
+<li><strong>交叉编译</strong>：在PC上编译，在ARM微控制器上运行</li>
+<li><strong>资源限制</strong>：必须精确控制代码和数据在内存中的位置</li>
+</ol>
+<h3 id="配置优势"><a class="header" href="#配置优势">配置优势</a></h3>
+<ul>
+<li><strong>自动化</strong>：减少手动操作，避免错误</li>
+<li><strong>一致性</strong>：确保所有构建使用相同参数</li>
+<li><strong>便利性</strong>：简化日常开发工作流程</li>
+</ul>
+<p>这个配置文件是嵌入式Rust项目的标准组成部分，为正确的交叉编译和链接提供了必要的设置。</p>
+<h2 id="修改cargotoml-1"><a class="header" href="#修改cargotoml-1">修改<code>./Cargo.toml</code></a></h2>
+<p>在<code>[dependencies]</code>中添加<code>stm32f303pac</code>依赖，修改后的<code>./Cargo.toml</code>如下:</p>
+<pre><code class="language-toml">[package]
+name = "pac"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7.5"
+rtt-target = "0.6.1"
+panic-rtt-target = "0.1.3"
+stm32f303pac = { path = "./stm32f303pac", features = ["critical-section"] }
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+</code></pre>
+<h2 id="添加memoryx文件"><a class="header" href="#添加memoryx文件">添加<code>memory.x</code>文件</a></h2>
+<p>在<code>./.cargo/config.toml</code>文件中指定了<code>link.x</code>链接脚本，这个脚本由<code>cortex-m-rt</code> crate生成，并引用<code>memory.x</code>，因此我们需要提供一个<code>memory.x</code>文件。创建<code>./memory.x</code>，内容为:</p>
+<pre><code class="language-text">/* Linker script for the STM32F303VCT6 */
+MEMORY
+{
+  /* NOTE 1 K = 1 KiBi = 1024 bytes */
+  FLASH : ORIGIN = 0x08000000, LENGTH = 256K
+  RAM : ORIGIN = 0x20000000, LENGTH = 40K
+}
+</code></pre>
+<h2 id="添加工程例子代码"><a class="header" href="#添加工程例子代码">添加工程例子代码</a></h2>
+<p>完成了前面的内容后，工程可以编译了，但不可运行。程序没有初始化硬件。</p>
+<p>修改<code>./src/main.rs</code>如下:</p>
+<pre><pre class="playground"><code class="language-rust">#![no_main]
+#![no_std]
+
+use cortex_m_rt::entry;
+use panic_rtt_target as _;
+use rtt_target::{rprintln, rtt_init_print};
+use stm32f303pac as pac;
+
+// 简单的延时函数
+fn delay(cycles: u32) {
+    for _ in 0..cycles {
+        cortex_m::asm::nop(); // 执行空操作来消耗CPU周期
+    }
+}
+
+#[entry]
+fn main() -&gt; ! {
+    // 初始化RTT打印
+    rtt_init_print!();
+    rprintln!("Starting simple LED blink program");
+
+    // 获取外设访问
+    let dp = pac::Peripherals::take().unwrap();
+
+    // 启用GPIOE时钟
+    let rcc = &amp;dp.rcc;
+    rcc.ahbenr().modify(|_, w| w.iopeen().set_bit());
+
+    // 配置PE8为推挽输出模式
+    let gpioe = &amp;dp.gpioe;
+    gpioe
+        .moder()
+        .modify(|_, w| unsafe { w.moder8().bits(0b01) }); // 设置为输出模式
+    gpioe.otyper().modify(|_, w| w.ot8().clear_bit()); // 推挽输出
+
+    rprintln!("LED blink initialized on PE8");
+
+    // 主循环，周期性切换LED状态
+    loop {
+        // 打开LED (设置高电平)
+        gpioe.bsrr().write(|w| w.bs8().set_bit());
+        rprintln!("LED ON");
+        delay(1_000_000); // 延时
+
+        // 关闭LED (设置低电平)
+        gpioe.bsrr().write(|w| w.br8().set_bit());
+        rprintln!("LED OFF");
+        delay(1_000_000); // 延时
+    }
+}
+</code></pre></pre>
+<p>将<code>STM32F3DISCOVERY</code>接入电脑。使用<code>lsusb</code>命令可查看是否识别到了`ST-LINK。</p>
+<p>运行:</p>
+<pre><code class="language-bash">cargo build
+cargo flash --release --chip STM32F303VCTx
+</code></pre>
+<p>即可烧录成功。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="使用gdb调试"><a class="header" href="#使用gdb调试">使用gdb调试</a></h1>
+<p>todo</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="自定义链接器链接脚本内存"><a class="header" href="#自定义链接器链接脚本内存">自定义链接器、链接脚本、内存</a></h1>
+<p>todo</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hal工程"><a class="header" href="#hal工程">HAL工程</a></h1>
 <p>TODO</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bsp工程"><a class="header" href="#bsp工程">BSP工程</a></h1>
