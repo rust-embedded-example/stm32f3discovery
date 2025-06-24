@@ -184,6 +184,8 @@
 <p>当然，我们生活在一个激动人心的 AI 时代。即便您是初学者，也完全不必畏惧。借助强大的 AI 编码助手，您可以更快地跨越知识鸿沟，轻松地跟随本书的节奏，探索 Rust 在嵌入式世界中的无限魅力。</p>
 <h1 id="使用的硬件"><a class="header" href="#使用的硬件">使用的硬件</a></h1>
 <p>本教程使用的硬件为STM32F3DISCOVERY，此开发板上有一个ST-LINK调试芯片，因此无需使用ST-LINK调试器。</p>
+<h1 id="源码仓库"><a class="header" href="#源码仓库">源码仓库</a></h1>
+<p>源码仓库<a href="https://github.com/rust-embedded-example/stm32f3discovery">点击此处跳转</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rust-语言介绍"><a class="header" href="#rust-语言介绍">Rust 语言介绍</a></h1>
 <h2 id="rust-语言安全性能与并发的未来之路"><a class="header" href="#rust-语言安全性能与并发的未来之路">Rust 语言：安全、性能与并发的未来之路</a></h2>
 <p>在软件开发的世界中，对高性能、高安全性和并发处理能力的需求从未停止。正是在这样的背景下，Rust 语言应运而生，并以其独特的魅力迅速崭露头角，成为开发者社区中备受瞩目的"明星"语言。从最初的实验项目到如今构建关键系统和前沿技术的基石，Rust 的发展历程清晰地勾勒出其非凡的潜力。</p>
@@ -1591,8 +1593,379 @@ target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
 <blockquote>
 <p><strong>推荐</strong>: 对于 STM32F3DISCOVERY 开发板，建议优先使用 probe-rs 方案，配置简单且性能更好。</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="自定义链接器链接脚本内存"><a class="header" href="#自定义链接器链接脚本内存">自定义链接器、链接脚本、内存</a></h1>
-<p>todo</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="自定义链接器与链接脚本"><a class="header" href="#自定义链接器与链接脚本">自定义链接器与链接脚本</a></h1>
+<p>在嵌入式 Rust 开发中，链接器和链接脚本都可以根据项目需求进行自定义配置，以优化性能或满足特定的内存布局要求。</p>
+<h2 id="自定义链接器"><a class="header" href="#自定义链接器">自定义链接器</a></h2>
+<h3 id="配置方法"><a class="header" href="#配置方法">配置方法</a></h3>
+<p>通过修改 <code>./.cargo/config.toml</code> 文件，添加 <code>linker</code> 配置项来指定自定义链接器。默认使用 <code>rust-lld</code> 链接器。</p>
+<pre><code class="language-toml">[target.thumbv7em-none-eabihf]
+linker = "rust-lld"
+</code></pre>
+<h3 id="常用链接器对比"><a class="header" href="#常用链接器对比">常用链接器对比</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>链接器</th><th>特点</th><th>适用场景</th></tr></thead><tbody>
+<tr><td><strong>rust-lld</strong></td><td>Rust 工具链自带的 LLD 变体，专为 Rust 优化</td><td>默认选择，减少外部依赖</td></tr>
+<tr><td><strong>lld</strong></td><td>LLVM 通用链接器，高性能跨平台支持</td><td>需要通用链接器功能时</td></tr>
+<tr><td><strong>flip-link</strong></td><td>专为嵌入式设计，提供零成本栈溢出保护</td><td>ARM Cortex-M 项目，需要栈保护</td></tr>
+</tbody></table>
+</div>
+<h4 id="详细说明"><a class="header" href="#详细说明">详细说明</a></h4>
+<ul>
+<li>
+<p><strong>rust-lld</strong>:</p>
+<ul>
+<li>Rust 工具链自带的 LLD 链接器变体</li>
+<li>专为 Rust 优化，是 LLVM 项目的一部分</li>
+<li>针对 ARM Cortex-M 等目标默认使用</li>
+<li>旨在减少外部依赖</li>
+</ul>
+</li>
+<li>
+<p><strong>lld</strong>:</p>
+<ul>
+<li>LLVM 提供的通用链接器</li>
+<li>支持多种架构（ARM、x86、RISC-V 等）</li>
+<li>以高性能和跨平台支持著称</li>
+<li>可独立于 Rust 工具链使用</li>
+</ul>
+</li>
+<li>
+<p><strong>flip-link</strong>:</p>
+<ul>
+<li>专门为嵌入式 Rust 项目设计</li>
+<li>重点解决栈溢出问题</li>
+<li>通过翻转内存布局（将栈放在低地址）提供零成本的栈溢出保护</li>
+<li>主要用于 ARM Cortex-M 架构</li>
+</ul>
+</li>
+</ul>
+<h2 id="自定义链接脚本"><a class="header" href="#自定义链接脚本">自定义链接脚本</a></h2>
+<p>自定义链接脚本需要使用 <code>build.rs</code> 构建脚本，该脚本在编译项目之前运行，用于配置链接器参数和脚本路径。</p>
+<h3 id="cargo-构建流程"><a class="header" href="#cargo-构建流程">Cargo 构建流程</a></h3>
+<p>Cargo 的构建流程如下：</p>
+<ol>
+<li><strong>解析依赖</strong>: 解析 <code>Cargo.toml</code> 文件，确定依赖关系</li>
+<li><strong>构建依赖</strong>: 下载并构建所有依赖项（如果需要）</li>
+<li><strong>运行构建脚本</strong>: 为当前项目运行 <code>build.rs</code>（如果存在）</li>
+<li><strong>编译源码</strong>: 根据 <code>build.rs</code> 的输出编译项目的 Rust 源代码</li>
+<li><strong>链接生成</strong>: 链接生成最终的可执行文件</li>
+</ol>
+<blockquote>
+<p><strong>注意</strong>: <code>build.rs</code> 运行在项目编译的准备阶段，通常在每次构建时都会执行，除非 Cargo 检测到无需重新运行。</p>
+</blockquote>
+<h3 id="创建构建脚本"><a class="header" href="#创建构建脚本">创建构建脚本</a></h3>
+<p>创建 <code>./build.rs</code> 文件：</p>
+<pre><code class="language-rust ignore">//! 构建脚本：配置链接器查找 `memory.x` 和 `link.x` 文件
+//! 并设置必要的链接器参数
+
+use std::env;
+use std::path::PathBuf;
+
+fn main() {
+    // 获取项目根目录
+    let root_dir = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
+
+    // 告诉链接器在项目根目录搜索链接脚本
+    println!("cargo:rustc-link-search={}", root_dir.display());
+
+    // 当这些文件发生变化时重新运行构建脚本
+    println!("cargo:rerun-if-changed=memory.x");
+    println!("cargo:rerun-if-changed=link.x");
+
+    // 当内存段地址未对齐到 0x10000 时需要 `--nmagic` 参数
+    // 例如 `memory.x` 中的 FLASH 和 RAM 段
+    // 参考: https://github.com/rust-embedded/cortex-m-quickstart/pull/95
+    println!("cargo:rustc-link-arg=--nmagic");
+
+    // 指定使用自定义链接脚本
+    println!("cargo:rustc-link-arg=-Tlink.x");
+}</code></pre>
+<h3 id="修改-cargo-配置-1"><a class="header" href="#修改-cargo-配置-1">修改 Cargo 配置</a></h3>
+<p>修改 <code>./.cargo/config.toml</code> 文件，删除 <code>rustflags</code> 配置项，不使用 <code>cortex-m-rt</code> 提供的链接脚本：</p>
+<pre><code class="language-toml">[target.thumbv7em-none-eabihf]
+runner = "gdb-multiarch -q -x ./openocd.gdb"
+linker = "flip-link"
+# rustflags = ["-C", "link-arg=-Tlink.x"]  # 由 build.rs 处理
+
+[build]
+target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
+</code></pre>
+<h3 id="创建自定义链接脚本"><a class="header" href="#创建自定义链接脚本">创建自定义链接脚本</a></h3>
+<p>创建 <code>./link.x</code> 文件，这是一个完整的 ARM Cortex-M 链接脚本：</p>
+<pre><code class="language-ld">/*
+ * ARM Cortex-M 自定义链接脚本
+ *
+ * 开发者注意事项:
+ * - 双下划线开头的符号 (__) 被视为"私有"符号
+ * - 单下划线开头的符号 (_) 被视为"半公开"符号，可在用户链接脚本中覆盖
+ * - EXTERN 强制链接器保留符号在最终二进制文件中
+ * - PROVIDE 用于提供可被用户链接脚本覆盖的默认值
+ * - 对齐要求：.bss 和 .data 的 VMA 边界以及 .data 的 LMA 必须 4 字节对齐
+ */
+
+/* 包含设备内存布局信息 */
+/* 由用户提供 (参见 `memory.x`) 或由板级支持包提供 */
+INCLUDE memory.x
+
+/* 程序入口点 = 复位向量 */
+EXTERN(__RESET_VECTOR);
+EXTERN(Reset);
+ENTRY(Reset);
+
+/* 异常向量表 */
+/* 这实际上是链接器级别的弱别名 */
+/* 用户可以通过定义相应符号来覆盖这些别名 (参见 `exception!` 宏) */
+EXTERN(__EXCEPTIONS); /* 依赖于所有这些 PROVIDED 符号 */
+
+EXTERN(DefaultHandler);
+
+/* 异常处理程序默认值 */
+PROVIDE(NonMaskableInt = DefaultHandler);
+EXTERN(HardFaultTrampoline);
+PROVIDE(MemoryManagement = DefaultHandler);
+PROVIDE(BusFault = DefaultHandler);
+PROVIDE(UsageFault = DefaultHandler);
+PROVIDE(SecureFault = DefaultHandler);
+PROVIDE(SVCall = DefaultHandler);
+PROVIDE(DebugMonitor = DefaultHandler);
+PROVIDE(PendSV = DefaultHandler);
+PROVIDE(SysTick = DefaultHandler);
+
+PROVIDE(DefaultHandler = DefaultHandler_);
+PROVIDE(HardFault = HardFault_);
+
+/* 中断向量表 */
+EXTERN(__INTERRUPTS); /* 类似于 `__EXCEPTIONS` 的静态变量 */
+
+/* 预初始化函数 */
+/* 如果用户使用 `pre_init!` 宏或创建 `__pre_init` 函数覆盖此函数，
+   则该函数将在 RAM 初始化之前被调用 */
+PROVIDE(__pre_init = DefaultPreInit);
+
+/* 内存段定义 */
+SECTIONS
+{
+  /* RAM 区域定义 */
+  PROVIDE(_ram_start = ORIGIN(RAM));
+  PROVIDE(_ram_end = ORIGIN(RAM) + LENGTH(RAM));
+  PROVIDE(_stack_start = _ram_end);
+
+  /* FLASH 中的段 */
+  /* 中断向量表 */
+  .vector_table ORIGIN(FLASH) :
+  {
+    __vector_table = .;
+
+    /* 初始栈指针 (SP) 值
+     * 屏蔽低 3 位以强制 8 字节对齐
+     * 尽管后面有断言检查，但单独的链接脚本可能在断言检查后覆盖 _stack_start
+     */
+    LONG(_stack_start &amp; 0xFFFFFFF8);
+
+    /* 复位向量 */
+    KEEP(*(.vector_table.reset_vector)); /* 这是 `__RESET_VECTOR` 符号 */
+
+    /* 异常向量 */
+    __exceptions = .; /* 异常开始位置 */
+    KEEP(*(.vector_table.exceptions)); /* 这是 `__EXCEPTIONS` 符号 */
+    __eexceptions = .; /* 异常结束位置 */
+
+    /* 设备特定中断 */
+    KEEP(*(.vector_table.interrupts)); /* 这是 `__INTERRUPTS` 符号 */
+  } &gt; FLASH
+
+  PROVIDE(_stext = ADDR(.vector_table) + SIZEOF(.vector_table));
+
+  /* 代码段 */
+  .text _stext :
+  {
+    __stext = .;
+    *(.Reset);
+
+    *(.text .text.*);
+
+    /* HardFaultTrampoline 使用 `b` 指令进入 `HardFault`，
+       因此必须放置在其附近 */
+    *(.HardFaultTrampoline);
+    *(.HardFault.*);
+
+    . = ALIGN(4); /* 填充 .text 到对齐边界，解决旧版 lld 的重叠加载段 bug */
+    __etext = .;
+  } &gt; FLASH
+
+  /* 只读数据段 */
+  .rodata : ALIGN(4)
+  {
+    . = ALIGN(4);
+    __srodata = .;
+    *(.rodata .rodata.*);
+
+    /* 4 字节对齐段末尾 (VMA)
+       LLD 要求这样做以确保后续 .data 段的 LMA 具有正确的对齐 */
+    . = ALIGN(4);
+    __erodata = .;
+  } &gt; FLASH
+
+  /* RAM 中的段 */
+  /* 初始化数据段 */
+  .data : ALIGN(4)
+  {
+    . = ALIGN(4);
+    __sdata = .;
+    *(.data .data.*);
+    . = ALIGN(4); /* 4 字节对齐段末尾 (VMA) */
+  } &gt; RAM AT&gt;FLASH
+  /* 允许用户 `memory.x` 中使用 `INSERT AFTER .data` 注入的段
+   * 通过推送 __edata 来使用 .data 加载机制。注意：不要在这些用户段中
+   * 更改输出区域或加载区域！ */
+  . = ALIGN(4);
+  __edata = .;
+
+  /* .data 段的加载地址 (LMA) */
+  __sidata = LOADADDR(.data);
+
+  /* ### .gnu.sgstubs
+     This section contains the TrustZone-M veneers put there by the Arm GNU linker. */
+  /* Security Attribution Unit blocks must be 32 bytes aligned. */
+  /* Note that this pads the FLASH usage to 32 byte alignment. */
+  .gnu.sgstubs : ALIGN(32)
+  {
+    . = ALIGN(32);
+    __veneer_base = .;
+    *(.gnu.sgstubs*)
+    . = ALIGN(32);
+  } &gt; FLASH
+  /* Place `__veneer_limit` outside the `.gnu.sgstubs` section because veneers are
+   * always inserted last in the section, which would otherwise be _after_ the `__veneer_limit` symbol.
+   */
+  . = ALIGN(32);
+  __veneer_limit = .;
+
+  /* ### .bss */
+  .bss (NOLOAD) : ALIGN(4)
+  {
+    . = ALIGN(4);
+    __sbss = .;
+    *(.bss .bss.*);
+    *(COMMON); /* Uninitialized C statics */
+    . = ALIGN(4); /* 4-byte align the end (VMA) of this section */
+  } &gt; RAM
+  /* Allow sections from user `memory.x` injected using `INSERT AFTER .bss` to
+   * use the .bss zeroing mechanism by pushing __ebss. Note: do not change
+   * output region or load region in those user sections! */
+  . = ALIGN(4);
+  __ebss = .;
+
+  /* ### .uninit */
+  .uninit (NOLOAD) : ALIGN(4)
+  {
+    . = ALIGN(4);
+    __suninit = .;
+    *(.uninit .uninit.*);
+    . = ALIGN(4);
+    __euninit = .;
+  } &gt; RAM
+
+  /* Place the heap right after `.uninit` in RAM */
+  PROVIDE(__sheap = __euninit);
+
+  /* Place stack end at the end of allocated RAM */
+  PROVIDE(_stack_end = __euninit);
+
+  /* ## .got */
+  /* Dynamic relocations are unsupported. This section is only used to detect relocatable code in
+     the input files and raise an error if relocatable code is found */
+  .got (NOLOAD) :
+  {
+    KEEP(*(.got .got.*));
+  }
+
+  /* ## Discarded sections */
+  /DISCARD/ :
+  {
+    /* Unused exception related info that only wastes space */
+    *(.ARM.exidx);
+    *(.ARM.exidx.*);
+    *(.ARM.extab.*);
+  }
+}
+
+/* Do not exceed this mark in the error messages below                                    | */
+/* # Alignment checks */
+ASSERT(ORIGIN(FLASH) % 4 == 0, "
+ERROR(cortex-m-rt): the start of the FLASH region must be 4-byte aligned");
+
+ASSERT(ORIGIN(RAM) % 4 == 0, "
+ERROR(cortex-m-rt): the start of the RAM region must be 4-byte aligned");
+
+ASSERT(__sdata % 4 == 0 &amp;&amp; __edata % 4 == 0, "
+BUG(cortex-m-rt): .data is not 4-byte aligned");
+
+ASSERT(__sidata % 4 == 0, "
+BUG(cortex-m-rt): the LMA of .data is not 4-byte aligned");
+
+ASSERT(__sbss % 4 == 0 &amp;&amp; __ebss % 4 == 0, "
+BUG(cortex-m-rt): .bss is not 4-byte aligned");
+
+ASSERT(__sheap % 4 == 0, "
+BUG(cortex-m-rt): start of .heap is not 4-byte aligned");
+
+ASSERT(_stack_start % 8 == 0, "
+ERROR(cortex-m-rt): stack start address is not 8-byte aligned.
+If you have set _stack_start, check it's set to an address which is a multiple of 8 bytes.
+If you haven't, stack starts at the end of RAM by default. Check that both RAM
+origin and length are set to multiples of 8 in the `memory.x` file.");
+
+ASSERT(_stack_end % 4 == 0, "
+ERROR(cortex-m-rt): end of stack is not 4-byte aligned");
+
+ASSERT(_stack_start &gt;= _stack_end, "
+ERROR(cortex-m-rt): stack end address is not below stack start.");
+
+/* # Position checks */
+
+/* ## .vector_table
+ *
+ * If the *start* of exception vectors is not 8 bytes past the start of the
+ * vector table, then we somehow did not place the reset vector, which should
+ * live 4 bytes past the start of the vector table.
+ */
+ASSERT(__exceptions == ADDR(.vector_table) + 0x8, "
+BUG(cortex-m-rt): the reset vector is missing");
+
+ASSERT(__eexceptions == ADDR(.vector_table) + 0x40, "
+BUG(cortex-m-rt): the exception vectors are missing");
+
+ASSERT(SIZEOF(.vector_table) &gt; 0x40, "
+ERROR(cortex-m-rt): The interrupt vectors are missing.
+Possible solutions, from most likely to less likely:
+- Link to a svd2rust generated device crate
+- Check that you actually use the device/hal/bsp crate in your code
+- Disable the 'device' feature of cortex-m-rt to build a generic application (a dependency
+may be enabling it)
+- Supply the interrupt handlers yourself. Check the documentation for details.");
+
+/* ## .text */
+ASSERT(ADDR(.vector_table) + SIZEOF(.vector_table) &lt;= _stext, "
+ERROR(cortex-m-rt): The .text section can't be placed inside the .vector_table section
+Set _stext to an address greater than the end of .vector_table (See output of `nm`)");
+
+ASSERT(_stext &gt; ORIGIN(FLASH) &amp;&amp; _stext &lt; ORIGIN(FLASH) + LENGTH(FLASH), "
+ERROR(cortex-m-rt): The .text section must be placed inside the FLASH memory.
+Set _stext to an address within the FLASH region.");
+
+/* # Other checks */
+ASSERT(SIZEOF(.got) == 0, "
+ERROR(cortex-m-rt): .got section detected in the input object files
+Dynamic relocations are not supported. If you are linking to C code compiled using
+the 'cc' crate then modify your build script to compile the C code _without_
+the -fPIC flag. See the documentation of the `cc::Build.pic` method for details.");
+/* Do not exceed this mark in the error messages above                                    | */
+
+ASSERT(SIZEOF(.vector_table) &lt;= 0x400, "
+There can't be more than 240 interrupt handlers. This may be a bug in
+your device crate, or you may have registered more than 240 interrupt
+handlers.");
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hal工程"><a class="header" href="#hal工程">HAL工程</a></h1>
 <p>TODO</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bsp工程"><a class="header" href="#bsp工程">BSP工程</a></h1>
