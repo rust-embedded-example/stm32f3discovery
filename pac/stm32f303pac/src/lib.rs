@@ -85,6 +85,137 @@ unsafe extern "C" {
     fn TIM20_CC();
     fn SPI4();
 }
+
+#[cfg(feature = "rt")]
+pub mod interrupt_handlers {
+    //! Default interrupt handlers
+    //!
+    //! This module provides default (empty) implementations for all interrupt handlers.
+    //! Users can override these by defining their own handlers with the same name.
+    //!
+    //! # Usage
+    //!
+    //! When the `rt` feature is enabled, all interrupt handlers are automatically provided
+    //! with empty default implementations. To handle a specific interrupt, simply define
+    //! your own handler function with the same name:
+    //!
+    //! ```rust
+    //! #[no_mangle]
+    //! pub extern "C" fn PVD() {
+    //!     // Your interrupt handling code here
+    //!     // Clear interrupt flags, handle the event, etc.
+    //! }
+    //! ```
+    //!
+    //! The linker will automatically use your implementation instead of the default empty one.
+    //!
+    //! # Available Interrupts
+    //!
+    //! All STM32F303 interrupts are supported. Some commonly used ones include:
+    //! - `EXTI0` to `EXTI15_10`: External interrupts
+    //! - `TIM1_CC`, `TIM2`, `TIM3`, etc.: Timer interrupts
+    //! - `USART1_EXTI25`, `USART2_EXTI26`: UART interrupts
+    //! - `SPI1`, `SPI2`, `SPI3`: SPI interrupts
+    //! - `I2C1_EV_EXTI23`, `I2C2_EV_EXTI24`: I2C interrupts
+    //! - `ADC1_2`, `ADC3`, `ADC4`: ADC interrupts
+    //! - `DMA1_CH1` to `DMA2_CH5`: DMA channel interrupts
+
+    macro_rules! default_handler {
+        ($name:ident) => {
+            #[no_mangle]
+            #[linkage = "weak"]
+            pub extern "C" fn $name() {
+                // Default empty handler - can be overridden by user
+            }
+        };
+    }
+
+    macro_rules! default_handlers {
+        ($($name:ident),* $(,)?) => {
+            $(
+                default_handler!($name);
+            )*
+        };
+    }
+
+    // Generate default handlers for all interrupts
+    default_handlers!(
+        WWDG,
+        PVD,
+        TAMP_STAMP,
+        RTC_WKUP,
+        FLASH,
+        RCC,
+        EXTI0,
+        EXTI1,
+        EXTI2_TSC,
+        EXTI3,
+        EXTI4,
+        DMA1_CH1,
+        DMA1_CH2,
+        DMA1_CH3,
+        DMA1_CH4,
+        DMA1_CH5,
+        DMA1_CH6,
+        DMA1_CH7,
+        ADC1_2,
+        USB_HP_CAN_TX,
+        USB_LP_CAN_RX0,
+        CAN_RX1,
+        CAN_SCE,
+        EXTI9_5,
+        TIM1_BRK_TIM15,
+        TIM1_UP_TIM16,
+        TIM1_TRG_COM_TIM17,
+        TIM1_CC,
+        TIM2,
+        TIM3,
+        TIM4,
+        I2C1_EV_EXTI23,
+        I2C1_ER,
+        I2C2_EV_EXTI24,
+        I2C2_ER,
+        SPI1,
+        SPI2,
+        USART1_EXTI25,
+        USART2_EXTI26,
+        USART3_EXTI28,
+        EXTI15_10,
+        RTCAlarm,
+        USB_WKUP,
+        TIM8_BRK,
+        TIM8_UP,
+        TIM8_TRG_COM,
+        TIM8_CC,
+        ADC3,
+        FMC,
+        SPI3,
+        UART4_EXTI34,
+        UART5_EXTI35,
+        TIM6_DACUNDER,
+        TIM7,
+        DMA2_CH1,
+        DMA2_CH2,
+        DMA2_CH3,
+        DMA2_CH4,
+        DMA2_CH5,
+        ADC4,
+        COMP123,
+        COMP456,
+        COMP7,
+        I2C3_EV,
+        I2C3_ER,
+        USB_HP,
+        USB_LP,
+        USB_WKUP_EXTI,
+        TIM20_BRK,
+        TIM20_UP,
+        TIM20_TRG_COM,
+        TIM20_CC,
+        SPI4,
+    );
+}
+
 #[doc(hidden)]
 #[repr(C)]
 pub union Vector {
