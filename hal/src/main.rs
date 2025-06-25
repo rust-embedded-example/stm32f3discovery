@@ -1,12 +1,10 @@
 #![no_std]
 #![no_main]
 
-mod interrupts;
-
-use panic_rtt_target as _;
-use rtt_target::{rprintln, rtt_init_print};
 use cortex_m::asm;
 use cortex_m_rt::entry;
+use panic_rtt_target as _;
+use rtt_target::{rprintln, rtt_init_print};
 use stm32f3xx_hal::{pac, prelude::*};
 
 // critical-section 实现由 cortex-m 的 "critical-section-single-core" 特性自动提供
