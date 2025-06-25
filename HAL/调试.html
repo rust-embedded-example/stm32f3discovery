@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>HAL工程 - rust embedded example book</title>
+        <title>调试 - rust embedded example book</title>
 
 
         <!-- Custom HTML head -->
@@ -166,90 +166,87 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="hal工程"><a class="header" href="#hal工程">HAL工程</a></h1>
-<p>相对于PAC工程，我们不再直接使用PAC，而是使用开源社区提供的HAL库来简化开发过程。</p>
-<h2 id="pac与hal对比"><a class="header" href="#pac与hal对比">PAC与HAL对比</a></h2>
-<p>PAC（Peripheral Access Crate）和HAL（Hardware Abstraction Layer）是两种常见的硬件交互方式，它们在抽象层次、灵活性和使用场景上有显著差异。以下是详细对比：</p>
-<h3 id="1-定义与抽象层次"><a class="header" href="#1-定义与抽象层次">1. 定义与抽象层次</a></h3>
-<p><strong>PAC</strong>：</p>
+                        <h1 id="调试"><a class="header" href="#调试">调试</a></h1>
+<p>本章节介绍如何调试 HAL 应用程序。调试流程与 PAC 工程保持一致，使用相同的配置文件。</p>
+<h2 id="使用-cargo-embed-调试"><a class="header" href="#使用-cargo-embed-调试">使用 cargo-embed 调试</a></h2>
+<p>运行以下命令启动调试会话：</p>
+<pre><code class="language-bash">cargo embed
+</code></pre>
+<p>成功连接后，终端将显示 RTT 输出信息：</p>
+<pre><code>Terminal
+STM32F3 Discovery RTT 初始化完成!
+10:33:56.100: LED 初始化完成，开始闪烁...
+10:33:56.100: LED 闪烁
+10:33:56.285: LED 闪烁
+</code></pre>
+<h2 id="使用-gdb-调试"><a class="header" href="#使用-gdb-调试">使用 GDB 调试</a></h2>
+<h3 id="启动调试器"><a class="header" href="#启动调试器">启动调试器</a></h3>
+<p>运行以下命令启动 GDB 调试会话：</p>
+<pre><code class="language-bash">cargo run
+</code></pre>
+<p>调试器启动后将显示：</p>
+<pre><code>Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+     Running `gdb-multiarch -q -x ./openocd.gdb target/thumbv7em-none-eabihf/debug/hal`
+Reading symbols from target/thumbv7em-none-eabihf/debug/hal...
+lib::inline::__delay (cyc=&lt;optimized out&gt;) at asm/inline.rs:62
+warning: 62	asm/inline.rs: 没有那个文件或目录
+Breakpoint 1 at 0x8000e48: file src/main.rs, line 14.
+Note: automatically using hardware breakpoints for read-only addresses.
+(gdb)
+</code></pre>
+<h3 id="设置断点和调试"><a class="header" href="#设置断点和调试">设置断点和调试</a></h3>
+<p>在 GDB 提示符下，可以执行以下调试操作：</p>
+<ol>
+<li>
+<p><strong>重置目标设备</strong></p>
+<pre><code class="language-bash">(gdb) monitor reset halt
+</code></pre>
+<p>输出：</p>
+<pre><code>Resetting and halting target
+Target halted
+</code></pre>
+</li>
+<li>
+<p><strong>设置断点</strong></p>
+<pre><code class="language-bash">(gdb) b main
+</code></pre>
+<p>输出：</p>
+<pre><code>Note: breakpoint 1 also set at pc 0x8000e48.
+Breakpoint 2 at 0x8000e48: file src/main.rs, line 14.
+</code></pre>
+</li>
+<li>
+<p><strong>继续执行</strong></p>
+<pre><code class="language-bash">(gdb) c
+</code></pre>
+<p>程序将运行到断点处停止：</p>
+<pre><code>Continuing.
+
+Breakpoint 1, hal::__cortex_m_rt_main_trampoline () at src/main.rs:14
+14	#[entry]
+</code></pre>
+</li>
+</ol>
+<h2 id="常用调试命令"><a class="header" href="#常用调试命令">常用调试命令</a></h2>
 <ul>
-<li>PAC是由设备寄存器直接生成的低级接口，通常由工具（如svd2rust）根据芯片的SVD（System View Description）文件自动生成</li>
-<li>提供对硬件寄存器的直接访问，抽象程度低，接近裸机编程</li>
-<li>主要包含寄存器级别的读写操作，开发者需要手动管理寄存器位域和硬件细节</li>
-</ul>
-<p><strong>HAL</strong>：</p>
-<ul>
-<li>HAL建立在PAC之上，提供更高级的硬件抽象接口</li>
-<li>隐藏了寄存器级别的复杂性，提供更易用的API（如初始化外设、配置时钟、执行高级操作等）</li>
-<li>通常由社区或芯片厂商为特定芯片或系列开发，注重用户友好性和跨平台兼容性</li>
-</ul>
-<h3 id="2-灵活性与控制"><a class="header" href="#2-灵活性与控制">2. 灵活性与控制</a></h3>
-<p><strong>PAC</strong>：</p>
-<ul>
-<li><strong>优点</strong>：完全控制硬件，提供最大灵活性，适合需要极致优化或非标准用例的场景</li>
-<li><strong>缺点</strong>：开发者需要深入理解芯片手册，处理寄存器配置、位操作等，代码复杂且易出错</li>
-</ul>
-<p><strong>HAL</strong>：</p>
-<ul>
-<li><strong>优点</strong>：简化开发，减少手动配置硬件的负担，代码更简洁、可读性更高</li>
-<li><strong>缺点</strong>：抽象层可能限制某些低级操作，灵活性稍低，可能不满足特殊需求</li>
-</ul>
-<h3 id="3-开发效率"><a class="header" href="#3-开发效率">3. 开发效率</a></h3>
-<p><strong>PAC</strong>：</p>
-<ul>
-<li>开发速度慢，因为需要手动管理寄存器和硬件状态</li>
-<li>适合对硬件有深入了解的开发者，或需要定制化实现的场景</li>
-</ul>
-<p><strong>HAL</strong>：</p>
-<ul>
-<li>开发速度快，提供了开箱即用的功能（如UART初始化、GPIO配置等）</li>
-<li>适合快速原型开发或对硬件细节不熟悉的开发者</li>
-</ul>
-<h3 id="4-安全性"><a class="header" href="#4-安全性">4. 安全性</a></h3>
-<p><strong>PAC</strong>：</p>
-<ul>
-<li>依赖Rust的内存安全机制（如所有权和借用），但寄存器操作仍可能因误配置导致硬件错误</li>
-<li>需要开发者确保操作的正确性</li>
-</ul>
-<p><strong>HAL</strong>：</p>
-<ul>
-<li>提供更安全的接口，通过封装降低直接操作寄存器带来的风险</li>
-<li>通常会包含额外的检查或默认配置，确保硬件操作更稳健</li>
-</ul>
-<h3 id="5-生态与支持"><a class="header" href="#5-生态与支持">5. 生态与支持</a></h3>
-<p><strong>PAC</strong>：</p>
-<ul>
-<li>由svd2rust生成，覆盖广泛，理论上支持所有提供SVD文件的芯片</li>
-<li>社区维护较少，功能仅限于寄存器访问</li>
-</ul>
-<p><strong>HAL</strong>：</p>
-<ul>
-<li>依赖社区或厂商开发，某些芯片的HAL可能不完整或滞后</li>
-<li>常见平台（如STM32、nRF、RP2040）有成熟的HAL实现，功能丰富，文档完善</li>
-</ul>
-<h3 id="6-使用场景"><a class="header" href="#6-使用场景">6. 使用场景</a></h3>
-<p><strong>PAC</strong>：</p>
-<ul>
-<li>需要极致性能或完全控制硬件的场景</li>
-<li>实现自定义驱动或调试硬件问题</li>
-<li>HAL尚未支持的芯片或外设</li>
-</ul>
-<p><strong>HAL</strong>：</p>
-<ul>
-<li>快速开发嵌入式应用，缩短上市时间</li>
-<li>跨平台或跨芯片的代码复用</li>
-<li>标准外设（如I2C、SPI、GPIO）的常见操作</li>
+<li><code>b &lt;函数名&gt;</code> - 在指定函数设置断点</li>
+<li><code>c</code> - 继续执行程序</li>
+<li><code>n</code> - 单步执行（不进入函数）</li>
+<li><code>s</code> - 单步执行（进入函数）</li>
+<li><code>p &lt;变量名&gt;</code> - 打印变量值</li>
+<li><code>info registers</code> - 查看寄存器状态</li>
+<li><code>quit</code> - 退出调试器</li>
 </ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../PAC/自定义链接器、链接脚本.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../HAL/创建工程.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../HAL/创建工程.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../BSP/BSP.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -259,11 +256,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../PAC/自定义链接器、链接脚本.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../HAL/创建工程.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../HAL/创建工程.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../BSP/BSP.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

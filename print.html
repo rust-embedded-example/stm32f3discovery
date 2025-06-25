@@ -1349,17 +1349,11 @@ MEMORY
 <pre><pre class="playground"><code class="language-rust">#![no_main]
 #![no_std]
 
+use cortex_m::asm;
 use cortex_m_rt::entry;
 use panic_rtt_target as _;
 use rtt_target::{rprintln, rtt_init_print};
 use stm32f303pac as pac;
-
-// 简单的延时函数
-fn delay(cycles: u32) {
-    for _ in 0..cycles {
-        cortex_m::asm::nop(); // 执行空操作来消耗CPU周期
-    }
-}
 
 #[entry]
 fn main() -&gt; ! {
@@ -1388,15 +1382,14 @@ fn main() -&gt; ! {
         // 打开LED (设置高电平)
         gpioe.bsrr().write(|w| w.bs8().set_bit());
         rprintln!("LED ON");
-        delay(1_000_000); // 延时
+        asm::delay(1_000_000); // 延时
 
         // 关闭LED (设置低电平)
         gpioe.bsrr().write(|w| w.br8().set_bit());
         rprintln!("LED OFF");
-        delay(1_000_000); // 延时
+        asm::delay(1_000_000); // 延时
     }
-}
-</code></pre></pre>
+}</code></pre></pre>
 <p>将<code>STM32F3DISCOVERY</code>接入电脑。使用<code>lsusb</code>命令可查看是否识别到了`ST-LINK。</p>
 <p>运行:</p>
 <pre><code class="language-bash">cargo build
@@ -1967,7 +1960,634 @@ your device crate, or you may have registered more than 240 interrupt
 handlers.");
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hal工程"><a class="header" href="#hal工程">HAL工程</a></h1>
-<p>TODO</p>
+<p>相对于PAC工程，我们不再直接使用PAC，而是使用开源社区提供的HAL库来简化开发过程。</p>
+<h2 id="pac与hal对比"><a class="header" href="#pac与hal对比">PAC与HAL对比</a></h2>
+<p>PAC（Peripheral Access Crate）和HAL（Hardware Abstraction Layer）是两种常见的硬件交互方式，它们在抽象层次、灵活性和使用场景上有显著差异。以下是详细对比：</p>
+<h3 id="1-定义与抽象层次"><a class="header" href="#1-定义与抽象层次">1. 定义与抽象层次</a></h3>
+<p><strong>PAC</strong>：</p>
+<ul>
+<li>PAC是由设备寄存器直接生成的低级接口，通常由工具（如svd2rust）根据芯片的SVD（System View Description）文件自动生成</li>
+<li>提供对硬件寄存器的直接访问，抽象程度低，接近裸机编程</li>
+<li>主要包含寄存器级别的读写操作，开发者需要手动管理寄存器位域和硬件细节</li>
+</ul>
+<p><strong>HAL</strong>：</p>
+<ul>
+<li>HAL建立在PAC之上，提供更高级的硬件抽象接口</li>
+<li>隐藏了寄存器级别的复杂性，提供更易用的API（如初始化外设、配置时钟、执行高级操作等）</li>
+<li>通常由社区或芯片厂商为特定芯片或系列开发，注重用户友好性和跨平台兼容性</li>
+</ul>
+<h3 id="2-灵活性与控制"><a class="header" href="#2-灵活性与控制">2. 灵活性与控制</a></h3>
+<p><strong>PAC</strong>：</p>
+<ul>
+<li><strong>优点</strong>：完全控制硬件，提供最大灵活性，适合需要极致优化或非标准用例的场景</li>
+<li><strong>缺点</strong>：开发者需要深入理解芯片手册，处理寄存器配置、位操作等，代码复杂且易出错</li>
+</ul>
+<p><strong>HAL</strong>：</p>
+<ul>
+<li><strong>优点</strong>：简化开发，减少手动配置硬件的负担，代码更简洁、可读性更高</li>
+<li><strong>缺点</strong>：抽象层可能限制某些低级操作，灵活性稍低，可能不满足特殊需求</li>
+</ul>
+<h3 id="3-开发效率"><a class="header" href="#3-开发效率">3. 开发效率</a></h3>
+<p><strong>PAC</strong>：</p>
+<ul>
+<li>开发速度慢，因为需要手动管理寄存器和硬件状态</li>
+<li>适合对硬件有深入了解的开发者，或需要定制化实现的场景</li>
+</ul>
+<p><strong>HAL</strong>：</p>
+<ul>
+<li>开发速度快，提供了开箱即用的功能（如UART初始化、GPIO配置等）</li>
+<li>适合快速原型开发或对硬件细节不熟悉的开发者</li>
+</ul>
+<h3 id="4-安全性"><a class="header" href="#4-安全性">4. 安全性</a></h3>
+<p><strong>PAC</strong>：</p>
+<ul>
+<li>依赖Rust的内存安全机制（如所有权和借用），但寄存器操作仍可能因误配置导致硬件错误</li>
+<li>需要开发者确保操作的正确性</li>
+</ul>
+<p><strong>HAL</strong>：</p>
+<ul>
+<li>提供更安全的接口，通过封装降低直接操作寄存器带来的风险</li>
+<li>通常会包含额外的检查或默认配置，确保硬件操作更稳健</li>
+</ul>
+<h3 id="5-生态与支持"><a class="header" href="#5-生态与支持">5. 生态与支持</a></h3>
+<p><strong>PAC</strong>：</p>
+<ul>
+<li>由svd2rust生成，覆盖广泛，理论上支持所有提供SVD文件的芯片</li>
+<li>社区维护较少，功能仅限于寄存器访问</li>
+</ul>
+<p><strong>HAL</strong>：</p>
+<ul>
+<li>依赖社区或厂商开发，某些芯片的HAL可能不完整或滞后</li>
+<li>常见平台（如STM32、nRF、RP2040）有成熟的HAL实现，功能丰富，文档完善</li>
+</ul>
+<h3 id="6-使用场景"><a class="header" href="#6-使用场景">6. 使用场景</a></h3>
+<p><strong>PAC</strong>：</p>
+<ul>
+<li>需要极致性能或完全控制硬件的场景</li>
+<li>实现自定义驱动或调试硬件问题</li>
+<li>HAL尚未支持的芯片或外设</li>
+</ul>
+<p><strong>HAL</strong>：</p>
+<ul>
+<li>快速开发嵌入式应用，缩短上市时间</li>
+<li>跨平台或跨芯片的代码复用</li>
+<li>标准外设（如I2C、SPI、GPIO）的常见操作</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="创建基础工程-1"><a class="header" href="#创建基础工程-1">创建基础工程</a></h1>
+<p>本章节将指导如何创建一个基于HAL库的基础工程，用于STM32F3 Discovery开发板。相比直接使用PAC（Peripheral Access Crate），HAL（Hardware Abstraction Layer）库提供了更高级的抽象，简化了开发过程。本章工程调试部分与PAC工程流程一致，因此配置文件也一样。</p>
+<h2 id="工程初始化"><a class="header" href="#工程初始化">工程初始化</a></h2>
+<p>首先，我们需要创建一个新的Rust项目并配置必要的依赖。</p>
+<h3 id="1-创建新项目"><a class="header" href="#1-创建新项目">1. 创建新项目</a></h3>
+<pre><code class="language-bash">cargo new hal
+cd hal
+</code></pre>
+<h3 id="2-配置cargotoml"><a class="header" href="#2-配置cargotoml">2. 配置Cargo.toml</a></h3>
+<p>在<code>Cargo.toml</code>文件中添加必要的依赖：</p>
+<pre><code class="language-toml">[package]
+name = "hal"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7.3"
+rtt-target = "0.6.1"
+panic-rtt-target = "0.2.0"
+critical-section = "1.2.0"
+stm32f3xx-hal = { version = "0.10.0", features = ["stm32f303xc", "ld", "rt"] }
+</code></pre>
+<p>主要依赖说明：</p>
+<ul>
+<li><code>cortex-m</code>：Cortex-M微控制器的核心支持库</li>
+<li><code>cortex-m-rt</code>：Cortex-M运行时支持库</li>
+<li><code>rtt-target</code>和<code>panic-rtt-target</code>：用于调试输出和处理panic情况</li>
+<li><code>stm32f3xx-hal</code>：STM32F3系列的HAL库，我们启用了<code>stm32f303xc</code>、<code>ld</code>和<code>rt</code>特性</li>
+</ul>
+<h3 id="3-配置编译目标"><a class="header" href="#3-配置编译目标">3. 配置编译目标</a></h3>
+<p>创建<code>.cargo/config.toml</code>文件，指定编译目标和GDB配置：</p>
+<pre><code class="language-toml">[target.thumbv7em-none-eabihf]
+runner = "gdb-multiarch -q -x ./openocd.gdb"
+
+[build]
+target = "thumbv7em-none-eabihf" # Cortex-M4F和Cortex-M7F（带FPU）
+</code></pre>
+<h2 id="内存配置"><a class="header" href="#内存配置">内存配置</a></h2>
+<h3 id="1-创建memoryx文件"><a class="header" href="#1-创建memoryx文件">1. 创建<code>memory.x</code>文件</a></h3>
+<p>此文件定义了STM32F303VCT6芯片的内存布局：</p>
+<pre><code class="language-x">/* STM32F303VCT6的链接脚本 */
+MEMORY
+{
+  /* 注意 1 K = 1 KiBi = 1024 bytes */
+  FLASH : ORIGIN = 0x08000000, LENGTH = 256K
+  RAM : ORIGIN = 0x20000000, LENGTH = 40K
+}
+</code></pre>
+<h3 id="2-创建linkx文件"><a class="header" href="#2-创建linkx文件">2. 创建<code>link.x</code>文件</a></h3>
+<p>这是一个完整的链接脚本，用于定义内存段和程序入口点。由于文件较长，这里不完整展示，但它包含以下主要部分：</p>
+<ul>
+<li>程序入口点设置</li>
+<li>异常向量表布局</li>
+<li>内存段定义（<code>.vector_table</code>、<code>.text</code>、<code>.rodata</code>、<code>.data</code>、<code>.bss</code>等）</li>
+<li>内存对齐和位置检查</li>
+</ul>
+<pre><code class="language-lld">/*
+ * ARM Cortex-M 自定义链接脚本
+ *
+ * 开发者注意事项:
+ * - 双下划线开头的符号 (__) 被视为"私有"符号
+ * - 单下划线开头的符号 (_) 被视为"半公开"符号，可在用户链接脚本中覆盖
+ * - EXTERN 强制链接器保留符号在最终二进制文件中
+ * - PROVIDE 用于提供可被用户链接脚本覆盖的默认值
+ * - 对齐要求：.bss 和 .data 的 VMA 边界以及 .data 的 LMA 必须 4 字节对齐
+ */
+
+/* 包含设备内存布局信息 */
+/* 由用户提供 (参见 `memory.x`) 或由板级支持包提供 */
+INCLUDE memory.x
+
+/* 程序入口点 = 复位向量 */
+EXTERN(__RESET_VECTOR);
+EXTERN(Reset);
+ENTRY(Reset);
+
+/* 异常向量表 */
+/* 这实际上是链接器级别的弱别名 */
+/* 用户可以通过定义相应符号来覆盖这些别名 (参见 `exception!` 宏) */
+EXTERN(__EXCEPTIONS); /* 依赖于所有这些 PROVIDED 符号 */
+
+EXTERN(DefaultHandler);
+
+/* 异常处理程序默认值 */
+PROVIDE(NonMaskableInt = DefaultHandler);
+EXTERN(HardFaultTrampoline);
+PROVIDE(MemoryManagement = DefaultHandler);
+PROVIDE(BusFault = DefaultHandler);
+PROVIDE(UsageFault = DefaultHandler);
+PROVIDE(SecureFault = DefaultHandler);
+PROVIDE(SVCall = DefaultHandler);
+PROVIDE(DebugMonitor = DefaultHandler);
+PROVIDE(PendSV = DefaultHandler);
+PROVIDE(SysTick = DefaultHandler);
+
+PROVIDE(DefaultHandler = DefaultHandler_);
+PROVIDE(HardFault = HardFault_);
+
+/* 中断向量表 */
+EXTERN(__INTERRUPTS); /* 类似于 `__EXCEPTIONS` 的静态变量 */
+
+/* 预初始化函数 */
+/* 如果用户使用 `pre_init!` 宏或创建 `__pre_init` 函数覆盖此函数，
+   则该函数将在 RAM 初始化之前被调用 */
+PROVIDE(__pre_init = DefaultPreInit);
+
+/* 内存段定义 */
+SECTIONS
+{
+  /* RAM 区域定义 */
+  PROVIDE(_ram_start = ORIGIN(RAM));
+  PROVIDE(_ram_end = ORIGIN(RAM) + LENGTH(RAM));
+  PROVIDE(_stack_start = _ram_end);
+
+  /* FLASH 中的段 */
+  /* 中断向量表 */
+  .vector_table ORIGIN(FLASH) :
+  {
+    __vector_table = .;
+
+    /* 初始栈指针 (SP) 值
+     * 屏蔽低 3 位以强制 8 字节对齐
+     * 尽管后面有断言检查，但单独的链接脚本可能在断言检查后覆盖 _stack_start
+     */
+    LONG(_stack_start &amp; 0xFFFFFFF8);
+
+    /* 复位向量 */
+    KEEP(*(.vector_table.reset_vector)); /* 这是 `__RESET_VECTOR` 符号 */
+
+    /* 异常向量 */
+    __exceptions = .; /* 异常开始位置 */
+    KEEP(*(.vector_table.exceptions)); /* 这是 `__EXCEPTIONS` 符号 */
+    __eexceptions = .; /* 异常结束位置 */
+
+    /* 设备特定中断 */
+    KEEP(*(.vector_table.interrupts)); /* 这是 `__INTERRUPTS` 符号 */
+  } &gt; FLASH
+
+  PROVIDE(_stext = ADDR(.vector_table) + SIZEOF(.vector_table));
+
+  /* 代码段 */
+  .text _stext :
+  {
+    __stext = .;
+    *(.Reset);
+
+    *(.text .text.*);
+
+    /* HardFaultTrampoline 使用 `b` 指令进入 `HardFault`，
+       因此必须放置在其附近 */
+    *(.HardFaultTrampoline);
+    *(.HardFault.*);
+
+    . = ALIGN(4); /* 填充 .text 到对齐边界，解决旧版 lld 的重叠加载段 bug */
+    __etext = .;
+  } &gt; FLASH
+
+  /* 只读数据段 */
+  .rodata : ALIGN(4)
+  {
+    . = ALIGN(4);
+    __srodata = .;
+    *(.rodata .rodata.*);
+
+    /* 4 字节对齐段末尾 (VMA)
+       LLD 要求这样做以确保后续 .data 段的 LMA 具有正确的对齐 */
+    . = ALIGN(4);
+    __erodata = .;
+  } &gt; FLASH
+
+  /* RAM 中的段 */
+  /* 初始化数据段 */
+  .data : ALIGN(4)
+  {
+    . = ALIGN(4);
+    __sdata = .;
+    *(.data .data.*);
+    . = ALIGN(4); /* 4 字节对齐段末尾 (VMA) */
+  } &gt; RAM AT&gt;FLASH
+  /* 允许用户 `memory.x` 中使用 `INSERT AFTER .data` 注入的段
+   * 通过推送 __edata 来使用 .data 加载机制。注意：不要在这些用户段中
+   * 更改输出区域或加载区域！ */
+  . = ALIGN(4);
+  __edata = .;
+
+  /* .data 段的加载地址 (LMA) */
+  __sidata = LOADADDR(.data);
+
+  /* ### .gnu.sgstubs
+     This section contains the TrustZone-M veneers put there by the Arm GNU linker. */
+  /* Security Attribution Unit blocks must be 32 bytes aligned. */
+  /* Note that this pads the FLASH usage to 32 byte alignment. */
+  .gnu.sgstubs : ALIGN(32)
+  {
+    . = ALIGN(32);
+    __veneer_base = .;
+    *(.gnu.sgstubs*)
+    . = ALIGN(32);
+  } &gt; FLASH
+  /* Place `__veneer_limit` outside the `.gnu.sgstubs` section because veneers are
+   * always inserted last in the section, which would otherwise be _after_ the `__veneer_limit` symbol.
+   */
+  . = ALIGN(32);
+  __veneer_limit = .;
+
+  /* ### .bss */
+  .bss (NOLOAD) : ALIGN(4)
+  {
+    . = ALIGN(4);
+    __sbss = .;
+    *(.bss .bss.*);
+    *(COMMON); /* Uninitialized C statics */
+    . = ALIGN(4); /* 4-byte align the end (VMA) of this section */
+  } &gt; RAM
+  /* Allow sections from user `memory.x` injected using `INSERT AFTER .bss` to
+   * use the .bss zeroing mechanism by pushing __ebss. Note: do not change
+   * output region or load region in those user sections! */
+  . = ALIGN(4);
+  __ebss = .;
+
+  /* ### .uninit */
+  .uninit (NOLOAD) : ALIGN(4)
+  {
+    . = ALIGN(4);
+    __suninit = .;
+    *(.uninit .uninit.*);
+    . = ALIGN(4);
+    __euninit = .;
+  } &gt; RAM
+
+  /* Place the heap right after `.uninit` in RAM */
+  PROVIDE(__sheap = __euninit);
+
+  /* Place stack end at the end of allocated RAM */
+  PROVIDE(_stack_end = __euninit);
+
+  /* ## .got */
+  /* Dynamic relocations are unsupported. This section is only used to detect relocatable code in
+     the input files and raise an error if relocatable code is found */
+  .got (NOLOAD) :
+  {
+    KEEP(*(.got .got.*));
+  }
+
+  /* ## Discarded sections */
+  /DISCARD/ :
+  {
+    /* Unused exception related info that only wastes space */
+    *(.ARM.exidx);
+    *(.ARM.exidx.*);
+    *(.ARM.extab.*);
+  }
+}
+
+/* Do not exceed this mark in the error messages below                                    | */
+/* # Alignment checks */
+ASSERT(ORIGIN(FLASH) % 4 == 0, "
+ERROR(cortex-m-rt): the start of the FLASH region must be 4-byte aligned");
+
+ASSERT(ORIGIN(RAM) % 4 == 0, "
+ERROR(cortex-m-rt): the start of the RAM region must be 4-byte aligned");
+
+ASSERT(__sdata % 4 == 0 &amp;&amp; __edata % 4 == 0, "
+BUG(cortex-m-rt): .data is not 4-byte aligned");
+
+ASSERT(__sidata % 4 == 0, "
+BUG(cortex-m-rt): the LMA of .data is not 4-byte aligned");
+
+ASSERT(__sbss % 4 == 0 &amp;&amp; __ebss % 4 == 0, "
+BUG(cortex-m-rt): .bss is not 4-byte aligned");
+
+ASSERT(__sheap % 4 == 0, "
+BUG(cortex-m-rt): start of .heap is not 4-byte aligned");
+
+ASSERT(_stack_start % 8 == 0, "
+ERROR(cortex-m-rt): stack start address is not 8-byte aligned.
+If you have set _stack_start, check it's set to an address which is a multiple of 8 bytes.
+If you haven't, stack starts at the end of RAM by default. Check that both RAM
+origin and length are set to multiples of 8 in the `memory.x` file.");
+
+ASSERT(_stack_end % 4 == 0, "
+ERROR(cortex-m-rt): end of stack is not 4-byte aligned");
+
+ASSERT(_stack_start &gt;= _stack_end, "
+ERROR(cortex-m-rt): stack end address is not below stack start.");
+
+/* # Position checks */
+
+/* ## .vector_table
+ *
+ * If the *start* of exception vectors is not 8 bytes past the start of the
+ * vector table, then we somehow did not place the reset vector, which should
+ * live 4 bytes past the start of the vector table.
+ */
+ASSERT(__exceptions == ADDR(.vector_table) + 0x8, "
+BUG(cortex-m-rt): the reset vector is missing");
+
+ASSERT(__eexceptions == ADDR(.vector_table) + 0x40, "
+BUG(cortex-m-rt): the exception vectors are missing");
+
+ASSERT(SIZEOF(.vector_table) &gt; 0x40, "
+ERROR(cortex-m-rt): The interrupt vectors are missing.
+Possible solutions, from most likely to less likely:
+- Link to a svd2rust generated device crate
+- Check that you actually use the device/hal/bsp crate in your code
+- Disable the 'device' feature of cortex-m-rt to build a generic application (a dependency
+may be enabling it)
+- Supply the interrupt handlers yourself. Check the documentation for details.");
+
+/* ## .text */
+ASSERT(ADDR(.vector_table) + SIZEOF(.vector_table) &lt;= _stext, "
+ERROR(cortex-m-rt): The .text section can't be placed inside the .vector_table section
+Set _stext to an address greater than the end of .vector_table (See output of `nm`)");
+
+ASSERT(_stext &gt; ORIGIN(FLASH) &amp;&amp; _stext &lt; ORIGIN(FLASH) + LENGTH(FLASH), "
+ERROR(cortex-m-rt): The .text section must be placed inside the FLASH memory.
+Set _stext to an address within the FLASH region.");
+
+/* # Other checks */
+ASSERT(SIZEOF(.got) == 0, "
+ERROR(cortex-m-rt): .got section detected in the input object files
+Dynamic relocations are not supported. If you are linking to C code compiled using
+the 'cc' crate then modify your build script to compile the C code _without_
+the -fPIC flag. See the documentation of the `cc::Build.pic` method for details.");
+/* Do not exceed this mark in the error messages above                                    | */
+
+ASSERT(SIZEOF(.vector_table) &lt;= 0x400, "
+There can't be more than 240 interrupt handlers. This may be a bug in
+your device crate, or you may have registered more than 240 interrupt
+handlers.");
+
+</code></pre>
+<h3 id="3-创建构建脚本"><a class="header" href="#3-创建构建脚本">3. 创建构建脚本</a></h3>
+<p>创建<code>build.rs</code>文件，用于设置链接器：</p>
+<pre><pre class="playground"><code class="language-rust">//! 此构建脚本设置链接器以在crate根目录中找到`memory.x`和`link.x`文件，
+//! 并配置必要的链接器参数。
+
+use std::env;
+use std::path::PathBuf;
+
+fn main() {
+    let root_dir = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
+
+    println!("cargo:rustc-link-search={}", root_dir.display());
+
+    println!("cargo:rerun-if-changed=memory.x");
+    println!("cargo:rerun-if-changed=link.x");
+
+    // 如果内存段地址未对齐到0x10000，则需要`--nmagic`选项
+    // 例如在`memory.x`中的FLASH和RAM段。
+    println!("cargo:rustc-link-arg=--nmagic");
+
+    println!("cargo:rustc-link-arg=-Tlink.x");
+}</code></pre></pre>
+<h2 id="基本程序结构"><a class="header" href="#基本程序结构">基本程序结构</a></h2>
+<h3 id="1-创建中断处理模块"><a class="header" href="#1-创建中断处理模块">1. 创建中断处理模块</a></h3>
+<p>创建<code>src/interrupts.rs</code>文件：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// 最小化的中断处理 - 隐藏所有中断函数定义
+use stm32f3xx_hal::pac::interrupt;
+
+// 使用宏来隐藏重复的中断定义
+macro_rules! define_interrupts {
+    ($($int:ident),*) =&gt; {
+        $(#[interrupt] fn $int() {})*
+    };
+}
+
+// 一行定义所有中断 - 简洁且不占用视觉空间
+define_interrupts!(
+    WWDG, PVD, TAMP_STAMP, RTC_WKUP, FLASH, RCC, EXTI0, EXTI1, EXTI2_TSC, EXTI3, EXTI4,
+    DMA1_CH1, DMA1_CH2, DMA1_CH3, DMA1_CH4, DMA1_CH5, DMA1_CH6, DMA1_CH7, ADC1_2,
+    USB_HP_CAN_TX, USB_LP_CAN_RX0, CAN_RX1, CAN_SCE, EXTI9_5, TIM1_BRK_TIM15, TIM1_UP_TIM16,
+    TIM1_TRG_COM_TIM17, TIM1_CC, TIM2, TIM3, TIM4, I2C1_EV_EXTI23, I2C1_ER, I2C2_EV_EXTI24,
+    I2C2_ER, SPI1, SPI2, USART1_EXTI25, USART2_EXTI26, USART3_EXTI28, EXTI15_10, RTCALARM,
+    USB_WKUP, USB_WKUP_EXTI, TIM8_BRK, TIM8_UP, TIM8_TRG_COM, TIM8_CC, ADC3, FMC, SPI3,
+    UART4_EXTI34, UART5_EXTI35, TIM6_DACUNDER, TIM7, DMA2_CH1, DMA2_CH2, DMA2_CH3, DMA2_CH4,
+    DMA2_CH5, ADC4, COMP1_2_3, COMP4_5_6, COMP7, I2C3_EV, I2C3_ER, USB_HP, USB_LP,
+    TIM20_BRK, TIM20_UP, TIM20_TRG_COM, TIM20_CC, FPU, SPI4
+);
+<span class="boring">}</span></code></pre></pre>
+<p>这个模块定义了所有中断处理函数的空实现，使用宏来减少代码冗余。</p>
+<h3 id="2-创建主程序"><a class="header" href="#2-创建主程序">2. 创建主程序</a></h3>
+<p>编辑<code>src/main.rs</code>文件：</p>
+<pre><pre class="playground"><code class="language-rust">#![no_std]
+#![no_main]
+
+mod interrupts;
+
+use panic_rtt_target as _;
+use rtt_target::{rprintln, rtt_init_print};
+use cortex_m::asm;
+use cortex_m_rt::entry;
+use stm32f3xx_hal::{pac, prelude::*};
+
+// critical-section 实现由 cortex-m 的 "critical-section-single-core" 特性自动提供
+
+#[entry]
+fn main() -&gt; ! {
+    // 初始化 RTT
+    rtt_init_print!();
+    rprintln!("STM32F3 Discovery RTT 初始化完成!");
+
+    let dp = pac::Peripherals::take().unwrap();
+
+    let mut rcc = dp.RCC.constrain();
+    let mut gpioe = dp.GPIOE.split(&amp;mut rcc.ahb);
+
+    let mut led = gpioe
+        .pe8
+        .into_push_pull_output(&amp;mut gpioe.moder, &amp;mut gpioe.otyper);
+
+    rprintln!("LED 初始化完成，开始闪烁...");
+
+    loop {
+        led.toggle().unwrap();
+
+        rprintln!("LED 闪烁");
+
+        asm::delay(1_000_000);
+    }
+}</code></pre></pre>
+<p>这个基础程序实现了：</p>
+<ul>
+<li>初始化RTT调试输出</li>
+<li>获取并配置STM32的外设</li>
+<li>配置GPIO E端口的PE8引脚作为输出，控制LED</li>
+<li>在主循环中切换LED状态，实现闪烁效果</li>
+</ul>
+<h2 id="调试配置"><a class="header" href="#调试配置">调试配置</a></h2>
+<h3 id="1-创建gdb配置文件"><a class="header" href="#1-创建gdb配置文件">1. 创建GDB配置文件</a></h3>
+<p>创建<code>openocd.gdb</code>文件：</p>
+<pre><code class="language-gdb">target extended-remote :3333
+break main
+
+# cargo embed会自动load。
+# openocd -f interface/stlink.cfg -f target/stm32f3x.cfg不会自动load，需要在gdb命令行中运行load。
+
+# monitor reset halt 主动复位
+</code></pre>
+<h3 id="2-创建embedtoml"><a class="header" href="#2-创建embedtoml">2. 创建Embed.toml</a></h3>
+<p>为支持probe-rs调试，创建<code>Embed.toml</code>文件：</p>
+<pre><code class="language-toml">[default.probe]
+protocol = "Swd"
+
+[default.flashing]
+enabled = true
+restore_unwritten_bytes = false
+
+[default.reset]
+enabled = true
+
+[default.general]
+chip = "STM32F303VCTx"
+log_level = "WARN"
+connect_under_reset = true
+
+[default.rtt]
+enabled = true
+up_mode = "NoBlockSkip"
+
+[default.gdb]
+enabled = true
+gdb_connection_string = "127.0.0.1:3333"
+</code></pre>
+<h2 id="项目结构总结"><a class="header" href="#项目结构总结">项目结构总结</a></h2>
+<p>完成上述步骤后，项目结构应该如下：</p>
+<pre><code>hal/
+├── .cargo/
+│   └── config.toml
+├── src/
+│   ├── main.rs
+│   └── interrupts.rs
+├── build.rs
+├── Cargo.toml
+├── Embed.toml
+├── link.x
+├── memory.x
+├── openocd.gdb
+└── .gitignore
+</code></pre>
+<p>至此，一个基于HAL库的基础工程已经创建完成，可以用于STM32F3 Discovery开发板的开发。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="调试"><a class="header" href="#调试">调试</a></h1>
+<p>本章节介绍如何调试 HAL 应用程序。调试流程与 PAC 工程保持一致，使用相同的配置文件。</p>
+<h2 id="使用-cargo-embed-调试"><a class="header" href="#使用-cargo-embed-调试">使用 cargo-embed 调试</a></h2>
+<p>运行以下命令启动调试会话：</p>
+<pre><code class="language-bash">cargo embed
+</code></pre>
+<p>成功连接后，终端将显示 RTT 输出信息：</p>
+<pre><code>Terminal
+STM32F3 Discovery RTT 初始化完成!
+10:33:56.100: LED 初始化完成，开始闪烁...
+10:33:56.100: LED 闪烁
+10:33:56.285: LED 闪烁
+</code></pre>
+<h2 id="使用-gdb-调试-1"><a class="header" href="#使用-gdb-调试-1">使用 GDB 调试</a></h2>
+<h3 id="启动调试器"><a class="header" href="#启动调试器">启动调试器</a></h3>
+<p>运行以下命令启动 GDB 调试会话：</p>
+<pre><code class="language-bash">cargo run
+</code></pre>
+<p>调试器启动后将显示：</p>
+<pre><code>Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+     Running `gdb-multiarch -q -x ./openocd.gdb target/thumbv7em-none-eabihf/debug/hal`
+Reading symbols from target/thumbv7em-none-eabihf/debug/hal...
+lib::inline::__delay (cyc=&lt;optimized out&gt;) at asm/inline.rs:62
+warning: 62	asm/inline.rs: 没有那个文件或目录
+Breakpoint 1 at 0x8000e48: file src/main.rs, line 14.
+Note: automatically using hardware breakpoints for read-only addresses.
+(gdb)
+</code></pre>
+<h3 id="设置断点和调试"><a class="header" href="#设置断点和调试">设置断点和调试</a></h3>
+<p>在 GDB 提示符下，可以执行以下调试操作：</p>
+<ol>
+<li>
+<p><strong>重置目标设备</strong></p>
+<pre><code class="language-bash">(gdb) monitor reset halt
+</code></pre>
+<p>输出：</p>
+<pre><code>Resetting and halting target
+Target halted
+</code></pre>
+</li>
+<li>
+<p><strong>设置断点</strong></p>
+<pre><code class="language-bash">(gdb) b main
+</code></pre>
+<p>输出：</p>
+<pre><code>Note: breakpoint 1 also set at pc 0x8000e48.
+Breakpoint 2 at 0x8000e48: file src/main.rs, line 14.
+</code></pre>
+</li>
+<li>
+<p><strong>继续执行</strong></p>
+<pre><code class="language-bash">(gdb) c
+</code></pre>
+<p>程序将运行到断点处停止：</p>
+<pre><code>Continuing.
+
+Breakpoint 1, hal::__cortex_m_rt_main_trampoline () at src/main.rs:14
+14	#[entry]
+</code></pre>
+</li>
+</ol>
+<h2 id="常用调试命令"><a class="header" href="#常用调试命令">常用调试命令</a></h2>
+<ul>
+<li><code>b &lt;函数名&gt;</code> - 在指定函数设置断点</li>
+<li><code>c</code> - 继续执行程序</li>
+<li><code>n</code> - 单步执行（不进入函数）</li>
+<li><code>s</code> - 单步执行（进入函数）</li>
+<li><code>p &lt;变量名&gt;</code> - 打印变量值</li>
+<li><code>info registers</code> - 查看寄存器状态</li>
+<li><code>quit</code> - 退出调试器</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bsp工程"><a class="header" href="#bsp工程">BSP工程</a></h1>
 <p>TODO</p>
 
