@@ -1,17 +1,11 @@
 #![no_main]
 #![no_std]
 
+use cortex_m::asm;
 use cortex_m_rt::entry;
 use panic_rtt_target as _;
 use rtt_target::{rprintln, rtt_init_print};
 use stm32f303pac as pac;
-
-// 简单的延时函数
-fn delay(cycles: u32) {
-    for _ in 0..cycles {
-        cortex_m::asm::nop(); // 执行空操作来消耗CPU周期
-    }
-}
 
 #[entry]
 fn main() -> ! {
@@ -40,11 +34,11 @@ fn main() -> ! {
         // 打开LED (设置高电平)
         gpioe.bsrr().write(|w| w.bs8().set_bit());
         rprintln!("LED ON");
-        delay(1_000_000); // 延时
+        asm::delay(1_000_000); // 延时
 
         // 关闭LED (设置低电平)
         gpioe.bsrr().write(|w| w.br8().set_bit());
         rprintln!("LED OFF");
-        delay(1_000_000); // 延时
+        asm::delay(1_000_000); // 延时
     }
 }
