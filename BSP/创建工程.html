@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>BSP工程 - rust embedded example book</title>
+        <title>创建工程 - rust embedded example book</title>
 
 
         <!-- Custom HTML head -->
@@ -166,78 +166,186 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="bsp工程"><a class="header" href="#bsp工程">BSP工程</a></h1>
-<p>本章节的工程建立在 <a href="https://github.com/rubberduck203/stm32f3-discovery">stm32f3-discovery</a> crate之上。这个crate使用了HAL库，HAL库使用了PAC库。</p>
-<h2 id="什么是bsp"><a class="header" href="#什么是bsp">什么是BSP</a></h2>
-<p>BSP（Board Support Package，板级支持包）是为特定开发板提供硬件抽象层的软件包。它封装了开发板上硬件外设的驱动程序和初始化代码，为应用程序提供简洁易用的API接口。</p>
-<p>在我们的STM32F3 Discovery项目中，BSP主要提供：</p>
-<ul>
-<li>LED控制接口</li>
-<li>延时功能</li>
-<li>硬件初始化</li>
-</ul>
-<h2 id="bsp架构层级"><a class="header" href="#bsp架构层级">BSP架构层级</a></h2>
-<pre><code>应用层 (main.rs)
-    ↓
-BSP层 (bsp.rs) - 板级抽象
-    ↓  
-HAL层 (stm32f3xx-hal) - 硬件抽象层
-    ↓
-PAC层 (stm32f3xx-pac) - 外设访问层
-    ↓
-硬件层 (STM32F303 MCU)
+                        <h1 id="创建bsp工程"><a class="header" href="#创建bsp工程">创建BSP工程</a></h1>
+<p>本节将详细说明如何从零开始创建一个基于STM32F3 Discovery开发板的BSP工程。</p>
+<h2 id="1-创建cargo项目"><a class="header" href="#1-创建cargo项目">1. 创建Cargo项目</a></h2>
+<p>首先创建一个新的Rust项目：</p>
+<pre><code class="language-bash">cargo new bsp
+cd bsp
 </code></pre>
-<h2 id="主要功能"><a class="header" href="#主要功能">主要功能</a></h2>
-<h3 id="1-led控制"><a class="header" href="#1-led控制">1. LED控制</a></h3>
-<p>BSP提供8个LED的统一控制接口：</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub type LedArray = [Switch&lt;gpioe::PEx&lt;Output&lt;PushPull&gt;&gt;, ActiveHigh&gt;; 8];
-<span class="boring">}</span></code></pre></pre>
-<p>每个LED支持以下操作：</p>
+<h2 id="2-配置cargotoml"><a class="header" href="#2-配置cargotoml">2. 配置Cargo.toml</a></h2>
+<p>编辑<code>Cargo.toml</code>文件，添加必要的依赖和配置：</p>
+<pre><code class="language-toml">[package]
+authors = ["your-name &lt;your-email@example.com&gt;"]
+edition = "2024"
+readme = "README.md"
+name = "stm32f303"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.6.14"
+cortex-m-semihosting = "0.5"
+stm32f3-discovery = "0.7.2"
+rtt-target = "0.6.1"
+panic-rtt-target = "0.1.3"
+
+[profile.release]
+codegen-units = 1 # better optimizations
+debug = true      # symbols are nice and they don't increase the size on Flash
+lto = true        # better optimizations
+</code></pre>
+<h3 id="依赖说明"><a class="header" href="#依赖说明">依赖说明</a></h3>
 <ul>
-<li><code>led.on()</code> - 点亮LED</li>
-<li><code>led.off()</code> - 熄灭LED</li>
-<li><code>led.toggle()</code> - 切换LED状态</li>
+<li><strong>cortex-m</strong>: Cortex-M处理器核心支持</li>
+<li><strong>cortex-m-rt</strong>: 运行时库，提供启动代码</li>
+<li><strong>cortex-m-semihosting</strong>: 半主机调试支持（可选）</li>
+<li><strong>stm32f3-discovery</strong>: STM32F3 Discovery开发板专用BSP库</li>
+<li><strong>rtt-target</strong>: RTT（Real-Time Transfer）调试输出</li>
+<li><strong>panic-rtt-target</strong>: 通过RTT输出恐慌信息</li>
 </ul>
-<h3 id="2-延时功能"><a class="header" href="#2-延时功能">2. 延时功能</a></h3>
-<p>提供基于系统滴答定时器的精确延时：</p>
+<h2 id="3-创建内存映射文件"><a class="header" href="#3-创建内存映射文件">3. 创建内存映射文件</a></h2>
+<p>在项目根目录创建<code>memory.x</code>文件，定义STM32F303的内存布局：</p>
+<pre><code class="language-x">/* Linker script for the STM32F303VCT6 */
+MEMORY
+{
+  /* NOTE 1 K = 1 KiBi = 1024 bytes */
+  FLASH : ORIGIN = 0x08000000, LENGTH = 256K
+  RAM : ORIGIN = 0x20000000, LENGTH = 40K
+}
+
+/* This is where the call stack will be allocated. */
+/* The stack is of the full descending type. */
+/* You may want to use this variable to locate the call stack and static
+   variables in different memory regions. Below is shown the default value */
+/* _stack_start = ORIGIN(RAM) + LENGTH(RAM); */
+
+/* You can use this symbol to customize the location of the .text section */
+/* If omitted the .text section will be placed right after the .vector_table
+   section */
+/* This is required only on microcontrollers that store some configuration right
+   after the vector table */
+/* _stext = ORIGIN(FLASH) + 0x400; */
+</code></pre>
+<h2 id="创建buildrs"><a class="header" href="#创建buildrs">创建<code>build.rs</code></a></h2>
+<p>本工程不使用子定义<code>lin.k</code></p>
+<p><code>build.rs</code>内容为：</p>
+<pre><code class="language-rust ignore">//! This build script sets up the linker to find the `memory.x` and `link.x` files
+//! in the crate root directory and configures the necessary linker arguments.
+
+use std::env;
+use std::path::PathBuf;
+
+fn main() {
+    let root_dir = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
+
+    println!("cargo:rerun-if-changed=memory.x");
+    println!("cargo:rerun-if-changed=link.x");
+
+    // `--nmagic` is required if memory section addresses are not aligned to 0x10000,
+    // for example the FLASH and RAM sections in your `memory.x`.
+    // See https://github.com/rust-embedded/cortex-m-quickstart/pull/95
+    println!("cargo:rustc-link-arg=--nmagic");
+
+    println!("cargo:rustc-link-arg=-Tlink.x");
+}</code></pre>
+<h2 id="4-配置调试文件"><a class="header" href="#4-配置调试文件">4. 配置调试文件</a></h2>
+<h3 id="41-创建probe-rs配置"><a class="header" href="#41-创建probe-rs配置">4.1 创建probe-rs配置</a></h3>
+<p>创建<code>Embed.toml</code>文件，配置probe-rs调试器：</p>
+<pre><code class="language-toml">[default.probe]
+protocol = "Swd"
+
+[default.flashing]
+enabled = true
+restore_unwritten_bytes = false
+
+[default.reset]
+enabled = true
+
+[default.general]
+chip = "STM32F303VCTx"
+log_level = "WARN"
+connect_under_reset = false
+
+[default.rtt]
+enabled = true
+up_mode = "NoBlockSkip"
+
+[default.gdb]
+enabled = true
+gdb_connection_string = "127.0.0.1:3333"
+</code></pre>
+<h3 id="42-创建gdb配置"><a class="header" href="#42-创建gdb配置">4.2 创建GDB配置</a></h3>
+<p>创建<code>openocd.gdb</code>文件，配置GDB调试：</p>
+<pre><code class="language-gdb">target extended-remote :3333
+break main
+
+# cargo embed会自动load。
+# openocd -f interface/stlink.cfg -f target/stm32f3x.cfg不会自动load，需要在gdb命令行中运行load。
+
+# monitor reset halt 主动复位
+
+</code></pre>
+<h2 id="5-创建bsp模块"><a class="header" href="#5-创建bsp模块">5. 创建BSP模块</a></h2>
+<h3 id="51-创建librs"><a class="header" href="#51-创建librs">5.1 创建lib.rs</a></h3>
+<p>在<code>src/lib.rs</code>中定义库的入口：</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub use stm32f3xx_hal::delay::Delay;
+</span>#![no_std]
+<span class="boring">fn main() {
+</span>pub mod bsp;
 <span class="boring">}</span></code></pre></pre>
-<p>支持毫秒级延时：</p>
-<ul>
-<li><code>delay.delay_ms(time)</code> - 延时指定毫秒数</li>
-</ul>
-<h3 id="3-硬件初始化"><a class="header" href="#3-硬件初始化">3. 硬件初始化</a></h3>
-<p><code>init()</code> 函数负责完成所有硬件的初始化工作：</p>
+<h3 id="52-创建bsprs"><a class="header" href="#52-创建bsprs">5.2 创建bsp.rs</a></h3>
+<p>在<code>src/bsp.rs</code>中实现BSP的核心功能：</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>pub fn init() -&gt; (Delay, LedArray) {
+</span>pub use cortex_m_rt::entry;
+
+pub use stm32f3_discovery::{leds::Leds, stm32f3xx_hal, switch_hal};
+pub use switch_hal::{ActiveHigh, OutputSwitch, Switch, ToggleableOutputSwitch};
+
+use stm32f3xx_hal::prelude::*;
+pub use stm32f3xx_hal::{
+    delay::Delay,
+    gpio::{Output, PushPull, gpioe},
+    hal::blocking::delay::DelayMs,
+    pac,
+};
+
+pub type LedArray = [Switch&lt;gpioe::PEx&lt;Output&lt;PushPull&gt;&gt;, ActiveHigh&gt;; 8];
+
+pub fn init() -&gt; (Delay, LedArray) {
     // 获取外设句柄
     let device_periphs = pac::Peripherals::take().unwrap();
-    let core_periphs = cortex_m::Peripherals::take().unwrap();
-    
-    // 配置时钟系统
     let mut reset_and_clock_control = device_periphs.RCC.constrain();
+
+    let core_periphs = cortex_m::Peripherals::take().unwrap();
     let mut flash = device_periphs.FLASH.constrain();
     let clocks = reset_and_clock_control.cfgr.freeze(&amp;mut flash.acr);
-    
-    // 初始化延时器
     let delay = Delay::new(core_periphs.SYST, clocks);
-    
-    // 初始化LED阵列
+
+    // 初始化用户LED
     let mut gpioe = device_periphs.GPIOE.split(&amp;mut reset_and_clock_control.ahb);
-    let leds = Leds::new(/* GPIO引脚配置 */);
-    
+    let leds = Leds::new(
+        gpioe.pe8,
+        gpioe.pe9,
+        gpioe.pe10,
+        gpioe.pe11,
+        gpioe.pe12,
+        gpioe.pe13,
+        gpioe.pe14,
+        gpioe.pe15,
+        &amp;mut gpioe.moder,
+        &amp;mut gpioe.otyper,
+    );
+
     (delay, leds.into_array())
 }
 <span class="boring">}</span></code></pre></pre>
-<h2 id="使用示例"><a class="header" href="#使用示例">使用示例</a></h2>
-<p>完整的BSP使用示例（参考<code>main.rs</code>）：</p>
-<pre><pre class="playground"><code class="language-rust">#![no_std]
+<h2 id="6-创建应用程序"><a class="header" href="#6-创建应用程序">6. 创建应用程序</a></h2>
+<p>在<code>src/main.rs</code>中编写应用程序：</p>
+<pre><pre class="playground"><code class="language-rust">#![deny(unsafe_code)]
 #![no_main]
+#![no_std]
 
 use panic_rtt_target as _;
 use rtt_target::{rprintln, rtt_init_print};
@@ -246,15 +354,14 @@ use stm32f303::bsp::*;
 #[entry]
 fn main() -&gt; ! {
     rtt_init_print!();
-    
-    // 初始化BSP
+
     let (mut delay, mut leds): (Delay, LedArray) = init();
-    rprintln!("BSP初始化完成！");
-    
+    rprintln!("RTT initialized! Hello from STM32F3!");
     let half_period = 500_u16;
+
     let mut counter = 0u32;
 
-    // 关闭所有LED
+    // 初始状态：所有灯灭
     for led in leds.iter_mut() {
         led.off().ok();
     }
@@ -262,18 +369,28 @@ fn main() -&gt; ! {
     loop {
         delay.delay_ms(half_period);
 
-        // 实现流水灯效果
+        // 关闭所有LED
         for led in leds.iter_mut() {
             led.off().ok();
         }
 
-        // 点亮三个连续的LED
-        let positions = [counter % 8, (counter + 1) % 8, (counter + 2) % 8];
-        for &amp;pos in &amp;positions {
-            leds[pos as usize].on().ok();
-        }
+        // 流水灯效果：三个连续LED移动
+        let position0 = counter % 8;
+        let position1 = (counter + 1) % 8;
+        let position2 = (counter + 2) % 8;
 
-        rprintln!("流水灯位置: {:?}", positions);
+        // 点亮三个连续的LED
+        leds[position0 as usize].on().ok();
+        leds[position1 as usize].on().ok();
+        leds[position2 as usize].on().ok();
+
+        rprintln!(
+            "流水灯位置: (LED {},{},{} 亮)",
+            position0,
+            position1,
+            position2
+        );
+
         counter += 1;
 
         if counter % 8 == 0 {
@@ -281,34 +398,44 @@ fn main() -&gt; ! {
         }
     }
 }</code></pre></pre>
-<h2 id="依赖库说明"><a class="header" href="#依赖库说明">依赖库说明</a></h2>
-<p>BSP工程的主要依赖：</p>
-<ul>
-<li><strong>stm32f3-discovery</strong>: STM32F3 Discovery开发板的BSP库</li>
-<li><strong>stm32f3xx-hal</strong>: STM32F3系列的HAL库</li>
-<li><strong>cortex-m</strong>: Cortex-M处理器核心库</li>
-<li><strong>cortex-m-rt</strong>: Cortex-M运行时库</li>
-<li><strong>rtt-target</strong>: RTT调试输出库</li>
-<li><strong>panic-rtt-target</strong>: RTT恐慌处理库</li>
-</ul>
-<h2 id="bsp的优势"><a class="header" href="#bsp的优势">BSP的优势</a></h2>
+<h2 id="7-项目结构"><a class="header" href="#7-项目结构">7. 项目结构</a></h2>
+<p>完成后的项目结构应该如下：</p>
+<pre><code>stm32f303-bsp/
+├── Cargo.toml           # 项目配置和依赖
+├── memory.x             # 内存映射文件
+├── Embed.toml           # probe-rs配置
+├── openocd.gdb          # OpenOCD GDB配置
+└── src/
+    ├── lib.rs           # 库入口
+    ├── bsp.rs           # BSP实现
+    └── main.rs          # 应用程序入口
+</code></pre>
+<h2 id="8-构建和运行"><a class="header" href="#8-构建和运行">8. 构建和运行</a></h2>
+<h3 id="81-构建项目"><a class="header" href="#81-构建项目">8.1 构建项目</a></h3>
+<pre><code class="language-bash">cargo build
+</code></pre>
+<h3 id="82-使用probe-rs运行"><a class="header" href="#82-使用probe-rs运行">8.2 使用probe-rs运行</a></h3>
+<pre><code class="language-bash">cargo embed
+</code></pre>
+<h2 id="9-注意事项"><a class="header" href="#9-注意事项">9. 注意事项</a></h2>
 <ol>
-<li><strong>硬件抽象</strong>: 隐藏底层硬件细节，提供统一的API接口</li>
-<li><strong>代码复用</strong>: 同一套BSP可以支持多个应用程序</li>
-<li><strong>易于维护</strong>: 硬件相关代码集中管理，便于更新和维护</li>
-<li><strong>快速开发</strong>: 简化硬件操作，专注于应用逻辑开发</li>
-<li><strong>可移植性</strong>: 通过BSP抽象，应用代码可以较容易地移植到其他硬件平台</li>
+<li><strong>内存映射</strong>: <code>memory.x</code>文件必须与目标MCU的实际内存布局匹配</li>
+<li><strong>芯片型号</strong>: <code>Embed.toml</code>中的芯片型号必须正确</li>
+<li><strong>调试器</strong>: 确保调试器（ST-Link）正确连接</li>
+<li><strong>RTT输出</strong>: 使用RTT查看程序输出，避免使用semihosting（性能较低）</li>
+<li><strong>优化级别</strong>: 发布版本建议启用LTO和优化选项以减小代码体积</li>
 </ol>
+<p>通过以上步骤，您就可以成功创建一个功能完整的STM32F3 Discovery BSP工程了。</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../HAL/调试.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../BSP/BSP.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../BSP/创建工程.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../BSP/调试.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -318,11 +445,11 @@ fn main() -&gt; ! {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../HAL/调试.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../BSP/BSP.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../BSP/创建工程.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../BSP/调试.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

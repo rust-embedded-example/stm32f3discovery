@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>创建基础工程 - rust embedded example book</title>
+        <title>创建工程 - rust embedded example book</title>
 
 
         <!-- Custom HTML head -->
@@ -216,42 +216,45 @@ MEMORY
 }
 </code></pre>
 <h3 id="2-创建linkx文件"><a class="header" href="#2-创建linkx文件">2. 创建<code>link.x</code>文件</a></h3>
-<p>这是一个完整的链接脚本，用于定义内存段和程序入口点。由于文件较长，这里不完整展示，但它包含以下主要部分：</p>
+<p>这是一个完整的链接脚本，用于定义内存段和程序入口点。若不自定义可以使用<code>cortex_m_rt</code>自动生成的<code>link.x</code>文件。位于编译输出路径下，可以使用<code>find</code>进行查找。本工程使用的<code>link.x</code>文件就是从<code>cortex_m_rt</code>自动生成的，为了演示自定义链接脚本才提取出来：
+/* # Developer notes</p>
 <ul>
-<li>程序入口点设置</li>
-<li>异常向量表布局</li>
-<li>内存段定义（<code>.vector_table</code>、<code>.text</code>、<code>.rodata</code>、<code>.data</code>、<code>.bss</code>等）</li>
-<li>内存对齐和位置检查</li>
+<li>
+<p>Symbols that start with a double underscore (__) are considered "private"</p>
+</li>
+<li>
+<p>Symbols that start with a single underscore (_) are considered "semi-public"; they can be
+overridden in a user linker script, but should not be referred from user code (e.g. <code>extern "C" { static mut __sbss }</code>).</p>
+</li>
+<li>
+<p><code>EXTERN</code> forces the linker to keep a symbol in the final binary. We use this to make sure a
+symbol if not dropped if it appears in or near the front of the linker arguments and "it's not
+needed" by any of the preceding objects (linker arguments)</p>
+</li>
+<li>
+<p><code>PROVIDE</code> is used to provide default values that can be overridden by a user linker script</p>
+</li>
+<li>
+<p>On alignment: it's important for correctness that the VMA boundaries of both .bss and .data <em>and</em>
+the LMA of .data are all 4-byte aligned. These alignments are assumed by the RAM initialization
+routine. There's also a second benefit: 4-byte aligned boundaries means that you won't see
+"Address (..) is out of bounds" in the disassembly produced by <code>objdump</code>.
+*/</p>
+</li>
 </ul>
-<pre><code class="language-lld">/*
- * ARM Cortex-M 自定义链接脚本
- *
- * 开发者注意事项:
- * - 双下划线开头的符号 (__) 被视为"私有"符号
- * - 单下划线开头的符号 (_) 被视为"半公开"符号，可在用户链接脚本中覆盖
- * - EXTERN 强制链接器保留符号在最终二进制文件中
- * - PROVIDE 用于提供可被用户链接脚本覆盖的默认值
- * - 对齐要求：.bss 和 .data 的 VMA 边界以及 .data 的 LMA 必须 4 字节对齐
- */
-
-/* 包含设备内存布局信息 */
-/* 由用户提供 (参见 `memory.x`) 或由板级支持包提供 */
-INCLUDE memory.x
-
-/* 程序入口点 = 复位向量 */
-EXTERN(__RESET_VECTOR);
-EXTERN(Reset);
+<p>/* Provides information about the memory layout of the device <em>/
+/</em> This will be provided by the user (see <code>memory.x</code>) or by a Board Support Crate */
+INCLUDE memory.x</p>
+<p>/* # Entry point = reset vector <em>/
 ENTRY(Reset);
-
-/* 异常向量表 */
-/* 这实际上是链接器级别的弱别名 */
-/* 用户可以通过定义相应符号来覆盖这些别名 (参见 `exception!` 宏) */
-EXTERN(__EXCEPTIONS); /* 依赖于所有这些 PROVIDED 符号 */
-
-EXTERN(DefaultHandler);
-
-/* 异常处理程序默认值 */
-PROVIDE(NonMaskableInt = DefaultHandler);
+EXTERN(__RESET_VECTOR); /</em> depends on the <code>Reset</code> symbol */</p>
+<p>/* # Exception vectors <em>/
+/</em> This is effectively weak aliasing at the linker level <em>/
+/</em> The user can override any of these aliases by defining the corresponding symbol themselves (cf.
+the <code>exception!</code> macro) <em>/
+EXTERN(__EXCEPTIONS); /</em> depends on all the these PROVIDED symbols */</p>
+<p>EXTERN(DefaultHandler);</p>
+<p>PROVIDE(NonMaskableInt = DefaultHandler);
 EXTERN(HardFaultTrampoline);
 PROVIDE(MemoryManagement = DefaultHandler);
 PROVIDE(BusFault = DefaultHandler);
@@ -260,248 +263,166 @@ PROVIDE(SecureFault = DefaultHandler);
 PROVIDE(SVCall = DefaultHandler);
 PROVIDE(DebugMonitor = DefaultHandler);
 PROVIDE(PendSV = DefaultHandler);
-PROVIDE(SysTick = DefaultHandler);
-
-PROVIDE(DefaultHandler = DefaultHandler_);
-PROVIDE(HardFault = HardFault_);
-
-/* 中断向量表 */
-EXTERN(__INTERRUPTS); /* 类似于 `__EXCEPTIONS` 的静态变量 */
-
-/* 预初始化函数 */
-/* 如果用户使用 `pre_init!` 宏或创建 `__pre_init` 函数覆盖此函数，
-   则该函数将在 RAM 初始化之前被调用 */
-PROVIDE(__pre_init = DefaultPreInit);
-
-/* 内存段定义 */
+PROVIDE(SysTick = DefaultHandler);</p>
+<p>PROVIDE(DefaultHandler = DefaultHandler_);
+PROVIDE(HardFault = HardFault_);</p>
+<p>/* # Interrupt vectors <em>/
+EXTERN(__INTERRUPTS); /</em> <code>static</code> variable similar to <code>__EXCEPTIONS</code> */</p>
+<p>/* # Pre-initialization function <em>/
+/</em> If the user overrides this using the <code>pre_init!</code> macro or by creating a <code>__pre_init</code> function,
+then the function this points to will be called before the RAM is initialized. */
+PROVIDE(__pre_init = DefaultPreInit);</p>
+<p>/* # Sections */
 SECTIONS
 {
-  /* RAM 区域定义 */
-  PROVIDE(_ram_start = ORIGIN(RAM));
-  PROVIDE(_ram_end = ORIGIN(RAM) + LENGTH(RAM));
-  PROVIDE(_stack_start = _ram_end);
+PROVIDE(_stack_start = ORIGIN(RAM) + LENGTH(RAM));</p>
+<p>/* ## Sections in FLASH <em>/
+/</em> ### Vector table <em>/
+.vector_table ORIGIN(FLASH) :
+{
+/</em> Initial Stack Pointer (SP) value */
+LONG(_stack_start);</p>
+<pre><code>/* Reset vector */
+KEEP(*(.vector_table.reset_vector)); /* this is the `__RESET_VECTOR` symbol */
+__reset_vector = .;
 
-  /* FLASH 中的段 */
-  /* 中断向量表 */
-  .vector_table ORIGIN(FLASH) :
-  {
-    __vector_table = .;
+/* Exceptions */
+KEEP(*(.vector_table.exceptions)); /* this is the `__EXCEPTIONS` symbol */
+__eexceptions = .;
 
-    /* 初始栈指针 (SP) 值
-     * 屏蔽低 3 位以强制 8 字节对齐
-     * 尽管后面有断言检查，但单独的链接脚本可能在断言检查后覆盖 _stack_start
-     */
-    LONG(_stack_start &amp; 0xFFFFFFF8);
-
-    /* 复位向量 */
-    KEEP(*(.vector_table.reset_vector)); /* 这是 `__RESET_VECTOR` 符号 */
-
-    /* 异常向量 */
-    __exceptions = .; /* 异常开始位置 */
-    KEEP(*(.vector_table.exceptions)); /* 这是 `__EXCEPTIONS` 符号 */
-    __eexceptions = .; /* 异常结束位置 */
-
-    /* 设备特定中断 */
-    KEEP(*(.vector_table.interrupts)); /* 这是 `__INTERRUPTS` 符号 */
-  } &gt; FLASH
-
-  PROVIDE(_stext = ADDR(.vector_table) + SIZEOF(.vector_table));
-
-  /* 代码段 */
-  .text _stext :
-  {
-    __stext = .;
-    *(.Reset);
-
-    *(.text .text.*);
-
-    /* HardFaultTrampoline 使用 `b` 指令进入 `HardFault`，
-       因此必须放置在其附近 */
-    *(.HardFaultTrampoline);
-    *(.HardFault.*);
-
-    . = ALIGN(4); /* 填充 .text 到对齐边界，解决旧版 lld 的重叠加载段 bug */
-    __etext = .;
-  } &gt; FLASH
-
-  /* 只读数据段 */
-  .rodata : ALIGN(4)
-  {
-    . = ALIGN(4);
-    __srodata = .;
-    *(.rodata .rodata.*);
-
-    /* 4 字节对齐段末尾 (VMA)
-       LLD 要求这样做以确保后续 .data 段的 LMA 具有正确的对齐 */
-    . = ALIGN(4);
-    __erodata = .;
-  } &gt; FLASH
-
-  /* RAM 中的段 */
-  /* 初始化数据段 */
-  .data : ALIGN(4)
-  {
-    . = ALIGN(4);
-    __sdata = .;
-    *(.data .data.*);
-    . = ALIGN(4); /* 4 字节对齐段末尾 (VMA) */
-  } &gt; RAM AT&gt;FLASH
-  /* 允许用户 `memory.x` 中使用 `INSERT AFTER .data` 注入的段
-   * 通过推送 __edata 来使用 .data 加载机制。注意：不要在这些用户段中
-   * 更改输出区域或加载区域！ */
-  . = ALIGN(4);
-  __edata = .;
-
-  /* .data 段的加载地址 (LMA) */
-  __sidata = LOADADDR(.data);
-
-  /* ### .gnu.sgstubs
-     This section contains the TrustZone-M veneers put there by the Arm GNU linker. */
-  /* Security Attribution Unit blocks must be 32 bytes aligned. */
-  /* Note that this pads the FLASH usage to 32 byte alignment. */
-  .gnu.sgstubs : ALIGN(32)
-  {
-    . = ALIGN(32);
-    __veneer_base = .;
-    *(.gnu.sgstubs*)
-    . = ALIGN(32);
-  } &gt; FLASH
-  /* Place `__veneer_limit` outside the `.gnu.sgstubs` section because veneers are
-   * always inserted last in the section, which would otherwise be _after_ the `__veneer_limit` symbol.
-   */
-  . = ALIGN(32);
-  __veneer_limit = .;
-
-  /* ### .bss */
-  .bss (NOLOAD) : ALIGN(4)
-  {
-    . = ALIGN(4);
-    __sbss = .;
-    *(.bss .bss.*);
-    *(COMMON); /* Uninitialized C statics */
-    . = ALIGN(4); /* 4-byte align the end (VMA) of this section */
-  } &gt; RAM
-  /* Allow sections from user `memory.x` injected using `INSERT AFTER .bss` to
-   * use the .bss zeroing mechanism by pushing __ebss. Note: do not change
-   * output region or load region in those user sections! */
-  . = ALIGN(4);
-  __ebss = .;
-
-  /* ### .uninit */
-  .uninit (NOLOAD) : ALIGN(4)
-  {
-    . = ALIGN(4);
-    __suninit = .;
-    *(.uninit .uninit.*);
-    . = ALIGN(4);
-    __euninit = .;
-  } &gt; RAM
-
-  /* Place the heap right after `.uninit` in RAM */
-  PROVIDE(__sheap = __euninit);
-
-  /* Place stack end at the end of allocated RAM */
-  PROVIDE(_stack_end = __euninit);
-
-  /* ## .got */
-  /* Dynamic relocations are unsupported. This section is only used to detect relocatable code in
-     the input files and raise an error if relocatable code is found */
-  .got (NOLOAD) :
-  {
-    KEEP(*(.got .got.*));
-  }
-
-  /* ## Discarded sections */
-  /DISCARD/ :
-  {
-    /* Unused exception related info that only wastes space */
-    *(.ARM.exidx);
-    *(.ARM.exidx.*);
-    *(.ARM.extab.*);
-  }
+/* Device specific interrupts */
+KEEP(*(.vector_table.interrupts)); /* this is the `__INTERRUPTS` symbol */
+</code></pre>
+<p>} &gt; FLASH</p>
+<p>PROVIDE(_stext = ADDR(.vector_table) + SIZEOF(.vector_table));</p>
+<p>/* ### .text <em>/
+.text _stext :
+{
+/</em> place these 2 close to each other or the <code>b</code> instruction will fail to link */
+*(.PreResetTrampoline);
+*(.Reset);</p>
+<pre><code>*(.text .text.*);
+*(.HardFaultTrampoline);
+*(.HardFault.*);
+. = ALIGN(4);
+__etext = .;
+</code></pre>
+<p>} &gt; FLASH</p>
+<p>/* ### .rodata */
+.rodata __etext : ALIGN(4)
+{
+<em>(.rodata .rodata.</em>);</p>
+<pre><code>/* 4-byte align the end (VMA) of this section.
+   This is required by LLD to ensure the LMA of the following .data
+   section will have the correct alignment. */
+. = ALIGN(4);
+__erodata = .;
+</code></pre>
+<p>} &gt; FLASH</p>
+<p>/* ## Sections in RAM <em>/
+/</em> ### .data <em>/
+.data : ALIGN(4)
+{
+. = ALIGN(4);
+__sdata = .;
+<em>(.data .data.</em>);
+. = ALIGN(4); /</em> 4-byte align the end (VMA) of this section */
+__edata = .;
+} &gt; RAM AT&gt;FLASH</p>
+<p>/* LMA of .data */
+__sidata = LOADADDR(.data);</p>
+<p>/* ### .bss <em>/
+.bss (NOLOAD) : ALIGN(4)
+{
+. = ALIGN(4);
+__sbss = .;
+<em>(.bss .bss.</em>);
+. = ALIGN(4); /</em> 4-byte align the end (VMA) of this section */
+__ebss = .;
+} &gt; RAM</p>
+<p>/* ### .uninit */
+.uninit (NOLOAD) : ALIGN(4)
+{
+. = ALIGN(4);
+<em>(.uninit .uninit.</em>);
+. = ALIGN(4);
+} &gt; RAM</p>
+<p>/* Place the heap right after <code>.uninit</code> */
+. = ALIGN(4);
+__sheap = .;</p>
+<p>/* ## .got <em>/
+/</em> Dynamic relocations are unsupported. This section is only used to detect relocatable code in
+the input files and raise an error if relocatable code is found <em>/
+.got (NOLOAD) :
+{
+KEEP(</em>(.got .got.*));
+}</p>
+<p>/* ## Discarded sections <em>/
+/DISCARD/ :
+{
+/</em> Unused exception related info that only wastes space */
+*(.ARM.exidx);
+<em>(.ARM.exidx.</em>);
+<em>(.ARM.extab.</em>);
 }
-
-/* Do not exceed this mark in the error messages below                                    | */
-/* # Alignment checks */
+}</p>
+<p>/* Do not exceed this mark in the error messages below                                    | <em>/
+/</em> # Alignment checks */
 ASSERT(ORIGIN(FLASH) % 4 == 0, "
-ERROR(cortex-m-rt): the start of the FLASH region must be 4-byte aligned");
-
-ASSERT(ORIGIN(RAM) % 4 == 0, "
-ERROR(cortex-m-rt): the start of the RAM region must be 4-byte aligned");
-
-ASSERT(__sdata % 4 == 0 &amp;&amp; __edata % 4 == 0, "
-BUG(cortex-m-rt): .data is not 4-byte aligned");
-
-ASSERT(__sidata % 4 == 0, "
-BUG(cortex-m-rt): the LMA of .data is not 4-byte aligned");
-
-ASSERT(__sbss % 4 == 0 &amp;&amp; __ebss % 4 == 0, "
-BUG(cortex-m-rt): .bss is not 4-byte aligned");
-
-ASSERT(__sheap % 4 == 0, "
-BUG(cortex-m-rt): start of .heap is not 4-byte aligned");
-
-ASSERT(_stack_start % 8 == 0, "
-ERROR(cortex-m-rt): stack start address is not 8-byte aligned.
-If you have set _stack_start, check it's set to an address which is a multiple of 8 bytes.
-If you haven't, stack starts at the end of RAM by default. Check that both RAM
-origin and length are set to multiples of 8 in the `memory.x` file.");
-
-ASSERT(_stack_end % 4 == 0, "
-ERROR(cortex-m-rt): end of stack is not 4-byte aligned");
-
-ASSERT(_stack_start &gt;= _stack_end, "
-ERROR(cortex-m-rt): stack end address is not below stack start.");
-
-/* # Position checks */
-
-/* ## .vector_table
- *
- * If the *start* of exception vectors is not 8 bytes past the start of the
- * vector table, then we somehow did not place the reset vector, which should
- * live 4 bytes past the start of the vector table.
- */
-ASSERT(__exceptions == ADDR(.vector_table) + 0x8, "
-BUG(cortex-m-rt): the reset vector is missing");
-
-ASSERT(__eexceptions == ADDR(.vector_table) + 0x40, "
-BUG(cortex-m-rt): the exception vectors are missing");
-
-ASSERT(SIZEOF(.vector_table) &gt; 0x40, "
+ERROR(cortex-m-rt): the start of the FLASH region must be 4-byte aligned");</p>
+<p>ASSERT(ORIGIN(RAM) % 4 == 0, "
+ERROR(cortex-m-rt): the start of the RAM region must be 4-byte aligned");</p>
+<p>ASSERT(__sdata % 4 == 0 &amp;&amp; __edata % 4 == 0, "
+BUG(cortex-m-rt): .data is not 4-byte aligned");</p>
+<p>ASSERT(__sidata % 4 == 0, "
+BUG(cortex-m-rt): the LMA of .data is not 4-byte aligned");</p>
+<p>ASSERT(__sbss % 4 == 0 &amp;&amp; __ebss % 4 == 0, "
+BUG(cortex-m-rt): .bss is not 4-byte aligned");</p>
+<p>ASSERT(__sheap % 4 == 0, "
+BUG(cortex-m-rt): start of .heap is not 4-byte aligned");</p>
+<p>/* # Position checks */</p>
+<p>/* ## .vector_table */
+ASSERT(__reset_vector == ADDR(.vector_table) + 0x8, "
+BUG(cortex-m-rt): the reset vector is missing");</p>
+<p>ASSERT(__eexceptions == ADDR(.vector_table) + 0x40, "
+BUG(cortex-m-rt): the exception vectors are missing");</p>
+<p>ASSERT(SIZEOF(.vector_table) &gt; 0x40, "
 ERROR(cortex-m-rt): The interrupt vectors are missing.
-Possible solutions, from most likely to less likely:
-- Link to a svd2rust generated device crate
-- Check that you actually use the device/hal/bsp crate in your code
-- Disable the 'device' feature of cortex-m-rt to build a generic application (a dependency
-may be enabling it)
-- Supply the interrupt handlers yourself. Check the documentation for details.");
-
-/* ## .text */
+Possible solutions, from most likely to less likely:</p>
+<ul>
+<li>Link to a svd2rust generated device crate</li>
+<li>Disable the 'device' feature of cortex-m-rt to build a generic application (a dependency
+may be enabling it)</li>
+<li>Supply the interrupt handlers yourself. Check the documentation for details.");</li>
+</ul>
+<p>/* ## .text */
 ASSERT(ADDR(.vector_table) + SIZEOF(.vector_table) &lt;= _stext, "
 ERROR(cortex-m-rt): The .text section can't be placed inside the .vector_table section
-Set _stext to an address greater than the end of .vector_table (See output of `nm`)");
-
-ASSERT(_stext &gt; ORIGIN(FLASH) &amp;&amp; _stext &lt; ORIGIN(FLASH) + LENGTH(FLASH), "
+Set _stext to an address greater than the end of .vector_table (See output of <code>nm</code>)");</p>
+<p>ASSERT(_stext + SIZEOF(.text) &lt; ORIGIN(FLASH) + LENGTH(FLASH), "
 ERROR(cortex-m-rt): The .text section must be placed inside the FLASH memory.
-Set _stext to an address within the FLASH region.");
-
-/* # Other checks */
+Set _stext to an address smaller than 'ORIGIN(FLASH) + LENGTH(FLASH)'");</p>
+<p>/* # Other checks <em>/
 ASSERT(SIZEOF(.got) == 0, "
 ERROR(cortex-m-rt): .got section detected in the input object files
 Dynamic relocations are not supported. If you are linking to C code compiled using
-the 'cc' crate then modify your build script to compile the C code _without_
-the -fPIC flag. See the documentation of the `cc::Build.pic` method for details.");
-/* Do not exceed this mark in the error messages above                                    | */
-
-ASSERT(SIZEOF(.vector_table) &lt;= 0x400, "
+the 'cc' crate then modify your build script to compile the C code <em>without</em>
+the -fPIC flag. See the documentation of the <code>cc::Build.pic</code> method for details.");
+/</em> Do not exceed this mark in the error messages above                                    | */</p>
+<p>/* Provides weak aliases (cf. PROVIDED) for device specific interrupt handlers <em>/
+/</em> This will usually be provided by a device crate generated using svd2rust (see <code>device.x</code>) */
+INCLUDE device.x</p>
+<p>ASSERT(SIZEOF(.vector_table) &lt;= 0x400, "
 There can't be more than 240 interrupt handlers. This may be a bug in
 your device crate, or you may have registered more than 240 interrupt
-handlers.");
+handlers.");</p>
+<pre><code>
+### 3. 创建构建脚本
 
-</code></pre>
-<h3 id="3-创建构建脚本"><a class="header" href="#3-创建构建脚本">3. 创建构建脚本</a></h3>
-<p>创建<code>build.rs</code>文件，用于设置链接器：</p>
-<pre><pre class="playground"><code class="language-rust">//! 此构建脚本设置链接器以在crate根目录中找到`memory.x`和`link.x`文件，
+创建`build.rs`文件，用于设置链接器：
+
+```rust
+//! 此构建脚本设置链接器以在crate根目录中找到`memory.x`和`link.x`文件，
 //! 并配置必要的链接器参数。
 
 use std::env;
@@ -520,7 +441,8 @@ fn main() {
     println!("cargo:rustc-link-arg=--nmagic");
 
     println!("cargo:rustc-link-arg=-Tlink.x");
-}</code></pre></pre>
+}
+</code></pre>
 <h2 id="基本程序结构"><a class="header" href="#基本程序结构">基本程序结构</a></h2>
 <h3 id="1-创建中断处理模块"><a class="header" href="#1-创建中断处理模块">1. 创建中断处理模块</a></h3>
 <p>创建<code>src/interrupts.rs</code>文件：</p>

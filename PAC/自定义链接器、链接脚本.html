@@ -264,34 +264,43 @@ target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
 </code></pre>
 <h3 id="创建自定义链接脚本"><a class="header" href="#创建自定义链接脚本">创建自定义链接脚本</a></h3>
 <p>创建 <code>./link.x</code> 文件，这是一个完整的 ARM Cortex-M 链接脚本：</p>
-<pre><code class="language-ld">/*
- * ARM Cortex-M 自定义链接脚本
- *
- * 开发者注意事项:
- * - 双下划线开头的符号 (__) 被视为"私有"符号
- * - 单下划线开头的符号 (_) 被视为"半公开"符号，可在用户链接脚本中覆盖
- * - EXTERN 强制链接器保留符号在最终二进制文件中
- * - PROVIDE 用于提供可被用户链接脚本覆盖的默认值
- * - 对齐要求：.bss 和 .data 的 VMA 边界以及 .data 的 LMA 必须 4 字节对齐
- */
+<pre><code class="language-ld">/* # Developer notes
 
-/* 包含设备内存布局信息 */
-/* 由用户提供 (参见 `memory.x`) 或由板级支持包提供 */
+- Symbols that start with a double underscore (__) are considered "private"
+
+- Symbols that start with a single underscore (_) are considered "semi-public"; they can be
+  overridden in a user linker script, but should not be referred from user code (e.g. `extern "C" {
+  static mut __sbss }`).
+
+- `EXTERN` forces the linker to keep a symbol in the final binary. We use this to make sure a
+  symbol is not dropped if it appears in or near the front of the linker arguments and "it's not
+  needed" by any of the preceding objects (linker arguments)
+
+- `PROVIDE` is used to provide default values that can be overridden by a user linker script
+
+- On alignment: it's important for correctness that the VMA boundaries of both .bss and .data *and*
+  the LMA of .data are all 4-byte aligned. These alignments are assumed by the RAM initialization
+  routine. There's also a second benefit: 4-byte aligned boundaries means that you won't see
+  "Address (..) is out of bounds" in the disassembly produced by `objdump`.
+*/
+
+/* Provides information about the memory layout of the device */
+/* This will be provided by the user (see `memory.x`) or by a Board Support Crate */
 INCLUDE memory.x
 
-/* 程序入口点 = 复位向量 */
+/* # Entry point = reset vector */
 EXTERN(__RESET_VECTOR);
 EXTERN(Reset);
 ENTRY(Reset);
 
-/* 异常向量表 */
-/* 这实际上是链接器级别的弱别名 */
-/* 用户可以通过定义相应符号来覆盖这些别名 (参见 `exception!` 宏) */
-EXTERN(__EXCEPTIONS); /* 依赖于所有这些 PROVIDED 符号 */
+/* # Exception vectors */
+/* This is effectively weak aliasing at the linker level */
+/* The user can override any of these aliases by defining the corresponding symbol themselves (cf.
+   the `exception!` macro) */
+EXTERN(__EXCEPTIONS); /* depends on all the these PROVIDED symbols */
 
 EXTERN(DefaultHandler);
 
-/* 异常处理程序默认值 */
 PROVIDE(NonMaskableInt = DefaultHandler);
 EXTERN(HardFaultTrampoline);
 PROVIDE(MemoryManagement = DefaultHandler);
@@ -306,49 +315,49 @@ PROVIDE(SysTick = DefaultHandler);
 PROVIDE(DefaultHandler = DefaultHandler_);
 PROVIDE(HardFault = HardFault_);
 
-/* 中断向量表 */
-EXTERN(__INTERRUPTS); /* 类似于 `__EXCEPTIONS` 的静态变量 */
+/* # Interrupt vectors */
+EXTERN(__INTERRUPTS); /* `static` variable similar to `__EXCEPTIONS` */
 
-/* 预初始化函数 */
-/* 如果用户使用 `pre_init!` 宏或创建 `__pre_init` 函数覆盖此函数，
-   则该函数将在 RAM 初始化之前被调用 */
+/* # Pre-initialization function */
+/* If the user overrides this using the `pre_init!` macro or by creating a `__pre_init` function,
+   then the function this points to will be called before the RAM is initialized. */
 PROVIDE(__pre_init = DefaultPreInit);
 
-/* 内存段定义 */
+/* # Sections */
 SECTIONS
 {
-  /* RAM 区域定义 */
   PROVIDE(_ram_start = ORIGIN(RAM));
   PROVIDE(_ram_end = ORIGIN(RAM) + LENGTH(RAM));
   PROVIDE(_stack_start = _ram_end);
 
-  /* FLASH 中的段 */
-  /* 中断向量表 */
+  /* ## Sections in FLASH */
+  /* ### Vector table */
   .vector_table ORIGIN(FLASH) :
   {
     __vector_table = .;
 
-    /* 初始栈指针 (SP) 值
-     * 屏蔽低 3 位以强制 8 字节对齐
-     * 尽管后面有断言检查，但单独的链接脚本可能在断言检查后覆盖 _stack_start
+    /* Initial Stack Pointer (SP) value.
+     * We mask the bottom three bits to force 8-byte alignment.
+     * Despite having an assert for this later, it's possible that a separate
+     * linker script could override _stack_start after the assert is checked.
      */
     LONG(_stack_start &amp; 0xFFFFFFF8);
 
-    /* 复位向量 */
-    KEEP(*(.vector_table.reset_vector)); /* 这是 `__RESET_VECTOR` 符号 */
+    /* Reset vector */
+    KEEP(*(.vector_table.reset_vector)); /* this is the `__RESET_VECTOR` symbol */
 
-    /* 异常向量 */
-    __exceptions = .; /* 异常开始位置 */
-    KEEP(*(.vector_table.exceptions)); /* 这是 `__EXCEPTIONS` 符号 */
-    __eexceptions = .; /* 异常结束位置 */
+    /* Exceptions */
+    __exceptions = .; /* start of exceptions */
+    KEEP(*(.vector_table.exceptions)); /* this is the `__EXCEPTIONS` symbol */
+    __eexceptions = .; /* end of exceptions */
 
-    /* 设备特定中断 */
-    KEEP(*(.vector_table.interrupts)); /* 这是 `__INTERRUPTS` 符号 */
+    /* Device specific interrupts */
+    KEEP(*(.vector_table.interrupts)); /* this is the `__INTERRUPTS` symbol */
   } &gt; FLASH
 
   PROVIDE(_stext = ADDR(.vector_table) + SIZEOF(.vector_table));
 
-  /* 代码段 */
+  /* ### .text */
   .text _stext :
   {
     __stext = .;
@@ -356,44 +365,45 @@ SECTIONS
 
     *(.text .text.*);
 
-    /* HardFaultTrampoline 使用 `b` 指令进入 `HardFault`，
-       因此必须放置在其附近 */
+    /* The HardFaultTrampoline uses the `b` instruction to enter `HardFault`,
+       so must be placed close to it. */
     *(.HardFaultTrampoline);
     *(.HardFault.*);
 
-    . = ALIGN(4); /* 填充 .text 到对齐边界，解决旧版 lld 的重叠加载段 bug */
+    . = ALIGN(4); /* Pad .text to the alignment to workaround overlapping load section bug in old lld */
     __etext = .;
   } &gt; FLASH
 
-  /* 只读数据段 */
+  /* ### .rodata */
   .rodata : ALIGN(4)
   {
     . = ALIGN(4);
     __srodata = .;
     *(.rodata .rodata.*);
 
-    /* 4 字节对齐段末尾 (VMA)
-       LLD 要求这样做以确保后续 .data 段的 LMA 具有正确的对齐 */
+    /* 4-byte align the end (VMA) of this section.
+       This is required by LLD to ensure the LMA of the following .data
+       section will have the correct alignment. */
     . = ALIGN(4);
     __erodata = .;
   } &gt; FLASH
 
-  /* RAM 中的段 */
-  /* 初始化数据段 */
+  /* ## Sections in RAM */
+  /* ### .data */
   .data : ALIGN(4)
   {
     . = ALIGN(4);
     __sdata = .;
     *(.data .data.*);
-    . = ALIGN(4); /* 4 字节对齐段末尾 (VMA) */
+    . = ALIGN(4); /* 4-byte align the end (VMA) of this section */
   } &gt; RAM AT&gt;FLASH
-  /* 允许用户 `memory.x` 中使用 `INSERT AFTER .data` 注入的段
-   * 通过推送 __edata 来使用 .data 加载机制。注意：不要在这些用户段中
-   * 更改输出区域或加载区域！ */
+  /* Allow sections from user `memory.x` injected using `INSERT AFTER .data` to
+   * use the .data loading mechanism by pushing __edata. Note: do not change
+   * output region or load region in those user sections! */
   . = ALIGN(4);
   __edata = .;
 
-  /* .data 段的加载地址 (LMA) */
+  /* LMA of .data */
   __sidata = LOADADDR(.data);
 
   /* ### .gnu.sgstubs
@@ -538,6 +548,7 @@ ASSERT(SIZEOF(.vector_table) &lt;= 0x400, "
 There can't be more than 240 interrupt handlers. This may be a bug in
 your device crate, or you may have registered more than 240 interrupt
 handlers.");
+
 </code></pre>
 
                     </main>

@@ -1422,7 +1422,7 @@ up_mode = "NoBlockSkip"
 
 [default.gdb]
 enabled = true
-gdb_connection_string = "127.0.0.1:1337"
+gdb_connection_string = "127.0.0.1:3333"
 </code></pre>
 <h2 id="配置文件详解"><a class="header" href="#配置文件详解">配置文件详解</a></h2>
 <p><code>Embed.toml</code> 是 probe-rs 工具的配置文件，用于配置调试器与 STM32F3 开发板的连接和调试参数。各配置段说明如下：</p>
@@ -1488,7 +1488,7 @@ gdb_connection_string = "127.0.0.1:1337"
 <h3 id="defaultgdb---gdb-调试器配置"><a class="header" href="#defaultgdb---gdb-调试器配置"><code>[default.gdb]</code> - GDB 调试器配置</a></h3>
 <ul>
 <li><strong><code>enabled = true</code></strong>: 启用 GDB 调试功能，允许 GDB 调试器连接到 probe-rs</li>
-<li><strong><code>gdb_connection_string = "127.0.0.1:1337"</code></strong>: 设置 GDB 连接字符串
+<li><strong><code>gdb_connection_string = "127.0.0.1:3333"</code></strong>: 设置 GDB 连接字符串
 <ul>
 <li>probe-rs 在本地 127.0.0.1:1337 端口启动 GDB 服务器</li>
 <li>GDB 客户端通过此地址连接进行调试</li>
@@ -1684,34 +1684,43 @@ target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
 </code></pre>
 <h3 id="创建自定义链接脚本"><a class="header" href="#创建自定义链接脚本">创建自定义链接脚本</a></h3>
 <p>创建 <code>./link.x</code> 文件，这是一个完整的 ARM Cortex-M 链接脚本：</p>
-<pre><code class="language-ld">/*
- * ARM Cortex-M 自定义链接脚本
- *
- * 开发者注意事项:
- * - 双下划线开头的符号 (__) 被视为"私有"符号
- * - 单下划线开头的符号 (_) 被视为"半公开"符号，可在用户链接脚本中覆盖
- * - EXTERN 强制链接器保留符号在最终二进制文件中
- * - PROVIDE 用于提供可被用户链接脚本覆盖的默认值
- * - 对齐要求：.bss 和 .data 的 VMA 边界以及 .data 的 LMA 必须 4 字节对齐
- */
+<pre><code class="language-ld">/* # Developer notes
 
-/* 包含设备内存布局信息 */
-/* 由用户提供 (参见 `memory.x`) 或由板级支持包提供 */
+- Symbols that start with a double underscore (__) are considered "private"
+
+- Symbols that start with a single underscore (_) are considered "semi-public"; they can be
+  overridden in a user linker script, but should not be referred from user code (e.g. `extern "C" {
+  static mut __sbss }`).
+
+- `EXTERN` forces the linker to keep a symbol in the final binary. We use this to make sure a
+  symbol is not dropped if it appears in or near the front of the linker arguments and "it's not
+  needed" by any of the preceding objects (linker arguments)
+
+- `PROVIDE` is used to provide default values that can be overridden by a user linker script
+
+- On alignment: it's important for correctness that the VMA boundaries of both .bss and .data *and*
+  the LMA of .data are all 4-byte aligned. These alignments are assumed by the RAM initialization
+  routine. There's also a second benefit: 4-byte aligned boundaries means that you won't see
+  "Address (..) is out of bounds" in the disassembly produced by `objdump`.
+*/
+
+/* Provides information about the memory layout of the device */
+/* This will be provided by the user (see `memory.x`) or by a Board Support Crate */
 INCLUDE memory.x
 
-/* 程序入口点 = 复位向量 */
+/* # Entry point = reset vector */
 EXTERN(__RESET_VECTOR);
 EXTERN(Reset);
 ENTRY(Reset);
 
-/* 异常向量表 */
-/* 这实际上是链接器级别的弱别名 */
-/* 用户可以通过定义相应符号来覆盖这些别名 (参见 `exception!` 宏) */
-EXTERN(__EXCEPTIONS); /* 依赖于所有这些 PROVIDED 符号 */
+/* # Exception vectors */
+/* This is effectively weak aliasing at the linker level */
+/* The user can override any of these aliases by defining the corresponding symbol themselves (cf.
+   the `exception!` macro) */
+EXTERN(__EXCEPTIONS); /* depends on all the these PROVIDED symbols */
 
 EXTERN(DefaultHandler);
 
-/* 异常处理程序默认值 */
 PROVIDE(NonMaskableInt = DefaultHandler);
 EXTERN(HardFaultTrampoline);
 PROVIDE(MemoryManagement = DefaultHandler);
@@ -1726,49 +1735,49 @@ PROVIDE(SysTick = DefaultHandler);
 PROVIDE(DefaultHandler = DefaultHandler_);
 PROVIDE(HardFault = HardFault_);
 
-/* 中断向量表 */
-EXTERN(__INTERRUPTS); /* 类似于 `__EXCEPTIONS` 的静态变量 */
+/* # Interrupt vectors */
+EXTERN(__INTERRUPTS); /* `static` variable similar to `__EXCEPTIONS` */
 
-/* 预初始化函数 */
-/* 如果用户使用 `pre_init!` 宏或创建 `__pre_init` 函数覆盖此函数，
-   则该函数将在 RAM 初始化之前被调用 */
+/* # Pre-initialization function */
+/* If the user overrides this using the `pre_init!` macro or by creating a `__pre_init` function,
+   then the function this points to will be called before the RAM is initialized. */
 PROVIDE(__pre_init = DefaultPreInit);
 
-/* 内存段定义 */
+/* # Sections */
 SECTIONS
 {
-  /* RAM 区域定义 */
   PROVIDE(_ram_start = ORIGIN(RAM));
   PROVIDE(_ram_end = ORIGIN(RAM) + LENGTH(RAM));
   PROVIDE(_stack_start = _ram_end);
 
-  /* FLASH 中的段 */
-  /* 中断向量表 */
+  /* ## Sections in FLASH */
+  /* ### Vector table */
   .vector_table ORIGIN(FLASH) :
   {
     __vector_table = .;
 
-    /* 初始栈指针 (SP) 值
-     * 屏蔽低 3 位以强制 8 字节对齐
-     * 尽管后面有断言检查，但单独的链接脚本可能在断言检查后覆盖 _stack_start
+    /* Initial Stack Pointer (SP) value.
+     * We mask the bottom three bits to force 8-byte alignment.
+     * Despite having an assert for this later, it's possible that a separate
+     * linker script could override _stack_start after the assert is checked.
      */
     LONG(_stack_start &amp; 0xFFFFFFF8);
 
-    /* 复位向量 */
-    KEEP(*(.vector_table.reset_vector)); /* 这是 `__RESET_VECTOR` 符号 */
+    /* Reset vector */
+    KEEP(*(.vector_table.reset_vector)); /* this is the `__RESET_VECTOR` symbol */
 
-    /* 异常向量 */
-    __exceptions = .; /* 异常开始位置 */
-    KEEP(*(.vector_table.exceptions)); /* 这是 `__EXCEPTIONS` 符号 */
-    __eexceptions = .; /* 异常结束位置 */
+    /* Exceptions */
+    __exceptions = .; /* start of exceptions */
+    KEEP(*(.vector_table.exceptions)); /* this is the `__EXCEPTIONS` symbol */
+    __eexceptions = .; /* end of exceptions */
 
-    /* 设备特定中断 */
-    KEEP(*(.vector_table.interrupts)); /* 这是 `__INTERRUPTS` 符号 */
+    /* Device specific interrupts */
+    KEEP(*(.vector_table.interrupts)); /* this is the `__INTERRUPTS` symbol */
   } &gt; FLASH
 
   PROVIDE(_stext = ADDR(.vector_table) + SIZEOF(.vector_table));
 
-  /* 代码段 */
+  /* ### .text */
   .text _stext :
   {
     __stext = .;
@@ -1776,44 +1785,45 @@ SECTIONS
 
     *(.text .text.*);
 
-    /* HardFaultTrampoline 使用 `b` 指令进入 `HardFault`，
-       因此必须放置在其附近 */
+    /* The HardFaultTrampoline uses the `b` instruction to enter `HardFault`,
+       so must be placed close to it. */
     *(.HardFaultTrampoline);
     *(.HardFault.*);
 
-    . = ALIGN(4); /* 填充 .text 到对齐边界，解决旧版 lld 的重叠加载段 bug */
+    . = ALIGN(4); /* Pad .text to the alignment to workaround overlapping load section bug in old lld */
     __etext = .;
   } &gt; FLASH
 
-  /* 只读数据段 */
+  /* ### .rodata */
   .rodata : ALIGN(4)
   {
     . = ALIGN(4);
     __srodata = .;
     *(.rodata .rodata.*);
 
-    /* 4 字节对齐段末尾 (VMA)
-       LLD 要求这样做以确保后续 .data 段的 LMA 具有正确的对齐 */
+    /* 4-byte align the end (VMA) of this section.
+       This is required by LLD to ensure the LMA of the following .data
+       section will have the correct alignment. */
     . = ALIGN(4);
     __erodata = .;
   } &gt; FLASH
 
-  /* RAM 中的段 */
-  /* 初始化数据段 */
+  /* ## Sections in RAM */
+  /* ### .data */
   .data : ALIGN(4)
   {
     . = ALIGN(4);
     __sdata = .;
     *(.data .data.*);
-    . = ALIGN(4); /* 4 字节对齐段末尾 (VMA) */
+    . = ALIGN(4); /* 4-byte align the end (VMA) of this section */
   } &gt; RAM AT&gt;FLASH
-  /* 允许用户 `memory.x` 中使用 `INSERT AFTER .data` 注入的段
-   * 通过推送 __edata 来使用 .data 加载机制。注意：不要在这些用户段中
-   * 更改输出区域或加载区域！ */
+  /* Allow sections from user `memory.x` injected using `INSERT AFTER .data` to
+   * use the .data loading mechanism by pushing __edata. Note: do not change
+   * output region or load region in those user sections! */
   . = ALIGN(4);
   __edata = .;
 
-  /* .data 段的加载地址 (LMA) */
+  /* LMA of .data */
   __sidata = LOADADDR(.data);
 
   /* ### .gnu.sgstubs
@@ -1958,6 +1968,7 @@ ASSERT(SIZEOF(.vector_table) &lt;= 0x400, "
 There can't be more than 240 interrupt handlers. This may be a bug in
 your device crate, or you may have registered more than 240 interrupt
 handlers.");
+
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hal工程"><a class="header" href="#hal工程">HAL工程</a></h1>
 <p>相对于PAC工程，我们不再直接使用PAC，而是使用开源社区提供的HAL库来简化开发过程。</p>
@@ -2083,42 +2094,45 @@ MEMORY
 }
 </code></pre>
 <h3 id="2-创建linkx文件"><a class="header" href="#2-创建linkx文件">2. 创建<code>link.x</code>文件</a></h3>
-<p>这是一个完整的链接脚本，用于定义内存段和程序入口点。由于文件较长，这里不完整展示，但它包含以下主要部分：</p>
+<p>这是一个完整的链接脚本，用于定义内存段和程序入口点。若不自定义可以使用<code>cortex_m_rt</code>自动生成的<code>link.x</code>文件。位于编译输出路径下，可以使用<code>find</code>进行查找。本工程使用的<code>link.x</code>文件就是从<code>cortex_m_rt</code>自动生成的，为了演示自定义链接脚本才提取出来：
+/* # Developer notes</p>
 <ul>
-<li>程序入口点设置</li>
-<li>异常向量表布局</li>
-<li>内存段定义（<code>.vector_table</code>、<code>.text</code>、<code>.rodata</code>、<code>.data</code>、<code>.bss</code>等）</li>
-<li>内存对齐和位置检查</li>
+<li>
+<p>Symbols that start with a double underscore (__) are considered "private"</p>
+</li>
+<li>
+<p>Symbols that start with a single underscore (_) are considered "semi-public"; they can be
+overridden in a user linker script, but should not be referred from user code (e.g. <code>extern "C" { static mut __sbss }</code>).</p>
+</li>
+<li>
+<p><code>EXTERN</code> forces the linker to keep a symbol in the final binary. We use this to make sure a
+symbol if not dropped if it appears in or near the front of the linker arguments and "it's not
+needed" by any of the preceding objects (linker arguments)</p>
+</li>
+<li>
+<p><code>PROVIDE</code> is used to provide default values that can be overridden by a user linker script</p>
+</li>
+<li>
+<p>On alignment: it's important for correctness that the VMA boundaries of both .bss and .data <em>and</em>
+the LMA of .data are all 4-byte aligned. These alignments are assumed by the RAM initialization
+routine. There's also a second benefit: 4-byte aligned boundaries means that you won't see
+"Address (..) is out of bounds" in the disassembly produced by <code>objdump</code>.
+*/</p>
+</li>
 </ul>
-<pre><code class="language-lld">/*
- * ARM Cortex-M 自定义链接脚本
- *
- * 开发者注意事项:
- * - 双下划线开头的符号 (__) 被视为"私有"符号
- * - 单下划线开头的符号 (_) 被视为"半公开"符号，可在用户链接脚本中覆盖
- * - EXTERN 强制链接器保留符号在最终二进制文件中
- * - PROVIDE 用于提供可被用户链接脚本覆盖的默认值
- * - 对齐要求：.bss 和 .data 的 VMA 边界以及 .data 的 LMA 必须 4 字节对齐
- */
-
-/* 包含设备内存布局信息 */
-/* 由用户提供 (参见 `memory.x`) 或由板级支持包提供 */
-INCLUDE memory.x
-
-/* 程序入口点 = 复位向量 */
-EXTERN(__RESET_VECTOR);
-EXTERN(Reset);
+<p>/* Provides information about the memory layout of the device <em>/
+/</em> This will be provided by the user (see <code>memory.x</code>) or by a Board Support Crate */
+INCLUDE memory.x</p>
+<p>/* # Entry point = reset vector <em>/
 ENTRY(Reset);
-
-/* 异常向量表 */
-/* 这实际上是链接器级别的弱别名 */
-/* 用户可以通过定义相应符号来覆盖这些别名 (参见 `exception!` 宏) */
-EXTERN(__EXCEPTIONS); /* 依赖于所有这些 PROVIDED 符号 */
-
-EXTERN(DefaultHandler);
-
-/* 异常处理程序默认值 */
-PROVIDE(NonMaskableInt = DefaultHandler);
+EXTERN(__RESET_VECTOR); /</em> depends on the <code>Reset</code> symbol */</p>
+<p>/* # Exception vectors <em>/
+/</em> This is effectively weak aliasing at the linker level <em>/
+/</em> The user can override any of these aliases by defining the corresponding symbol themselves (cf.
+the <code>exception!</code> macro) <em>/
+EXTERN(__EXCEPTIONS); /</em> depends on all the these PROVIDED symbols */</p>
+<p>EXTERN(DefaultHandler);</p>
+<p>PROVIDE(NonMaskableInt = DefaultHandler);
 EXTERN(HardFaultTrampoline);
 PROVIDE(MemoryManagement = DefaultHandler);
 PROVIDE(BusFault = DefaultHandler);
@@ -2127,248 +2141,166 @@ PROVIDE(SecureFault = DefaultHandler);
 PROVIDE(SVCall = DefaultHandler);
 PROVIDE(DebugMonitor = DefaultHandler);
 PROVIDE(PendSV = DefaultHandler);
-PROVIDE(SysTick = DefaultHandler);
-
-PROVIDE(DefaultHandler = DefaultHandler_);
-PROVIDE(HardFault = HardFault_);
-
-/* 中断向量表 */
-EXTERN(__INTERRUPTS); /* 类似于 `__EXCEPTIONS` 的静态变量 */
-
-/* 预初始化函数 */
-/* 如果用户使用 `pre_init!` 宏或创建 `__pre_init` 函数覆盖此函数，
-   则该函数将在 RAM 初始化之前被调用 */
-PROVIDE(__pre_init = DefaultPreInit);
-
-/* 内存段定义 */
+PROVIDE(SysTick = DefaultHandler);</p>
+<p>PROVIDE(DefaultHandler = DefaultHandler_);
+PROVIDE(HardFault = HardFault_);</p>
+<p>/* # Interrupt vectors <em>/
+EXTERN(__INTERRUPTS); /</em> <code>static</code> variable similar to <code>__EXCEPTIONS</code> */</p>
+<p>/* # Pre-initialization function <em>/
+/</em> If the user overrides this using the <code>pre_init!</code> macro or by creating a <code>__pre_init</code> function,
+then the function this points to will be called before the RAM is initialized. */
+PROVIDE(__pre_init = DefaultPreInit);</p>
+<p>/* # Sections */
 SECTIONS
 {
-  /* RAM 区域定义 */
-  PROVIDE(_ram_start = ORIGIN(RAM));
-  PROVIDE(_ram_end = ORIGIN(RAM) + LENGTH(RAM));
-  PROVIDE(_stack_start = _ram_end);
+PROVIDE(_stack_start = ORIGIN(RAM) + LENGTH(RAM));</p>
+<p>/* ## Sections in FLASH <em>/
+/</em> ### Vector table <em>/
+.vector_table ORIGIN(FLASH) :
+{
+/</em> Initial Stack Pointer (SP) value */
+LONG(_stack_start);</p>
+<pre><code>/* Reset vector */
+KEEP(*(.vector_table.reset_vector)); /* this is the `__RESET_VECTOR` symbol */
+__reset_vector = .;
 
-  /* FLASH 中的段 */
-  /* 中断向量表 */
-  .vector_table ORIGIN(FLASH) :
-  {
-    __vector_table = .;
+/* Exceptions */
+KEEP(*(.vector_table.exceptions)); /* this is the `__EXCEPTIONS` symbol */
+__eexceptions = .;
 
-    /* 初始栈指针 (SP) 值
-     * 屏蔽低 3 位以强制 8 字节对齐
-     * 尽管后面有断言检查，但单独的链接脚本可能在断言检查后覆盖 _stack_start
-     */
-    LONG(_stack_start &amp; 0xFFFFFFF8);
-
-    /* 复位向量 */
-    KEEP(*(.vector_table.reset_vector)); /* 这是 `__RESET_VECTOR` 符号 */
-
-    /* 异常向量 */
-    __exceptions = .; /* 异常开始位置 */
-    KEEP(*(.vector_table.exceptions)); /* 这是 `__EXCEPTIONS` 符号 */
-    __eexceptions = .; /* 异常结束位置 */
-
-    /* 设备特定中断 */
-    KEEP(*(.vector_table.interrupts)); /* 这是 `__INTERRUPTS` 符号 */
-  } &gt; FLASH
-
-  PROVIDE(_stext = ADDR(.vector_table) + SIZEOF(.vector_table));
-
-  /* 代码段 */
-  .text _stext :
-  {
-    __stext = .;
-    *(.Reset);
-
-    *(.text .text.*);
-
-    /* HardFaultTrampoline 使用 `b` 指令进入 `HardFault`，
-       因此必须放置在其附近 */
-    *(.HardFaultTrampoline);
-    *(.HardFault.*);
-
-    . = ALIGN(4); /* 填充 .text 到对齐边界，解决旧版 lld 的重叠加载段 bug */
-    __etext = .;
-  } &gt; FLASH
-
-  /* 只读数据段 */
-  .rodata : ALIGN(4)
-  {
-    . = ALIGN(4);
-    __srodata = .;
-    *(.rodata .rodata.*);
-
-    /* 4 字节对齐段末尾 (VMA)
-       LLD 要求这样做以确保后续 .data 段的 LMA 具有正确的对齐 */
-    . = ALIGN(4);
-    __erodata = .;
-  } &gt; FLASH
-
-  /* RAM 中的段 */
-  /* 初始化数据段 */
-  .data : ALIGN(4)
-  {
-    . = ALIGN(4);
-    __sdata = .;
-    *(.data .data.*);
-    . = ALIGN(4); /* 4 字节对齐段末尾 (VMA) */
-  } &gt; RAM AT&gt;FLASH
-  /* 允许用户 `memory.x` 中使用 `INSERT AFTER .data` 注入的段
-   * 通过推送 __edata 来使用 .data 加载机制。注意：不要在这些用户段中
-   * 更改输出区域或加载区域！ */
-  . = ALIGN(4);
-  __edata = .;
-
-  /* .data 段的加载地址 (LMA) */
-  __sidata = LOADADDR(.data);
-
-  /* ### .gnu.sgstubs
-     This section contains the TrustZone-M veneers put there by the Arm GNU linker. */
-  /* Security Attribution Unit blocks must be 32 bytes aligned. */
-  /* Note that this pads the FLASH usage to 32 byte alignment. */
-  .gnu.sgstubs : ALIGN(32)
-  {
-    . = ALIGN(32);
-    __veneer_base = .;
-    *(.gnu.sgstubs*)
-    . = ALIGN(32);
-  } &gt; FLASH
-  /* Place `__veneer_limit` outside the `.gnu.sgstubs` section because veneers are
-   * always inserted last in the section, which would otherwise be _after_ the `__veneer_limit` symbol.
-   */
-  . = ALIGN(32);
-  __veneer_limit = .;
-
-  /* ### .bss */
-  .bss (NOLOAD) : ALIGN(4)
-  {
-    . = ALIGN(4);
-    __sbss = .;
-    *(.bss .bss.*);
-    *(COMMON); /* Uninitialized C statics */
-    . = ALIGN(4); /* 4-byte align the end (VMA) of this section */
-  } &gt; RAM
-  /* Allow sections from user `memory.x` injected using `INSERT AFTER .bss` to
-   * use the .bss zeroing mechanism by pushing __ebss. Note: do not change
-   * output region or load region in those user sections! */
-  . = ALIGN(4);
-  __ebss = .;
-
-  /* ### .uninit */
-  .uninit (NOLOAD) : ALIGN(4)
-  {
-    . = ALIGN(4);
-    __suninit = .;
-    *(.uninit .uninit.*);
-    . = ALIGN(4);
-    __euninit = .;
-  } &gt; RAM
-
-  /* Place the heap right after `.uninit` in RAM */
-  PROVIDE(__sheap = __euninit);
-
-  /* Place stack end at the end of allocated RAM */
-  PROVIDE(_stack_end = __euninit);
-
-  /* ## .got */
-  /* Dynamic relocations are unsupported. This section is only used to detect relocatable code in
-     the input files and raise an error if relocatable code is found */
-  .got (NOLOAD) :
-  {
-    KEEP(*(.got .got.*));
-  }
-
-  /* ## Discarded sections */
-  /DISCARD/ :
-  {
-    /* Unused exception related info that only wastes space */
-    *(.ARM.exidx);
-    *(.ARM.exidx.*);
-    *(.ARM.extab.*);
-  }
+/* Device specific interrupts */
+KEEP(*(.vector_table.interrupts)); /* this is the `__INTERRUPTS` symbol */
+</code></pre>
+<p>} &gt; FLASH</p>
+<p>PROVIDE(_stext = ADDR(.vector_table) + SIZEOF(.vector_table));</p>
+<p>/* ### .text <em>/
+.text _stext :
+{
+/</em> place these 2 close to each other or the <code>b</code> instruction will fail to link */
+*(.PreResetTrampoline);
+*(.Reset);</p>
+<pre><code>*(.text .text.*);
+*(.HardFaultTrampoline);
+*(.HardFault.*);
+. = ALIGN(4);
+__etext = .;
+</code></pre>
+<p>} &gt; FLASH</p>
+<p>/* ### .rodata */
+.rodata __etext : ALIGN(4)
+{
+<em>(.rodata .rodata.</em>);</p>
+<pre><code>/* 4-byte align the end (VMA) of this section.
+   This is required by LLD to ensure the LMA of the following .data
+   section will have the correct alignment. */
+. = ALIGN(4);
+__erodata = .;
+</code></pre>
+<p>} &gt; FLASH</p>
+<p>/* ## Sections in RAM <em>/
+/</em> ### .data <em>/
+.data : ALIGN(4)
+{
+. = ALIGN(4);
+__sdata = .;
+<em>(.data .data.</em>);
+. = ALIGN(4); /</em> 4-byte align the end (VMA) of this section */
+__edata = .;
+} &gt; RAM AT&gt;FLASH</p>
+<p>/* LMA of .data */
+__sidata = LOADADDR(.data);</p>
+<p>/* ### .bss <em>/
+.bss (NOLOAD) : ALIGN(4)
+{
+. = ALIGN(4);
+__sbss = .;
+<em>(.bss .bss.</em>);
+. = ALIGN(4); /</em> 4-byte align the end (VMA) of this section */
+__ebss = .;
+} &gt; RAM</p>
+<p>/* ### .uninit */
+.uninit (NOLOAD) : ALIGN(4)
+{
+. = ALIGN(4);
+<em>(.uninit .uninit.</em>);
+. = ALIGN(4);
+} &gt; RAM</p>
+<p>/* Place the heap right after <code>.uninit</code> */
+. = ALIGN(4);
+__sheap = .;</p>
+<p>/* ## .got <em>/
+/</em> Dynamic relocations are unsupported. This section is only used to detect relocatable code in
+the input files and raise an error if relocatable code is found <em>/
+.got (NOLOAD) :
+{
+KEEP(</em>(.got .got.*));
+}</p>
+<p>/* ## Discarded sections <em>/
+/DISCARD/ :
+{
+/</em> Unused exception related info that only wastes space */
+*(.ARM.exidx);
+<em>(.ARM.exidx.</em>);
+<em>(.ARM.extab.</em>);
 }
-
-/* Do not exceed this mark in the error messages below                                    | */
-/* # Alignment checks */
+}</p>
+<p>/* Do not exceed this mark in the error messages below                                    | <em>/
+/</em> # Alignment checks */
 ASSERT(ORIGIN(FLASH) % 4 == 0, "
-ERROR(cortex-m-rt): the start of the FLASH region must be 4-byte aligned");
-
-ASSERT(ORIGIN(RAM) % 4 == 0, "
-ERROR(cortex-m-rt): the start of the RAM region must be 4-byte aligned");
-
-ASSERT(__sdata % 4 == 0 &amp;&amp; __edata % 4 == 0, "
-BUG(cortex-m-rt): .data is not 4-byte aligned");
-
-ASSERT(__sidata % 4 == 0, "
-BUG(cortex-m-rt): the LMA of .data is not 4-byte aligned");
-
-ASSERT(__sbss % 4 == 0 &amp;&amp; __ebss % 4 == 0, "
-BUG(cortex-m-rt): .bss is not 4-byte aligned");
-
-ASSERT(__sheap % 4 == 0, "
-BUG(cortex-m-rt): start of .heap is not 4-byte aligned");
-
-ASSERT(_stack_start % 8 == 0, "
-ERROR(cortex-m-rt): stack start address is not 8-byte aligned.
-If you have set _stack_start, check it's set to an address which is a multiple of 8 bytes.
-If you haven't, stack starts at the end of RAM by default. Check that both RAM
-origin and length are set to multiples of 8 in the `memory.x` file.");
-
-ASSERT(_stack_end % 4 == 0, "
-ERROR(cortex-m-rt): end of stack is not 4-byte aligned");
-
-ASSERT(_stack_start &gt;= _stack_end, "
-ERROR(cortex-m-rt): stack end address is not below stack start.");
-
-/* # Position checks */
-
-/* ## .vector_table
- *
- * If the *start* of exception vectors is not 8 bytes past the start of the
- * vector table, then we somehow did not place the reset vector, which should
- * live 4 bytes past the start of the vector table.
- */
-ASSERT(__exceptions == ADDR(.vector_table) + 0x8, "
-BUG(cortex-m-rt): the reset vector is missing");
-
-ASSERT(__eexceptions == ADDR(.vector_table) + 0x40, "
-BUG(cortex-m-rt): the exception vectors are missing");
-
-ASSERT(SIZEOF(.vector_table) &gt; 0x40, "
+ERROR(cortex-m-rt): the start of the FLASH region must be 4-byte aligned");</p>
+<p>ASSERT(ORIGIN(RAM) % 4 == 0, "
+ERROR(cortex-m-rt): the start of the RAM region must be 4-byte aligned");</p>
+<p>ASSERT(__sdata % 4 == 0 &amp;&amp; __edata % 4 == 0, "
+BUG(cortex-m-rt): .data is not 4-byte aligned");</p>
+<p>ASSERT(__sidata % 4 == 0, "
+BUG(cortex-m-rt): the LMA of .data is not 4-byte aligned");</p>
+<p>ASSERT(__sbss % 4 == 0 &amp;&amp; __ebss % 4 == 0, "
+BUG(cortex-m-rt): .bss is not 4-byte aligned");</p>
+<p>ASSERT(__sheap % 4 == 0, "
+BUG(cortex-m-rt): start of .heap is not 4-byte aligned");</p>
+<p>/* # Position checks */</p>
+<p>/* ## .vector_table */
+ASSERT(__reset_vector == ADDR(.vector_table) + 0x8, "
+BUG(cortex-m-rt): the reset vector is missing");</p>
+<p>ASSERT(__eexceptions == ADDR(.vector_table) + 0x40, "
+BUG(cortex-m-rt): the exception vectors are missing");</p>
+<p>ASSERT(SIZEOF(.vector_table) &gt; 0x40, "
 ERROR(cortex-m-rt): The interrupt vectors are missing.
-Possible solutions, from most likely to less likely:
-- Link to a svd2rust generated device crate
-- Check that you actually use the device/hal/bsp crate in your code
-- Disable the 'device' feature of cortex-m-rt to build a generic application (a dependency
-may be enabling it)
-- Supply the interrupt handlers yourself. Check the documentation for details.");
-
-/* ## .text */
+Possible solutions, from most likely to less likely:</p>
+<ul>
+<li>Link to a svd2rust generated device crate</li>
+<li>Disable the 'device' feature of cortex-m-rt to build a generic application (a dependency
+may be enabling it)</li>
+<li>Supply the interrupt handlers yourself. Check the documentation for details.");</li>
+</ul>
+<p>/* ## .text */
 ASSERT(ADDR(.vector_table) + SIZEOF(.vector_table) &lt;= _stext, "
 ERROR(cortex-m-rt): The .text section can't be placed inside the .vector_table section
-Set _stext to an address greater than the end of .vector_table (See output of `nm`)");
-
-ASSERT(_stext &gt; ORIGIN(FLASH) &amp;&amp; _stext &lt; ORIGIN(FLASH) + LENGTH(FLASH), "
+Set _stext to an address greater than the end of .vector_table (See output of <code>nm</code>)");</p>
+<p>ASSERT(_stext + SIZEOF(.text) &lt; ORIGIN(FLASH) + LENGTH(FLASH), "
 ERROR(cortex-m-rt): The .text section must be placed inside the FLASH memory.
-Set _stext to an address within the FLASH region.");
-
-/* # Other checks */
+Set _stext to an address smaller than 'ORIGIN(FLASH) + LENGTH(FLASH)'");</p>
+<p>/* # Other checks <em>/
 ASSERT(SIZEOF(.got) == 0, "
 ERROR(cortex-m-rt): .got section detected in the input object files
 Dynamic relocations are not supported. If you are linking to C code compiled using
-the 'cc' crate then modify your build script to compile the C code _without_
-the -fPIC flag. See the documentation of the `cc::Build.pic` method for details.");
-/* Do not exceed this mark in the error messages above                                    | */
-
-ASSERT(SIZEOF(.vector_table) &lt;= 0x400, "
+the 'cc' crate then modify your build script to compile the C code <em>without</em>
+the -fPIC flag. See the documentation of the <code>cc::Build.pic</code> method for details.");
+/</em> Do not exceed this mark in the error messages above                                    | */</p>
+<p>/* Provides weak aliases (cf. PROVIDED) for device specific interrupt handlers <em>/
+/</em> This will usually be provided by a device crate generated using svd2rust (see <code>device.x</code>) */
+INCLUDE device.x</p>
+<p>ASSERT(SIZEOF(.vector_table) &lt;= 0x400, "
 There can't be more than 240 interrupt handlers. This may be a bug in
 your device crate, or you may have registered more than 240 interrupt
-handlers.");
+handlers.");</p>
+<pre><code>
+### 3. 创建构建脚本
 
-</code></pre>
-<h3 id="3-创建构建脚本"><a class="header" href="#3-创建构建脚本">3. 创建构建脚本</a></h3>
-<p>创建<code>build.rs</code>文件，用于设置链接器：</p>
-<pre><pre class="playground"><code class="language-rust">//! 此构建脚本设置链接器以在crate根目录中找到`memory.x`和`link.x`文件，
+创建`build.rs`文件，用于设置链接器：
+
+```rust
+//! 此构建脚本设置链接器以在crate根目录中找到`memory.x`和`link.x`文件，
 //! 并配置必要的链接器参数。
 
 use std::env;
@@ -2387,7 +2319,8 @@ fn main() {
     println!("cargo:rustc-link-arg=--nmagic");
 
     println!("cargo:rustc-link-arg=-Tlink.x");
-}</code></pre></pre>
+}
+</code></pre>
 <h2 id="基本程序结构"><a class="header" href="#基本程序结构">基本程序结构</a></h2>
 <h3 id="1-创建中断处理模块"><a class="header" href="#1-创建中断处理模块">1. 创建中断处理模块</a></h3>
 <p>创建<code>src/interrupts.rs</code>文件：</p>
@@ -2589,7 +2522,455 @@ Breakpoint 1, hal::__cortex_m_rt_main_trampoline () at src/main.rs:14
 <li><code>quit</code> - 退出调试器</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bsp工程"><a class="header" href="#bsp工程">BSP工程</a></h1>
-<p>TODO</p>
+<p>本章节的工程建立在 <a href="https://github.com/rubberduck203/stm32f3-discovery">stm32f3-discovery</a> crate之上。这个crate使用了HAL库，HAL库使用了PAC库。</p>
+<h2 id="什么是bsp"><a class="header" href="#什么是bsp">什么是BSP</a></h2>
+<p>BSP（Board Support Package，板级支持包）是为特定开发板提供硬件抽象层的软件包。它封装了开发板上硬件外设的驱动程序和初始化代码，为应用程序提供简洁易用的API接口。</p>
+<p>在我们的STM32F3 Discovery项目中，BSP主要提供：</p>
+<ul>
+<li>LED控制接口</li>
+<li>延时功能</li>
+<li>硬件初始化</li>
+</ul>
+<h2 id="bsp架构层级"><a class="header" href="#bsp架构层级">BSP架构层级</a></h2>
+<pre><code>应用层 (main.rs)
+    ↓
+BSP层 (bsp.rs) - 板级抽象
+    ↓  
+HAL层 (stm32f3xx-hal) - 硬件抽象层
+    ↓
+PAC层 (stm32f3xx-pac) - 外设访问层
+    ↓
+硬件层 (STM32F303 MCU)
+</code></pre>
+<h2 id="主要功能"><a class="header" href="#主要功能">主要功能</a></h2>
+<h3 id="1-led控制"><a class="header" href="#1-led控制">1. LED控制</a></h3>
+<p>BSP提供8个LED的统一控制接口：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub type LedArray = [Switch&lt;gpioe::PEx&lt;Output&lt;PushPull&gt;&gt;, ActiveHigh&gt;; 8];
+<span class="boring">}</span></code></pre></pre>
+<p>每个LED支持以下操作：</p>
+<ul>
+<li><code>led.on()</code> - 点亮LED</li>
+<li><code>led.off()</code> - 熄灭LED</li>
+<li><code>led.toggle()</code> - 切换LED状态</li>
+</ul>
+<h3 id="2-延时功能"><a class="header" href="#2-延时功能">2. 延时功能</a></h3>
+<p>提供基于系统滴答定时器的精确延时：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub use stm32f3xx_hal::delay::Delay;
+<span class="boring">}</span></code></pre></pre>
+<p>支持毫秒级延时：</p>
+<ul>
+<li><code>delay.delay_ms(time)</code> - 延时指定毫秒数</li>
+</ul>
+<h3 id="3-硬件初始化"><a class="header" href="#3-硬件初始化">3. 硬件初始化</a></h3>
+<p><code>init()</code> 函数负责完成所有硬件的初始化工作：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn init() -&gt; (Delay, LedArray) {
+    // 获取外设句柄
+    let device_periphs = pac::Peripherals::take().unwrap();
+    let core_periphs = cortex_m::Peripherals::take().unwrap();
+    
+    // 配置时钟系统
+    let mut reset_and_clock_control = device_periphs.RCC.constrain();
+    let mut flash = device_periphs.FLASH.constrain();
+    let clocks = reset_and_clock_control.cfgr.freeze(&amp;mut flash.acr);
+    
+    // 初始化延时器
+    let delay = Delay::new(core_periphs.SYST, clocks);
+    
+    // 初始化LED阵列
+    let mut gpioe = device_periphs.GPIOE.split(&amp;mut reset_and_clock_control.ahb);
+    let leds = Leds::new(/* GPIO引脚配置 */);
+    
+    (delay, leds.into_array())
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="使用示例"><a class="header" href="#使用示例">使用示例</a></h2>
+<p>完整的BSP使用示例（参考<code>main.rs</code>）：</p>
+<pre><pre class="playground"><code class="language-rust">#![no_std]
+#![no_main]
+
+use panic_rtt_target as _;
+use rtt_target::{rprintln, rtt_init_print};
+use stm32f303::bsp::*;
+
+#[entry]
+fn main() -&gt; ! {
+    rtt_init_print!();
+    
+    // 初始化BSP
+    let (mut delay, mut leds): (Delay, LedArray) = init();
+    rprintln!("BSP初始化完成！");
+    
+    let half_period = 500_u16;
+    let mut counter = 0u32;
+
+    // 关闭所有LED
+    for led in leds.iter_mut() {
+        led.off().ok();
+    }
+
+    loop {
+        delay.delay_ms(half_period);
+
+        // 实现流水灯效果
+        for led in leds.iter_mut() {
+            led.off().ok();
+        }
+
+        // 点亮三个连续的LED
+        let positions = [counter % 8, (counter + 1) % 8, (counter + 2) % 8];
+        for &amp;pos in &amp;positions {
+            leds[pos as usize].on().ok();
+        }
+
+        rprintln!("流水灯位置: {:?}", positions);
+        counter += 1;
+
+        if counter % 8 == 0 {
+            counter = 0;
+        }
+    }
+}</code></pre></pre>
+<h2 id="依赖库说明"><a class="header" href="#依赖库说明">依赖库说明</a></h2>
+<p>BSP工程的主要依赖：</p>
+<ul>
+<li><strong>stm32f3-discovery</strong>: STM32F3 Discovery开发板的BSP库</li>
+<li><strong>stm32f3xx-hal</strong>: STM32F3系列的HAL库</li>
+<li><strong>cortex-m</strong>: Cortex-M处理器核心库</li>
+<li><strong>cortex-m-rt</strong>: Cortex-M运行时库</li>
+<li><strong>rtt-target</strong>: RTT调试输出库</li>
+<li><strong>panic-rtt-target</strong>: RTT恐慌处理库</li>
+</ul>
+<h2 id="bsp的优势"><a class="header" href="#bsp的优势">BSP的优势</a></h2>
+<ol>
+<li><strong>硬件抽象</strong>: 隐藏底层硬件细节，提供统一的API接口</li>
+<li><strong>代码复用</strong>: 同一套BSP可以支持多个应用程序</li>
+<li><strong>易于维护</strong>: 硬件相关代码集中管理，便于更新和维护</li>
+<li><strong>快速开发</strong>: 简化硬件操作，专注于应用逻辑开发</li>
+<li><strong>可移植性</strong>: 通过BSP抽象，应用代码可以较容易地移植到其他硬件平台</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="创建bsp工程"><a class="header" href="#创建bsp工程">创建BSP工程</a></h1>
+<p>本节将详细说明如何从零开始创建一个基于STM32F3 Discovery开发板的BSP工程。</p>
+<h2 id="1-创建cargo项目"><a class="header" href="#1-创建cargo项目">1. 创建Cargo项目</a></h2>
+<p>首先创建一个新的Rust项目：</p>
+<pre><code class="language-bash">cargo new bsp
+cd bsp
+</code></pre>
+<h2 id="2-配置cargotoml-1"><a class="header" href="#2-配置cargotoml-1">2. 配置Cargo.toml</a></h2>
+<p>编辑<code>Cargo.toml</code>文件，添加必要的依赖和配置：</p>
+<pre><code class="language-toml">[package]
+authors = ["your-name &lt;your-email@example.com&gt;"]
+edition = "2024"
+readme = "README.md"
+name = "stm32f303"
+version = "0.1.0"
+
+[dependencies]
+cortex-m = { version = "0.7.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.6.14"
+cortex-m-semihosting = "0.5"
+stm32f3-discovery = "0.7.2"
+rtt-target = "0.6.1"
+panic-rtt-target = "0.1.3"
+
+[profile.release]
+codegen-units = 1 # better optimizations
+debug = true      # symbols are nice and they don't increase the size on Flash
+lto = true        # better optimizations
+</code></pre>
+<h3 id="依赖说明"><a class="header" href="#依赖说明">依赖说明</a></h3>
+<ul>
+<li><strong>cortex-m</strong>: Cortex-M处理器核心支持</li>
+<li><strong>cortex-m-rt</strong>: 运行时库，提供启动代码</li>
+<li><strong>cortex-m-semihosting</strong>: 半主机调试支持（可选）</li>
+<li><strong>stm32f3-discovery</strong>: STM32F3 Discovery开发板专用BSP库</li>
+<li><strong>rtt-target</strong>: RTT（Real-Time Transfer）调试输出</li>
+<li><strong>panic-rtt-target</strong>: 通过RTT输出恐慌信息</li>
+</ul>
+<h2 id="3-创建内存映射文件"><a class="header" href="#3-创建内存映射文件">3. 创建内存映射文件</a></h2>
+<p>在项目根目录创建<code>memory.x</code>文件，定义STM32F303的内存布局：</p>
+<pre><code class="language-x">/* Linker script for the STM32F303VCT6 */
+MEMORY
+{
+  /* NOTE 1 K = 1 KiBi = 1024 bytes */
+  FLASH : ORIGIN = 0x08000000, LENGTH = 256K
+  RAM : ORIGIN = 0x20000000, LENGTH = 40K
+}
+
+/* This is where the call stack will be allocated. */
+/* The stack is of the full descending type. */
+/* You may want to use this variable to locate the call stack and static
+   variables in different memory regions. Below is shown the default value */
+/* _stack_start = ORIGIN(RAM) + LENGTH(RAM); */
+
+/* You can use this symbol to customize the location of the .text section */
+/* If omitted the .text section will be placed right after the .vector_table
+   section */
+/* This is required only on microcontrollers that store some configuration right
+   after the vector table */
+/* _stext = ORIGIN(FLASH) + 0x400; */
+</code></pre>
+<h2 id="创建buildrs"><a class="header" href="#创建buildrs">创建<code>build.rs</code></a></h2>
+<p>本工程不使用子定义<code>lin.k</code></p>
+<p><code>build.rs</code>内容为：</p>
+<pre><code class="language-rust ignore">//! This build script sets up the linker to find the `memory.x` and `link.x` files
+//! in the crate root directory and configures the necessary linker arguments.
+
+use std::env;
+use std::path::PathBuf;
+
+fn main() {
+    let root_dir = PathBuf::from(env::var_os("CARGO_MANIFEST_DIR").unwrap());
+
+    println!("cargo:rerun-if-changed=memory.x");
+    println!("cargo:rerun-if-changed=link.x");
+
+    // `--nmagic` is required if memory section addresses are not aligned to 0x10000,
+    // for example the FLASH and RAM sections in your `memory.x`.
+    // See https://github.com/rust-embedded/cortex-m-quickstart/pull/95
+    println!("cargo:rustc-link-arg=--nmagic");
+
+    println!("cargo:rustc-link-arg=-Tlink.x");
+}</code></pre>
+<h2 id="4-配置调试文件"><a class="header" href="#4-配置调试文件">4. 配置调试文件</a></h2>
+<h3 id="41-创建probe-rs配置"><a class="header" href="#41-创建probe-rs配置">4.1 创建probe-rs配置</a></h3>
+<p>创建<code>Embed.toml</code>文件，配置probe-rs调试器：</p>
+<pre><code class="language-toml">[default.probe]
+protocol = "Swd"
+
+[default.flashing]
+enabled = true
+restore_unwritten_bytes = false
+
+[default.reset]
+enabled = true
+
+[default.general]
+chip = "STM32F303VCTx"
+log_level = "WARN"
+connect_under_reset = false
+
+[default.rtt]
+enabled = true
+up_mode = "NoBlockSkip"
+
+[default.gdb]
+enabled = true
+gdb_connection_string = "127.0.0.1:3333"
+</code></pre>
+<h3 id="42-创建gdb配置"><a class="header" href="#42-创建gdb配置">4.2 创建GDB配置</a></h3>
+<p>创建<code>openocd.gdb</code>文件，配置GDB调试：</p>
+<pre><code class="language-gdb">target extended-remote :3333
+break main
+
+# cargo embed会自动load。
+# openocd -f interface/stlink.cfg -f target/stm32f3x.cfg不会自动load，需要在gdb命令行中运行load。
+
+# monitor reset halt 主动复位
+
+</code></pre>
+<h2 id="5-创建bsp模块"><a class="header" href="#5-创建bsp模块">5. 创建BSP模块</a></h2>
+<h3 id="51-创建librs"><a class="header" href="#51-创建librs">5.1 创建lib.rs</a></h3>
+<p>在<code>src/lib.rs</code>中定义库的入口：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span>#![no_std]
+<span class="boring">fn main() {
+</span>pub mod bsp;
+<span class="boring">}</span></code></pre></pre>
+<h3 id="52-创建bsprs"><a class="header" href="#52-创建bsprs">5.2 创建bsp.rs</a></h3>
+<p>在<code>src/bsp.rs</code>中实现BSP的核心功能：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub use cortex_m_rt::entry;
+
+pub use stm32f3_discovery::{leds::Leds, stm32f3xx_hal, switch_hal};
+pub use switch_hal::{ActiveHigh, OutputSwitch, Switch, ToggleableOutputSwitch};
+
+use stm32f3xx_hal::prelude::*;
+pub use stm32f3xx_hal::{
+    delay::Delay,
+    gpio::{Output, PushPull, gpioe},
+    hal::blocking::delay::DelayMs,
+    pac,
+};
+
+pub type LedArray = [Switch&lt;gpioe::PEx&lt;Output&lt;PushPull&gt;&gt;, ActiveHigh&gt;; 8];
+
+pub fn init() -&gt; (Delay, LedArray) {
+    // 获取外设句柄
+    let device_periphs = pac::Peripherals::take().unwrap();
+    let mut reset_and_clock_control = device_periphs.RCC.constrain();
+
+    let core_periphs = cortex_m::Peripherals::take().unwrap();
+    let mut flash = device_periphs.FLASH.constrain();
+    let clocks = reset_and_clock_control.cfgr.freeze(&amp;mut flash.acr);
+    let delay = Delay::new(core_periphs.SYST, clocks);
+
+    // 初始化用户LED
+    let mut gpioe = device_periphs.GPIOE.split(&amp;mut reset_and_clock_control.ahb);
+    let leds = Leds::new(
+        gpioe.pe8,
+        gpioe.pe9,
+        gpioe.pe10,
+        gpioe.pe11,
+        gpioe.pe12,
+        gpioe.pe13,
+        gpioe.pe14,
+        gpioe.pe15,
+        &amp;mut gpioe.moder,
+        &amp;mut gpioe.otyper,
+    );
+
+    (delay, leds.into_array())
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="6-创建应用程序"><a class="header" href="#6-创建应用程序">6. 创建应用程序</a></h2>
+<p>在<code>src/main.rs</code>中编写应用程序：</p>
+<pre><pre class="playground"><code class="language-rust">#![deny(unsafe_code)]
+#![no_main]
+#![no_std]
+
+use panic_rtt_target as _;
+use rtt_target::{rprintln, rtt_init_print};
+use stm32f303::bsp::*;
+
+#[entry]
+fn main() -&gt; ! {
+    rtt_init_print!();
+
+    let (mut delay, mut leds): (Delay, LedArray) = init();
+    rprintln!("RTT initialized! Hello from STM32F3!");
+    let half_period = 500_u16;
+
+    let mut counter = 0u32;
+
+    // 初始状态：所有灯灭
+    for led in leds.iter_mut() {
+        led.off().ok();
+    }
+
+    loop {
+        delay.delay_ms(half_period);
+
+        // 关闭所有LED
+        for led in leds.iter_mut() {
+            led.off().ok();
+        }
+
+        // 流水灯效果：三个连续LED移动
+        let position0 = counter % 8;
+        let position1 = (counter + 1) % 8;
+        let position2 = (counter + 2) % 8;
+
+        // 点亮三个连续的LED
+        leds[position0 as usize].on().ok();
+        leds[position1 as usize].on().ok();
+        leds[position2 as usize].on().ok();
+
+        rprintln!(
+            "流水灯位置: (LED {},{},{} 亮)",
+            position0,
+            position1,
+            position2
+        );
+
+        counter += 1;
+
+        if counter % 8 == 0 {
+            counter = 0;
+        }
+    }
+}</code></pre></pre>
+<h2 id="7-项目结构"><a class="header" href="#7-项目结构">7. 项目结构</a></h2>
+<p>完成后的项目结构应该如下：</p>
+<pre><code>stm32f303-bsp/
+├── Cargo.toml           # 项目配置和依赖
+├── memory.x             # 内存映射文件
+├── Embed.toml           # probe-rs配置
+├── openocd.gdb          # OpenOCD GDB配置
+└── src/
+    ├── lib.rs           # 库入口
+    ├── bsp.rs           # BSP实现
+    └── main.rs          # 应用程序入口
+</code></pre>
+<h2 id="8-构建和运行"><a class="header" href="#8-构建和运行">8. 构建和运行</a></h2>
+<h3 id="81-构建项目"><a class="header" href="#81-构建项目">8.1 构建项目</a></h3>
+<pre><code class="language-bash">cargo build
+</code></pre>
+<h3 id="82-使用probe-rs运行"><a class="header" href="#82-使用probe-rs运行">8.2 使用probe-rs运行</a></h3>
+<pre><code class="language-bash">cargo embed
+</code></pre>
+<h2 id="9-注意事项"><a class="header" href="#9-注意事项">9. 注意事项</a></h2>
+<ol>
+<li><strong>内存映射</strong>: <code>memory.x</code>文件必须与目标MCU的实际内存布局匹配</li>
+<li><strong>芯片型号</strong>: <code>Embed.toml</code>中的芯片型号必须正确</li>
+<li><strong>调试器</strong>: 确保调试器（ST-Link）正确连接</li>
+<li><strong>RTT输出</strong>: 使用RTT查看程序输出，避免使用semihosting（性能较低）</li>
+<li><strong>优化级别</strong>: 发布版本建议启用LTO和优化选项以减小代码体积</li>
+</ol>
+<p>通过以上步骤，您就可以成功创建一个功能完整的STM32F3 Discovery BSP工程了。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bsp工程调试"><a class="header" href="#bsp工程调试">BSP工程调试</a></h1>
+<p>本章介绍如何调试STM32F3 Discovery BSP工程，包括使用probe-rs和GDB两种调试方式。</p>
+<h2 id="1-使用probe-rs调试"><a class="header" href="#1-使用probe-rs调试">1. 使用probe-rs调试</a></h2>
+<h3 id="11-运行probe-rs"><a class="header" href="#11-运行probe-rs">1.1 运行probe-rs</a></h3>
+<p>运行以下命令启动调试：</p>
+<pre><code class="language-bash">cargo embed
+</code></pre>
+<h3 id="12-rtt输出"><a class="header" href="#12-rtt输出">1.2 RTT输出</a></h3>
+<p>程序运行后，将在终端看到RTT（Real-Time Transfer）输出：</p>
+<pre><code class="language-bash">Terminal
+12:34:47.649: 流水灯位置: (LED 1,2,3 亮)
+12:34:48.143: 流水灯位置: (LED 2,3,4 亮)
+12:34:48.648: 流水灯位置: (LED 3,4,5 亮)
+12:34:49.143: 流水灯位置: (LED 4,5,6 亮)
+</code></pre>
+<p>RTT提供了高速的调试输出通道，不会影响程序的实时性能。</p>
+<h2 id="2-使用gdb调试"><a class="header" href="#2-使用gdb调试">2. 使用GDB调试</a></h2>
+<h3 id="21-启动调试会话"><a class="header" href="#21-启动调试会话">2.1 启动调试会话</a></h3>
+<p>运行以下命令启动GDB调试：</p>
+<pre><code class="language-bash">cargo run
+</code></pre>
+<h3 id="22-gdb初始输出"><a class="header" href="#22-gdb初始输出">2.2 GDB初始输出</a></h3>
+<p>GDB启动后会显示以下信息：</p>
+<pre><code class="language-bash">Reading symbols from target/thumbv7em-none-eabihf/debug/stm32f303...
+0x08002d84 in core::ptr::read_volatile&lt;u32&gt; (src=0xe000e010)
+    at /home/a/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ub_checks.rs:77
+77	                precondition_check($($arg,)*);
+Breakpoint 1 at 0x80004ea: file src/main.rs, line 10.
+--Type &lt;RET&gt; for more, q to quit, c to continue without paging--
+</code></pre>
+<h3 id="23-gdb调试命令"><a class="header" href="#23-gdb调试命令">2.3 GDB调试命令</a></h3>
+<p>在GDB命令行中，可以使用以下命令进行调试：</p>
+<h4 id="复位目标设备"><a class="header" href="#复位目标设备">复位目标设备</a></h4>
+<pre><code class="language-bash">(gdb) monitor reset halt
+Resetting and halting target
+Target halted
+</code></pre>
+<h4 id="设置断点"><a class="header" href="#设置断点">设置断点</a></h4>
+<pre><code class="language-bash">(gdb) b main
+Note: breakpoint 1 also set at pc 0x80004ea.
+Breakpoint 2 at 0x80004ea: file src/main.rs, line 10.
+</code></pre>
+<h4 id="继续执行"><a class="header" href="#继续执行">继续执行</a></h4>
+<pre><code class="language-bash">(gdb) c
+Continuing.
+
+Breakpoint 1, stm32f303::__cortex_m_rt_main_trampoline () at src/main.rs:10
+10	#[entry]
+</code></pre>
+<h3 id="24-调试流程"><a class="header" href="#24-调试流程">2.4 调试流程</a></h3>
+<ol>
+<li><strong>启动GDB</strong>：通过<code>cargo run</code>命令</li>
+<li><strong>复位设备</strong>：使用<code>monitor reset halt</code>命令</li>
+<li><strong>设置断点</strong>：在需要调试的位置设置断点</li>
+<li><strong>运行程序</strong>：使用<code>c</code>（continue）命令继续执行</li>
+<li><strong>单步调试</strong>：使用<code>n</code>（next）或<code>s</code>（step）进行单步调试</li>
+</ol>
 
                     </main>
 

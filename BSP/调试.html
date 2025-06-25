@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>BSP工程 - rust embedded example book</title>
+        <title>调试 - rust embedded example book</title>
 
 
         <!-- Custom HTML head -->
@@ -166,151 +166,72 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="bsp工程"><a class="header" href="#bsp工程">BSP工程</a></h1>
-<p>本章节的工程建立在 <a href="https://github.com/rubberduck203/stm32f3-discovery">stm32f3-discovery</a> crate之上。这个crate使用了HAL库，HAL库使用了PAC库。</p>
-<h2 id="什么是bsp"><a class="header" href="#什么是bsp">什么是BSP</a></h2>
-<p>BSP（Board Support Package，板级支持包）是为特定开发板提供硬件抽象层的软件包。它封装了开发板上硬件外设的驱动程序和初始化代码，为应用程序提供简洁易用的API接口。</p>
-<p>在我们的STM32F3 Discovery项目中，BSP主要提供：</p>
-<ul>
-<li>LED控制接口</li>
-<li>延时功能</li>
-<li>硬件初始化</li>
-</ul>
-<h2 id="bsp架构层级"><a class="header" href="#bsp架构层级">BSP架构层级</a></h2>
-<pre><code>应用层 (main.rs)
-    ↓
-BSP层 (bsp.rs) - 板级抽象
-    ↓  
-HAL层 (stm32f3xx-hal) - 硬件抽象层
-    ↓
-PAC层 (stm32f3xx-pac) - 外设访问层
-    ↓
-硬件层 (STM32F303 MCU)
+                        <h1 id="bsp工程调试"><a class="header" href="#bsp工程调试">BSP工程调试</a></h1>
+<p>本章介绍如何调试STM32F3 Discovery BSP工程，包括使用probe-rs和GDB两种调试方式。</p>
+<h2 id="1-使用probe-rs调试"><a class="header" href="#1-使用probe-rs调试">1. 使用probe-rs调试</a></h2>
+<h3 id="11-运行probe-rs"><a class="header" href="#11-运行probe-rs">1.1 运行probe-rs</a></h3>
+<p>运行以下命令启动调试：</p>
+<pre><code class="language-bash">cargo embed
 </code></pre>
-<h2 id="主要功能"><a class="header" href="#主要功能">主要功能</a></h2>
-<h3 id="1-led控制"><a class="header" href="#1-led控制">1. LED控制</a></h3>
-<p>BSP提供8个LED的统一控制接口：</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub type LedArray = [Switch&lt;gpioe::PEx&lt;Output&lt;PushPull&gt;&gt;, ActiveHigh&gt;; 8];
-<span class="boring">}</span></code></pre></pre>
-<p>每个LED支持以下操作：</p>
-<ul>
-<li><code>led.on()</code> - 点亮LED</li>
-<li><code>led.off()</code> - 熄灭LED</li>
-<li><code>led.toggle()</code> - 切换LED状态</li>
-</ul>
-<h3 id="2-延时功能"><a class="header" href="#2-延时功能">2. 延时功能</a></h3>
-<p>提供基于系统滴答定时器的精确延时：</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub use stm32f3xx_hal::delay::Delay;
-<span class="boring">}</span></code></pre></pre>
-<p>支持毫秒级延时：</p>
-<ul>
-<li><code>delay.delay_ms(time)</code> - 延时指定毫秒数</li>
-</ul>
-<h3 id="3-硬件初始化"><a class="header" href="#3-硬件初始化">3. 硬件初始化</a></h3>
-<p><code>init()</code> 函数负责完成所有硬件的初始化工作：</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>pub fn init() -&gt; (Delay, LedArray) {
-    // 获取外设句柄
-    let device_periphs = pac::Peripherals::take().unwrap();
-    let core_periphs = cortex_m::Peripherals::take().unwrap();
-    
-    // 配置时钟系统
-    let mut reset_and_clock_control = device_periphs.RCC.constrain();
-    let mut flash = device_periphs.FLASH.constrain();
-    let clocks = reset_and_clock_control.cfgr.freeze(&amp;mut flash.acr);
-    
-    // 初始化延时器
-    let delay = Delay::new(core_periphs.SYST, clocks);
-    
-    // 初始化LED阵列
-    let mut gpioe = device_periphs.GPIOE.split(&amp;mut reset_and_clock_control.ahb);
-    let leds = Leds::new(/* GPIO引脚配置 */);
-    
-    (delay, leds.into_array())
-}
-<span class="boring">}</span></code></pre></pre>
-<h2 id="使用示例"><a class="header" href="#使用示例">使用示例</a></h2>
-<p>完整的BSP使用示例（参考<code>main.rs</code>）：</p>
-<pre><pre class="playground"><code class="language-rust">#![no_std]
-#![no_main]
+<h3 id="12-rtt输出"><a class="header" href="#12-rtt输出">1.2 RTT输出</a></h3>
+<p>程序运行后，将在终端看到RTT（Real-Time Transfer）输出：</p>
+<pre><code class="language-bash">Terminal
+12:34:47.649: 流水灯位置: (LED 1,2,3 亮)
+12:34:48.143: 流水灯位置: (LED 2,3,4 亮)
+12:34:48.648: 流水灯位置: (LED 3,4,5 亮)
+12:34:49.143: 流水灯位置: (LED 4,5,6 亮)
+</code></pre>
+<p>RTT提供了高速的调试输出通道，不会影响程序的实时性能。</p>
+<h2 id="2-使用gdb调试"><a class="header" href="#2-使用gdb调试">2. 使用GDB调试</a></h2>
+<h3 id="21-启动调试会话"><a class="header" href="#21-启动调试会话">2.1 启动调试会话</a></h3>
+<p>运行以下命令启动GDB调试：</p>
+<pre><code class="language-bash">cargo run
+</code></pre>
+<h3 id="22-gdb初始输出"><a class="header" href="#22-gdb初始输出">2.2 GDB初始输出</a></h3>
+<p>GDB启动后会显示以下信息：</p>
+<pre><code class="language-bash">Reading symbols from target/thumbv7em-none-eabihf/debug/stm32f303...
+0x08002d84 in core::ptr::read_volatile&lt;u32&gt; (src=0xe000e010)
+    at /home/a/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ub_checks.rs:77
+77	                precondition_check($($arg,)*);
+Breakpoint 1 at 0x80004ea: file src/main.rs, line 10.
+--Type &lt;RET&gt; for more, q to quit, c to continue without paging--
+</code></pre>
+<h3 id="23-gdb调试命令"><a class="header" href="#23-gdb调试命令">2.3 GDB调试命令</a></h3>
+<p>在GDB命令行中，可以使用以下命令进行调试：</p>
+<h4 id="复位目标设备"><a class="header" href="#复位目标设备">复位目标设备</a></h4>
+<pre><code class="language-bash">(gdb) monitor reset halt
+Resetting and halting target
+Target halted
+</code></pre>
+<h4 id="设置断点"><a class="header" href="#设置断点">设置断点</a></h4>
+<pre><code class="language-bash">(gdb) b main
+Note: breakpoint 1 also set at pc 0x80004ea.
+Breakpoint 2 at 0x80004ea: file src/main.rs, line 10.
+</code></pre>
+<h4 id="继续执行"><a class="header" href="#继续执行">继续执行</a></h4>
+<pre><code class="language-bash">(gdb) c
+Continuing.
 
-use panic_rtt_target as _;
-use rtt_target::{rprintln, rtt_init_print};
-use stm32f303::bsp::*;
-
-#[entry]
-fn main() -&gt; ! {
-    rtt_init_print!();
-    
-    // 初始化BSP
-    let (mut delay, mut leds): (Delay, LedArray) = init();
-    rprintln!("BSP初始化完成！");
-    
-    let half_period = 500_u16;
-    let mut counter = 0u32;
-
-    // 关闭所有LED
-    for led in leds.iter_mut() {
-        led.off().ok();
-    }
-
-    loop {
-        delay.delay_ms(half_period);
-
-        // 实现流水灯效果
-        for led in leds.iter_mut() {
-            led.off().ok();
-        }
-
-        // 点亮三个连续的LED
-        let positions = [counter % 8, (counter + 1) % 8, (counter + 2) % 8];
-        for &amp;pos in &amp;positions {
-            leds[pos as usize].on().ok();
-        }
-
-        rprintln!("流水灯位置: {:?}", positions);
-        counter += 1;
-
-        if counter % 8 == 0 {
-            counter = 0;
-        }
-    }
-}</code></pre></pre>
-<h2 id="依赖库说明"><a class="header" href="#依赖库说明">依赖库说明</a></h2>
-<p>BSP工程的主要依赖：</p>
-<ul>
-<li><strong>stm32f3-discovery</strong>: STM32F3 Discovery开发板的BSP库</li>
-<li><strong>stm32f3xx-hal</strong>: STM32F3系列的HAL库</li>
-<li><strong>cortex-m</strong>: Cortex-M处理器核心库</li>
-<li><strong>cortex-m-rt</strong>: Cortex-M运行时库</li>
-<li><strong>rtt-target</strong>: RTT调试输出库</li>
-<li><strong>panic-rtt-target</strong>: RTT恐慌处理库</li>
-</ul>
-<h2 id="bsp的优势"><a class="header" href="#bsp的优势">BSP的优势</a></h2>
+Breakpoint 1, stm32f303::__cortex_m_rt_main_trampoline () at src/main.rs:10
+10	#[entry]
+</code></pre>
+<h3 id="24-调试流程"><a class="header" href="#24-调试流程">2.4 调试流程</a></h3>
 <ol>
-<li><strong>硬件抽象</strong>: 隐藏底层硬件细节，提供统一的API接口</li>
-<li><strong>代码复用</strong>: 同一套BSP可以支持多个应用程序</li>
-<li><strong>易于维护</strong>: 硬件相关代码集中管理，便于更新和维护</li>
-<li><strong>快速开发</strong>: 简化硬件操作，专注于应用逻辑开发</li>
-<li><strong>可移植性</strong>: 通过BSP抽象，应用代码可以较容易地移植到其他硬件平台</li>
+<li><strong>启动GDB</strong>：通过<code>cargo run</code>命令</li>
+<li><strong>复位设备</strong>：使用<code>monitor reset halt</code>命令</li>
+<li><strong>设置断点</strong>：在需要调试的位置设置断点</li>
+<li><strong>运行程序</strong>：使用<code>c</code>（continue）命令继续执行</li>
+<li><strong>单步调试</strong>：使用<code>n</code>（next）或<code>s</code>（step）进行单步调试</li>
 </ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../HAL/调试.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../BSP/创建工程.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../BSP/创建工程.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -318,13 +239,10 @@ fn main() -&gt; ! {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../HAL/调试.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../BSP/创建工程.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../BSP/创建工程.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

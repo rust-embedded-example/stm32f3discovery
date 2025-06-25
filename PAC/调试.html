@@ -192,7 +192,7 @@ up_mode = "NoBlockSkip"
 
 [default.gdb]
 enabled = true
-gdb_connection_string = "127.0.0.1:1337"
+gdb_connection_string = "127.0.0.1:3333"
 </code></pre>
 <h2 id="配置文件详解"><a class="header" href="#配置文件详解">配置文件详解</a></h2>
 <p><code>Embed.toml</code> 是 probe-rs 工具的配置文件，用于配置调试器与 STM32F3 开发板的连接和调试参数。各配置段说明如下：</p>
@@ -258,7 +258,7 @@ gdb_connection_string = "127.0.0.1:1337"
 <h3 id="defaultgdb---gdb-调试器配置"><a class="header" href="#defaultgdb---gdb-调试器配置"><code>[default.gdb]</code> - GDB 调试器配置</a></h3>
 <ul>
 <li><strong><code>enabled = true</code></strong>: 启用 GDB 调试功能，允许 GDB 调试器连接到 probe-rs</li>
-<li><strong><code>gdb_connection_string = "127.0.0.1:1337"</code></strong>: 设置 GDB 连接字符串
+<li><strong><code>gdb_connection_string = "127.0.0.1:3333"</code></strong>: 设置 GDB 连接字符串
 <ul>
 <li>probe-rs 在本地 127.0.0.1:1337 端口启动 GDB 服务器</li>
 <li>GDB 客户端通过此地址连接进行调试</li>
