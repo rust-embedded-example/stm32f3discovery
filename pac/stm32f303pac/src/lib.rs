@@ -10,7 +10,7 @@ use generic::*;
 #[doc = r"Common register and bit access and modify traits"]
 pub mod generic;
 #[cfg(feature = "rt")]
-extern "C" {
+unsafe extern "C" {
     fn WWDG();
     fn PVD();
     fn TAMP_STAMP();
@@ -93,8 +93,8 @@ pub union Vector {
 }
 #[cfg(feature = "rt")]
 #[doc(hidden)]
-#[link_section = ".vector_table.interrupts"]
-#[no_mangle]
+#[unsafe(link_section = ".vector_table.interrupts")]
+#[unsafe(no_mangle)]
 pub static __INTERRUPTS: [Vector; 85] = [
     Vector { _handler: WWDG },
     Vector { _handler: PVD },
