@@ -2322,35 +2322,6 @@ fn main() {
 }
 </code></pre>
 <h2 id="基本程序结构"><a class="header" href="#基本程序结构">基本程序结构</a></h2>
-<h3 id="1-创建中断处理模块"><a class="header" href="#1-创建中断处理模块">1. 创建中断处理模块</a></h3>
-<p>创建<code>src/interrupts.rs</code>文件：</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>// 最小化的中断处理 - 隐藏所有中断函数定义
-use stm32f3xx_hal::pac::interrupt;
-
-// 使用宏来隐藏重复的中断定义
-macro_rules! define_interrupts {
-    ($($int:ident),*) =&gt; {
-        $(#[interrupt] fn $int() {})*
-    };
-}
-
-// 一行定义所有中断 - 简洁且不占用视觉空间
-define_interrupts!(
-    WWDG, PVD, TAMP_STAMP, RTC_WKUP, FLASH, RCC, EXTI0, EXTI1, EXTI2_TSC, EXTI3, EXTI4,
-    DMA1_CH1, DMA1_CH2, DMA1_CH3, DMA1_CH4, DMA1_CH5, DMA1_CH6, DMA1_CH7, ADC1_2,
-    USB_HP_CAN_TX, USB_LP_CAN_RX0, CAN_RX1, CAN_SCE, EXTI9_5, TIM1_BRK_TIM15, TIM1_UP_TIM16,
-    TIM1_TRG_COM_TIM17, TIM1_CC, TIM2, TIM3, TIM4, I2C1_EV_EXTI23, I2C1_ER, I2C2_EV_EXTI24,
-    I2C2_ER, SPI1, SPI2, USART1_EXTI25, USART2_EXTI26, USART3_EXTI28, EXTI15_10, RTCALARM,
-    USB_WKUP, USB_WKUP_EXTI, TIM8_BRK, TIM8_UP, TIM8_TRG_COM, TIM8_CC, ADC3, FMC, SPI3,
-    UART4_EXTI34, UART5_EXTI35, TIM6_DACUNDER, TIM7, DMA2_CH1, DMA2_CH2, DMA2_CH3, DMA2_CH4,
-    DMA2_CH5, ADC4, COMP1_2_3, COMP4_5_6, COMP7, I2C3_EV, I2C3_ER, USB_HP, USB_LP,
-    TIM20_BRK, TIM20_UP, TIM20_TRG_COM, TIM20_CC, FPU, SPI4
-);
-<span class="boring">}</span></code></pre></pre>
-<p>这个模块定义了所有中断处理函数的空实现，使用宏来减少代码冗余。</p>
-<h3 id="2-创建主程序"><a class="header" href="#2-创建主程序">2. 创建主程序</a></h3>
 <p>编辑<code>src/main.rs</code>文件：</p>
 <pre><pre class="playground"><code class="language-rust">#![no_std]
 #![no_main]
@@ -2439,8 +2410,7 @@ gdb_connection_string = "127.0.0.1:3333"
 ├── .cargo/
 │   └── config.toml
 ├── src/
-│   ├── main.rs
-│   └── interrupts.rs
+│   └── main.rs
 ├── build.rs
 ├── Cargo.toml
 ├── Embed.toml
